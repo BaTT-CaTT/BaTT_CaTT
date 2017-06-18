@@ -13,7 +13,7 @@ Sub Process_Globals
 	'These variables can be accessed from all modules.
 '	Dim tim As Timer
 '	Dim counter As Int
-	
+	Dim sql As SQL
 End Sub
 
 Sub Globals
@@ -44,8 +44,9 @@ Sub Globals
 	Dim popa As ACPopupMenu
 	Private ACButton1 As ACButton
 	Dim level As Int
-	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15 As Int
+	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 	Private dev As PhoneEvents
+	Private mpc1 As PieChart
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -121,6 +122,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	popa.AddMenuItem(0,"Reload Stats",bd1)
 	popa.AddMenuItem(1,"Schließen",bd)
 	'########################################################################
+	
 	store_check
 	c_start
 
@@ -216,32 +218,36 @@ End Sub
 
 
 Sub chart_start
+	level=bat.BatteryInformation(0)
+	Dim fn As String
+	Dim fg As Int
+	
 	g.Initialize
 	level=bat.BatteryInformation(0)
 	Dim fn As String
-	Dim fg As String
-
-	Dim BD As BarData
-	BD.Initialize
-	BD.Target = Panel2
-	BD.BarsWidth = 5dip
-	BD.Stacked = True 'Makes it a stacked bars chart
-	Charts.AddBarColor(BD, MakeTransparent(Colors.white, 180))
+	Dim fg As Int
+	Dim LD As LineData
+	LD.Initialize
+	LD.Target =Panel2
+	Charts.AddLineColor(LD, Colors.Red) 'First line color
+	Charts.AddLineColor(LD, Colors.Blue) 'Second line color
 	For Each h As String  In kvs2.ListKeys
-		
 		fg=h
 		fn=kvs2.GetSimple(h)
 		Log("Map Key-> "&fg)
-		Charts.AddBarPoint(BD, fn, Array As Float(fg))
+		'Charts.AddBarPoint(BD, fn, Array As Float(fg))
+		Charts.AddLinePoint(LD, fn,fg, True)
+		'Charts.AddLineMultiplePoints(LD, fn, Array As Float(fg),True)
 	Next
 	G.Title = "Power Chart"
-	G.XAxis = ""
+	G.XAxis = "blue for last 10% load"
 	G.YAxis = "Values"
 	G.YStart = 0
 	G.YEnd = 100
 	G.YInterval = 10
 	G.AxisColor = Colors.White
-	Charts.DrawBarsChart(G, BD, Colors.Transparent)
+	'Charts.DrawBarsChart(G, BD, Colors.Transparent)
+	Charts.DrawLineChart(G, LD, Colors.Transparent)
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
@@ -252,11 +258,14 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the ev
 	Return(True)
 End Sub
 
+Sub db_update
+	
+End Sub
 
 Sub store_check
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
-	c3=mcl.md_lime_A700
+	c3=mcl.md_white_1000
 	c4=mcl.md_teal_A700
 	c5=mcl.md_deep_purple_A700
 	c6=mcl.md_red_A700
@@ -265,10 +274,11 @@ Sub store_check
 	c9=mcl.md_orange_A700
 	c10=mcl.md_grey_700
 	c11=mcl.md_green_A700
-	c12=mcl.md_light_green_A700
+	c12=mcl.md_black_1000
 	c13=mcl.md_yellow_A700
 	c14=mcl.md_cyan_A700
 	c15=mcl.md_blue_grey_700
+	c16=mcl.md_light_blue_A700
 	If kvs4.ContainsKey("0")Then
 		Log("AC_true->1")
 		Activity.Color=c1
@@ -360,9 +370,9 @@ Sub store_check
 	Activity.Invalidate
 End Sub
 
-Sub MakeTransparent(Color As Int, Alpha As Int) As Int
-	Return Bit.And(Color, Bit.Or(0x00FFFFFF, Bit.ShiftLeft(Alpha, 24)))
-End Sub
+'Sub MakeTransparent(Color As Int, Alpha As Int) As Int
+'	Return Bit.And(Color, Bit.Or(0x00FFFFFF, Bit.ShiftLeft(Alpha, 24)))
+'End Sub
 
 
 Sub ACButton1_Click
@@ -371,7 +381,7 @@ End Sub
 
  
 Sub dev_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
-	If kvs3.ListKeys.Size>20 Then 
+	If kvs2.ListKeys.Size>24 Then 
 		kvs3.DeleteAll
 		c_start
 	End If
@@ -382,7 +392,8 @@ Sub dev_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent 
 	If level1=v Then 
 		store_check
 		c_start
-	End If
+		End If
+		
 Next 
 End Sub
 

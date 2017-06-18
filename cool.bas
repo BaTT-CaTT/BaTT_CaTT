@@ -10,7 +10,6 @@ B4A=true
 #Extends: android.support.v7.app.AppCompatActivity
 Sub Process_Globals
 	Dim t1 As Timer 
-
 End Sub
 
 Sub Globals
@@ -50,17 +49,19 @@ Sub Globals
 	Dim nativeMe As JavaObject
 	Private Panel2 As Panel
 
-	Private ListView1 As ListView
+	'Private ListView1 As ListView
 	Private ImageView1 As ImageView
 	Private pg As NumberProgressBar
 	Dim ffil,ffold As List
 	'Dim root As RuntimePermissions
 	Dim rot As String 
-	Private pgWheel1 As pgWheel
+'	Private pgWheel1 As pgWheel
 	Dim andro,bat,desk,work As Bitmap
 '	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15 As Int
 	Private mcl As MaterialColors
-	Dim prog As progress
+	Private p1 As MaterialCircleProgress
+	Private mBmp As ColorDrawable
+
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -124,13 +125,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	t1.Initialize("t1",1000)
 	t1.Enabled=False
 	
-	l2=ListView1.TwoLinesLayout.Label
-	l2.TextSize=11
-	l2.TextColor=Colors.Black
-	l3=ListView1.TwoLinesLayout.SecondLabel
-	l3.TextColor=Colors.White
-	l3.TextSize=10
-	ListView1.TwoLinesLayout.ItemHeight=25
+
 	
     ffolders.Initialize
     'root = File.DirRootExternal
@@ -141,61 +136,47 @@ Sub Activity_Create(FirstTime As Boolean)
 	dial.TextColor=Colors.White
 	dialog.AddView(diapan,350,350)
 	diapan.AddView(lw2,3,3,-1,-1)
-	Dim la,la1,lwa1,lwa2 As Label
-	la.Initialize("la")
-	la1.Initialize("la1")
-	lwa1.Initialize("lwa1")
-	lwa2.Initialize("lwa2")
-	
-	lwa1=lw2.SingleLineLayout.Label
-	lwa1.TextColor=Colors.White
-	lwa1.TextSize=13
-	lw2.SingleLineLayout.ItemHeight=70
-	
-	la=ListView1.TwoLinesAndBitmap.SecondLabel
-	la.TextSize=12
-	la.TextColor=Colors.ARGB(130,254,254,255)
-	la1=ListView1.TwoLinesAndBitmap.Label
-	la1.TextSize=14
-	la1.TextColor=Colors.ARGB(199,255,255,255)
-	ListView1.TwoLinesAndBitmap.ItemHeight=120
-	
+
 	'#######################Storage Lolipop########################
 	paths = storage.Initialize
 	nativeMe.InitializeContext
 	'#########################End LP Storage#######################
-	pgWheel1.Visible=False
-	prog.Initialize(Activity,12%x,5%y,360,10,mcl.md_indigo_A200,mcl.md_white_1000,Null)
+'	pgWheel1.Visible=False
+	'prog.Initialize(Activity,12%x,5%y,360,10,mcl.md_indigo_A200,mcl.md_white_1000,Null)
 
-	prog.BringToFront
+	'prog.BringToFront
 	'#########################CLS Storage##########################
 	Panel2.Visible=False
 	'#########################End CLS Storage######################
 	ffil.Initialize
 	ffold.Initialize
-	Activity.Color=mcl.md_deep_purple_A400'Colors.ARGB(150,30,124,235)
-	'Activity.SetColorAnimated(12000,mcl.md_amber_500,mcl.md_lime_700)
-	Label1.SetTextColorAnimated(9000,Colors.White)
+	Activity.Color=Colors.ARGB(150,30,124,235)
+	'Activity.SetColorAnimated(6000,mcl.md_amber_500,mcl.md_lime_700)
+	Label1.SetTextColorAnimated(6000,Colors.White)
 	'clist.Add(root.GetSafeDirDefaultExternal(""))
 	For h = 0 To clist.Size-1
 		Log(clist.Get(h))
 	Next
-	andro=LoadBitmap(File.DirAssets,"ic_autorenew_black_48dp.png")
-	bat=LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png")
-	desk=LoadBitmap(File.DirAssets, "ic_battery_alert_black_48dp.png")
-	work=LoadBitmap(File.DirAssets, "ic_delete_black_48dp.png")
+	andro.Initialize(File.DirAssets,"ic_autorenew_black_48dp.png")
+	bat.Initialize(File.DirAssets,"ic_data_usage_black_48dp.png")
+	desk.Initialize(File.DirAssets, "ic_battery_alert_black_48dp.png")
+	work.Initialize(File.DirAssets, "ic_delete_black_48dp.png")
+	
+	
+		
+	
+	
 	
 	GetDeviceId
 	c_start
-	loading_norm
+'	loading_norm
 	clean_start
 End Sub
 
 Sub Activity_Resume
 	t1.Enabled=True
-	c_start
-	loading_norm
-	clean_start
+'	c_start
+'	clean_start
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
@@ -204,14 +185,14 @@ End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
 	If KeyCode=KeyCodes.KEYCODE_BACK Then
-		Activity.Finish
+		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 	Return(True)
 End Sub
 
-Sub c_start
+Sub c_start	 
 	app_info
-	pgWheel1.Visible=False
+'	pgWheel1.Visible=False
 	dill.Clear
 	reslist.Clear
 	piclist.Clear
@@ -280,13 +261,20 @@ Sub storage_check
 			End If
 		Next
 	End If
-	Activity.SetColorAnimated(1000,Colors.ARGB(100,30,124,235),Colors.ARGB(190,35,140,7))
+	'Activity.SetColorAnimated(1000,Colors.ARGB(100,30,124,235),Colors.ARGB(190,35,140,7))
 	c_start
 End Sub 
 
 Sub cat_start
-	count=count+1
-	
+	p1.ShadowRadius=390
+	p1.Colors = Array As Int(Colors.Red,Colors.Yellow,Colors.Green)
+	p1.CircleBackgroundEnabled = False
+	p1.ProgressStrokeWidth = 10dip
+	p1.ShowArrow = True
+	p1.ArrowHeight = 25dip
+	p1.ArrowWidth = 30dip
+	p1.BackGroundColor=Colors.Transparent
+	p1.Diameter=7
 	'cat.Initialize(25,50*1024*1024,dir1)
 	clean_start
 	t1.Enabled=True
@@ -329,13 +317,13 @@ Sub close
 End Sub
 
 Sub del_quest
-	pgWheel1.Visible=False
+'	pgWheel1.Visible=False
 	ImageView1.Bitmap=LoadBitmap(File.DirAssets,"Accept128.png")
 		Label1.Text= "clear RAM and close.."
 	
 		real_delete
 	
-		ListView1.Clear
+
 End Sub
 
 Sub deleting_files
@@ -357,7 +345,7 @@ End Sub
 
 
 Sub real_delete
-	pgWheel1.Progress=360
+'	pgWheel1.Progress=360
 	RunningTaskInfos=ActivityManager1.GetRunningTasks
 	Log("RunningTaskInfos.Length="&RunningTaskInfos.Length)
 
@@ -372,43 +360,19 @@ Sub real_delete
 	
 	close
 End Sub
-Sub loading_norm
-	pgWheel1.CircleRadius=100
-	pgWheel1.FocusableInTouchMode=False
-	pgWheel1.CircleColor= Colors.ARGB(90,255,255,255)
-	pgWheel1.ContourColor=Colors.ARGB(255,255,255,255)
-	pgWheel1.BarColor= Colors.ARGB(220,255,255,255)
-	pgWheel1.ContourSize=2dip
-	pgWheel1.FadingEdgeLength=3dip
-	pgWheel1.TextSize=45
-	pgWheel1.TextColor=Colors.Black
-	pgWheel1.SpinSpeed=10
-	pgWheel1.RimColor= Colors.ARGB(100,11,170,242)
-	pgWheel1.RimWidth=25dip
-	pgWheel1.BarWidth=15dip
-	pgWheel1.DelayMillis=0.6
-	pgWheel1.Clickable=False
-	'pgWheel1.RimShader=LoadBitmap(File.DirAssets,"header.png")
-End Sub
+
 Sub ph_DeviceStorageOk (Intent As Intent)
 	Log(Intent.ExtrasToString)
 End Sub
 
 Sub t1_Tick
-	andro=LoadBitmap(File.DirAssets,"ic_autorenew_black_48dp.png")
-	bat=LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png")
-	desk=LoadBitmap(File.DirAssets, "ic_battery_alert_black_48dp.png")
-	work=LoadBitmap(File.DirAssets, "ic_delete_black_48dp.png")
-	'pgWheel1.Visible=True
-	pgWheel1.SpinSpeed=100
-	pgWheel1.spin
-	ListView1.Visible=True 
+	p1.Max=100
+	ImageView1.Visible=True
 	pg.SetColorAnimated(12000,Colors.Transparent,mcl.md_lime_A700)
 	ImageView1.Bitmap=andro
 	count=count+1
-	prog.ClearProgress
-	prog.SetProgress(360/15*count+1)
-	pg.incrementProgressBy(count)
+	pg.incrementProgressBy(count+10)
+	'spb1.ShowProgress=count
 	If count>0 Then 
 		Label1.Text="check Battery.."
 	End If
@@ -417,72 +381,30 @@ Sub t1_Tick
 	End If
 	If count > 2 Then
 		Label1.Text="check Battery.."
-		'ListView1.AddTwoLinesAndBitmap("Sytem Apps:",list1.Size &" gefunden.", LoadBitmap(File.DirAssets,"Android.png"))
 	End If
 	If count > 3 Then
+		'spb1.ImageBitmap = andro
 		'pg.Progress=28
 		Label1.Text="check System.."
-		ListView1.AddTwoLinesAndBitmap("System Prozesse:",list2.Size &" gefunden.", andro)
+
 	End If
+
 	If count > 4 Then
-		'pg.Progress=29
-		ListView1.Clear
-		Label1.Text="check System.."
-		'ListView1.AddTwoLinesAndBitmap("System Prozesse:",list2.Size &" gefunden.", desk)
+		ImageView1.Bitmap=bat
+	
+		Label1.Text="clear Cache System.."
+
 	End If
 	If count > 5 Then
-		'pg.Progress=32
-		pgWheel1.SpinSpeed=200
-		ImageView1.Bitmap=bat
-		Label1.Text="clear Cache System.."
-		'Label1.Text=op.formatSize(cat.DiskFree) &" App Daten gefunden.."
-	End If
-	If count > 6 Then
-		Label1.Text="defrag File System.."
-	End If
-	If count > 7 Then
-		Label1.Text="search SDCard System.."
-			ImageView1.Bitmap=andro
-		'For t = 0 To piclist.Size-1
-				'ListView1.AddTwoLinesAndBitmap(GetFileName(GetSourceDir(GetActivitiesInfo(packName))),GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),piclist.Get(t))
-	
-		
-	End If
-	If count > 8 Then
 		Label1.Text="clear Cache System.."
 		ImageView1.Bitmap=desk
 				Label1.Text="check "&op.formatSize(op.AvailableMemory)
 	End If
-	If count > 9 Then  
-		pgWheel1.SpinSpeed=100
-		ImageView1.Bitmap=andro
-		'ListView1.Clear
-	End If
-	If count > 10 Then  
-		ImageView1.Bitmap=desk
-				Label1.Text="Running Process: "&  list3.Size
-		'ListView1.AddTwoLinesAndBitmap("Benutzer Apps:",list3.Size &" gefunden.", LoadBitmap(File.DirAssets,"Android.png"))
-	End If
-	If count > 11 Then  
-		ImageView1.Bitmap=bat
-	End If
-	If count > 12 Then
-		If Not (filelist.Size=0) Then
-			ImageView1.Bitmap=andro
-			
-		Else
-			ImageView1.Bitmap=desk
-			Label1.Text="Clear!"
-		End If
-		
-		pgWheel1.stopSpinning
-		'ListView1.Clear
-		'ListView1.AddTwoLinesAndBitmap("Boost Phone","cleaning "&op.formatSize(list4.Size+apklist.Size+list1.size),LoadBitmap(File.DirAssets,"Battery.png"))
-	End If
-	If count > 13 Then
+	If count > 6 Then
+		p1.Progress=100
+		p1.Visible=False
 		Label1.Text=op.formatSize(cat.FreeMemory)
 			If Not (filelist.Size=1) Then
-			pgWheel1.Progress=180
 			ImageView1.Bitmap=andro
 				Label1.Text=nativeMe.RunMethod("getOSCodename", Null)
 			ImageView1.Bitmap=bat
@@ -491,24 +413,22 @@ Sub t1_Tick
 			
 			ImageView1.Bitmap=desk
 			End If
-		'ListView1.Clear
-		'ListView1.AddTwoLinesAndBitmap(list4.Size&" Process killed",list1.Size&" Apps optmiert",LoadBitmap(File.DirAssets,"Tag.png"))
-	End If
-	If count > 14 Then
-		pgWheel1.Progress=360
 		CallSub(Me,"del_quest")
 	End If
 End Sub
 
 Sub delayed_t2
 		pg.Progress=100
-		prog.ClearProgress
-		prog.SetProgress(360/100*3.6)
-		If count = 15 Then 
+		'prog.ClearProgress
+		'prog.SetProgress(360/100*3.6)
+		'prog1.Progress=360
+		'spb1.Progress=100
+		If count = 7 Then 
 			catdel.clearCache
 		t1.Enabled=False  
 		ToastMessageShow(op.formatSize(cat.FreeMemory)&" free",False)
 		Activity.Finish
+		SetAnimation.setanimati ("extra_in", "extra_out")
 	End If
 End Sub
 
@@ -540,7 +460,7 @@ Sub clean_start
 	pg.Width=100%x
 	pg.Left=1dip
 	pg.Prefix = "%"
-	pg.Suffix = "..."
+	pg.Suffix = "->"
 End Sub
 
 

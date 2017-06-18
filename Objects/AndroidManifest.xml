@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.batcat"
-	android:versionCode="241"
-	android:versionName="1.9.4"
+	android:versionCode="247"
+	android:versionName="1.9.6"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>
@@ -42,14 +42,14 @@
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 	<application
 		android:icon="@drawable/icon"
-		android:label="BATT-Cat"
+		android:label="BATT-CaTT"
 		android:largeHeap="true"
 		android:theme="@style/MyAppTheme">
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".main"
-			android:label="BATT-Cat"
+			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 			<intent-filter>
 			   <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".klo"
-			android:label="BATT-Cat"
+			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>
 		<service android:name=".hw">
@@ -87,21 +87,21 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".sys"
-			android:label="BATT-Cat"
+			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".settings"
-			android:label="BATT-Cat"
+			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".cool"
-			android:label="BATT-Cat"
+			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>
 	</application>

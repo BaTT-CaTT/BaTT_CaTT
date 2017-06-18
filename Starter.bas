@@ -24,11 +24,15 @@ Sub Process_Globals
 	Dim cs As CSBuilder
 	Dim dir As String=File.DirDefaultExternal&"/mnt/cache"
 	Dim labex As String
+	Dim sql As SQL
+	Dim m As Map
+	
 End Sub
 
 Sub Service_Create
 	'This is the program entry point.
 	'This is a good place to load resources that are not specific to a single activity.
+	
    sNotif.Initialize
    bat.Initialize
    sNotif.Light=False
@@ -40,9 +44,11 @@ Sub Service_Create
    Service.StartForeground(1,sNotif)
 	device.Initialize("device")
 	list1.Initialize
+	m.Initialize
 	'File.WriteList(File.DirDefaultExternal&"/mnt/cache","sstats.txt",list1)
 	date=DateTime.Date(DateTime.Now)
 	
+	sql.Initialize(File.DirRootExternal, "1.db", True)
 	tt=time
 
 	'level1 =bat.BatteryInformation(0)
@@ -68,6 +74,8 @@ Sub Service_Start (StartingIntent As Intent)
 	
 		'ToastMessageShow("BC loaded..! "&date&", "&time,False)
 	End If
+	
+
 End Sub
 
 'Return true to allow the OS default exceptions handler to handle the uncaught exception.
@@ -81,8 +89,11 @@ Sub Service_Destroy
 
 End Sub
 
+
 Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
-	
+
+	Dim volta As Int
+	volta=Intent.GetExtra("voltage")
 	time=DateTime.Time(DateTime.Now)
 
 	Dim temp,volt,volt1,temp2 As String
@@ -92,30 +103,39 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 	volt=Rnd(volt1,volt1+1)
 	temp=Rnd(temp2,temp2+1)
 	Dim rst,rl,rm As Int
-	'tm=Intent.GetExtra("temperature")/10
 	Dim val,hours,minutes As Int
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",Level)
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt",volt)
-	
 	If Plugged  Then
-		For v = 0 To Scale Step 2
+		
+		For v = 0 To Scale 
 	nl.Add(v)
-	If Level=v Then
-		Log("Put-> "&v)
-		kvs2.PutSimple(Level,time)
-	End If
+			If Level=v Then
+				Log("Put-> "&v)
+				kvs2.PutSimple(Level,time)
+			End If 
 	Next
-		val = Level*1000 /status'status/100*Level/60
+	rst=Scale-Level
+		val = rst*Intent.GetExtra("voltage") /1000
 		hours = Floor(val / 60)
 		minutes = val Mod 60
+		If Level=100 Then
+			sNotif.Icon="batusb"
+			sNotif.Sound=False
+			sNotif.SetInfo("läden: "&Level&" %",volt&" V | "&temp&"°C | noch: 0 h/ 0 min",Main)
+			sNotif.Notify(1)
+			'sql1.ExecNonQuery("INSERT INTO stats VALUES (NULL,"& tt &"," & level1 &")")
+			Service.StartForeground(1,sNotif)
+		Else
 		sNotif.Icon="batusb"
 		sNotif.Sound=False
-		sNotif.SetInfo("läden: "&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h,"&minutes&"min",Main)
+		sNotif.SetInfo("läden: "&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h/"&minutes&"min",Main)
 		sNotif.Notify(1)
 		'sql1.ExecNonQuery("INSERT INTO stats VALUES (NULL,"& tt &"," & level1 &")")
 		Service.StartForeground(1,sNotif)
+		End If
 	Else
-		For v = 0 To Scale Step 2
+		For v = 0 To Scale 
 			nl.Add(v)
 			If Level=v Then
 				Log("Put-> "&v)

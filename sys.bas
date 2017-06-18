@@ -106,7 +106,7 @@ End Sub
 Sub store_check
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
-	c3=mcl.md_lime_A700
+	c3=mcl.md_white_1000
 	c4=mcl.md_teal_A700
 	c5=mcl.md_deep_purple_A700
 	c6=mcl.md_red_A700
@@ -115,10 +115,11 @@ Sub store_check
 	c9=mcl.md_orange_A700
 	c10=mcl.md_grey_700
 	c11=mcl.md_green_A700
-	c12=mcl.md_light_green_A700
+	c12=mcl.md_black_1000
 	c13=mcl.md_yellow_A700
 	c14=mcl.md_cyan_A700
 	c15=mcl.md_blue_grey_700
+	'c16=mcl.md_light_blue_A700
 	If kvs4.ContainsKey("0")Then
 		Log("AC_true->1")
 		'act

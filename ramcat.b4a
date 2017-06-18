@@ -1,5 +1,5 @@
 ﻿Version=6.8
-NumberOfModules=14
+NumberOfModules=15
 Module1=klo
 Module2=Batut
 Module3=hw
@@ -7,17 +7,18 @@ Module4=Starter
 Module5=sys
 Module6=settings
 Module7=ClsSlidingSideBar
-Module8=progress
-Module9=XmlViewEx
-Module10=cool
+Module8=XmlViewEx
+Module9=cool
+Module10=DBUtils
 Module11=Charts
 Module12=KeyValueStore
 Module13=ClsCheckList
 Module14=ClsExplorer
+Module15=SetAnimation
 Build1=Default,com.batcat
 ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~android:name="android.permission.GET_TASKS"/>~\n~AddApplicationText(<Activity android:name="anywheresoftware.b4a.objects.preferenceactivity"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~  android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~  )~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0091EA</item>~\n~        <item name="colorPrimaryDark">#78909C</item>~\n~        <item name="colorAccent">#C6FF00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
-NumberOfFiles=39
+NumberOfFiles=41
 File1=1.bal
 File2=2.bal
 File3=4.bal
@@ -54,15 +55,17 @@ File33=ic_sim_card_white_24dp.png
 File34=icon_batcat.png
 File35=Power.png
 File36=Rss.png
-File37=sulo_log99.png
-File38=Tag.png
-File39=wid.bal
-NumberOfLibraries=24
+File37=squareprogressbar.jar
+File38=squareprogressbar.xml
+File39=sulo_log99.png
+File40=Tag.png
+File41=wid.bal
+NumberOfLibraries=29
 Library1=core
 Library2=phone
 Library3=reflection
 Library4=oslibrary
-Library5=progresswheel
+Library5=json
 Library6=customtoast
 Library7=animation
 Library8=randomaccessfile
@@ -82,11 +85,16 @@ Library21=appcompat
 Library22=xmlsax
 Library23=xmllayoutbuilder
 Library24=nineoldandroids
+Library25=squareprogressbar
+Library26=progressrndbtn
+Library27=mscircularimageview
+Library28=circleprogressmaster
+Library29=mpchartlib
 @EndOfDesignText@
  #Region  Project Attributes 
-	#ApplicationLabel: BATT-Cat
-	#VersionCode: 241
-	#VersionName: 1.9.4
+	#ApplicationLabel: BATT-CaTT
+	#VersionCode: 247
+	#VersionName: 1.9.6
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: false
@@ -105,6 +113,8 @@ Library24=nineoldandroids
 Sub Process_Globals
 	Dim pak As PackageManager
 	Private cs As CSBuilder
+	Dim sql As SQL
+	Dim t1 As Timer
 End Sub
 
 Sub Globals
@@ -130,7 +140,6 @@ Sub Globals
 	'Dim cd As CustomDialog
 	Dim optmap As Map 
 	Private Label5 As Label
-	Private Label6 As Label
 	'Dim cc2 As ColorDrawable
 	Dim proc As List
 	Private Panel1 As Panel
@@ -150,18 +159,21 @@ Sub Globals
 	'Dim droid As BitmapDrawable
 	Private Button4 As ACButton
 '	Dim cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15 As ColorDrawable
-	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15 As Int
+	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 	Dim mcl As MaterialColors
 	Dim Mclist,ramlist As List
 	Dim cat As Cache
-	Private prog As progress
+	'Private prog As progress
 	'Private FloatingActionButton1 As FloatingActionButton
 	Dim fbc As ColorDrawable
 	Dim xml As XmlLayoutBuilder
 	Private ImageView1 As ImageView
-	Private pgWheel1 As pgWheel
-	Private ImageView2 As ImageView
+
+	'Private ImageView2 As ImageView
 	Dim bat20,bat40,bat60,bat80,bat100,batlow,usb1,usb2,usb3,usbc,ulow As Bitmap
+
+	Private apm As ArcProgressMaster
+
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -179,6 +191,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	ToolbarHelper.Hide
 	
 	'######### Sub initializes ###############
+	t1.Initialize("t1",1000)
 	ra.Initialize("ra")
 	bat.Initialize
 	ct.Initialize
@@ -230,7 +243,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	level1=bat.BatteryInformation(0)
 
 	
-	
 	'######Label Settings##############
 	 Label3.Text="Ver. "&pak.GetVersionName("com.batcat")
 	 
@@ -241,7 +253,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.AddView(FakeActionBar, 0, 0, 100%x, BarSize)
 	Activity.AddView(smlp,0,5dip,100%x,65%y)
 	'################menu init#########################
-	slm.Initialize(smlp, 250dip, 1, 1, 100, 200)
+	slm.Initialize(smlp, 250dip, 1, 2, 100, 200)
 	slm.ContentPanel.Color = Colors.Transparent
 	slm.Sidebar.Background = slm.LoadDrawable("popup_top_dark")'("popup_top_bright")
 	slm.SetOnChangeListeners(Me, "Menu_onFullyOpen", "Menu_onFullyClosed", "Menu_onMove")
@@ -282,11 +294,11 @@ Sub Activity_Create(FirstTime As Boolean)
 		Button4.Visible=False
 		Button4.ButtonColor=mcl.md_light_green_A400
 		show_tip
-		If File.Exists(File.DirDefaultExternal&"/mnt/cache","smap1.txt") Then
-			ListView1.Clear
-			
+		If File.Exists(File.DirDefaultExternal&"/mnt/cache","1.db") Then
+			ListView1.Clear				
 			'show_tip
 		Else
+			sql.Initialize(File.DirRootExternal, "1.db", True)
 			File.MakeDir(File.DirDefaultExternal, "mnt/cache")
 			File.MakeDir(File.DirRootExternal, "mnt/data")
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","sv.txt",list4)
@@ -304,10 +316,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	Else
 		ToastMessageShow("Willkommen",False)
 	End If
-
-
-
-
 	la=ListView1.SingleLineLayout.Label
 	la1=ListView1.TwoLinesLayout.Label
 	la2=ListView1.TwoLinesLayout.SecondLabel
@@ -318,8 +326,19 @@ Sub Activity_Create(FirstTime As Boolean)
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
 	kvs4sub.Initialize(File.DirDefaultExternal, "datastore_sub_4")
 	'######################################################DATA STORE###########################
+	bat20.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (5).png")
+	bat40.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (4).png")
+	bat60.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (3).png")
+	bat80.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (2).png")
+	bat100.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (1).png")
+	usb1.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (9).png")
+	usb2.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (8).png")
+	usb3.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (7).png")
+	batlow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (10).png")
+	ulow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (14).png")
+	logo.Initialize(File.DirAssets,"icon_batcat.png")
 	
-	'cc2.Initialize(Colors.ARGB(180,255,255,255),30)
+
 	'###############BatteryChart########
 	device.Initialize("device")
 
@@ -338,7 +357,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	Mclist.Add(c4)
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
-	c3=mcl.md_lime_A700
+	c3=mcl.md_white_1000
 	c4=mcl.md_teal_A700
 	c5=mcl.md_deep_purple_A700
 	c6=mcl.md_red_A700
@@ -347,59 +366,51 @@ Sub Activity_Create(FirstTime As Boolean)
 	c9=mcl.md_orange_A700
 	c10=mcl.md_grey_700
 	c11=mcl.md_green_A700
-	c12=mcl.md_light_green_A700
+	c12=mcl.md_black_1000
 	c13=mcl.md_yellow_A700
 	c14=mcl.md_cyan_A700
 	c15=mcl.md_blue_grey_700
+	c16=mcl.md_light_blue_A700
 	Activity.Color=c1
 	'######################################################Colors End###########################
 	ra.setLowMemory
 	'Dim w, h As Int : w = Activity.Width : h = Activity.Height
-	
-'	fbc.Initialize(c2,50)
-'	FloatingActionButton1.Icon=xml.GetDrawable("ic_add_white_24dp")
-'	FloatingActionButton1.ColorPressed=c7
-'	FloatingActionButton1.Color=c2
-	'	FloatingActionButton1.ColorRipple=c3
-	bat20.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (5).png")
-	bat40.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (4).png")
-	bat60.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (3).png")
-	bat80.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (2).png")
-	bat100.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (1).png")
-	usb1.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (9).png")
-	usb2.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (8).png")
-	usb3.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (7).png")
-	batlow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (10).png")
-	ulow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (14).png")
+	apm.FinishedStrokeColor=mcl.md_light_green_A700
+	apm.Color=Colors.Transparent
+	apm.UnfinishedStrokeColor=Colors.ARGB(190,255,255,255)
+	apm.TextColor=Colors.Black
+	apm.TextSize=55
+	apm.StrokeWidth=15
+	apm.ArcAngle=270
 	
 	'######################################################Start Subs###########################
-	app_info
-	 lab_set2
-	label_text
-	'loading_norm
-	store_check
-	li2
-	'prog_init
-	If prog.IsInitialized=True Then
-		prog.BringToFront
-	End If
+	
+	timer_start
 	'######################################################Subs End ###########################
 End Sub
 
 Sub Activity_Resume
-	If prog.IsInitialized=True Then
-		prog.BringToFront
-	End If
+	t1.Enabled=False
+	timer_start
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+	t1.Enabled=False
+End Sub
+
+Sub timer_start
+	If t1.IsInitialized=True Then 
+	t1.Enabled=True
+	Else
+	t1.Initialize("t2",1000)	
+	End If 
 	app_info
 	lab_set2
 	label_text
 	'loading_norm
 	store_check
 	li2
-End Sub
-
-Sub Activity_Pause (UserClosed As Boolean)
-	
+	t1_Tick
 End Sub
 
 Sub FloatingActionButton1_Click
@@ -430,27 +441,24 @@ Sub show_2
 	showtip.show
 End Sub
 Sub Menu_onFullyOpen
-	If prog.IsInitialized=True Then
-		prog.SendToBack
-	Else
-		
-	End If
 	lvMenu.BringToFront
 	smlp.BringToFront
 	slm.Sidebar.BringToFront
 	lvMenu.BringToFront
-	ImageView2.Visible=False	
-	Button4.SendToBack
+	'ImageView2.Visible=False	
+	'Button4.SendToBack
 	ProgressBar1.SendToBack
-	Button4.SetLayoutAnimated(100,0%x,50%y,20%x,105)
+	
 	'Button4.ButtonColor=mcl.
 	Button4.Visible=False
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
 	Button4.TextSize=10
-	ImageView2.SetVisibleAnimated(100,False)
-	Label6.SetVisibleAnimated(100,False)
+	'ImageView2.SetVisibleAnimated(100,False)
+	'Label6.SetVisibleAnimated(100,False)
 	Label2.SetVisibleAnimated(100,False)
 	Label4.SetVisibleAnimated(100,False)
+	
+	'ImageView2.SetLayoutAnimated(100,0%x,5%y,40%x,40%y)
 	
 End Sub
 Sub Menu_onFullyClosed
@@ -461,39 +469,30 @@ Sub Menu_onFullyClosed
 	Button4.ButtonColor=mcl.md_light_green_A400
 	Button4.BringToFront
 	 Button4.SetLayoutAnimated(100,20%x,50%y,60%x,105)
-	ImageView2.SetLayoutAnimated(100,40%x,5%y,20%x,40%y)
+	'ImageView2.SetLayoutAnimated(100,40%x,5%y,20%x,40%y)
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
 	Button4.TextSize=18
-	ImageView2.SetVisibleAnimated(100,True)
+	'ImageView2.SetVisibleAnimated(100,True)
 	Label2.SetVisibleAnimated(100,True)
 	Label4.SetVisibleAnimated(100,True)
-	
-	If prog.IsInitialized=True Then
-		prog.BringToFront
-		Else
-		prog_init
-	End If
+	'Label6.BringToFront
 End Sub
 
 Sub Menu_onMove (IsOpening As Boolean)
 	If IsOpening=True Then
 		Button4.SetTextSizeAnimated(50,10)
-		ImageView2.SetLayoutAnimated(100,0%x,5%y,40%x,40%y)
-		Label6.SetVisibleAnimated(100,True)
+		Button4.SetLayoutAnimated(200,1%x,50%y,40%x,105)
 	End If 
 End Sub
 
 Sub prog_init
-	If prog.IsInitialized=False Then
-	prog.Initialize(Activity,12%x,5%y,360,15,mcl.md_light_green_A400,Colors.ARGB(190,255,255,255),Null)
-		prog.BringToFront
-	End If 
+	
 End Sub
 
 Sub store_check
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
-	c3=mcl.md_lime_A700
+	c3=mcl.md_white_1000
 	c4=mcl.md_teal_A700
 	c5=mcl.md_deep_purple_A700
 	c6=mcl.md_red_A700
@@ -502,107 +501,170 @@ Sub store_check
 	c9=mcl.md_orange_A700
 	c10=mcl.md_grey_700
 	c11=mcl.md_green_A700
-	c12=mcl.md_light_green_A700
+	c12=mcl.md_black_1000
 	c13=mcl.md_yellow_A700
 	c14=mcl.md_cyan_A700
 	c15=mcl.md_blue_grey_700
+	c16=mcl.md_light_blue_A700
 	If kvs4sub.ContainsKey("off") Then
 		StopService(Starter)
 		Else
 		
 	End If
+'	If kvs4.ContainsKey("0")Then
+'		Log("AC_true->1")
+'		Activity.Color=c1
+'		
+'	Else
+'	
+'	End If
 	If kvs4.ContainsKey("0")Then
 		Log("AC_true->1")
 		Activity.Color=c1
-		
-	Else
-	
-	End If
-	If kvs4.ContainsKey("0")Then
-		Log("AC_true->1")
-		Activity.Color=c1
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	End If
 	If kvs4.ContainsKey("1")Then
 		Log("AC_true->2")
 		Activity.Color=c2
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c1
 	End If
 	If kvs4.ContainsKey("2")Then
 		Log("AC_true->3")
 		Activity.Color=c3
+		apm.TextColor=Colors.Black
+		Label4.TextColor=Colors.Black
+		Label5.TextColor=Colors.Black
+		Label3.TextColor=Colors.Black
 	Else
 		'Activity.Color=c1
 	End If
 	If kvs4.ContainsKey("3")Then
 		Log("AC_true->4")
 		Activity.Color=c4
+		apm.TextColor=Colors.Black
+		Label4.TextColor=Colors.Black
+		Label5.TextColor=Colors.Black
+		Label3.TextColor=Colors.Black
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("4")Then
 		Log("AC_true->4")
 		Activity.Color=c5
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("5")Then
 		Log("AC_true->4")
 		Activity.Color=c6
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("6")Then
 		Log("AC_true->4")
 		Activity.Color=c7
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("7")Then
 		Log("AC_true->4")
 		Activity.Color=c8
+		apm.TextColor=Colors.Black
+		Label4.TextColor=Colors.Black
+		Label5.TextColor=Colors.Black
+		Label3.TextColor=Colors.Black
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("8")Then
 		Log("AC_true->4")
 		Activity.Color=c9
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("9")Then
 		Log("AC_true->4")
 		Activity.Color=c10
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("10")Then
 		Log("AC_true->4")
 		Activity.Color=c11
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		apm.FinishedStrokeColor=Colors.ARGB(200,255,255,255)
+		apm.UnfinishedStrokeColor=Colors.ARGB(100,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("11")Then
 		Log("AC_true->4")
 		Activity.Color=c12
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("12")Then
 		Log("AC_true->4")
 		Activity.Color=c13
+		apm.TextColor=Colors.ARGB(200,255,255,255)
+		Label4.TextColor=Colors.ARGB(200,255,255,255)
+		Label5.TextColor=Colors.ARGB(200,255,255,255)
+		Label3.TextColor=Colors.ARGB(200,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("13")Then
 		Log("AC_true->4")
 		Activity.Color=c14
+		apm.TextColor=Colors.Black
+		Label4.TextColor=Colors.Black
+		Label5.TextColor=Colors.Black
+		Label3.TextColor=Colors.Black
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("14")Then
 		Log("AC_true->4")
 		Activity.Color=c15
+		apm.TextColor=Colors.Black
+		Label4.TextColor=Colors.Black
+		Label5.TextColor=Colors.Black
+		Label3.TextColor=Colors.Black
 	Else
 		'Activity.Color=c4
 	End If
@@ -699,9 +761,10 @@ Sub st_click
 	StartActivity(klo)
 End Sub
 
-
 Sub Button4_Click
-	CallSubDelayed(cool,"c_start")
+	StartActivity(cool)
+	SetAnimation.setanimati("extra_in", "extra_out")
+	
 End Sub
 
 Sub opt_click
@@ -779,21 +842,38 @@ Sub li2 As Boolean
 	proc.Clear
 	ramlist.Clear
 	li3
+	Dim si,st As Int
+	si=ra.AvailableExternalMemorySize+ra.AvailableInternalMemorySize
+	'Log(ra.formatSize(st))
+	'si=ra.TotalInternalMemorySize-ra.AvailableInternalMemorySize
 	proc=ra.getRecentTasks(99,0)
 	list2=ra.RunningServiceInfo(999,list4,list5,list6)
 	'ProgressBar1.Progress=100/ list1.size * list2.size + proc.Size
 	
 	Dim math1 As Int
-	math1=proc.Size+list4.Size*1000*1024*10
+	'proc.Size+list4.Size*1000*1024*10
 	Dim ti As Int=proc.Size+list4.Size
 	'Log(ra.formatSize(math1))
 		For h = 0 To  list4.size-1
 		'Log(FormatFileSize(math1))
+		math1=si
 		ProgressBar1.Progress=h
 			Label5.Text=ti&"% "&FormatFileSize(math1)
 		Next
 	Return(True)
 End Sub
+Sub t1_Tick
+	Dim counter As Int
+	counter=counter+1
+	If counter > 1 Then Log("1")
+	If counter >2 Then Log("2")
+	If counter=3 Then 
+		li2
+		t1.Enabled=False
+		timer_start
+	End If
+End Sub
+	
 	
 Sub CalcSize(Folder As String, recursive As Boolean) As Long
 	Dim size1 As Long
@@ -842,19 +922,9 @@ Sub Button1_Click
 End Sub
 
 Sub cl_click As Boolean
-'	Dim res As Int
-'	res=Msgbox2("App wird geschlossen Service Notification läuft im Hintergrund Prozess, zum deaktivieren bitte 'Settings->Start/stop Notify Service'.!","Bat-CaT beenden:","Ja","Abbruch","",LoadBitmap(File.DirAssets,"Power.png"))
-'	If res=DialogResponse.POSITIVE Then
-'		Activity.Finish
-'	Else
-'		If res=DialogResponse.CANCEL Then
-'			ToastMessageShow("zurück..",False)
-'		End If
-'	End If
-	'	Return(True)
 	Dim res As Int 
-	res=Msgbox2(cs.Initialize.Alignment("ALIGN_CENTER").Append($"pp wird geschlossen Service Notification läuft im Hintergrund Prozess, zum deaktivieren bitte 'Settings->Start/stop Notify Service'.!","Bat-CaT beenden:"$).PopAll, _
-cs.Initialize.Typeface(Typeface.FONTAWESOME).Color(0xFF01FF20).Size(40).PopAll,"ja","Abbruch","",LoadBitmap(File.DirAssets,"Power.png"))
+	res=Msgbox2(cs.Initialize.Alignment("ALIGN_CENTER").Append($"App wird geschlossen Service Notification läuft im Hintergrund Prozess, zum deaktivieren bitte 'Settings->Start/stop Notify Service'.!","Bat-CaT beenden:"$).PopAll, _
+cs.Initialize.Typeface(Typeface.DEFAULT).Color(0xFF01FF20).Size(40).PopAll,"ja","Abbruch","",LoadBitmap(File.DirAssets,"Power.png"))
 	If res=DialogResponse.POSITIVE Then
 		Activity.Finish
 	Else
@@ -880,45 +950,34 @@ End Sub
 
 
 Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
-	li2
-	
-	ImageView2.Visible=True
-	Dim val,hours,minutes,rst As Int
-	
-	Dim status As Int = Intent.GetExtra("voltage")
+	'li2
+	Dim val,hours,minutes,rst,ts,volta,vs As Int
 	Label1.Visible=True
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",level)
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt",volt)
-
-	Label6.Text=level&"%"
-	If prog.IsInitialized=True Then
-		'prog.BringToFront
-		prog.SetProgress(360/Scale*level)
-		Else
-	End If
-	
-	
-	'mcp.Max=360
-	'rst=level *1000 /60
-	'plug_data
+	volta=Intent.GetExtra("voltage")/1000
+	apm.Progress=level
+	apm.BottomText=Intent.GetExtra("technology")
+	apm.Max=Scale
+	rst=Scale-level
 	If Plugged=True Then
-		ImageView2.Bitmap=usb1
-		
-		If level=100 Then
-				ImageView2.Bitmap=usb1
-			
-		End If
-		rst=level*status/1000
-		Log(rst)'status/Scale*level/60
-		val =rst'/60
+		apm.BottomText="Aufladen via USB: "&volta&" V"
+		Log("VOLT: "&Intent.GetExtra("voltage"))
+		val =rst*Intent.GetExtra("voltage") /1000
 		hours = Floor(val / 60)
 		minutes = val Mod 60
-		Label4.Text="voll in: "&hours&"h,"&minutes&"min"
+		If level=100 Then
+				apm.BottomText="Angeschlossen via USB:"&volta&" V"
+			Label4.Text="Batterie voll geladen"
+		Else
+		
+		Label4.Text="voll in: "&hours&"h - "&minutes&"min"
+		End If
 		If level <= 60 Then
-			ImageView2.Bitmap=usb2
+			
 		End If
 		If level<=20 Then
-			ImageView2.Bitmap=usb3
+		
 		End If
 	Else
 		If level<=5 Then
@@ -928,37 +987,39 @@ Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Inten
 			low_power
 		End If
 		'Log("RM -> "&ConvertToTimeFormat(rm))
-		
-		val =level*1000 / 60
+		vs=Intent.GetExtra("icon-small")/1000
+		ts= vs-level/Intent.GetExtra("voltage")/1000
+		val =ts/10
+		Log("ident: "&val)
 		hours = Floor(val / 60)
 		minutes = val Mod 60
-		Label4.Text= "noch: "&hours&"h,"&minutes&"min"
+		Label4.Text= "noch: "&hours&"h - "&minutes&"min"
 		
 		If level <= 100 Then
 			'kvs2.PutSimple(Level,time)
 			
-			ImageView2.Bitmap=bat100
+		
 		End If
 		If level <= 80 Then
-			ImageView2.Bitmap=bat80
+		
 	 
 		End If
 		If level <= 60 Then
 		
-			ImageView2.Bitmap=bat60
+		
 		End If
 		If level <= 40 Then
-			ImageView2.Bitmap=bat40
+			
 			
 		End If
 		If level<=20 Then
-			ImageView2.Bitmap=bat20
+			
 		End If
 		If level = 5 Then
-			ImageView2.Bitmap=batlow
+		
 		End If
 		If level < 4 Then
-			ImageView2.Bitmap=ulow
+	
 		End If
 		If temp >=41 Then
 			
