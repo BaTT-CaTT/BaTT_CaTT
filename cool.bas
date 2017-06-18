@@ -150,8 +150,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	'#########################End CLS Storage######################
 	ffil.Initialize
 	ffold.Initialize
-	Activity.Color=Colors.ARGB(150,30,124,235)
-	'Activity.SetColorAnimated(6000,mcl.md_amber_500,mcl.md_lime_700)
+	'Activity.Color=Colors.ARGB(150,30,124,235)
+	Activity.SetColorAnimated(6000,mcl.md_deep_orange_A400,mcl.md_light_blue_A400)
 	Label1.SetTextColorAnimated(6000,Colors.White)
 	'clist.Add(root.GetSafeDirDefaultExternal(""))
 	For h = 0 To clist.Size-1
@@ -266,15 +266,15 @@ Sub storage_check
 End Sub 
 
 Sub cat_start
-	p1.ShadowRadius=390
 	p1.Colors = Array As Int(Colors.Red,Colors.Yellow,Colors.Green)
 	p1.CircleBackgroundEnabled = False
-	p1.ProgressStrokeWidth = 10dip
+	p1.ProgressStrokeWidth = 2dip
 	p1.ShowArrow = True
 	p1.ArrowHeight = 25dip
 	p1.ArrowWidth = 30dip
 	p1.BackGroundColor=Colors.Transparent
-	p1.Diameter=7
+	'p1.Diameter=360
+	p1.InnerRadius=100
 	'cat.Initialize(25,50*1024*1024,dir1)
 	clean_start
 	t1.Enabled=True

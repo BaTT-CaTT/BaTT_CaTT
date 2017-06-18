@@ -148,9 +148,9 @@ public com.batcat.sys _sys = null;
 public com.batcat.settings _settings = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
+public com.batcat.setanimation _setanimation = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.setanimation _setanimation = null;
 public static boolean  _application_error(anywheresoftware.b4a.objects.B4AException _error,String _stacktrace) throws Exception{
  //BA.debugLineNum = 77;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
  //BA.debugLineNum = 79;BA.debugLine="Return True";

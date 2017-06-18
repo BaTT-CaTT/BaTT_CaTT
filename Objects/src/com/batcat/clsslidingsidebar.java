@@ -63,9 +63,9 @@ public com.batcat.sys _sys = null;
 public com.batcat.settings _settings = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
+public com.batcat.setanimation _setanimation = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.setanimation _setanimation = null;
 public String  _addopenclosehandle(anywheresoftware.b4a.objects.ConcreteViewWrapper _hdl,int _position,int _width,int _height,byte _finalmovement) throws Exception{
 anywheresoftware.b4a.agraham.reflection.Reflection _r = null;
  //BA.debugLineNum = 336;BA.debugLine="Public Sub AddOpenCloseHandle(Hdl As View, Positio";

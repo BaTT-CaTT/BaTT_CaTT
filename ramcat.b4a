@@ -9,12 +9,12 @@ Module6=settings
 Module7=ClsSlidingSideBar
 Module8=XmlViewEx
 Module9=cool
-Module10=DBUtils
-Module11=Charts
-Module12=KeyValueStore
-Module13=ClsCheckList
-Module14=ClsExplorer
-Module15=SetAnimation
+Module10=SetAnimation
+Module11=DBUtils
+Module12=Charts
+Module13=KeyValueStore
+Module14=ClsCheckList
+Module15=ClsExplorer
 Build1=Default,com.batcat
 ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~android:name="android.permission.GET_TASKS"/>~\n~AddApplicationText(<Activity android:name="anywheresoftware.b4a.objects.preferenceactivity"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~  android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~  )~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0091EA</item>~\n~        <item name="colorPrimaryDark">#78909C</item>~\n~        <item name="colorAccent">#C6FF00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
@@ -93,8 +93,8 @@ Library29=mpchartlib
 @EndOfDesignText@
  #Region  Project Attributes 
 	#ApplicationLabel: BATT-CaTT
-	#VersionCode: 247
-	#VersionName: 1.9.6
+	#VersionCode: 248
+	#VersionName: 1.9.7
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: false
@@ -446,42 +446,43 @@ Sub Menu_onFullyOpen
 	slm.Sidebar.BringToFront
 	lvMenu.BringToFront
 	'ImageView2.Visible=False	
-	'Button4.SendToBack
+	Button4.SendToBack
 	ProgressBar1.SendToBack
-	
+	Button4.SetLayoutAnimated(10,0%x,50%y,1%x,105)
 	'Button4.ButtonColor=mcl.
 	Button4.Visible=False
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
-	Button4.TextSize=10
 	'ImageView2.SetVisibleAnimated(100,False)
 	'Label6.SetVisibleAnimated(100,False)
 	Label2.SetVisibleAnimated(100,False)
 	Label4.SetVisibleAnimated(100,False)
 	
+	'Button4.SetVisibleAnimated(100,False)
 	'ImageView2.SetLayoutAnimated(100,0%x,5%y,40%x,40%y)
 	
 End Sub
 Sub Menu_onFullyClosed
 	'ImageView2.Visible=False
-'	smlp.SendToBack
-'	lvMenu.SendToBack
-	Button4.Visible=True
+	smlp.SendToBack
+	lvMenu.SendToBack
+	'Button4.Visible=True
 	Button4.ButtonColor=mcl.md_light_green_A400
 	Button4.BringToFront
-	 Button4.SetLayoutAnimated(100,20%x,50%y,60%x,105)
 	'ImageView2.SetLayoutAnimated(100,40%x,5%y,20%x,40%y)
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
 	Button4.TextSize=18
 	'ImageView2.SetVisibleAnimated(100,True)
 	Label2.SetVisibleAnimated(100,True)
 	Label4.SetVisibleAnimated(100,True)
+	Button4.SetLayoutAnimated(100,20%x,50%y,60%x,105)
+	Button4.SetVisibleAnimated(50,True)
 	'Label6.BringToFront
 End Sub
 
 Sub Menu_onMove (IsOpening As Boolean)
 	If IsOpening=True Then
-		Button4.SetTextSizeAnimated(50,10)
-		Button4.SetLayoutAnimated(200,1%x,50%y,40%x,105)
+		Button4.SetLayoutAnimated(100,0dip,50%y,40%x,105)
+		Button4.SetVisibleAnimated(80,False)
 	End If 
 End Sub
 
@@ -525,6 +526,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
+		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("1")Then
 		Log("AC_true->2")
@@ -533,6 +535,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
+		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
 	Else
 		'Activity.Color=c1
 	End If
@@ -553,6 +556,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
+		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
@@ -625,16 +629,27 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
+		Button4.ButtonColor=mcl.md_lime_A400
 	Else
 		'Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("11")Then
 		Log("AC_true->4")
 		Activity.Color=c12
+		Dim la3 As Label
+		la3=ListView1.TwoLinesLayout.SecondLabel
 		apm.TextColor=Colors.ARGB(200,255,255,255)
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
+		Button4.ButtonColor=mcl.md_lime_A400
+		Button4.TextColor=Colors.Black
+		la1.TextColor=mcl.md_lime_400
+		la2.TextColor=mcl.md_lime_400
+		la3.TextColor=mcl.md_lime_400
+		la.TextColor=mcl.md_lime_400
+		apm.TextColor=mcl.md_lime_400
+		
 	Else
 		'Activity.Color=c4
 	End If
@@ -645,6 +660,8 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
+		
+		
 	Else
 		'Activity.Color=c4
 	End If
@@ -655,6 +672,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
+		Button4.ButtonColor=mcl.md_lime_A400
 	Else
 		'Activity.Color=c4
 	End If
@@ -665,6 +683,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
+		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
 	Else
 		'Activity.Color=c4
 	End If
@@ -843,9 +862,9 @@ Sub li2 As Boolean
 	ramlist.Clear
 	li3
 	Dim si,st As Int
-	si=ra.AvailableExternalMemorySize+ra.AvailableInternalMemorySize
+	st=ra.TotalExternalMemorySize+ra.TotalInternalMemorySize
 	'Log(ra.formatSize(st))
-	'si=ra.TotalInternalMemorySize-ra.AvailableInternalMemorySize
+	si=ra.AvailableExternalMemorySize+ra.AvailableInternalMemorySize
 	proc=ra.getRecentTasks(99,0)
 	list2=ra.RunningServiceInfo(999,list4,list5,list6)
 	'ProgressBar1.Progress=100/ list1.size * list2.size + proc.Size
@@ -856,7 +875,7 @@ Sub li2 As Boolean
 	'Log(ra.formatSize(math1))
 		For h = 0 To  list4.size-1
 		'Log(FormatFileSize(math1))
-		math1=si
+		math1=si-st
 		ProgressBar1.Progress=h
 			Label5.Text=ti&"% "&FormatFileSize(math1)
 		Next

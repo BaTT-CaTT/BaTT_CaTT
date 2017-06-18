@@ -436,9 +436,9 @@ public com.batcat.starter _starter = null;
 public com.batcat.sys _sys = null;
 public com.batcat.settings _settings = null;
 public com.batcat.xmlviewex _xmlviewex = null;
+public com.batcat.setanimation _setanimation = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.setanimation _setanimation = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -571,8 +571,8 @@ mostCurrent._panel2.setVisible(anywheresoftware.b4a.keywords.Common.False);
 mostCurrent._ffil.Initialize();
  //BA.debugLineNum = 147;BA.debugLine="ffold.Initialize";
 mostCurrent._ffold.Initialize();
- //BA.debugLineNum = 148;BA.debugLine="Activity.Color=Colors.ARGB(150,30,124,235)";
-mostCurrent._activity.setColor(anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (150),(int) (30),(int) (124),(int) (235)));
+ //BA.debugLineNum = 149;BA.debugLine="Activity.SetColorAnimated(6000,mcl.md_deep_orange";
+mostCurrent._activity.SetColorAnimated((int) (6000),mostCurrent._mcl.getmd_deep_orange_A400(),mostCurrent._mcl.getmd_light_blue_A400());
  //BA.debugLineNum = 150;BA.debugLine="Label1.SetTextColorAnimated(6000,Colors.White)";
 mostCurrent._label1.SetTextColorAnimated((int) (6000),anywheresoftware.b4a.keywords.Common.Colors.White);
  //BA.debugLineNum = 152;BA.debugLine="For h = 0 To clist.Size-1";
@@ -748,24 +748,22 @@ return 0L;
 }
 public static String  _cat_start() throws Exception{
  //BA.debugLineNum = 263;BA.debugLine="Sub cat_start";
- //BA.debugLineNum = 264;BA.debugLine="p1.ShadowRadius=390";
-mostCurrent._p1.setShadowRadius((int) (390));
- //BA.debugLineNum = 265;BA.debugLine="p1.Colors = Array As Int(Colors.Red,Colors.Yellow";
+ //BA.debugLineNum = 264;BA.debugLine="p1.Colors = Array As Int(Colors.Red,Colors.Yellow";
 mostCurrent._p1.setColors(new int[]{anywheresoftware.b4a.keywords.Common.Colors.Red,anywheresoftware.b4a.keywords.Common.Colors.Yellow,anywheresoftware.b4a.keywords.Common.Colors.Green});
- //BA.debugLineNum = 266;BA.debugLine="p1.CircleBackgroundEnabled = False";
+ //BA.debugLineNum = 265;BA.debugLine="p1.CircleBackgroundEnabled = False";
 mostCurrent._p1.setCircleBackgroundEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 267;BA.debugLine="p1.ProgressStrokeWidth = 10dip";
-mostCurrent._p1.setProgressStrokeWidth(anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)));
- //BA.debugLineNum = 268;BA.debugLine="p1.ShowArrow = True";
+ //BA.debugLineNum = 266;BA.debugLine="p1.ProgressStrokeWidth = 2dip";
+mostCurrent._p1.setProgressStrokeWidth(anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (2)));
+ //BA.debugLineNum = 267;BA.debugLine="p1.ShowArrow = True";
 mostCurrent._p1.setShowArrow(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 269;BA.debugLine="p1.ArrowHeight = 25dip";
+ //BA.debugLineNum = 268;BA.debugLine="p1.ArrowHeight = 25dip";
 mostCurrent._p1.setArrowHeight(anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (25)));
- //BA.debugLineNum = 270;BA.debugLine="p1.ArrowWidth = 30dip";
+ //BA.debugLineNum = 269;BA.debugLine="p1.ArrowWidth = 30dip";
 mostCurrent._p1.setArrowWidth(anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (30)));
- //BA.debugLineNum = 271;BA.debugLine="p1.BackGroundColor=Colors.Transparent";
+ //BA.debugLineNum = 270;BA.debugLine="p1.BackGroundColor=Colors.Transparent";
 mostCurrent._p1.setBackGroundColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
- //BA.debugLineNum = 272;BA.debugLine="p1.Diameter=7";
-mostCurrent._p1.setDiameter((int) (7));
+ //BA.debugLineNum = 272;BA.debugLine="p1.InnerRadius=100";
+mostCurrent._p1.setInnerRadius((int) (100));
  //BA.debugLineNum = 274;BA.debugLine="clean_start";
 _clean_start();
  //BA.debugLineNum = 275;BA.debugLine="t1.Enabled=True";

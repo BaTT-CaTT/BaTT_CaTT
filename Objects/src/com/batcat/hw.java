@@ -131,9 +131,9 @@ public com.batcat.sys _sys = null;
 public com.batcat.settings _settings = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
+public com.batcat.setanimation _setanimation = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.setanimation _setanimation = null;
 public static String  _bat_batterychanged(int _level,int _scale,boolean _plugged,anywheresoftware.b4a.objects.IntentWrapper _intent) throws Exception{
 String _temp = "";
  //BA.debugLineNum = 54;BA.debugLine="Sub bat_BatteryChanged (Level As Int, Scale As Int";
