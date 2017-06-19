@@ -19,9 +19,9 @@ public com.batcat.klo _klo = null;
 public com.batcat.hw _hw = null;
 public com.batcat.starter _starter = null;
 public com.batcat.sys _sys = null;
-public com.batcat.settings _settings = null;
 public com.batcat.cool _cool = null;
 public com.batcat.setanimation _setanimation = null;
+public com.batcat.settings _settings = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
 public static anywheresoftware.b4a.objects.ConcreteViewWrapper  _findview(anywheresoftware.b4a.BA _ba,anywheresoftware.b4a.objects.ConcreteViewWrapper _parent,String _viewname) throws Exception{

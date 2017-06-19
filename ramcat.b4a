@@ -5,11 +5,11 @@ Module2=Batut
 Module3=hw
 Module4=Starter
 Module5=sys
-Module6=settings
-Module7=ClsSlidingSideBar
-Module8=XmlViewEx
-Module9=cool
-Module10=SetAnimation
+Module6=ClsSlidingSideBar
+Module7=XmlViewEx
+Module8=cool
+Module9=SetAnimation
+Module10=settings
 Module11=DBUtils
 Module12=Charts
 Module13=KeyValueStore
@@ -18,7 +18,7 @@ Module15=ClsExplorer
 Build1=Default,com.batcat
 ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~android:name="android.permission.GET_TASKS"/>~\n~AddApplicationText(<Activity android:name="anywheresoftware.b4a.objects.preferenceactivity"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~  android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~  )~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0091EA</item>~\n~        <item name="colorPrimaryDark">#78909C</item>~\n~        <item name="colorAccent">#C6FF00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
-NumberOfFiles=41
+NumberOfFiles=53
 File1=1.bal
 File2=2.bal
 File3=4.bal
@@ -46,20 +46,32 @@ File24=Battery.png
 File25=Chart.png
 File26=Control.png
 File27=ic_autorenew_black_48dp.png
-File28=ic_battery_alert_black_48dp.png
-File29=ic_clear_black_48dp.png
-File30=ic_data_usage_black_48dp.png
-File31=ic_delete_black_48dp.png
-File32=ic_sim_card_black_24dp.png
-File33=ic_sim_card_white_24dp.png
-File34=icon_batcat.png
-File35=Power.png
-File36=Rss.png
-File37=squareprogressbar.jar
-File38=squareprogressbar.xml
-File39=sulo_log99.png
-File40=Tag.png
-File41=wid.bal
+File28=ic_battery_90_white_24dp.png
+File29=ic_battery_alert_black_48dp.png
+File30=ic_battery_charging_50_white_24dp.png
+File31=ic_brightness_auto_black_24dp.png
+File32=ic_brightness_auto_grey600_24dp.png
+File33=ic_clear_black_48dp.png
+File34=ic_data_usage_black_48dp.png
+File35=ic_delete_black_48dp.png
+File36=ic_network_cell_black_24dp.png
+File37=ic_network_cell_grey600_24dp.png
+File38=ic_network_wifi_black_24dp.png
+File39=ic_network_wifi_grey600_24dp.png
+File40=ic_sim_card_black_24dp.png
+File41=ic_sim_card_white_24dp.png
+File42=ic_swap_vert_circle_black_24dp.png
+File43=ic_swap_vert_circle_grey600_24dp.png
+File44=ic_usb_black_24dp.png
+File45=ic_usb_grey600_24dp.png
+File46=icon_batcat.png
+File47=Power.png
+File48=Rss.png
+File49=squareprogressbar.jar
+File50=squareprogressbar.xml
+File51=sulo_log99.png
+File52=Tag.png
+File53=wid.bal
 NumberOfLibraries=29
 Library1=core
 Library2=phone
@@ -93,7 +105,7 @@ Library29=mpchartlib
 @EndOfDesignText@
  #Region  Project Attributes 
 	#ApplicationLabel: BATT-CaTT
-	#VersionCode: 248
+	#VersionCode: 250
 	#VersionName: 1.9.7
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
@@ -124,7 +136,7 @@ Sub Globals
 	Dim ct As CustomToast
 	'Private pgWheel1 As pgWheel
 	Private Label1,Label2,Label3,Label4,lk As Label
-	Private ListView1,lv2,lvMenu As ListView
+	Private lv2,lvMenu As ListView
 	Dim args(1) As Object
 	Dim Obj1, Obj2, Obj3 As Reflector
 	Dim la,la1,la2 As Label
@@ -148,7 +160,7 @@ Sub Globals
 	Dim cas As Int
 	Dim size,flags As Int
 	Dim Types(1), name,packName,date,time,l,ramsize As String
-	Dim list,list1,list2,list3,list4,list5,list6,phlis,lis,setlist,datalist As List
+	Dim List,list1,list2,list3,list4,list5,list6,phlis,Lis,setlist,datalist As List
 
 	Dim cd2,cd As CustomDialog2
 
@@ -157,7 +169,7 @@ Sub Globals
 	Private ACToolBarLight1 As ACToolBarLight
 	Private ToolbarHelper As ACActionBar
 	'Dim droid As BitmapDrawable
-	Private Button4 As ACButton
+	
 '	Dim cc1,cc2,cc3,cc4,cc5,cc6,cc7,cc8,cc9,cc10,cc11,cc12,cc13,cc14,cc15 As ColorDrawable
 	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 	Dim mcl As MaterialColors
@@ -170,32 +182,33 @@ Sub Globals
 	Private ImageView1 As ImageView
 
 	'Private ImageView2 As ImageView
-	Dim bat20,bat40,bat60,bat80,bat100,batlow,usb1,usb2,usb3,usbc,ulow As Bitmap
+	
 
 	Private apm As ArcProgressMaster
-
+	Dim nativeMe As JavaObject
+	Private Button4 As Button
+	Private ims1 As ImageView
+	Private ims2 As ImageView
+	Private ims3 As ImageView
+	Private ims4 As ImageView
+	Private prb1 As ProgressRoundButton
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
-
 	Activity.LoadLayout("1")
-	
 	'######### Main / Menu Settings ##########
 	Activity.Title=pak.GetApplicationLabel("com.batcat")&" - "&pak.GetVersionName("com.batcat")
-
-
 	'################SlidingMenu ettings######################
-	
 	ToolbarHelper.Initialize
 	'ToolbarHelper.ShowUpIndicator = False 'set to true to show the up arrow
 	ToolbarHelper.Hide
-	
 	'######### Sub initializes ###############
+	device.Initialize("device")
 	t1.Initialize("t1",1000)
 	ra.Initialize("ra")
 	bat.Initialize
 	ct.Initialize
-	list.Initialize
+	List.Initialize
 	list1.Initialize
 	list2.Initialize
 	list3.Initialize
@@ -210,7 +223,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	smlp.Initialize("smlp")
 	lip.Initialize("lip")
 	'setp.Initialize("setp")
-	lis.Initialize
+	Lis.Initialize
 	proc.Initialize
 	lk.Initialize("lk")
 	optmap.Initialize
@@ -232,8 +245,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	ima.Bitmap=LoadBitmap(File.DirAssets,"icon_batcat.png")
 	panel3.AddView(ima,50,150,450,250)
 	
-	
-	
 	'#######date Settings###############
 	 date=DateTime.Date(DateTime.Now)
 	 time=DateTime.Time(DateTime.Now)
@@ -241,11 +252,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	volt=bat.BatteryInformation(7)/1000
 	temp=bat.BatteryInformation(6)/10
 	level1=bat.BatteryInformation(0)
-
-	
 	'######Label Settings##############
 	 Label3.Text="Ver. "&pak.GetVersionName("com.batcat")
-	 
 	'#######Listview Settings############
 	Dim BarSize As Int: BarSize = 60dip
 	FakeActionBar.Initialize("")
@@ -253,7 +261,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.AddView(FakeActionBar, 0, 0, 100%x, BarSize)
 	Activity.AddView(smlp,0,5dip,100%x,65%y)
 	'################menu init#########################
-	slm.Initialize(smlp, 250dip, 1, 2, 100, 200)
+	slm.Initialize(smlp, 250dip, 1, 1, 100, 200)
 	slm.ContentPanel.Color = Colors.Transparent
 	slm.Sidebar.Background = slm.LoadDrawable("popup_top_dark")'("popup_top_bright")
 	slm.SetOnChangeListeners(Me, "Menu_onFullyOpen", "Menu_onFullyClosed", "Menu_onMove")
@@ -284,18 +292,29 @@ Sub Activity_Create(FirstTime As Boolean)
 	smlp.BringToFront
 	slm.Sidebar.BringToFront
 	lvMenu.BringToFront
-	
 	lv2.Enabled=True
-
-
+	Button4.SendToBack
+	'######################################################DATA STORE########################### 
+	kvs.Initialize(File.DirDefaultExternal, "datastore")
+	kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
+	kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
+	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
+	kvs4sub.Initialize(File.DirDefaultExternal, "datastore_sub_4")
+	'######################################################DATA STORE###########################
+	
+	logo.Initialize(File.DirAssets,"icon_batcat.png")
+	
+	Label2.Text= temp &"°C"
+	Label4.Text= Round2(volt,1) &" V"
 	'####### first start Use #################
 	If FirstTime=True Then
-		slm.OpenSidebar
-		Button4.Visible=False
-		Button4.ButtonColor=mcl.md_light_green_A400
 		show_tip
+		slm.OpenSidebar
+		Button4.SetVisibleAnimated(300,False)
+		'Button4.Color=mcl.md_light_green_A400
+		
 		If File.Exists(File.DirDefaultExternal&"/mnt/cache","1.db") Then
-			ListView1.Clear				
+			'ListView1.Clear
 			'show_tip
 		Else
 			sql.Initialize(File.DirRootExternal, "1.db", True)
@@ -306,7 +325,7 @@ Sub Activity_Create(FirstTime As Boolean)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","APnames.txt",list3)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",level1)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt","5")
-			File.WriteList(File.DirDefaultExternal&"/mnt/cache","pn1.txt",lis)
+			File.WriteList(File.DirDefaultExternal&"/mnt/cache","pn1.txt",Lis)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","settings.txt",setlist)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","proc.txt",proc)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl2.txt","0")
@@ -316,45 +335,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	Else
 		ToastMessageShow("Willkommen",False)
 	End If
-	la=ListView1.SingleLineLayout.Label
-	la1=ListView1.TwoLinesLayout.Label
-	la2=ListView1.TwoLinesLayout.SecondLabel
-	'######################################################DATA STORE########################### 
-	kvs.Initialize(File.DirDefaultExternal, "datastore")
-	kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
-	kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
-	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
-	kvs4sub.Initialize(File.DirDefaultExternal, "datastore_sub_4")
-	'######################################################DATA STORE###########################
-	bat20.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (5).png")
-	bat40.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (4).png")
-	bat60.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (3).png")
-	bat80.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (2).png")
-	bat100.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (1).png")
-	usb1.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (9).png")
-	usb2.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (8).png")
-	usb3.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (7).png")
-	batlow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (10).png")
-	ulow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (14).png")
-	logo.Initialize(File.DirAssets,"icon_batcat.png")
-	
-
-	'###############BatteryChart########
-	device.Initialize("device")
-
-	Label2.Text= temp &"°C"
-	Label4.Text= Round2(volt,1) &" V"
-	
-	
-	
 	'######################################################Activity Colors######################
-	Mclist.Initialize
-	
-	Mclist.Clear
-	Mclist.Add(c1)
-	Mclist.Add(c2)
-	Mclist.Add(c3)
-	Mclist.Add(c4)
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
 	c3=mcl.md_white_1000
@@ -371,27 +352,29 @@ Sub Activity_Create(FirstTime As Boolean)
 	c14=mcl.md_cyan_A700
 	c15=mcl.md_blue_grey_700
 	c16=mcl.md_light_blue_A700
-	Activity.Color=c1
+	Activity.Color=c10
 	'######################################################Colors End###########################
 	ra.setLowMemory
-	'Dim w, h As Int : w = Activity.Width : h = Activity.Height
 	apm.FinishedStrokeColor=mcl.md_light_green_A700
 	apm.Color=Colors.Transparent
 	apm.UnfinishedStrokeColor=Colors.ARGB(190,255,255,255)
 	apm.TextColor=Colors.Black
 	apm.TextSize=55
-	apm.StrokeWidth=15
+	apm.StrokeWidth=12dip
 	apm.ArcAngle=270
 	
-	'######################################################Start Subs###########################
 	
+	ims3.Bitmap=LoadBitmap(File.DirAssets,"ic_brightness_auto_black_24dp.png")
+	ims4.Bitmap=LoadBitmap(File.DirAssets,"ic_sim_card_white_24dp.png")
+	'######################################################Start Subs###########################
 	timer_start
+	store_check
 	'######################################################Subs End ###########################
 End Sub
 
 Sub Activity_Resume
-	t1.Enabled=False
-	timer_start
+	t1.Enabled=True
+	store_check
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
@@ -402,20 +385,15 @@ Sub timer_start
 	If t1.IsInitialized=True Then 
 	t1.Enabled=True
 	Else
-	t1.Initialize("t2",1000)	
+	t1.Initialize("t1",1000)	
+	t1.Enabled=True
 	End If 
 	app_info
-	lab_set2
 	label_text
-	'loading_norm
-	store_check
 	li2
 	t1_Tick
 End Sub
 
-Sub FloatingActionButton1_Click
-	CallSubDelayed(cool,Null)
-End Sub
 Sub  device_DeviceStorageOk (Intent As Intent)
 	Log(Intent)
 End Sub
@@ -448,47 +426,37 @@ Sub Menu_onFullyOpen
 	'ImageView2.Visible=False	
 	Button4.SendToBack
 	ProgressBar1.SendToBack
-	Button4.SetLayoutAnimated(10,0%x,50%y,1%x,105)
 	'Button4.ButtonColor=mcl.
-	Button4.Visible=False
+	Button4.SetVisibleAnimated(150,False)
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
-	'ImageView2.SetVisibleAnimated(100,False)
-	'Label6.SetVisibleAnimated(100,False)
 	Label2.SetVisibleAnimated(100,False)
 	Label4.SetVisibleAnimated(100,False)
-	
-	'Button4.SetVisibleAnimated(100,False)
-	'ImageView2.SetLayoutAnimated(100,0%x,5%y,40%x,40%y)
-	
 End Sub
 Sub Menu_onFullyClosed
 	'ImageView2.Visible=False
-	smlp.SendToBack
-	lvMenu.SendToBack
+	'smlp.SendToBack
+	'lvMenu.SendToBack
 	'Button4.Visible=True
-	Button4.ButtonColor=mcl.md_light_green_A400
-	Button4.BringToFront
+	'Button4.Color=mcl.md_light_green_A400
+	'Button4.BringToFront
 	'ImageView2.SetLayoutAnimated(100,40%x,5%y,20%x,40%y)
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
 	Button4.TextSize=18
 	'ImageView2.SetVisibleAnimated(100,True)
 	Label2.SetVisibleAnimated(100,True)
 	Label4.SetVisibleAnimated(100,True)
-	Button4.SetLayoutAnimated(100,20%x,50%y,60%x,105)
-	Button4.SetVisibleAnimated(50,True)
+	Button4.SetLayoutAnimated(100,105dip,50%y,105dip,100dip)
+	Button4.SetVisibleAnimated(80,True)
 	'Label6.BringToFront
 End Sub
 
 Sub Menu_onMove (IsOpening As Boolean)
 	If IsOpening=True Then
-		Button4.SetLayoutAnimated(100,0dip,50%y,40%x,105)
+		Button4.SetLayoutAnimated(100,1dip,50%y,5%x,180dip)
 		Button4.SetVisibleAnimated(80,False)
 	End If 
 End Sub
 
-Sub prog_init
-	
-End Sub
 
 Sub store_check
 	c1=mcl.md_light_blue_A700
@@ -509,16 +477,7 @@ Sub store_check
 	c16=mcl.md_light_blue_A700
 	If kvs4sub.ContainsKey("off") Then
 		StopService(Starter)
-		Else
-		
 	End If
-'	If kvs4.ContainsKey("0")Then
-'		Log("AC_true->1")
-'		Activity.Color=c1
-'		
-'	Else
-'	
-'	End If
 	If kvs4.ContainsKey("0")Then
 		Log("AC_true->1")
 		Activity.Color=c1
@@ -526,7 +485,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("1")Then
 		Log("AC_true->2")
@@ -535,9 +494,8 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
-	Else
-		'Activity.Color=c1
+		'Button4.Color=Colors.ARGB(150,255,255,255)
+
 	End If
 	If kvs4.ContainsKey("2")Then
 		Log("AC_true->3")
@@ -546,8 +504,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
-	Else
-		'Activity.Color=c1
+
 	End If
 	If kvs4.ContainsKey("3")Then
 		Log("AC_true->4")
@@ -556,9 +513,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
-		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("4")Then
 		Log("AC_true->4")
@@ -567,8 +522,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("5")Then
 		Log("AC_true->4")
@@ -577,8 +531,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("6")Then
 		Log("AC_true->4")
@@ -587,8 +540,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("7")Then
 		Log("AC_true->4")
@@ -597,8 +549,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("8")Then
 		Log("AC_true->4")
@@ -607,8 +558,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("9")Then
 		Log("AC_true->4")
@@ -617,8 +567,7 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("10")Then
 		Log("AC_true->4")
@@ -629,29 +578,18 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-		Button4.ButtonColor=mcl.md_lime_A400
-	Else
-		'Activity.Color=c4
+		'Button4.Color=mcl.md_lime_A400
 	End If
 	If kvs4.ContainsKey("11")Then
 		Log("AC_true->4")
 		Activity.Color=c12
-		Dim la3 As Label
-		la3=ListView1.TwoLinesLayout.SecondLabel
 		apm.TextColor=Colors.ARGB(200,255,255,255)
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-		Button4.ButtonColor=mcl.md_lime_A400
-		Button4.TextColor=Colors.Black
-		la1.TextColor=mcl.md_lime_400
-		la2.TextColor=mcl.md_lime_400
-		la3.TextColor=mcl.md_lime_400
-		la.TextColor=mcl.md_lime_400
-		apm.TextColor=mcl.md_lime_400
-		
-	Else
-		'Activity.Color=c4
+		'Button4.Color=mcl.md_lime_A400
+		'Button4.TextColor=Colors.Black
+		panel3.Color=Colors.ARGB(100,255,255,255)
 	End If
 	If kvs4.ContainsKey("12")Then
 		Log("AC_true->4")
@@ -660,10 +598,8 @@ Sub store_check
 		Label4.TextColor=Colors.ARGB(200,255,255,255)
 		Label5.TextColor=Colors.ARGB(200,255,255,255)
 		Label3.TextColor=Colors.ARGB(200,255,255,255)
-		
-		
-	Else
-		'Activity.Color=c4
+		panel3.Color=Colors.ARGB(100,0,0,0)
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	If kvs4.ContainsKey("13")Then
 		Log("AC_true->4")
@@ -672,9 +608,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
-		Button4.ButtonColor=mcl.md_lime_A400
-	Else
-		'Activity.Color=c4
+		'Button4.Color=mcl.md_lime_A400
 	End If
 	If kvs4.ContainsKey("14")Then
 		Log("AC_true->4")
@@ -683,9 +617,7 @@ Sub store_check
 		Label4.TextColor=Colors.Black
 		Label5.TextColor=Colors.Black
 		Label3.TextColor=Colors.Black
-		Button4.ButtonColor=Colors.ARGB(150,255,255,255)
-	Else
-		'Activity.Color=c4
+		'Button4.Color=Colors.ARGB(150,255,255,255)
 	End If
 	Activity.Invalidate
 End Sub
@@ -712,72 +644,53 @@ Sub lvMenu_ItemClick (Position As Int, Value As Object)
 	 If Value = 0 Then 
 	 	opt_click
 		slm.CloseSidebar
+		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 	If Value=1 Then 
 		cl_click
 		slm.CloseSidebar
+		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 	If Value=2 Then
 		Dim i As Intent
 		i.Initialize( "android.intent.action.POWER_USAGE_SUMMARY", "")
 		slm.CloseSidebar
+		SetAnimation.setanimati("extra_in", "extra_out")
 		StartActivity(i)
 	End If
 	If Value=3 Then
 		StartActivity(klo)
+		SetAnimation.setanimati("extra_in", "extra_out")
 		slm.CloseSidebar
 	End If
 	If Value=4 Then
 		StartActivity(sys)
-		cl_click
 		slm.CloseSidebar
+		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 	If Value=5 Then
 		pci_click
 		slm.CloseSidebar
+		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 End Sub
 
-Sub button2_click
-	'slem_click
-End Sub
 
 
-Sub lab_set2
-	Dim la3 As Label
-	ListView1.Invalidate
-	la=ListView1.TwoLinesAndBitmap.Label
-	la2=ListView1.TwoLinesAndBitmap.SecondLabel
-	la1=ListView1.TwoLinesLayout.Label
-	la3=ListView1.TwoLinesLayout.SecondLabel
-	la.TextSize=13
-	la.TextColor=Colors.Black
-	la1.TextSize=13
-	la1.TextColor=Colors.Black
-	la2.TextSize=11
-	la2.TextColor=Colors.ARGB(150,255,255,255)
-	la3.TextColor=Colors.ARGB(100,255,255,255)
-	la3.TextSize=10
-	la1.TextSize=12
-	la1.TextColor=Colors.ARGB(180,255,255,255)
-	ListView1.TwoLinesAndBitmap.ImageView.Height=48dip
-	ListView1.TwoLinesAndBitmap.ImageView.Width=48dip
-	ListView1.TwoLinesAndBitmap.ItemHeight=60dip
-	ListView1.SingleLineLayout.ItemHeight=60dip
-	ListView1.TwoLinesLayout.ItemHeight=50dip
-End Sub
 
 Sub stat_me
 	StartActivity(klo)
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 Sub sy_click
 	StartActivity(sys)
-	
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 Sub st_click
 	StartActivity(klo)
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 Sub Button4_Click
@@ -788,6 +701,7 @@ End Sub
 
 Sub opt_click
 StartActivity(settings)
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 Sub rl_lo
@@ -816,42 +730,11 @@ Sub li3
 	app_info
 	volt=bat.BatteryInformation(7)/1000
 	temp=bat.BatteryInformation(6)/10
-	Dim piclist As List
-	piclist.Initialize
-	sd=LoadBitmap(File.DirAssets,"ic_sim_card_black_24dp.png")
-	sdi=LoadBitmap(File.DirAssets,"ic_sim_card_white_24dp.png")
-	Dim si,st As Int
-	st=ra.TotalExternalMemorySize+ra.TotalInternalMemorySize
-	'Log(ra.formatSize(st))
-	si=ra.AvailableExternalMemorySize+ra.AvailableInternalMemorySize
-	'Log(ra.formatSize(si))
-	ListView1.Clear
-	If ra.externalMemoryAvailable Then
-		
-		Dim lz,az As Int
-		'Dim lmb As String 
-		For Each g As Int  In datalist
-			
-			lz=g
-			az=lz*1024*1024*10
-		Next
-		Log("SUB-> "&FormatFileSize(az))
-		ListView1.AddTwoLinesAndbitmap2("SD Memory(Total): "&FormatFileSize(ra.TotalInternalMemorySize),list3.size&" apps installiert("&FormatFileSize(az)&") auf: "&GetParentPath(File.DirRootExternal&"/Android"),sd,2)
-		
-		ListView1.AddTwoLinesAndBitmap2("SD Used: "&FormatFileSize(si-st),GetParentPath(File.DirRootExternal&"/Android"),sd,3)
-		'ListView1.AddTwoLinesAndbitmap2("SD(Ext):",ra.formatSize(ra.TotalExternalMemorySize),sde,6)
-		ListView1.AddTwoLinesAndBitmap2("SD Free: "&FormatFileSize(ra.AvailableExternalMemorySize+ra.AvailableInternalMemorySize),GetParentPath(File.DirRootExternal&"/Android"),sd,4)
-		ListView1.AddTwoLinesAndbitmap2("SD (Intern): "&FormatFileSize(ra.TotalInternalMemorySize),GetParentPath(File.DirRootExternal&"/Android"),sdi,5)
-	Else
-		ListView1.AddTwoLinesAndbitmap2("SD Memory(Total):",FormatFileSize(ra.TotalInternalMemorySize+ra.TotalEXternalMemorySize),sd,2)
-		ListView1.AddTwoLinesAndbitmap2("SD(Inten):",FormatFileSize(ra.TotalInternalMemorySize),sdi,5)
-		ListView1.AddTwoLinesAndBitmap2("SD total Free:",FormatFileSize(ra.AvailableExternalMemorySize+ra.AvailableInternalMemorySize),sd,4)
-		ListView1.AddTwoLinesAndBitmap2("SD total Used:",FormatFileSize(si-st),sd,3)
-	End If
-
 End Sub
 
-
+Sub Panel2_Touch (Action As Int, X As Float, Y As Float)
+	
+End Sub
 
 Sub li2 As Boolean
 	list2.Clear
@@ -934,18 +817,21 @@ End Sub
 
 Sub Label1_Click
 	StartActivity(sys)
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 Sub Button1_Click
 	StartActivity(klo)
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 Sub cl_click As Boolean
 	Dim res As Int 
-	res=Msgbox2(cs.Initialize.Alignment("ALIGN_CENTER").Append($"App wird geschlossen Service Notification läuft im Hintergrund Prozess, zum deaktivieren bitte 'Settings->Start/stop Notify Service'.!","Bat-CaT beenden:"$).PopAll, _
+	res=Msgbox2(cs.Initialize.Alignment("ALIGN_CENTER").Append($"App wird geschlossen Service Icon läuft im Hintergrund Prozess weiter und wird als Info weiterhin in der statusbar ausgeführt., zum deaktivieren bitte 'Settings->Start/stop Notify Service'.!","Bat-CaT beenden:"$).PopAll, _
 cs.Initialize.Typeface(Typeface.DEFAULT).Color(0xFF01FF20).Size(40).PopAll,"ja","Abbruch","",LoadBitmap(File.DirAssets,"Power.png"))
 	If res=DialogResponse.POSITIVE Then
 		Activity.Finish
+		SetAnimation.setanimati("extra_in", "extra_out")
 	Else
 		If res=DialogResponse.CANCEL Then
 			ToastMessageShow("zurück..",False)
@@ -957,6 +843,7 @@ End Sub
 Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
 	If KeyCode=KeyCodes.KEYCODE_BACK Then
 		Activity.Finish
+		SetAnimation.setanimati("extra_in", "extra_out")
 		ToastMessageShow("BCT - Backround Service",False)
 	End If
 	Return(True)
@@ -965,6 +852,7 @@ End Sub
 
 Sub Button3_Click
 	StartActivity(sys)
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 
@@ -975,35 +863,44 @@ Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Inten
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",level)
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt",volt)
 	volta=Intent.GetExtra("voltage")/1000
+	temp=Intent.GetExtra("temperature")/10
+	prb1.ButtonRadius=Scale
+	prb1.Color=Colors.ARGB(190,255,255,255)
+	prb1.BackgroundSecondColor=Colors.Transparent
+	prb1.CurrentText=temp&"°C"
+	prb1.MaxProgress=410
+	prb1.MinProgress=Intent.GetExtra("temperature")-10
+	prb1.Progress=Intent.GetExtra("temperature")
+	prb1.TextColor=mcl.md_black_1000
+	prb1.TextCoverColor=Colors.ARGB(199,0,0,0)
+	prb1.TextSize=18
+	prb1.TheTextSize=18
+	'prb1.setProgressText(temp,Intent.GetExtra("temperature"))
 	apm.Progress=level
 	apm.BottomText=Intent.GetExtra("technology")
 	apm.Max=Scale
 	rst=Scale-level
 	If Plugged=True Then
+		ims2.Bitmap=LoadBitmap(File.DirAssets,"ic_usb_black_24dp.png")
 		apm.BottomText="Aufladen via USB: "&volta&" V"
 		Log("VOLT: "&Intent.GetExtra("voltage"))
 		val =rst*Intent.GetExtra("voltage") /1000
 		hours = Floor(val / 60)
 		minutes = val Mod 60
 		If level=100 Then
-				apm.BottomText="Angeschlossen via USB:"&volta&" V"
-			Label4.Text="Batterie voll geladen"
+				apm.BottomText="Kabel entfernen(USB)!"
+			Label4.Text="Batterie voll! Bitte Kabel entfernen!"
 		Else
-		
+			
 		Label4.Text="voll in: "&hours&"h - "&minutes&"min"
 		End If
-		If level <= 60 Then
-			
-		End If
-		If level<=20 Then
-		
-		End If
+
 	Else
+		ims2.Bitmap=LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png")
 		If level<=5 Then
 			Label1.TextColor=Colors.Red
 			Label1.TextSize=15
 			Label1.Text="Akku laden!"
-			low_power
 		End If
 		'Log("RM -> "&ConvertToTimeFormat(rm))
 		vs=Intent.GetExtra("icon-small")/1000
@@ -1013,39 +910,19 @@ Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Inten
 		hours = Floor(val / 60)
 		minutes = val Mod 60
 		Label4.Text= "noch: "&hours&"h - "&minutes&"min"
-		
-		If level <= 100 Then
-			'kvs2.PutSimple(Level,time)
-			
-		
-		End If
-		If level <= 80 Then
-		
-	 
-		End If
-		If level <= 60 Then
-		
-		
-		End If
-		If level <= 40 Then
-			
-			
-		End If
-		If level<=20 Then
-			
-		End If
-		If level = 5 Then
-		
-		End If
-		If level < 4 Then
-	
-		End If
-		If temp >=41 Then
-			
-		End If
-		
 	End If
-
+	If temp<=31 Then
+		prb1.Color=mcl.md_lime_A400
+		prb1.TextColor=mcl.md_black_1000
+	End If
+	If temp>=32 Then
+		prb1.Color=mcl.md_amber_A400
+		prb1.TextColor=mcl.md_black_1000
+	End If
+	If temp >=41 Then
+		prb1.Color=mcl.md_red_A400
+		prb1.TextColor=mcl.md_black_1000
+	End If
 End Sub
 
 
@@ -1065,15 +942,6 @@ Sub listview1_ItemClick (Position As Int, value As Object)
 	If Position=0 Then
 		rl_lo
 	End If 
-End Sub
-
-Sub loading_norm
-
-End Sub
-
-
-Sub low_power
-
 End Sub
 
 Sub app_info
@@ -1189,8 +1057,8 @@ Sub GetSourceDir(AppInfo As Object) As String
 	End Try
 End Sub
 
-#if java
-import android.view.*;
+#If Java
+
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -1232,6 +1100,1502 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-	
-#end if 
+  //private final Context context;
+  private TelephonyManager tm; // = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+  private String initialVal = "";
+
+  public int RINGER_MODE_SILENT = 0;
+  public int RINGER_MODE_NORMAL = 1;
+  public int RINGER_MODE_VIBRATE = 2;
+
+  /**
+   * The constant LOGTAG.
+   */
+  //private static final String LOGTAG = "EasyDeviceInfo";
+
+
+  /**
+   * Instantiates a new Easy device info.
+   *
+   * @param context the context
+   */
+//  public EasyDeviceInfo(Context context) {
+//    this.context = context;
+//    tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//    initialVal = "na";
+//  }
+
+  /**
+   * Gets library version.
+   *
+   * @return the library version
+   */
+//  public String getLibraryVersion() {
+//    String version = "1.1.9";
+//    int versionCode = 11;
+//    return version + "-" + versionCode;
+//  }
+
+  /**
+   * Gets android id.
+   *
+   * @return the android id
+   */
+  public String getAndroidID() {
+    String result = initialVal;
+    try {
+      result = Settings.Secure.getString(BA.applicationContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+  
+  
+   /**
+   * Gets model.
+   *
+   * @return the model
+   */
+  public String getModel() {
+    String result = initialVal;
+    try {
+      result = Build.MODEL;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return handleIllegalCharacterInResult(result);
+  } 
+
+
+  /**
+   * Gets build brand.
+   *
+   * @return the build brand
+   */
+  public String getBuildBrand() {
+    String result = initialVal;
+    try {
+      result = Build.BRAND;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return handleIllegalCharacterInResult(result);
+  }
+
+  /**
+   * Gets build host.
+   *
+   * @return the build host
+   */
+  public String getBuildHost() {
+    String result = initialVal;
+    try {
+      result = Build.HOST;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets build tags.
+   *
+   * @return the build tags
+   */
+  public String getBuildTags() {
+    String result = initialVal;
+    try {
+      result = Build.TAGS;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+  
+  
+  /**
+   * Gets build time.
+   *
+   * @return the build time
+   */
+  public long getBuildTime() {
+    long result = 0;
+    try {
+      result = Build.TIME;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return result;
+  }  
+  
+  /**
+   * Gets build user.
+   *
+   * @return the build user
+   */
+  public String getBuildUser() {
+    String result = initialVal;
+    try {
+      result = Build.USER;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  /**
+   * Gets build version release.
+   *
+   * @return the build version release
+   */
+  public String getBuildVersionRelease() {
+    String result = initialVal;
+    try {
+      result = Build.VERSION.RELEASE;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+    /**
+   * Gets screen display id.
+   *
+   * @return the screen display id
+   */
+  public String getScreenDisplayID() {
+    String result = initialVal;
+    try {
+      WindowManager wm = (WindowManager) BA.applicationContext.getSystemService(Context.WINDOW_SERVICE);
+      Display display = wm.getDefaultDisplay();
+      result = String.valueOf(display.getDisplayId());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  /**
+   * Gets build version codename.
+   *
+   * @return the build version codename
+   */
+  public String getBuildVersionCodename() {
+    String result = initialVal;
+    try {
+      result = Build.VERSION.CODENAME;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+  
+  /**
+   * Gets build version incremental.
+   *
+   * @return the build version incremental
+   */
+  public String getBuildVersionIncremental() {
+    String result = initialVal;
+    try {
+      result = Build.VERSION.INCREMENTAL;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+  
+
+  /**
+   * Gets build version sdk.
+   *
+   * @return the build version sdk
+   */
+  public int getBuildVersionSDK() {
+    int result = 0;
+    try {
+      result = Build.VERSION.SDK_INT;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+
+  /**
+   * Gets build id.
+   *
+   * @return the build id
+   */
+  public String getBuildID() {
+    String result = initialVal;
+    try {
+      result = Build.ID;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+        
+  /**
+   * Is Device rooted boolean
+   *
+   * @return the boolean
+   */
+  public boolean isDeviceRooted() {
+    String su = "su";
+    String[] locations = {
+        "/sbin/", "/system/bin/", "/system/xbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
+        "/data/local/xbin/", "/data/local/bin/", "/data/local/"
+    };
+    for (String location : locations) {
+      if (new File(location + su).exists()) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+
+  /**
+   * Get supported abis string [ ].
+   *
+   * @return the string [ ]
+   */
+  public String[] getSupportedABIS() {
+    String[] result = new String[] { "-" };
+    try {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        result = Build.SUPPORTED_ABIS;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length == 0) {
+      result = new String[] { "-" };
+    }
+    return result;
+  }
+  
+
+
+  /**
+   * Gets string supported abis.
+   *
+   * @return the string supported abis
+   */
+  public String getStringSupportedABIS() {
+    String result = initialVal;
+    try {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        String[] supportedABIS = Build.SUPPORTED_ABIS;
+
+        StringBuilder supportedABIString = new StringBuilder();
+        if (supportedABIS.length > 0) {
+          for (String abis : supportedABIS) {
+            supportedABIString.append(abis).append("_");
+          }
+          supportedABIString.deleteCharAt(supportedABIString.lastIndexOf("_"));
+        } else {
+          supportedABIString.append(initialVal);
+        }
+        result = supportedABIString.toString();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return handleIllegalCharacterInResult(result);
+  }  
+  
+  
+   /**
+   * Gets string supported 32 bit abis.
+   *
+   * @return the string supported 32 bit abis
+   */
+  public String getStringSupported32bitABIS() {
+    String result = initialVal;
+    try {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        String[] supportedABIS = Build.SUPPORTED_32_BIT_ABIS;
+
+        StringBuilder supportedABIString = new StringBuilder();
+        if (supportedABIS.length > 0) {
+          for (String abis : supportedABIS) {
+            supportedABIString.append(abis).append("_");
+          }
+          supportedABIString.deleteCharAt(supportedABIString.lastIndexOf("_"));
+        } else {
+          supportedABIString.append(initialVal);
+        }
+
+        result = supportedABIString.toString();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+
+    return handleIllegalCharacterInResult(result);
+  } 
+  
+  
+  /**
+   * Gets manufacturer.
+   *
+   * @return the manufacturer
+   */
+  public String getManufacturer() {
+    String result = initialVal;
+    try {
+      result = Build.MANUFACTURER;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return handleIllegalCharacterInResult(result);
+  }  
+  
+  
+  
+   /**
+   * Gets resolution.
+   *
+   * @return the resolution
+   */
+  public String getResolution() {
+    String result = initialVal;
+    try {
+      WindowManager wm = (WindowManager) BA.applicationContext.getSystemService(Context.WINDOW_SERVICE);
+
+      Display display = wm.getDefaultDisplay();
+
+      DisplayMetrics metrics = new DisplayMetrics();
+      display.getMetrics(metrics);
+      result = metrics.heightPixels + "x" + metrics.widthPixels;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  } 
+  
+
+  /**
+   * Gets carrier.
+   *
+   * @return the carrier
+   */
+  public String getCarrier() {
+    String result = initialVal;
+	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+    try {
+      if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA) {
+        result = tm.getNetworkOperatorName().toLowerCase(Locale.getDefault());
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result.length() == 0) {
+      result = initialVal;
+    }
+    return handleIllegalCharacterInResult(result);
+  }
+  
+  
+  /**
+   * Gets device.
+   *
+   * @return the device
+   */
+  public String getDevice() {
+    String result = initialVal;
+    try {
+      result = Build.DEVICE;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets bootloader.
+   *
+   * @return the bootloader
+   */
+  public String getBootloader() {
+    String result = initialVal;
+    try {
+      result = Build.BOOTLOADER;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets board.
+   *
+   * @return the board
+   */
+  public String getBoard() {
+    String result = initialVal;
+    try {
+      result = Build.BOARD;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets display version.
+   *
+   * @return the display version
+   */
+  public String getDisplayVersion() {
+    String result = initialVal;
+    try {
+      result = Build.DISPLAY;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+   /**
+   * Gets language.
+   *
+   * @return the language
+   */
+  public String getLanguage() {
+    String result = initialVal;
+    try {
+      result = Locale.getDefault().getLanguage();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets country.
+   *
+   * @return the country
+   */
+  public String getCountry() {
+    String result = initialVal;
+	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+    try {
+      if (tm.getSimState() == TelephonyManager.SIM_STATE_READY) {
+        result = tm.getSimCountryIso().toLowerCase(Locale.getDefault());
+      } else {
+        Locale locale = Locale.getDefault();
+        result = locale.getCountry().toLowerCase(locale);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result.length() == 0) {
+      result = initialVal;
+    }
+    return handleIllegalCharacterInResult(result);
+  } 
+  
+  
+  
+  /**
+   * Gets battery percentage
+   *
+   * @return the battery percentage
+   */
+  public int getBatteryPercentage() {
+    int percentage = 0;
+    Intent batteryStatus = getBatteryStatusIntent();
+    if (batteryStatus != null) {
+      int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+      int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+      percentage = (int) ((level / (float) scale) * 100);
+    }
+
+    return percentage;
+  }
+
+  /**
+   * Is device charging boolean.
+   *
+   * @return is battery charging boolean
+   */
+  public boolean isDeviceCharging() {
+    Intent batteryStatus = getBatteryStatusIntent();
+    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+    return (status == BatteryManager.BATTERY_STATUS_CHARGING
+        || status == BatteryManager.BATTERY_STATUS_FULL);
+  }
+
+  /**
+   * Is device charging usb boolean.
+   *
+   * @return is battery charging via USB boolean
+   */
+  public boolean isDeviceChargingUSB() {
+    Intent batteryStatus = getBatteryStatusIntent();
+    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    return (chargePlug == BatteryManager.BATTERY_PLUGGED_USB);
+  }
+
+  /**
+   * Is device charging ac boolean.
+   *
+   * @return is battery charging via AC boolean
+   */
+  public boolean isDeviceChargingAC() {
+    Intent batteryStatus = getBatteryStatusIntent();
+    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    return (chargePlug == BatteryManager.BATTERY_PLUGGED_AC);
+  }  
+  
+  
+   /**
+   * Gets network type.
+   *
+   * @return the network type
+   */
+  public String getNetworkType() {
+    int networkStatePermission =
+        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE);
+
+    String result = initialVal;
+
+    if (networkStatePermission == PackageManager.PERMISSION_GRANTED) {
+      try {
+        ConnectivityManager cm =
+            (ConnectivityManager) BA.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork == null) {
+          result = "Unknown";
+        } else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
+            || activeNetwork.getType() == ConnectivityManager.TYPE_WIMAX) {
+          result = "Wifi/WifiMax";
+        } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+          TelephonyManager manager =
+              (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+          if (manager.getSimState() == TelephonyManager.SIM_STATE_READY) {
+            switch (manager.getNetworkType()) {
+
+              // Unknown
+              case TelephonyManager.NETWORK_TYPE_UNKNOWN:
+                result = "Cellular - Unknown";
+                break;
+              // Cellular Data–2G
+              case TelephonyManager.NETWORK_TYPE_EDGE:
+              case TelephonyManager.NETWORK_TYPE_GPRS:
+              case TelephonyManager.NETWORK_TYPE_CDMA:
+              case TelephonyManager.NETWORK_TYPE_IDEN:
+              case TelephonyManager.NETWORK_TYPE_1xRTT:
+                result = "Cellular - 2G";
+                break;
+              // Cellular Data–3G
+              case TelephonyManager.NETWORK_TYPE_UMTS:
+              case TelephonyManager.NETWORK_TYPE_HSDPA:
+              case TelephonyManager.NETWORK_TYPE_HSPA:
+              case TelephonyManager.NETWORK_TYPE_HSPAP:
+              case TelephonyManager.NETWORK_TYPE_HSUPA:
+              case TelephonyManager.NETWORK_TYPE_EVDO_0:
+              case TelephonyManager.NETWORK_TYPE_EVDO_A:
+              case TelephonyManager.NETWORK_TYPE_EVDO_B:
+                result = "Cellular - 3G";
+                break;
+              // Cellular Data–4G
+              case TelephonyManager.NETWORK_TYPE_LTE:
+                result = "Cellular - 4G";
+                break;
+              // Cellular Data–Unknown Generation
+              default:
+                result = "Cellular - Unknown Generation";
+                break;
+            }
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    if (result.length() == 0) {
+      result = initialVal;
+    }
+    return handleIllegalCharacterInResult(result);
+  } 
+  
+  
+  
+  /**
+   * Gets os codename.
+   *
+   * @return the os codename
+   */
+  public String getOSCodename() {
+    String codename = initialVal;
+    switch (Build.VERSION.SDK_INT) {
+      case Build.VERSION_CODES.BASE:
+        codename = "First Android Version. Yay !";
+        break;
+      case Build.VERSION_CODES.BASE_1_1:
+        codename = "Base Android 1.1";
+        break;
+      case Build.VERSION_CODES.CUPCAKE:
+        codename = "Cupcake";
+        break;
+      case Build.VERSION_CODES.DONUT:
+        codename = "Donut";
+        break;
+      case Build.VERSION_CODES.ECLAIR:
+      case Build.VERSION_CODES.ECLAIR_0_1:
+      case Build.VERSION_CODES.ECLAIR_MR1:
+
+        codename = "Eclair";
+        break;
+      case Build.VERSION_CODES.FROYO:
+        codename = "Froyo";
+        break;
+      case Build.VERSION_CODES.GINGERBREAD:
+      case Build.VERSION_CODES.GINGERBREAD_MR1:
+        codename = "Gingerbread";
+        break;
+      case Build.VERSION_CODES.HONEYCOMB:
+      case Build.VERSION_CODES.HONEYCOMB_MR1:
+      case Build.VERSION_CODES.HONEYCOMB_MR2:
+        codename = "Honeycomb";
+        break;
+      case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
+      case Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
+        codename = "Ice Cream Sandwich";
+        break;
+      case Build.VERSION_CODES.JELLY_BEAN:
+      case Build.VERSION_CODES.JELLY_BEAN_MR1:
+      case Build.VERSION_CODES.JELLY_BEAN_MR2:
+        codename = "Jelly Bean";
+        break;
+      case Build.VERSION_CODES.KITKAT:
+        codename = "Kitkat";
+        break;
+      case Build.VERSION_CODES.KITKAT_WATCH:
+        codename = "Kitkat Watch";
+        break;
+      case Build.VERSION_CODES.LOLLIPOP:
+      case Build.VERSION_CODES.LOLLIPOP_MR1:
+        codename = "Lollipop";
+        break;
+      case Build.VERSION_CODES.M:
+        codename = "Marshmallow";
+        break;
+    }
+    return codename;
+  }  
+  
+  
+  /**
+   * Gets os version.
+   *
+   * @return the os version
+   */
+  public String getOSVersion() {
+    String result = initialVal;
+    try {
+      result = Build.VERSION.RELEASE;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+
+
+  /**
+   * Gets wifi mac.
+   *
+   * @return the wifi mac
+   */
+  @SuppressWarnings("MissingPermission") public String getWifiMAC() {
+    String result = initialVal;
+    try {
+
+      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_WIFI_STATE)
+          == PackageManager.PERMISSION_GRANTED) {
+
+        WifiManager wm = (WifiManager) BA.applicationContext.getSystemService(Context.WIFI_SERVICE);
+        result = wm.getConnectionInfo().getMacAddress();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+  
+  
+  /**
+   * Gets imei.
+   *
+   * @return the imei
+   */
+  public String getIMEI() {
+    tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+    String result = initialVal;
+    boolean hasReadPhoneStatePermission =
+        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE)
+            == PackageManager.PERMISSION_GRANTED;
+    try {
+      if (hasReadPhoneStatePermission) result = tm.getDeviceId();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets imsi.
+   *
+   * @return the imsi
+   */
+  public String getIMSI() {
+    String result = initialVal;
+	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+    boolean hasReadPhoneStatePermission =
+        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE)
+            == PackageManager.PERMISSION_GRANTED;
+    try {
+      if (hasReadPhoneStatePermission) result = tm.getSubscriberId();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets serial.
+   *
+   * @return the serial
+   */
+  public String getSerial() {
+    String result = initialVal;
+    try {
+      result = Build.SERIAL;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets sim serial.
+   *
+   * @return the sim serial
+   */
+  public String getSIMSerial() {
+    String result = initialVal;
+	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+    try {
+      result = tm.getSimSerialNumber();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets gsfid.
+   *
+   * @return the gsfid
+   */
+  public String getGSFID() {
+    final Uri URI = Uri.parse("content://com.google.android.gsf.gservices");
+    final String ID_KEY = "android_id";
+
+    String[] params = { ID_KEY };
+    Cursor c = BA.applicationContext.getContentResolver().query(URI, null, null, params, null);
+
+    if (c == null) {
+      return initialVal;
+    } else if (!c.moveToFirst() || c.getColumnCount() < 2) {
+      c.close();
+      return initialVal;
+    }
+
+    try {
+      String gsfID = Long.toHexString(Long.parseLong(c.getString(1)));
+      c.close();
+      return gsfID;
+    } catch (NumberFormatException e) {
+      c.close();
+      return initialVal;
+    }
+  }
+
+  /**
+   * Gets bluetooth mac.
+   *
+   * @return the bluetooth mac
+   */
+  @SuppressWarnings("MissingPermission") public String getBluetoothMAC() {
+    String result = initialVal;
+    try {
+      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.BLUETOOTH)
+          == PackageManager.PERMISSION_GRANTED) {
+        BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
+        result = bta.getAddress();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets psuedo unique id.
+   *
+   * @return the psuedo unique id
+   */
+  public String getPsuedoUniqueID() {
+    // If all else fails, if the user does have lower than API 9 (lower
+    // than Gingerbread), has reset their phone or 'Secure.ANDROID_ID'
+    // returns 'null', then simply the ID returned will be solely based
+    // off their Android device information. This is where the collisions
+    // can happen.
+    // Try not to use DISPLAY, HOST or ID - these items could change.
+    // If there are collisions, there will be overlapping data
+    String devIDShort = "35" +
+        (Build.BOARD.length() % 10) + (Build.BRAND.length() % 10);
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      devIDShort += (Build.SUPPORTED_ABIS[0].length() % 10);
+    } else {
+      devIDShort += (Build.CPU_ABI.length() % 10);
+    }
+
+    devIDShort +=
+        (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10) + (Build.MODEL.length()
+            % 10) + (Build.PRODUCT.length() % 10);
+
+    // Only devices with API >= 9 have android.os.Build.SERIAL
+    // http://developer.android.com/reference/android/os/Build.html#SERIAL
+    // If a user upgrades software or roots their phone, there will be a duplicate entry
+    String serial;
+    try {
+      serial = Build.class.getField("SERIAL").get(null).toString();
+
+      // Go ahead and return the serial for api => 9
+      return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
+    } catch (Exception e) {
+      // String needs to be initialized
+      serial = "ESYDV000"; // some value
+    }
+
+    // Finally, combine the values we have found by using the UUID class to create a unique identifier
+    return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
+  }  
+  
+  
+  /**
+   * Gets phone no.
+   *
+   * @return the phone no
+   */
+  public String getPhoneNo() {
+    String result = initialVal;
+	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+    try {
+      if (tm.getLine1Number() != null) {
+        result = tm.getLine1Number();
+        if (result.equals("")) {
+          result = initialVal;
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets product.
+   *
+   * @return the product
+   */
+  public String getProduct() {
+    String result = initialVal;
+    try {
+      result = Build.PRODUCT;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  /**
+   * Gets fingerprint.
+   *
+   * @return the fingerprint
+   */
+  public String getFingerprint() {
+    String result = initialVal;
+    try {
+      result = Build.FINGERPRINT;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets hardware.
+   *
+   * @return the hardware
+   */
+  public String getHardware() {
+    String result = initialVal;
+    try {
+      result = Build.HARDWARE;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets radio ver.
+   *
+   * @return the radio ver
+   */
+  public String getRadioVer() {
+    String result = initialVal;
+    try {
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        result = Build.getRadioVersion();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets ip address.
+   *
+   * @param useIPv4 the use i pv 4
+   * @return the ip address
+   */
+  public String getIPAddress(boolean useIPv4) {
+    String result = initialVal;
+    try {
+      List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+      for (NetworkInterface intf : interfaces) {
+        List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
+        for (InetAddress addr : addrs) {
+          if (!addr.isLoopbackAddress()) {
+            String sAddr = addr.getHostAddress().toUpperCase();
+            boolean isIPv4 = addr instanceof Inet4Address;
+            if (useIPv4) {
+              if (isIPv4) result = sAddr;
+            } else {
+              if (!isIPv4) {
+                int delim = sAddr.indexOf('%'); // drop ip6 port suffix
+                result = delim < 0 ? sAddr : sAddr.substring(0, delim);
+              }
+            }
+          }
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+  /**
+   * Gets ua.
+   *
+   * @return the ua
+   */
+  public String getUA() {
+    final String system_ua = System.getProperty("http.agent");
+    String result = system_ua;
+    try {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        result = new WebView(BA.applicationContext).getSettings().getDefaultUserAgent(BA.applicationContext) +
+            "__" + system_ua;
+      } else {
+        result = new WebView(BA.applicationContext).getSettings().getUserAgentString() +
+            "__" + system_ua;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result.length() < 0 || result == null) {
+      result = system_ua;
+    }
+    return result;
+  }
+
+  /**
+   * Get lat long double [ ].
+   *
+   * @return the double [ ]
+   */
+  @SuppressWarnings("MissingPermission") @TargetApi(Build.VERSION_CODES.M)
+  public double[] getLatLong() {
+    boolean hasFineLocationPermission =
+        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED ? true : false;
+    boolean isGPSEnabled, isNetworkEnabled;
+
+    double[] gps = new double[2];
+    gps[0] = 0;
+    gps[1] = 0;
+    if (hasFineLocationPermission) {
+      try {
+        LocationManager lm = (LocationManager) BA.applicationContext.getSystemService(Context.LOCATION_SERVICE);
+
+        isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        Location net_loc = null, gps_loc = null, final_loc = null;
+
+        if (isGPSEnabled) {
+          gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        if (isNetworkEnabled) {
+          net_loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+
+        if (gps_loc != null && net_loc != null) {
+          if (gps_loc.getAccuracy() >= net_loc.getAccuracy()) {
+            final_loc = gps_loc;
+          } else {
+            final_loc = net_loc;
+          }
+        } else {
+          if (gps_loc != null) {
+            final_loc = gps_loc;
+          } else if (net_loc != null) {
+            final_loc = net_loc;
+          } else {
+            // GPS and Network both are null so try passive
+            final_loc = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+          }
+        }
+
+        if (final_loc != null) {
+          gps[0] = final_loc.getLatitude();
+          gps[1] = final_loc.getLongitude();
+        }
+
+        return gps;
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    return gps;
+  }  
+  
+  
+  /**
+   * Gets time.
+   *
+   * @return the time
+   */
+  public long getTime() {
+    return System.currentTimeMillis();
+  }
+
+  /**
+   * Gets formatted time.
+   *
+   * @return the formatted time
+   */
+  public String getFormatedTime() {
+
+    long millis = System.currentTimeMillis();
+    int sec = (int) (millis / 1000) % 60;
+    int min = (int) ((millis / (1000 * 60)) % 60);
+    int hr = (int) ((millis / (1000 * 60 * 60)) % 24);
+
+    return String.format("%02d:%02d:%02d", hr, min, sec);
+  }  
+  
+  
+  /**
+   * Gets app name.
+   *
+   * @return the app name
+   */
+  public String getAppName() {
+    String result;
+    final PackageManager pm = BA.applicationContext.getPackageManager();
+    ApplicationInfo ai;
+    try {
+      ai = pm.getApplicationInfo(BA.applicationContext.getPackageName(), 0);
+    } catch (PackageManager.NameNotFoundException e) {
+      ai = null;
+      e.printStackTrace();
+    }
+    result = (String) (ai != null ? pm.getApplicationLabel(ai) : initialVal);
+    return result;
+  }
+
+  /**
+   * Gets app version.
+   *
+   * @return the app version
+   */
+  public String getAppVersion() {
+    String result = initialVal;
+    try {
+      result = BA.applicationContext.getPackageManager().getPackageInfo(BA.applicationContext.getPackageName(), 0).versionName;
+    } catch (PackageManager.NameNotFoundException e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  /**
+   * Gets app version code.
+   *
+   * @return the app version code
+   */
+  public String getAppVersionCode() {
+    String result = initialVal;
+    try {
+      result = String.valueOf(
+          BA.applicationContext.getPackageManager().getPackageInfo(BA.applicationContext.getPackageName(), 0).versionCode);
+    } catch (PackageManager.NameNotFoundException e) {
+      e.printStackTrace();
+    }
+    if (result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets activity name.
+   *
+   * @return the activity name
+   */
+  public String getActivityName() {
+    String result = initialVal;
+    try {
+      result = BA.applicationContext.getClass().getSimpleName();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }  
+  
+  
+   /**
+   * Gets package name.
+   *
+   * @return the package name
+   */
+  public String getPackageName() {
+    String result = initialVal;
+    try {
+      result = BA.applicationContext.getPackageName();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  }
+
+  /**
+   * Gets store.
+   *
+   * @return the store
+   */
+  public String getStore() {
+    String result = initialVal;
+    if (Build.VERSION.SDK_INT >= 3) {
+      try {
+        result = BA.applicationContext.getPackageManager().getInstallerPackageName(BA.applicationContext.getPackageName());
+      } catch (Exception e) {
+        //Log.i(LOGTAG, "Can't get Installer package");
+      }
+    }
+    if (result == null || result.length() == 0) {
+      result = initialVal;
+    }
+    return result;
+  } 
+  
+  /**
+   * Gets density.
+   *
+   * @return the density
+   */
+  public String getDensity() {
+    String densityStr = initialVal;
+    final int density = BA.applicationContext.getResources().getDisplayMetrics().densityDpi;
+    switch (density) {
+      case DisplayMetrics.DENSITY_LOW:
+        densityStr = "LDPI";
+        break;
+      case DisplayMetrics.DENSITY_MEDIUM:
+        densityStr = "MDPI";
+        break;
+      case DisplayMetrics.DENSITY_TV:
+        densityStr = "TVDPI";
+        break;
+      case DisplayMetrics.DENSITY_HIGH:
+        densityStr = "HDPI";
+        break;
+      case DisplayMetrics.DENSITY_XHIGH:
+        densityStr = "XHDPI";
+        break;
+      case DisplayMetrics.DENSITY_400:
+        densityStr = "XMHDPI";
+        break;
+      case DisplayMetrics.DENSITY_XXHIGH:
+        densityStr = "XXHDPI";
+        break;
+      case DisplayMetrics.DENSITY_XXXHIGH:
+        densityStr = "XXXHDPI";
+        break;
+    }
+    return densityStr;
+  }  
+  
+  /**
+   * Get accounts string [ ].
+   *
+   * @return the string [ ]
+   */
+  @SuppressWarnings("MissingPermission") public String[] getAccounts() {
+    try {
+
+      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.GET_ACCOUNTS)
+          == PackageManager.PERMISSION_GRANTED) {
+        Account[] accounts = AccountManager.get(BA.applicationContext).getAccountsByType("com.google");
+        String[] result = new String[accounts.length];
+        for (int i = 0; i < accounts.length; i++) {
+          result[i] = accounts[i].name;
+        }
+        return result;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }  
+  
+
+  /**
+   * Is network available boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isNetworkAvailable() {
+    if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.INTERNET)
+        == PackageManager.PERMISSION_GRANTED
+        && BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE)
+        == PackageManager.PERMISSION_GRANTED) {
+      ConnectivityManager cm = (ConnectivityManager) BA.applicationContext.getApplicationContext()
+          .getSystemService(Context.CONNECTIVITY_SERVICE);
+      NetworkInfo netInfo = cm.getActiveNetworkInfo();
+      return netInfo != null && netInfo.isConnected();
+    }
+    return false;
+  }
+
+  /**
+   * Is running on emulator boolean.
+   *
+   * @return the boolean
+   */
+  public static boolean isRunningOnEmulator() {
+    return Build.BRAND.contains("generic")
+        || Build.DEVICE.contains("generic")
+        || Build.PRODUCT.contains("sdk")
+        || Build.HARDWARE.contains("goldfish")
+        || Build.MANUFACTURER.contains("Genymotion")
+        || Build.PRODUCT.contains("vbox86p")
+        || Build.DEVICE.contains("vbox86p")
+        || Build.HARDWARE.contains("vbox86");
+  }  
+  
+
+
+  /**
+   * Is wifi enabled
+   *
+   * @return the boolean
+   */
+  public boolean isWifiEnabled() {
+    boolean wifiState = false;
+
+    WifiManager wifiManager = (WifiManager) BA.applicationContext.getSystemService(Context.WIFI_SERVICE);
+    if (wifiManager != null) {
+      wifiState = wifiManager.isWifiEnabled() ? true : false;
+    }
+    return wifiState;
+  }
+
+  /**
+   * Gets Device Ringer Mode
+   *
+   * @return Device Ringer Mode
+   */
+  public int getDeviceRingerMode() {
+    int ringerMode = RINGER_MODE_NORMAL;
+    AudioManager audioManager = (AudioManager) BA.applicationContext.getSystemService(Context.AUDIO_SERVICE);
+    switch (audioManager.getRingerMode()) {
+      case AudioManager.RINGER_MODE_NORMAL:
+        ringerMode = RINGER_MODE_NORMAL;
+        break;
+      case AudioManager.RINGER_MODE_SILENT:
+        ringerMode = RINGER_MODE_SILENT;
+        break;
+      case AudioManager.RINGER_MODE_VIBRATE:
+        ringerMode = RINGER_MODE_VIBRATE;
+    }
+    return ringerMode;
+  }
+
+
+  private Intent getBatteryStatusIntent() {
+    IntentFilter batFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+    return BA.applicationContext.registerReceiver(null, batFilter);
+  }
+
+
+  private String handleIllegalCharacterInResult(String result) {
+    if (result.indexOf(" ") > 0) {
+      result = result.replaceAll(" ", "_");
+    }
+    return result;
+  }
+
+
+
+#End If
+
+
 

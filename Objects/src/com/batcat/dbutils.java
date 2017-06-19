@@ -21,10 +21,10 @@ public com.batcat.klo _klo = null;
 public com.batcat.hw _hw = null;
 public com.batcat.starter _starter = null;
 public com.batcat.sys _sys = null;
-public com.batcat.settings _settings = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
 public com.batcat.setanimation _setanimation = null;
+public com.batcat.settings _settings = null;
 public com.batcat.charts _charts = null;
 public static String  _copydbfromassets(anywheresoftware.b4a.BA _ba,String _filename) throws Exception{
 String _targetdir = "";

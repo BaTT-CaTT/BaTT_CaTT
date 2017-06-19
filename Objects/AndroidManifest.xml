@@ -2,7 +2,7 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.batcat"
-	android:versionCode="248"
+	android:versionCode="250"
 	android:versionName="1.9.7"
 	android:installLocation="internalOnly">
 	
@@ -93,14 +93,14 @@
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".settings"
+			android:name=".cool"
 			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".cool"
+			android:name=".settings"
 			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>

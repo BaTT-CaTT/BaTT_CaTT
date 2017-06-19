@@ -33,7 +33,7 @@ Sub Globals
 	Dim dev As PhoneEvents
 	'Private ACSwitch1 As ACSwitch
 	'Private ACSwitch2 As ACSwitch
-	Private ACSwitch3 As ACSwitch
+	'Private ACSwitch3 As ACSwitch
 	Private ACSpinner1 As ACSpinner
 	Private ACButton1 As ACButton
 	Dim popa As ACPopupMenu
@@ -45,6 +45,7 @@ Sub Globals
 	Dim nativeMe As JavaObject
 	Dim cs As CSBuilder
 	Private cb1 As ACCheckBox
+	Private Panel3 As Panel
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -60,9 +61,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	End If
 	
 	Dim bd As BitmapDrawable
-	bd.Initialize(LoadBitmap(File.DirAssets,"ic_clear_black_48dp.png"))
+	bd.Initialize(LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png"))
 	'icon.Initialize(File.DirAssets,"ic_snooze_black_18dp.png")
-	popa.Initialize("popa",Panel2)
+	popa.Initialize("popa",Panel3)
 	colist.Initialize
 	
 '	ACToolBarLight1.SetAsActionBar
@@ -73,10 +74,8 @@ Sub Activity_Create(FirstTime As Boolean)
 
 	'Panel2.RemoveView
 	
-	popa.AddMenuItem(0,"Close",bd)
-	
-	'ACSwitch2.Enabled=False
-	ACSwitch3.Enabled=False
+	popa.AddMenuItem(0,"Save",bd)
+
 	nativeMe.InitializeContext
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
@@ -152,13 +151,20 @@ Sub Activity_Resume
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
-
+	Activity.Finish
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 
+Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
+	If KeyCode=KeyCodes.KEYCODE_BACK Then
+		SetAnimation.setanimati("extra_in", "extra_out")
+	End If
+	Return(True)
+End Sub
 
 Sub ACButton1_Click
-	If Not(Panel2.Visible=True) Then
+	If Not(Panel2.Visible=False) Then
 	popa.Show
 	Else 
 		popa.Close
@@ -168,6 +174,7 @@ End Sub
 Sub popa_ItemClicked (Item As ACMenuItem)
 	If Item = popa.GetItem(0) Then
 		Activity.Finish
+		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 End Sub
 
@@ -438,14 +445,14 @@ Sub cb1_CheckedChange(Checked As Boolean)
 		'StopService(hw)
 		kvs4sub.DeleteAll
 		kvs4sub.PutSimple("off",Checked)
-		ToastMessageShow("Status Service Stop",False)
+		
 		Log("end")
 	Else
 		If kvs4sub.ContainsKey("off") Then
 			kvs4sub.DeleteAll
 			StartService(Starter)
 			StartService(hw)
-			ToastMessageShow("Status Service Start",False)
+			
 			Log("start")
 		End If
 	End If

@@ -145,14 +145,16 @@ public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
 public com.batcat.hw _hw = null;
 public com.batcat.sys _sys = null;
-public com.batcat.settings _settings = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
 public com.batcat.setanimation _setanimation = null;
+public com.batcat.settings _settings = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
 public static boolean  _application_error(anywheresoftware.b4a.objects.B4AException _error,String _stacktrace) throws Exception{
  //BA.debugLineNum = 77;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
+ //BA.debugLineNum = 78;BA.debugLine="ToastMessageShow(\"Status: Error Service Stop!\",Fa";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Status: Error Service Stop!"),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 79;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
  //BA.debugLineNum = 80;BA.debugLine="End Sub";
@@ -448,11 +450,15 @@ return "";
 }
 public static String  _service_destroy() throws Exception{
  //BA.debugLineNum = 83;BA.debugLine="Sub Service_Destroy";
+ //BA.debugLineNum = 84;BA.debugLine="ToastMessageShow(\"Status: Service End..\",False)";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Status: Service End.."),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 85;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_start(anywheresoftware.b4a.objects.IntentWrapper _startingintent) throws Exception{
  //BA.debugLineNum = 59;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
+ //BA.debugLineNum = 60;BA.debugLine="ToastMessageShow(\"Status: Service Start..\",False)";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Status: Service Start.."),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 61;BA.debugLine="If File.Exists(File.DirDefaultExternal&\"/mnt/cach";
 if (anywheresoftware.b4a.keywords.Common.File.Exists(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","lvl2.txt")) { 
  }else {

@@ -55,7 +55,7 @@ Sub Activity_Create(FirstTime As Boolean)
 '	c2=mcl.md_amber_A700
 '	c3=mcl.md_lime_A700
 '	c4=mcl.md_teal_A700
-	
+
 	sys_info
 	store_check
 End Sub
@@ -68,13 +68,22 @@ Sub Activity_Pause (UserClosed As Boolean)
 	
 End Sub
 
+Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
+	If KeyCode=KeyCodes.KEYCODE_BACK Then
+		Activity.Finish
+		ToastMessageShow("BCT - Backround  Statistic started..",False)
+		SetAnimation.setanimati("extra_in", "extra_out")
+	End If
+	Return(True)
+End Sub
+
 Sub sys_info 
 	nativeMe.InitializeContext
 	'ListView1.AddTwoLines("Android ID:",nativeMe.RunMethod("getAndroidID", Null))
-	'Log("Battery Percentage = " & nativeMe.RunMethod("getBatteryPercentage", Null))
-	'Log("Is Device Charging = " & nativeMe.RunMethod("isDeviceCharging", Null))
-	'Log("Is Device Charging USB = " & nativeMe.RunMethod("isDeviceChargingUSB", Null))
-	'Log("Is Device Charging AC = " & nativeMe.RunMethod("isDeviceChargingAC", Null))
+	Log("Battery Percentage = " & nativeMe.RunMethod("getBatteryPercentage", Null))
+	Log("Is Device Charging = " & nativeMe.RunMethod("isDeviceCharging", Null))
+	Log("Is Device Charging USB = " & nativeMe.RunMethod("isDeviceChargingUSB", Null))
+	Log("Is Device Charging AC = " & nativeMe.RunMethod("isDeviceChargingAC", Null))
 	
 	ListView1.AddTwoLines("OS Code Name:" ,nativeMe.RunMethod("getOSCodename", Null))
 	ListView1.AddTwoLines("OS Version:" ,nativeMe.RunMethod("getOSVersion", Null))

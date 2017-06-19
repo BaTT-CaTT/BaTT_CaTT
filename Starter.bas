@@ -62,7 +62,7 @@ Sub Service_Create
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
-	
+	ToastMessageShow("Status: Service Start..",False)
 	If File.Exists(File.DirDefaultExternal&"/mnt/cache","lvl2.txt") Then
 		'ToastMessageShow("Welcome!",False)
 		'ListView1.Clear
@@ -80,13 +80,13 @@ End Sub
 
 'Return true to allow the OS default exceptions handler to handle the uncaught exception.
 Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
-	
+	ToastMessageShow("Status: Error Service Stop!",False)
 	Return True
 End Sub
 
 
 Sub Service_Destroy
-
+	ToastMessageShow("Status: Service End..",False)
 End Sub
 
 

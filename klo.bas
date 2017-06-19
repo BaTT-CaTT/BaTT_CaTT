@@ -137,7 +137,6 @@ Sub Activity_Pause (UserClosed As Boolean)
 	'tim.Enabled=False
 End Sub
 
-
 Sub popa_ItemClicked (Item As ACMenuItem)
 	If Item = popa.GetItem(0) Then
 		ACButton1_Click
@@ -239,12 +238,12 @@ Sub chart_start
 		Charts.AddLinePoint(LD, fn,fg, True)
 		'Charts.AddLineMultiplePoints(LD, fn, Array As Float(fg),True)
 	Next
-	G.Title = "Power Chart"
-	G.XAxis = "blue for last 10% load"
-	G.YAxis = "Values"
+	G.Title = "BCT Power Chart"
+	G.XAxis = time2
+	G.YAxis = "Level:"
 	G.YStart = 0
 	G.YEnd = 100
-	G.YInterval = 10
+	G.YInterval = 5
 	G.AxisColor = Colors.White
 	'Charts.DrawBarsChart(G, BD, Colors.Transparent)
 	Charts.DrawLineChart(G, LD, Colors.Transparent)
@@ -254,6 +253,7 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the ev
 	If KeyCode=KeyCodes.KEYCODE_BACK Then
 		Activity.Finish
 		ToastMessageShow("BCT - Backround  Statistic started..",False)
+			SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 	Return(True)
 End Sub
