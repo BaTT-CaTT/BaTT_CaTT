@@ -33,9 +33,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("4")
 	Activity.Title=pak.GetApplicationLabel("com.batcat")&" - "&pak.GetVersionName("com.batcat")
 	Activity.Color=Colors.ARGB(150,30,124,235)
-	ToolbarHelper.Initialize
-	ToolbarHelper.hide
-	
+
 
 	dev.Initialize("dev")
 	oper.Initialize("oper")

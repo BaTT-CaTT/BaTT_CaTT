@@ -24,6 +24,7 @@ public com.batcat.setanimation _setanimation = null;
 public com.batcat.settings _settings = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
+public com.batcat.statemanager _statemanager = null;
 public static anywheresoftware.b4a.objects.ConcreteViewWrapper  _findview(anywheresoftware.b4a.BA _ba,anywheresoftware.b4a.objects.ConcreteViewWrapper _parent,String _viewname) throws Exception{
 anywheresoftware.b4j.object.JavaObject _jo = null;
  //BA.debugLineNum = 32;BA.debugLine="Public Sub FindView(Parent As View, ViewName As St";

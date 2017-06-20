@@ -151,6 +151,7 @@ public com.batcat.setanimation _setanimation = null;
 public com.batcat.settings _settings = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
+public com.batcat.statemanager _statemanager = null;
 public static boolean  _application_error(anywheresoftware.b4a.objects.B4AException _error,String _stacktrace) throws Exception{
  //BA.debugLineNum = 77;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
  //BA.debugLineNum = 78;BA.debugLine="ToastMessageShow(\"Status: Error Service Stop!\",Fa";
@@ -174,6 +175,7 @@ int _val = 0;
 int _hours = 0;
 int _minutes = 0;
 int _v = 0;
+int _days = 0;
  //BA.debugLineNum = 88;BA.debugLine="Sub device_BatteryChanged (Level As Int, Scale As";
  //BA.debugLineNum = 90;BA.debugLine="Dim volta As Int";
 _volta = 0;
@@ -240,8 +242,8 @@ if (_level==100) {
 _snotif.setIcon("batusb");
  //BA.debugLineNum = 119;BA.debugLine="sNotif.Sound=False";
 _snotif.setSound(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 120;BA.debugLine="sNotif.SetInfo(\"läden: \"&Level&\" %\",volt&\" V |";
-_snotif.SetInfo(processBA,"läden: "+BA.NumberToString(_level)+" %",_volt+" V | "+_temp+"°C | noch: 0 h/ 0 min",(Object)(mostCurrent._main.getObject()));
+ //BA.debugLineNum = 120;BA.debugLine="sNotif.SetInfo(\"Voll! Kabel entfernen!\",volt&\"";
+_snotif.SetInfo(processBA,"Voll! Kabel entfernen!",_volt+" V | "+_temp+"°C ",(Object)(mostCurrent._main.getObject()));
  //BA.debugLineNum = 121;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  //BA.debugLineNum = 123;BA.debugLine="Service.StartForeground(1,sNotif)";
@@ -275,93 +277,97 @@ _kvs2._putsimple(BA.NumberToString(_level),(Object)(_time));
  };
  }
 };
- //BA.debugLineNum = 140;BA.debugLine="val = Level*1000 /60";
+ //BA.debugLineNum = 140;BA.debugLine="Dim days As Int";
+_days = 0;
+ //BA.debugLineNum = 141;BA.debugLine="val = Level*1000 /60";
 _val = (int) (_level*1000/(double)60);
- //BA.debugLineNum = 141;BA.debugLine="hours = Floor(val / 60)";
-_hours = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60));
- //BA.debugLineNum = 142;BA.debugLine="minutes = val Mod 60";
+ //BA.debugLineNum = 142;BA.debugLine="days=Floor(val/60/24)";
+_days = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60/(double)24));
+ //BA.debugLineNum = 143;BA.debugLine="hours = Floor(val/60 Mod 24)";
+_hours = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60%24));
+ //BA.debugLineNum = 144;BA.debugLine="minutes = val Mod 60";
 _minutes = (int) (_val%60);
- //BA.debugLineNum = 143;BA.debugLine="If  Not (Level=0) Then";
+ //BA.debugLineNum = 145;BA.debugLine="If  Not (Level=0) Then";
 if (anywheresoftware.b4a.keywords.Common.Not(_level==0)) { 
- //BA.debugLineNum = 144;BA.debugLine="sNotif.SetInfo(\"Status: \"&Level&\" %\",volt&\" V |";
-_snotif.SetInfo(processBA,"Status: "+BA.NumberToString(_level)+" %",_volt+" V | "+_temp+"°C | noch: "+BA.NumberToString(_hours)+"h und "+BA.NumberToString(_minutes)+"min",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 145;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 146;BA.debugLine="sNotif.SetInfo(\"Status: \"&Level&\" %\",volt&\" V |";
+_snotif.SetInfo(processBA,"Status: "+BA.NumberToString(_level)+" %",_volt+" V | "+_temp+"°C | noch: "+BA.NumberToString(_days)+"d "+BA.NumberToString(_hours)+"h "+BA.NumberToString(_minutes)+"m",(Object)(mostCurrent._main.getObject()));
+ //BA.debugLineNum = 147;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 147;BA.debugLine="If Level <= 100 Then";
+ //BA.debugLineNum = 149;BA.debugLine="If Level <= 100 Then";
 if (_level<=100) { 
- //BA.debugLineNum = 150;BA.debugLine="sNotif.Icon=\"bat100\"";
+ //BA.debugLineNum = 152;BA.debugLine="sNotif.Icon=\"bat100\"";
 _snotif.setIcon("bat100");
  };
- //BA.debugLineNum = 152;BA.debugLine="If Level <= 80 Then";
+ //BA.debugLineNum = 154;BA.debugLine="If Level <= 80 Then";
 if (_level<=80) { 
- //BA.debugLineNum = 154;BA.debugLine="sNotif.Icon=\"bat80\"";
+ //BA.debugLineNum = 156;BA.debugLine="sNotif.Icon=\"bat80\"";
 _snotif.setIcon("bat80");
  };
- //BA.debugLineNum = 156;BA.debugLine="If Level <= 60 Then";
+ //BA.debugLineNum = 158;BA.debugLine="If Level <= 60 Then";
 if (_level<=60) { 
- //BA.debugLineNum = 158;BA.debugLine="sNotif.Icon=\"bat60\"";
+ //BA.debugLineNum = 160;BA.debugLine="sNotif.Icon=\"bat60\"";
 _snotif.setIcon("bat60");
  };
- //BA.debugLineNum = 160;BA.debugLine="If Level <= 40 Then";
+ //BA.debugLineNum = 162;BA.debugLine="If Level <= 40 Then";
 if (_level<=40) { 
- //BA.debugLineNum = 162;BA.debugLine="sNotif.Icon=\"bat40\"";
+ //BA.debugLineNum = 164;BA.debugLine="sNotif.Icon=\"bat40\"";
 _snotif.setIcon("bat40");
  };
- //BA.debugLineNum = 164;BA.debugLine="If Level<=20 Then";
+ //BA.debugLineNum = 166;BA.debugLine="If Level<=20 Then";
 if (_level<=20) { 
- //BA.debugLineNum = 165;BA.debugLine="sNotif.Icon=\"bat20\"";
+ //BA.debugLineNum = 167;BA.debugLine="sNotif.Icon=\"bat20\"";
 _snotif.setIcon("bat20");
  };
- //BA.debugLineNum = 167;BA.debugLine="If Level = 5 Then";
+ //BA.debugLineNum = 169;BA.debugLine="If Level = 5 Then";
 if (_level==5) { 
- //BA.debugLineNum = 168;BA.debugLine="sNotif.Icon=\"bat5\"";
+ //BA.debugLineNum = 170;BA.debugLine="sNotif.Icon=\"bat5\"";
 _snotif.setIcon("bat5");
- //BA.debugLineNum = 169;BA.debugLine="sNotif.SetInfo(\"low Battery!: \",\"remain: \"&Level";
+ //BA.debugLineNum = 171;BA.debugLine="sNotif.SetInfo(\"low Battery!: \",\"remain: \"&Level";
 _snotif.SetInfo(processBA,"low Battery!: ","remain: "+BA.NumberToString(_level)+"% ",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 170;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 172;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 172;BA.debugLine="If Level = 4 Then";
+ //BA.debugLineNum = 174;BA.debugLine="If Level = 4 Then";
 if (_level==4) { 
- //BA.debugLineNum = 173;BA.debugLine="sNotif.Icon=\"batlow\"";
+ //BA.debugLineNum = 175;BA.debugLine="sNotif.Icon=\"batlow\"";
 _snotif.setIcon("batlow");
- //BA.debugLineNum = 174;BA.debugLine="sNotif.SetInfo(\"low Power!: \",\"set on low Power";
+ //BA.debugLineNum = 176;BA.debugLine="sNotif.SetInfo(\"low Power!: \",\"set on low Power";
 _snotif.SetInfo(processBA,"low Power!: ","set on low Power: "+BA.NumberToString(_level)+"% ",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 175;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 177;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 177;BA.debugLine="If temp >=41 Then";
+ //BA.debugLineNum = 179;BA.debugLine="If temp >=41 Then";
 if ((double)(Double.parseDouble(_temp))>=41) { 
- //BA.debugLineNum = 178;BA.debugLine="sNotif.Icon=\"batheat\"";
+ //BA.debugLineNum = 180;BA.debugLine="sNotif.Icon=\"batheat\"";
 _snotif.setIcon("batheat");
- //BA.debugLineNum = 179;BA.debugLine="sNotif.SetInfo(\"Achtung: \"&temp&\"°C !\",\"hier kli";
-_snotif.SetInfo(processBA,"Achtung: "+_temp+"°C !","hier klicken um zum kühlen...",anywheresoftware.b4a.keywords.Common.CallSubNew(processBA,(Object)(mostCurrent._cool.getObject()),"c_start"));
- //BA.debugLineNum = 180;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 181;BA.debugLine="sNotif.SetInfo(\"Achtung: \"&temp&\"°C !\",\"hier kli";
+_snotif.SetInfo(processBA,"Achtung: "+_temp+"°C !","hier klicken um zum kühlen...",(Object)(mostCurrent._cool.getObject()));
+ //BA.debugLineNum = 182;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
  };
- //BA.debugLineNum = 184;BA.debugLine="End Sub";
+ //BA.debugLineNum = 186;BA.debugLine="End Sub";
 return "";
 }
 public static String  _minutes_hours(int _ms) throws Exception{
 int _val = 0;
 int _hours = 0;
 int _minutes = 0;
- //BA.debugLineNum = 187;BA.debugLine="Sub minutes_hours ( ms As Int ) As String";
- //BA.debugLineNum = 188;BA.debugLine="Dim val,hours,minutes As Int";
+ //BA.debugLineNum = 189;BA.debugLine="Sub minutes_hours ( ms As Int ) As String";
+ //BA.debugLineNum = 190;BA.debugLine="Dim val,hours,minutes As Int";
 _val = 0;
 _hours = 0;
 _minutes = 0;
- //BA.debugLineNum = 189;BA.debugLine="val = ms";
+ //BA.debugLineNum = 191;BA.debugLine="val = ms";
 _val = _ms;
- //BA.debugLineNum = 190;BA.debugLine="hours = Floor(val / 60)";
+ //BA.debugLineNum = 192;BA.debugLine="hours = Floor(val / 60)";
 _hours = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60));
- //BA.debugLineNum = 191;BA.debugLine="minutes = val Mod 60";
+ //BA.debugLineNum = 193;BA.debugLine="minutes = val Mod 60";
 _minutes = (int) (_val%60);
- //BA.debugLineNum = 192;BA.debugLine="Return NumberFormat(hours, 1, 0) & \":\" & NumberFo";
+ //BA.debugLineNum = 194;BA.debugLine="Return NumberFormat(hours, 1, 0) & \":\" & NumberFo";
 if (true) return anywheresoftware.b4a.keywords.Common.NumberFormat(_hours,(int) (1),(int) (0))+":"+anywheresoftware.b4a.keywords.Common.NumberFormat(_minutes,(int) (2),(int) (0));
- //BA.debugLineNum = 193;BA.debugLine="End Sub";
+ //BA.debugLineNum = 195;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{

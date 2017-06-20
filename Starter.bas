@@ -122,7 +122,7 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 		If Level=100 Then
 			sNotif.Icon="batusb"
 			sNotif.Sound=False
-			sNotif.SetInfo("läden: "&Level&" %",volt&" V | "&temp&"°C | noch: 0 h/ 0 min",Main)
+			sNotif.SetInfo("Voll! Kabel entfernen!",volt&" V | "&temp&"°C ",Main)
 			sNotif.Notify(1)
 			'sql1.ExecNonQuery("INSERT INTO stats VALUES (NULL,"& tt &"," & level1 &")")
 			Service.StartForeground(1,sNotif)
@@ -142,11 +142,13 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 				kvs2.PutSimple(Level,time)
 			End If
 		Next
+		Dim days As Int 
 		val = Level*1000 /60
-		hours = Floor(val / 60)
+		days=Floor(val/60/24)
+		hours = Floor(val/60 Mod 24)
 		minutes = val Mod 60
 		If  Not (Level=0) Then 
-			sNotif.SetInfo("Status: "&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h und "&minutes&"min",Main)
+			sNotif.SetInfo("Status: "&Level&" %",volt&" V | "&temp&"°C | noch: "&days&"d "&hours&"h "&minutes&"m",Main)
 			sNotif.Notify(1)
 		End If
 	If Level <= 100 Then
@@ -181,7 +183,7 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 	End If 
 	If temp >=41 Then
 		sNotif.Icon="batheat"
-		sNotif.SetInfo("Achtung: "&temp&"°C !","hier klicken um zum kühlen...",CallSub(cool,"c_start"))
+		sNotif.SetInfo("Achtung: "&temp&"°C !","hier klicken um zum kühlen...",cool)
 		sNotif.Notify(1)
 		End If
 	End If

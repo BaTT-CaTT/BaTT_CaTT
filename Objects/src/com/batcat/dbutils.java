@@ -26,6 +26,7 @@ public com.batcat.cool _cool = null;
 public com.batcat.setanimation _setanimation = null;
 public com.batcat.settings _settings = null;
 public com.batcat.charts _charts = null;
+public com.batcat.statemanager _statemanager = null;
 public static String  _copydbfromassets(anywheresoftware.b4a.BA _ba,String _filename) throws Exception{
 String _targetdir = "";
  //BA.debugLineNum = 20;BA.debugLine="Sub CopyDBFromAssets (FileName As String) As Strin";

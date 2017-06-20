@@ -74,8 +74,8 @@ Sub Activity_Create(FirstTime As Boolean)
 
 	'Panel2.RemoveView
 	
-	popa.AddMenuItem(0,"Save",bd)
 
+	popa.AddMenuItem(0,"Save",bd)
 	nativeMe.InitializeContext
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
@@ -132,16 +132,12 @@ Sub Activity_Create(FirstTime As Boolean)
 
 	ACSpinner1.Color=Colors.Transparent
 	ACButton1.ButtonColor=Colors.ARGB(180,255,255,255)
-	
-	
-	
-	'#########################################################----->
-	
-	
-	
-	
-	'#########################################################-----<
-
+	If StateManager.RestoreState(Activity, "Main", 60) = False Then
+		'set the default values
+		cb1.Checked=True
+	End If
+	Dim AutoUpdate As Boolean
+	AutoUpdate = StateManager.GetSetting2("AutoUpdate", False)
 
 	store_check
 End Sub
@@ -151,6 +147,12 @@ Sub Activity_Resume
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
+	If UserClosed Then
+		StateManager.ResetState("Main")
+	Else
+		StateManager.SaveState(Activity, "Main")
+	End If
+	StateManager.SaveSettings
 	Activity.Finish
 	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
@@ -158,17 +160,22 @@ End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
 	If KeyCode=KeyCodes.KEYCODE_BACK Then
+		Activity.Finish
 		SetAnimation.setanimati("extra_in", "extra_out")
-	End If
+			StateManager.SaveState(Activity, "Main")
+		End If
+		StateManager.SaveSettings
 	Return(True)
 End Sub
 
 Sub ACButton1_Click
-	If Not(Panel2.Visible=False) Then
-	popa.Show
-	Else 
-		popa.Close
-	End If 
+'	If Not(Panel2.Visible=False) Then
+'	popa.Show
+'	Else 
+'		popa.Close
+	'	End If
+	Activity.Finish
+	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
 Sub popa_ItemClicked (Item As ACMenuItem)
@@ -179,15 +186,13 @@ Sub popa_ItemClicked (Item As ACMenuItem)
 End Sub
 
 Sub store_check 
-	If kvs4sub.ContainsKey("off") Then 
-		cb1_CheckedChange(True)
-		cb1.Checked=True
-		Log("AC_true->")
-		Else
-			kvs4sub.DeleteAll
+	If kvs4sub.ContainsKey("off") Then
+			'cb1.Checked=True
+		StopService(Starter)
+		dev.StopListening
 		Log("AC_Off->")
-		cb1.Checked=False
-		cb1_CheckedChange(False)
+		Else
+			cb1.Checked=True
 	End If
 	
 	If kvs4.ContainsKey("0")Then
@@ -439,21 +444,18 @@ End Sub
 
 
 Sub cb1_CheckedChange(Checked As Boolean)
-	If Not(Checked=True) Then
-		dev.StopListening
-		StopService(Starter)
-		'StopService(hw)
-		kvs4sub.DeleteAll
-		kvs4sub.PutSimple("off",Checked)
-		
-		Log("end")
-	Else
-		If kvs4sub.ContainsKey("off") Then
+	If Checked=True Then
 			kvs4sub.DeleteAll
-			StartService(Starter)
-			StartService(hw)
-			
+					StartService(Starter)
+					StartService(hw)
 			Log("start")
-		End If
+		'StopService(hw)
+		Else
+			If Checked=False Then
+			kvs4sub.DeleteAll
+			kvs4sub.PutSimple("off",Checked)
+			Log("end")
+		End If 
 	End If
+	store_check
 End Sub
