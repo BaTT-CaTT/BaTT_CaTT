@@ -36,9 +36,9 @@ public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
 public com.batcat.setanimation _setanimation = null;
 public com.batcat.settings _settings = null;
+public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.statemanager _statemanager = null;
 public String  _class_globals() throws Exception{
  //BA.debugLineNum = 2;BA.debugLine="Sub Class_Globals";
  //BA.debugLineNum = 3;BA.debugLine="Private sql1 As SQL";

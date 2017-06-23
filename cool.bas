@@ -59,9 +59,10 @@ Sub Globals
 	Dim andro,bat,desk,work As Bitmap
 '	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15 As Int
 	Private mcl As MaterialColors
-	Private p1 As MaterialCircleProgress
+	'Private p1 As MaterialCircleProgress
 	Private mBmp As ColorDrawable
 
+	Private dpm1 As DonutProgressMaster
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -266,15 +267,23 @@ Sub storage_check
 End Sub 
 
 Sub cat_start
-	p1.Colors = Array As Int(Colors.Red,Colors.Yellow,Colors.Green)
-	p1.CircleBackgroundEnabled = False
-	p1.ProgressStrokeWidth = 2dip
-	p1.ShowArrow = True
-	p1.ArrowHeight = 25dip
-	p1.ArrowWidth = 30dip
-	p1.BackGroundColor=Colors.Transparent
-	'p1.Diameter=360
-	p1.InnerRadius=100
+'	p1.Colors = Array As Int(Colors.Red,Colors.Yellow,Colors.Green)
+'	p1.CircleBackgroundEnabled = False
+'	p1.ProgressStrokeWidth = 2dip
+'	p1.ShowArrow = True
+'	p1.ArrowHeight = 25dip
+'	p1.ArrowWidth = 30dip
+'	p1.BackGroundColor=Colors.Transparent
+'	'p1.Diameter=360
+'	p1.InnerRadius=100
+	dpm1.Color=Colors.Transparent
+	dpm1.FinishedStrokeColor=mcl.md_lime_700
+	dpm1.FinishedStrokeWidth=15
+	dpm1.InnerBackgroundColor=Colors.Transparent'Colors.ARGB(200,225,162,21)
+	dpm1.InnerBottomText="Boosting.."
+	dpm1.InnerBottomTextSize=20
+	dpm1.InnerBottomTextColor=Colors.Black
+	dpm1.StartAngle=100
 	'cat.Initialize(25,50*1024*1024,dir1)
 	clean_start
 	t1.Enabled=True
@@ -366,12 +375,16 @@ Sub ph_DeviceStorageOk (Intent As Intent)
 End Sub
 
 Sub t1_Tick
-	p1.Max=100
+	'dpm1.Max=100
 	ImageView1.Visible=True
 	pg.SetColorAnimated(12000,Colors.Transparent,mcl.md_lime_A700)
 	ImageView1.Bitmap=andro
 	count=count+1
-	pg.incrementProgressBy(count+10)
+	pg.incrementProgressBy(count*count)
+	dpm1.Progress=count*count*count*count*count*count
+	dpm1.UnfinishedStrokeWidth=12
+	dpm1.UnfinishedStrokeColor=Colors.ARGB(180,255,255,255)'mcl.md_light_green_A100
+	'(mcl.md_white_1000,mcl.md_amber_400,mcl.md_light_green_400)
 	'spb1.ShowProgress=count
 	If count>0 Then 
 		Label1.Text="check Battery.."
@@ -401,8 +414,8 @@ Sub t1_Tick
 				Label1.Text="check "&op.formatSize(op.AvailableMemory)
 	End If
 	If count > 6 Then
-		p1.Progress=100
-		p1.Visible=False
+		dpm1.Progress=100
+		dpm1.Visible=False
 		Label1.Text=op.formatSize(cat.FreeMemory)
 			If Not (filelist.Size=1) Then
 			ImageView1.Bitmap=andro
