@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.batcat"
-	android:versionCode="250"
-	android:versionName="1.9.7"
+	android:versionCode="254"
+	android:versionName="1.9.8"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>
@@ -104,5 +104,9 @@
 			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>
+		<service android:name=".webhost">
+		</service>
+		<receiver android:name=".webhost$webhost_BR">
+		</receiver>
 	</application>
 </manifest>

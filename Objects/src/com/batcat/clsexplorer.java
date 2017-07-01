@@ -76,6 +76,7 @@ public com.batcat.settings _settings = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
+public com.batcat.webhost _webhost = null;
 public static class _typresult{
 public boolean IsInitialized;
 public boolean Canceled;

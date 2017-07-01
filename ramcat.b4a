@@ -1,5 +1,5 @@
 ﻿Version=6.8
-NumberOfModules=16
+NumberOfModules=17
 Module1=klo
 Module2=Batut
 Module3=hw
@@ -16,10 +16,11 @@ Module13=Charts
 Module14=KeyValueStore
 Module15=ClsCheckList
 Module16=ClsExplorer
+Module17=webhost
 Build1=Default,com.batcat
-ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~android:name="android.permission.GET_TASKS"/>~\n~AddApplicationText(<Activity android:name="anywheresoftware.b4a.objects.preferenceactivity"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~  android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~  )~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0091EA</item>~\n~        <item name="colorPrimaryDark">#78909C</item>~\n~        <item name="colorAccent">#C6FF00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
+ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~android:name="android.permission.GET_TASKS"/>~\n~AddApplicationText(<Activity android:name="anywheresoftware.b4a.objects.preferenceactivity"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~  android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~  )~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#455A64</item>~\n~        <item name="colorPrimaryDark">#455A64</item>~\n~        <item name="colorAccent">#64DD17</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
-NumberOfFiles=57
+NumberOfFiles=58
 File1=1.bal
 File2=2.bal
 File3=4.bal
@@ -71,13 +72,14 @@ File48=ic_usb_black_24dp.png
 File49=ic_usb_grey600_24dp.png
 File50=icon_batcat.png
 File51=Power.png
-File52=Rss.png
-File53=squareprogressbar.jar
-File54=squareprogressbar.xml
-File55=sulo_log99.png
-File56=Tag.png
-File57=wid.bal
-NumberOfLibraries=29
+File52=restart.png
+File53=Rss.png
+File54=squareprogressbar.jar
+File55=squareprogressbar.xml
+File56=sulo_log99.png
+File57=Tag.png
+File58=wid.bal
+NumberOfLibraries=31
 Library1=core
 Library2=phone
 Library3=reflection
@@ -107,11 +109,13 @@ Library26=progressrndbtn
 Library27=mscircularimageview
 Library28=circleprogressmaster
 Library29=mpchartlib
+Library30=net
+Library31=network
 @EndOfDesignText@
  #Region  Project Attributes 
 	#ApplicationLabel: BATT-CaTT
-	#VersionCode: 250
-	#VersionName: 1.9.7
+	#VersionCode: 254
+	#VersionName: 1.9.8
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: false
@@ -165,7 +169,7 @@ Sub Globals
 	Dim cas As Int
 	Dim size,flags As Int
 	Dim Types(1), name,packName,date,time,l,ramsize As String
-	Dim List,list1,list2,list3,list4,list5,list6,phlis,Lis,setlist,datalist As List
+	Dim List,list1,list2,list3,list4,list5,list6,list7,list8,list9,phlis,Lis,setlist,datalist As List
 
 	Dim cd2,cd As CustomDialog2
 
@@ -197,7 +201,8 @@ Sub Globals
 	Private ims3 As ImageView
 	Private ims4 As ImageView
 	Private prb1 As ProgressRoundButton
-	dim volt as string 
+	Dim volt,root1 As String 
+	Dim ffiles,ffolders As List
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -221,6 +226,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	list4.Initialize
 	list5.Initialize
 	list6.Initialize
+	list7.Initialize
+	list8.Initialize
+	list9.Initialize
 	phlis.Initialize
 	datalist.Initialize
 	setlist.Initialize
@@ -237,6 +245,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	la1.Initialize("la1")
 	la2.Initialize("la2")
 	ramlist.Initialize
+	ffiles.Initialize
+	ffolders.Initialize
+	'###############################################################################
 	panel3.AddView(lk,10,5,80%x,50%y)
 	lv2.FastScrollEnabled=True
 	logo.InitializeSample(File.DirAssets, "sulo_log99.png",48,48)
@@ -326,12 +337,13 @@ Sub Activity_Create(FirstTime As Boolean)
 		Else
 			sql.Initialize(File.DirRootExternal, "1.db", True)
 			File.MakeDir(File.DirDefaultExternal, "mnt/cache")
-			File.MakeDir(File.DirRootExternal, "mnt/data")
+			File.MakeDir(File.DirDefaultExternal, "mnt/data")
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","sv.txt",list4)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","fn.txt",list1)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","APnames.txt",list3)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",level1)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt","5")
+			File.WriteString(File.DirDefaultExternal&"/mnt/data","vid.txt",pak.GetVersionCode("com.batcat"))
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","pn1.txt",Lis)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","settings.txt",setlist)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","proc.txt",proc)
@@ -438,7 +450,7 @@ Sub Menu_onFullyClosed
 	'ImageView2.SetVisibleAnimated(100,True)
 	Label2.SetVisibleAnimated(100,True)
 	Label4.SetVisibleAnimated(100,True)
-	Button4.SetLayoutAnimated(100,105dip,50%y,105dip,100dip)
+	Button4.SetLayoutAnimated(100,110dip,55%y,95dip,90dip)
 	Button4.SetVisibleAnimated(80,True)
 	'Label6.BringToFront
 End Sub
@@ -684,6 +696,7 @@ Sub st_click
 End Sub
 
 Sub Button4_Click
+	StartService(webhost)
 	StartActivity(cool)
 	SetAnimation.setanimati("extra_in", "extra_out")
 	
@@ -724,33 +737,38 @@ End Sub
 Sub ser_start
 	 ProgressDialogShow("loading")
 End Sub
-Sub li2 
+Sub li2
 	list2.Clear
 	list4.Clear
 	list5.Clear
-	list6.Clear
+	list7.Clear
 	proc.Clear
 	ramlist.Clear
 	cat.Initialize(25,100*1024*1024,File.DirDefaultExternal&"/mnt/cache")
 	Dim si,st As Int
-	st=ra.TotalInternalMemorySize+ra.TotalExternalMemorySize
+	st=ra.AvailableMemory*1024*1024
 	Log(FormatFileSize(st))
 	'Log(ra.formatSize(st))
-	si=ra.AvailableExternalMemorySize+ra.AvailableInternalMemorySize
+	si=ra.AvailableInternalMemorySize
 	proc=ra.getRecentTasks(99,0)
-	list2=ra.RunningServiceInfo(999,list4,list5,list6)
+	ramlist=ra.RunningServiceInfo(999,list7,list8,list9)
+	list2=ra.RunningAppProcesses'Info(list4,list5,list6)
 	Dim math1,math2 As Int
 	'proc.Size+list4.Size*1000*1024*10
 	
-	Dim ti As Int=proc.Size+list2.Size
-	math1=si+ti
+	Dim ti As Int=list2.Size+list7.Size+st
+	math1=ti*10*1024*1024
+	Log(FormatFileSize(math1))
+
 	math2=cat.DiskFree
-	Label5.Text=ti&"% "&FormatFileSize(math1+math2)
-	
+	Label5.Text=list7.size&"% "&FormatFileSize(math1+math2)
+	For z = 0 To  list7.Size-1
 	'Log(ra.formatSize(math1))
 	For h = 0 To  list2.size-1
+		'Log(list2.Get(h))
 		'Log(FormatFileSize(math1))
-		ProgressBar1.Progress=h
+		ProgressBar1.Progress=z
+	Next
 	Next
 	Return 
 End Sub
@@ -766,6 +784,36 @@ Sub CalcSize(Folder As String, recursive As Boolean) As Long
 		size1 = size1 + File.Size(Folder, f)
 	Next
 	Return size1
+End Sub
+
+Private Sub CopyFolder(Source As String, targetFolder As String)
+	If File.Exists(targetFolder, "") = False Then File.MakeDir(targetFolder, "")
+	For Each f As String In File.ListFiles(Source)
+		If File.IsDirectory(Source, f) Then
+			CopyFolder(File.Combine(Source, f), File.Combine(targetFolder, f))
+			Continue
+		End If
+		File.Copy(Source, f, targetFolder, f)
+	Next
+End Sub
+
+Sub ReadDir(folder As String, recursive As Boolean)
+	'Log("ReadDir("&folder&")")
+	Dim lst As List = File.ListFiles(folder)
+	For i = 0 To lst.Size - 1
+		If File.IsDirectory(folder,lst.Get(i)) Then
+			Dim v As String
+			v = folder&"/"&lst.Get(i)
+			'Log("v="&v)
+			ffolders.Add(v.SubString(root1.Length+1))
+			If recursive Then
+				ReadDir(v,recursive)
+			End If
+		Else
+			ffiles.Add(folder&"/"&lst.Get(i))
+		End If
+	Next
+	'Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
 End Sub
 
 Sub FormatFileSize(Bytes As Float) As String
@@ -944,7 +992,7 @@ Sub app_info
 	For i = 0 To size -1
 		Obj3.Target = Obj2.RunMethod2("get", i, "java.lang.int") ' PackageInfo
 		size = Obj2.RunMethod("size")
- 		
+
 		Obj3.Target = Obj3.GetField("applicationInfo") ' ApplicationInfo
 		flags = Obj3.GetField("flags")
 		packName = Obj3.GetField("packageName")
@@ -967,6 +1015,7 @@ Sub app_info
 			form=File.Size(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),GetFileName(GetSourceDir(GetActivitiesInfo(packName))))
 			datalist.Add(form)
 			lv2.AddTwoLinesAndBitmap2(name,packName&" - "&FormatFileSize(form),icon.Bitmap,packName)
+			Log(ffolders.Size&" folder / "&ffiles.Size&" files")
 		End If
 		
 		'lis.Add(bu)

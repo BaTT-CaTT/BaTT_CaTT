@@ -61,8 +61,9 @@ Sub Globals
 	Private mcl As MaterialColors
 	'Private p1 As MaterialCircleProgress
 	Private mBmp As ColorDrawable
-
+	Dim ffiles,ffolders As List
 	Private dpm1 As DonutProgressMaster
+	dim root1 as string 
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -99,6 +100,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	lw2.Initialize("lw2")
 	ffiles.Initialize
 	ph.Initialize("ph")
+	ffiles.Initialize
+	ffolders.Initialize
 	'Activity.Background=c1
 		If FirstTime Then 
 		
@@ -299,6 +302,37 @@ Sub logcat_LogCatData(Buffer() As Byte, Length As Int)
 	Log(data)
 End Sub
 
+Private Sub CopyFolder(Source As String, targetFolder As String)
+	If File.Exists(targetFolder, "") = False Then File.MakeDir(targetFolder, "")
+	For Each f As String In File.ListFiles(Source)
+		If File.IsDirectory(Source, f) Then
+			CopyFolder(File.Combine(Source, f), File.Combine(targetFolder, f))
+			Continue
+		End If
+		File.Copy(Source, f, targetFolder, f)
+	Next
+End Sub
+
+Sub ReadDir(folder As String, recursive As Boolean)
+	ffolders.Clear
+	ffiles.Clear
+	'Log("ReadDir("&folder&")")
+	Dim lst As List = File.ListFiles(folder)
+	For i = 0 To lst.Size - 1
+		If File.IsDirectory(folder,lst.Get(i)) Then
+			Dim v As String
+			v = folder&"/"&lst.Get(i)
+			'Log("v="&v)
+			ffolders.Add(v.SubString(root1.Length+1))
+			If recursive Then
+				ReadDir(v,recursive)
+			End If
+		Else
+			ffiles.Add(folder&"/"&lst.Get(i))
+		End If
+	Next
+	'Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
+End Sub
 
 
 Sub li4
@@ -477,24 +511,6 @@ Sub clean_start
 End Sub
 
 
-Sub ReadDir(folder As String, recursive As Boolean)
-	'Log("ReadDir("&folder&")")
-	Dim lst As List = File.ListFiles(folder)
-	For i = 0 To lst.Size - 1
-		If File.IsDirectory(folder,lst.Get(i)) Then
-			Dim v As String
-			v = folder&"/"&lst.Get(i)
-			'Log("v="&v)
-			ffold.Add(v.SubString(rot.Length+1))
-			If recursive Then
-				ReadDir(v,recursive)
-			End If
-		Else
-			ffil.Add(folder&"/"&lst.Get(i))
-		End If
-	Next
-	'Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
-End Sub
 
 Sub getdir(dir As String, recursive As Boolean) As Long
 	Dim si As String
@@ -554,6 +570,13 @@ Sub app_info
 
 			phlis.Add(icon.Bitmap)
 			list3.Add(packName)
+			'Log(GetParentPath(GetSourceDir(GetActivitiesInfo(packName)))&"/cache")
+		
+			Log(getdir(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),True))
+			'CopyFolder(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),File.DirInternal&"/mnt/cache")
+			Log(ffolders.Size&" folder / "&ffiles.Size&" files")
+			
+			
 		End If
 	Next
 	

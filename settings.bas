@@ -448,6 +448,7 @@ Sub cb1_CheckedChange(Checked As Boolean)
 			kvs4sub.DeleteAll
 					StartService(Starter)
 					StartService(hw)
+					StartService(webhost)
 			Log("start")
 		'StopService(hw)
 		Else

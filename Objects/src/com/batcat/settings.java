@@ -388,6 +388,7 @@ public com.batcat.setanimation _setanimation = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
+public com.batcat.webhost _webhost = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -819,22 +820,24 @@ mostCurrent._kvs4sub._deleteall();
 anywheresoftware.b4a.keywords.Common.StartService(mostCurrent.activityBA,(Object)(mostCurrent._starter.getObject()));
  //BA.debugLineNum = 445;BA.debugLine="StartService(hw)";
 anywheresoftware.b4a.keywords.Common.StartService(mostCurrent.activityBA,(Object)(mostCurrent._hw.getObject()));
- //BA.debugLineNum = 446;BA.debugLine="Log(\"start\")";
+ //BA.debugLineNum = 446;BA.debugLine="StartService(webhost)";
+anywheresoftware.b4a.keywords.Common.StartService(mostCurrent.activityBA,(Object)(mostCurrent._webhost.getObject()));
+ //BA.debugLineNum = 447;BA.debugLine="Log(\"start\")";
 anywheresoftware.b4a.keywords.Common.Log("start");
  }else {
- //BA.debugLineNum = 449;BA.debugLine="If Checked=False Then";
+ //BA.debugLineNum = 450;BA.debugLine="If Checked=False Then";
 if (_checked==anywheresoftware.b4a.keywords.Common.False) { 
- //BA.debugLineNum = 450;BA.debugLine="kvs4sub.DeleteAll";
+ //BA.debugLineNum = 451;BA.debugLine="kvs4sub.DeleteAll";
 mostCurrent._kvs4sub._deleteall();
- //BA.debugLineNum = 451;BA.debugLine="kvs4sub.PutSimple(\"off\",Checked)";
+ //BA.debugLineNum = 452;BA.debugLine="kvs4sub.PutSimple(\"off\",Checked)";
 mostCurrent._kvs4sub._putsimple("off",(Object)(_checked));
- //BA.debugLineNum = 452;BA.debugLine="Log(\"end\")";
+ //BA.debugLineNum = 453;BA.debugLine="Log(\"end\")";
 anywheresoftware.b4a.keywords.Common.Log("end");
  };
  };
- //BA.debugLineNum = 455;BA.debugLine="store_check";
+ //BA.debugLineNum = 456;BA.debugLine="store_check";
 _store_check();
- //BA.debugLineNum = 456;BA.debugLine="End Sub";
+ //BA.debugLineNum = 457;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{

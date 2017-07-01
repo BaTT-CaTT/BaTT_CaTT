@@ -15,20 +15,23 @@ Sub Process_Globals
 End Sub
 
 Sub Service_Create
-	rv = ConfigureHomeWidget("wid", "rv", 30, "BATT-CaTT Widget")
-	
-	rv.SetTextColor("label3",Colors.ARGB(230,0,0,0))
-	rv.SetTextColor("label2",Colors.ARGB(180,0,0,0))
-	rv.SetTextColor("label1",Colors.ARGB(180,0,0,0))
+	rv = ConfigureHomeWidget("wid", "rv", 0, "BATT-CaTT Widget")
+	Dim pi As PhoneId
+	bat.InitializeWithPhoneState("bat",pi)
+	rv.SetVisible("im1",True)
+	rv.SetVisible("label1",True)
+	rv.SetVisible("label2",True)
+	rv.SetVisible("label3",True)
+	'rv.SetTextColor("label3",Colors.ARGB(230,0,0,0))
+	'rv.SetTextColor("label2",Colors.ARGB(180,0,0,0))
+	'rv.SetTextColor("label1",Colors.ARGB(180,0,0,0))
 	rv.SetTextSize("label3",15)
 	rv.SetTextSize("label2",13)
 	rv.SetTextSize("label1",13)
    
-	rv.SetImage("im1",LoadBitmap(File.DirAssets, "Battery.png"))
-	rv.SetVisible("im1",True)
-	rv.SetVisible("Progressbar1",True)
-	Dim pi As PhoneId
-	bat.InitializeWithPhoneState("bat",pi)
+	'rv.SetImage("im1",LoadBitmap(File.DirAssets, "Battery.png"))
+	
+
 	bat20.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (5).png")
 	bat40.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (4).png")
 	bat60.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (3).png")
@@ -40,6 +43,7 @@ Sub Service_Create
 	usb3.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (7).png")
 	batlow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (10).png")
 	ulow.Initialize(File.DirAssets,"Battery Icons - Colorful 128px (14).png")
+	rv.UpdateWidget
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
@@ -70,7 +74,6 @@ End Sub
 Sub bat_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
 	Dim temp As String 
 	temp=Intent.GetExtra("temperature")/10
-	rv.SetProgress("Progressbar1",Level)
 	rv.SetText("label1",temp&"°C")
 	rv.SetText("label2",Intent.GetExtra("technology"))
 	rv.SetText("label3",Level&"%")
@@ -111,5 +114,6 @@ Sub bat_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent A
 		rv.SetText("label3","Akku fast leer! "&Level)
 		rv.SetVisible("im1",True)
 	End If
-	end if 
+	End If 
+	rv.UpdateWidget
 End Sub

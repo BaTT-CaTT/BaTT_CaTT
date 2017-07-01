@@ -230,6 +230,10 @@ Sub chart_start
 	LD.Target =Panel2
 	Charts.AddLineColor(LD, Colors.Red) 'First line color
 	Charts.AddLineColor(LD, Colors.Blue) 'Second line color
+	If kvs2.ListKeys.Size=20 Then
+		kvs2.DeleteAll
+		ToastMessageShow("Statistics Reset",False)
+	End If 
 	For Each h As String  In kvs2.ListKeys
 		fg=h
 		fn=kvs2.GetSimple(h)
