@@ -16,6 +16,9 @@ views.get("panel2").vw.setWidth((int)((100d / 100 * width) - ((0d * scale))));
 //BA.debugLineNum = 5;BA.debugLine="Panel2.SetTopAndBottom(0dip,100%y)"[1/General script]
 views.get("panel2").vw.setTop((int)((0d * scale)));
 views.get("panel2").vw.setHeight((int)((100d / 100 * height) - ((0d * scale))));
+//BA.debugLineNum = 6;BA.debugLine="Button4.SetLeftAndRight(36%x,61%x)"[1/General script]
+views.get("button4").vw.setLeft((int)((36d / 100 * width)));
+views.get("button4").vw.setWidth((int)((61d / 100 * width) - ((36d / 100 * width))));
 
 }
 }

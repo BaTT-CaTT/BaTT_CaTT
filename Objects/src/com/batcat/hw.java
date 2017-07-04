@@ -139,6 +139,7 @@ public static anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper 
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
 public com.batcat.starter _starter = null;
+public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
@@ -147,7 +148,6 @@ public com.batcat.settings _settings = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.webhost _webhost = null;
 public static String  _bat_batterychanged(int _level,int _scale,boolean _plugged,anywheresoftware.b4a.objects.IntentWrapper _intent) throws Exception{
 String _temp = "";
  //BA.debugLineNum = 69;BA.debugLine="Sub bat_BatteryChanged (Level As Int, Scale As Int";
@@ -182,53 +182,55 @@ if (_level<=5) {
  //BA.debugLineNum = 85;BA.debugLine="rv.SetImage(\"im1\",usb3)";
 _rv.SetImage(processBA,"im1",(android.graphics.Bitmap)(_usb3.getObject()));
  };
+ //BA.debugLineNum = 87;BA.debugLine="rv.UpdateWidget";
+_rv.UpdateWidget(processBA);
  }else {
- //BA.debugLineNum = 88;BA.debugLine="rv.SetVisible(\"im1\",True)";
+ //BA.debugLineNum = 89;BA.debugLine="rv.SetVisible(\"im1\",True)";
 _rv.SetVisible(processBA,"im1",anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 89;BA.debugLine="If Level<=100 Then";
+ //BA.debugLineNum = 90;BA.debugLine="If Level<=100 Then";
 if (_level<=100) { 
- //BA.debugLineNum = 90;BA.debugLine="rv.SetImage(\"im1\",bat100)";
+ //BA.debugLineNum = 91;BA.debugLine="rv.SetImage(\"im1\",bat100)";
 _rv.SetImage(processBA,"im1",(android.graphics.Bitmap)(_bat100.getObject()));
  };
- //BA.debugLineNum = 92;BA.debugLine="If Level<=80 Then";
+ //BA.debugLineNum = 93;BA.debugLine="If Level<=80 Then";
 if (_level<=80) { 
- //BA.debugLineNum = 93;BA.debugLine="rv.SetImage(\"im1\",bat80)";
+ //BA.debugLineNum = 94;BA.debugLine="rv.SetImage(\"im1\",bat80)";
 _rv.SetImage(processBA,"im1",(android.graphics.Bitmap)(_bat80.getObject()));
  };
- //BA.debugLineNum = 95;BA.debugLine="If Level<=60 Then";
+ //BA.debugLineNum = 96;BA.debugLine="If Level<=60 Then";
 if (_level<=60) { 
- //BA.debugLineNum = 96;BA.debugLine="rv.SetImage(\"im1\",bat60)";
+ //BA.debugLineNum = 97;BA.debugLine="rv.SetImage(\"im1\",bat60)";
 _rv.SetImage(processBA,"im1",(android.graphics.Bitmap)(_bat60.getObject()));
  };
- //BA.debugLineNum = 98;BA.debugLine="If Level<=40 Then";
+ //BA.debugLineNum = 99;BA.debugLine="If Level<=40 Then";
 if (_level<=40) { 
- //BA.debugLineNum = 99;BA.debugLine="rv.SetImage(\"im1\",bat40)";
+ //BA.debugLineNum = 100;BA.debugLine="rv.SetImage(\"im1\",bat40)";
 _rv.SetImage(processBA,"im1",(android.graphics.Bitmap)(_bat40.getObject()));
+ //BA.debugLineNum = 101;BA.debugLine="rv.UpdateWidget";
+_rv.UpdateWidget(processBA);
  };
- //BA.debugLineNum = 101;BA.debugLine="If Level <=20 Then";
+ //BA.debugLineNum = 103;BA.debugLine="If Level <=20 Then";
 if (_level<=20) { 
- //BA.debugLineNum = 102;BA.debugLine="rv.SetImage(\"im1\",bat20)";
+ //BA.debugLineNum = 104;BA.debugLine="rv.SetImage(\"im1\",bat20)";
 _rv.SetImage(processBA,"im1",(android.graphics.Bitmap)(_bat20.getObject()));
  };
- //BA.debugLineNum = 104;BA.debugLine="If Level < 15 Then";
+ //BA.debugLineNum = 106;BA.debugLine="If Level < 15 Then";
 if (_level<15) { 
- //BA.debugLineNum = 105;BA.debugLine="rv.SetImage(\"im1\",batlow)";
+ //BA.debugLineNum = 107;BA.debugLine="rv.SetImage(\"im1\",batlow)";
 _rv.SetImage(processBA,"im1",(android.graphics.Bitmap)(_batlow.getObject()));
- //BA.debugLineNum = 106;BA.debugLine="rv.SetTextColor(\"label3\",Colors.ARGB(150,255,255";
+ //BA.debugLineNum = 108;BA.debugLine="rv.SetTextColor(\"label3\",Colors.ARGB(150,255,255";
 _rv.SetTextColor(processBA,"label3",anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (150),(int) (255),(int) (255),(int) (255)));
- //BA.debugLineNum = 107;BA.debugLine="rv.SetTextSize(\"lablel3\",18)";
+ //BA.debugLineNum = 109;BA.debugLine="rv.SetTextSize(\"lablel3\",18)";
 _rv.SetTextSize(processBA,"lablel3",(float) (18));
- //BA.debugLineNum = 108;BA.debugLine="rv.SetText(\"label2\",\"ACHTUNG:\")";
+ //BA.debugLineNum = 110;BA.debugLine="rv.SetText(\"label2\",\"ACHTUNG:\")";
 _rv.SetText(processBA,"label2",BA.ObjectToCharSequence("ACHTUNG:"));
- //BA.debugLineNum = 109;BA.debugLine="rv.SetText(\"label3\",\"Akku fast leer! \"&Level)";
+ //BA.debugLineNum = 111;BA.debugLine="rv.SetText(\"label3\",\"Akku fast leer! \"&Level)";
 _rv.SetText(processBA,"label3",BA.ObjectToCharSequence("Akku fast leer! "+BA.NumberToString(_level)));
- //BA.debugLineNum = 110;BA.debugLine="rv.SetVisible(\"im1\",True)";
+ //BA.debugLineNum = 112;BA.debugLine="rv.SetVisible(\"im1\",True)";
 _rv.SetVisible(processBA,"im1",anywheresoftware.b4a.keywords.Common.True);
  };
  };
- //BA.debugLineNum = 113;BA.debugLine="rv.UpdateWidget";
-_rv.UpdateWidget(processBA);
- //BA.debugLineNum = 114;BA.debugLine="End Sub";
+ //BA.debugLineNum = 116;BA.debugLine="End Sub";
 return "";
 }
 public static String  _im1_click() throws Exception{

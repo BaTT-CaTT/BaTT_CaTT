@@ -89,6 +89,7 @@ Sub bat_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent A
 			If Level <=5 Then
 				rv.SetImage("im1",usb3)
 			End If
+		rv.UpdateWidget
 		Else
 		rv.SetVisible("im1",True)
 		If Level<=100 Then 
@@ -102,6 +103,7 @@ Sub bat_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent A
 		End If
 		If Level<=40 Then 
 		rv.SetImage("im1",bat40)
+			rv.UpdateWidget
 	End If
 	If Level <=20 Then 
 				rv.SetImage("im1",bat20)
@@ -115,5 +117,5 @@ Sub bat_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent A
 		rv.SetVisible("im1",True)
 	End If
 	End If 
-	rv.UpdateWidget
+	
 End Sub

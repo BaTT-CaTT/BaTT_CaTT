@@ -4,23 +4,23 @@ Module1=klo
 Module2=Batut
 Module3=hw
 Module4=Starter
-Module5=sys
-Module6=ClsSlidingSideBar
-Module7=XmlViewEx
-Module8=cool
-Module9=SetAnimation
-Module10=settings
-Module11=StateManager
-Module12=DBUtils
-Module13=Charts
-Module14=KeyValueStore
-Module15=ClsCheckList
-Module16=ClsExplorer
-Module17=webhost
+Module5=webhost
+Module6=sys
+Module7=ClsSlidingSideBar
+Module8=XmlViewEx
+Module9=cool
+Module10=SetAnimation
+Module11=settings
+Module12=StateManager
+Module13=DBUtils
+Module14=Charts
+Module15=KeyValueStore
+Module16=ClsCheckList
+Module17=ClsExplorer
 Build1=Default,com.batcat
 ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~android:name="android.permission.GET_TASKS"/>~\n~AddApplicationText(<Activity android:name="anywheresoftware.b4a.objects.preferenceactivity"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~  android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~  )~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#455A64</item>~\n~        <item name="colorPrimaryDark">#455A64</item>~\n~        <item name="colorAccent">#64DD17</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
-NumberOfFiles=58
+NumberOfFiles=60
 File1=1.bal
 File2=2.bal
 File3=4.bal
@@ -28,58 +28,60 @@ File4=5.bal
 File5=6.bal
 File6=Accept128.png
 File7=Android.png
-File8=Battery Icons - Colorful 128px (1).png
-File9=Battery Icons - Colorful 128px (10).png
-File10=Battery Icons - Colorful 128px (14).png
-File11=Battery Icons - Colorful 128px (16).png
-File12=Battery Icons - Colorful 128px (2).png
-File13=Battery Icons - Colorful 128px (3).png
-File14=Battery Icons - Colorful 128px (4).png
-File15=Battery Icons - Colorful 128px (5).png
-File16=Battery Icons - Colorful 128px (6).png
-File17=Battery Icons - Colorful 128px (7).png
-File18=Battery Icons - Colorful 128px (8).png
-File19=Battery Icons - Colorful 128px (9).png
-File20=Battery icons - Colorful 64px (32).png
-File21=Battery Icons - White 64px (28).png
-File22=Battery Icons - White 64px (35).png
-File23=Battery Icons - White 64px (40).png
-File24=Battery.png
-File25=Chart.png
-File26=Control.png
-File27=ic_autorenew_black_48dp.png
-File28=ic_battery_90_white_24dp.png
-File29=ic_battery_alert_black_48dp.png
-File30=ic_battery_charging_50_white_24dp.png
-File31=ic_brightness_auto_black_24dp.png
-File32=ic_brightness_auto_grey600_24dp.png
-File33=ic_clear_black_48dp.png
-File34=ic_data_usage_black_48dp.png
-File35=ic_delete_black_48dp.png
-File36=ic_looks_black_36dp.png
-File37=ic_looks_grey600_36dp.png
-File38=ic_network_cell_black_24dp.png
-File39=ic_network_cell_grey600_24dp.png
-File40=ic_network_wifi_black_24dp.png
-File41=ic_network_wifi_grey600_24dp.png
-File42=ic_rotate_right_black_24dp.png
-File43=ic_rotate_right_grey600_24dp.png
-File44=ic_sim_card_black_24dp.png
-File45=ic_sim_card_white_24dp.png
-File46=ic_swap_vert_circle_black_24dp.png
-File47=ic_swap_vert_circle_grey600_24dp.png
-File48=ic_usb_black_24dp.png
-File49=ic_usb_grey600_24dp.png
-File50=icon_batcat.png
-File51=Power.png
-File52=restart.png
-File53=Rss.png
-File54=squareprogressbar.jar
-File55=squareprogressbar.xml
-File56=sulo_log99.png
-File57=Tag.png
-File58=wid.bal
-NumberOfLibraries=31
+File8=Bar-chart48.png
+File9=Battery Icons - Colorful 128px (1).png
+File10=Battery Icons - Colorful 128px (10).png
+File11=Battery Icons - Colorful 128px (14).png
+File12=Battery Icons - Colorful 128px (16).png
+File13=Battery Icons - Colorful 128px (2).png
+File14=Battery Icons - Colorful 128px (3).png
+File15=Battery Icons - Colorful 128px (4).png
+File16=Battery Icons - Colorful 128px (5).png
+File17=Battery Icons - Colorful 128px (6).png
+File18=Battery Icons - Colorful 128px (7).png
+File19=Battery Icons - Colorful 128px (8).png
+File20=Battery Icons - Colorful 128px (9).png
+File21=Battery icons - Colorful 64px (32).png
+File22=Battery Icons - White 64px (28).png
+File23=Battery Icons - White 64px (35).png
+File24=Battery Icons - White 64px (40).png
+File25=Battery.png
+File26=Chart.png
+File27=Control.png
+File28=ic_autorenew_black_48dp.png
+File29=ic_battery_90_white_24dp.png
+File30=ic_battery_alert_black_48dp.png
+File31=ic_battery_charging_50_white_24dp.png
+File32=ic_brightness_auto_black_24dp.png
+File33=ic_brightness_auto_grey600_24dp.png
+File34=ic_clear_black_48dp.png
+File35=ic_data_usage_black_48dp.png
+File36=ic_delete_black_48dp.png
+File37=ic_folder_special_black_48dp.png
+File38=ic_looks_black_36dp.png
+File39=ic_looks_grey600_36dp.png
+File40=ic_network_cell_black_24dp.png
+File41=ic_network_cell_grey600_24dp.png
+File42=ic_network_wifi_black_24dp.png
+File43=ic_network_wifi_grey600_24dp.png
+File44=ic_rotate_right_black_24dp.png
+File45=ic_rotate_right_grey600_24dp.png
+File46=ic_sim_card_black_24dp.png
+File47=ic_sim_card_white_24dp.png
+File48=ic_swap_vert_circle_black_24dp.png
+File49=ic_swap_vert_circle_grey600_24dp.png
+File50=ic_usb_black_24dp.png
+File51=ic_usb_grey600_24dp.png
+File52=icon_batcat.png
+File53=Power.png
+File54=restart.png
+File55=Rss.png
+File56=squareprogressbar.jar
+File57=squareprogressbar.xml
+File58=sulo_log99.png
+File59=Tag.png
+File60=wid.bal
+NumberOfLibraries=37
 Library1=core
 Library2=phone
 Library3=reflection
@@ -111,17 +113,23 @@ Library28=circleprogressmaster
 Library29=mpchartlib
 Library30=net
 Library31=network
+Library32=designsupport
+Library33=collectionsextra
+Library34=fontawesome
+Library35=materialicons
+Library36=fft
+Library37=animationplus
 @EndOfDesignText@
  #Region  Project Attributes 
 	#ApplicationLabel: BATT-CaTT
-	#VersionCode: 254
-	#VersionName: 1.9.8
+	#VersionCode: 262
+	#VersionName: 1.9.9.2
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: false
 	#BridgeLogger:true
 	#AdditionalRes:"C:\Users\trow\Documents\Apps\Worground\RAM_Cat\res"
-	#AdditionalRes:"K:\customRes\b4a_floatingactionbutton"
+	
 #End Region
 	#Extends: android.support.v7.app.AppCompatActivity
 
@@ -157,7 +165,7 @@ Sub Globals
 	Private CheckBox2 As CheckBox
 	Dim temp,level1 As String
 	Private Panel2,panel3,lip,smlp As Panel
-	Dim kvs,kvs2,kvs3,kvs4,kvs4sub As KeyValueStore
+	Dim kvs,kvs2,kvs3,kvs4,kvs4sub,kvsvolt,kvstemp As KeyValueStore
 	'Dim cd As CustomDialog
 	Dim optmap As Map 
 	Private Label5 As Label
@@ -317,6 +325,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
 	kvs4sub.Initialize(File.DirDefaultExternal, "datastore_sub_4")
+	kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
+	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
+
 	'######################################################DATA STORE###########################
 	
 	logo.Initialize(File.DirAssets,"icon_batcat.png")
@@ -343,7 +354,7 @@ Sub Activity_Create(FirstTime As Boolean)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","APnames.txt",list3)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",level1)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt","5")
-			File.WriteString(File.DirDefaultExternal&"/mnt/data","vid.txt",pak.GetVersionCode("com.batcat"))
+			File.WriteString(File.DirDefaultExternal&"/mnt/data",ra.Device&".txt",ra.Brand)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","pn1.txt",Lis)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","settings.txt",setlist)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","proc.txt",proc)
@@ -393,6 +404,7 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 
 Sub Activity_Resume
+	
 	store_check
 	li2
 End Sub
@@ -443,7 +455,7 @@ Sub Menu_onFullyClosed
 	'lvMenu.SendToBack
 	'Button4.Visible=True
 	'Button4.Color=mcl.md_light_green_A400
-	'Button4.BringToFront
+	
 	'ImageView2.SetLayoutAnimated(100,40%x,5%y,20%x,40%y)
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
 	Button4.TextSize=18
@@ -452,6 +464,7 @@ Sub Menu_onFullyClosed
 	Label4.SetVisibleAnimated(100,True)
 	Button4.SetLayoutAnimated(100,110dip,55%y,95dip,90dip)
 	Button4.SetVisibleAnimated(80,True)
+	Button4.BringToFront
 	'Label6.BringToFront
 End Sub
 
@@ -935,7 +948,7 @@ Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Inten
 		Dim vol As Int 
 		vol=Intent.GetExtra("voltage")
 		Dim days As Int
-		val = level*1000 /60
+		val = level+list4.Size/1000*60*60*24
 		days=Floor(val/60/24)
 		hours = Floor(val/60 Mod 24)
 		minutes = val Mod 60
@@ -1046,9 +1059,6 @@ End Sub
 Sub cli_click
 	'lis.Add("Optimierung "&date&", "&time)
 	StartActivity(cool)
-End Sub
-Sub InputList_CheckedChange(Checked As Boolean)
-	
 End Sub
 
 Sub GetParentPath(Path As String) As String

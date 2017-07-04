@@ -16,6 +16,7 @@ public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
 public com.batcat.hw _hw = null;
 public com.batcat.starter _starter = null;
+public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
@@ -23,7 +24,6 @@ public com.batcat.settings _settings = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.webhost _webhost = null;
 public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 3;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 6;BA.debugLine="Dim setanimat As String";

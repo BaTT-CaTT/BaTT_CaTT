@@ -16,7 +16,7 @@ Sub Process_Globals
 		Dim sNotif As Notification
       Dim device As PhoneEvents
 	Dim list1 As List
-	 Dim kvs2,kvs3,kvs4 As KeyValueStore 
+	 Dim kvs2,kvs3,kvs4,kvstemp,kvsvolt As KeyValueStore 
 	 Private date,time,tt As String
 	 Dim bat As Batut
 	Dim level1 As Int
@@ -58,7 +58,8 @@ Sub Service_Create
 	kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
 	kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
-
+	kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
+	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
@@ -91,29 +92,43 @@ End Sub
 
 
 Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
-
-	Dim volta As Int
-	volta=Intent.GetExtra("voltage")
 	time=DateTime.Time(DateTime.Now)
-
 	Dim temp,volt,volt1,temp2 As String
 	volt1=Intent.GetExtra("voltage") /1000
 	temp2=Intent.GetExtra("temperature") /10
-	Dim status As Int = Intent.GetExtra("voltage")
+	Dim status As Int = Intent.GetExtra("status")
 	volt=Rnd(volt1,volt1+1)
 	temp=Rnd(temp2,temp2+1)
+	If kvsvolt.ListKeys.Size>15 Then
+		kvs2.DeleteAll
+		kvsvolt.DeleteAll
+		kvstemp.DeleteAll
+		ToastMessageShow("Statistics Reset",False)
+	End If
+	For g = 0 To temp2
+		If temp2=g Then
+			kvstemp.PutSimple(temp2,time)
+			Log(time&" Put-> "&temp2&"C°")
+		End If
+	Next
+	For vo = 2900 To Intent.GetExtra("voltage")
+		If Intent.GetExtra("voltage")=vo Then 
+			 kvsvolt.PutSimple(volt1,time)
+			Log(time&" Put-> "&Intent.GetExtra("voltage")&"V")
+		End If
+	Next
 	Dim rst,rl,rm As Int
 	Dim val,hours,minutes As Int
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",Level)
 	File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt",volt)
 	If Plugged  Then
-		
+	
 		For v = 0 To Scale 
-			nl.Add(v)
+			'nl.Add(v)
 			If Level=v Then
 				Log("Put-> "&v)
-				kvs2.PutSimple(Level,time)
-			end if 
+				kvs2.PutSimple(Level,time) 
+			End If 
 	Next
 	rst=Scale-Level
 		val = rst*Intent.GetExtra("voltage") /1000
@@ -135,15 +150,17 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 		Service.StartForeground(1,sNotif)
 		End If
 	Else
-		For v = 0 To Scale 
+		For v = 0 To Scale
 			nl.Add(v)
 			If Level=v Then
 				Log("Put-> "&v)
 				kvs2.PutSimple(Level,time)
 			End If
 		Next
-		Dim days As Int 
-		val = Level*1000*60 /24
+		Dim days,sval As Int 
+		sval = 1000*60*60*12*24
+		Log(sval)
+		val = Level/1000*60*60*24 
 		days=Floor(val/60/24)
 		hours = Floor(val/60 Mod 24)
 		minutes = val Mod 60

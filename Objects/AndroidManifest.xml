@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.batcat"
-	android:versionCode="254"
-	android:versionName="1.9.8"
+	android:versionCode="262"
+	android:versionName="1.9.9.2"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>
@@ -83,6 +83,10 @@
 			<action android:name="android.intent.action.BOOT_COMPLETED"/>
 			</intent-filter>
 		</receiver>
+		<service android:name=".webhost">
+		</service>
+		<receiver android:name=".webhost$webhost_BR">
+		</receiver>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
@@ -104,9 +108,5 @@
 			android:label="BATT-CaTT"
 			android:screenOrientation="portrait">
 		</activity>
-		<service android:name=".webhost">
-		</service>
-		<receiver android:name=".webhost$webhost_BR">
-		</receiver>
 	</application>
 </manifest>

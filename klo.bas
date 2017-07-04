@@ -33,7 +33,7 @@ Sub Globals
 	Dim volt,temp,usb,ac As String
 	'Dim device As PhoneEvents
 	Dim pak1 As PackageManager
-	Dim kvs2,kvs3,kvs4 As KeyValueStore
+	Dim kvs2,kvs3,kvs4,kvsvolt,kvstemp As KeyValueStore
 	Dim dt As List
 	Dim kl As List
 	Dim suc As List
@@ -47,6 +47,7 @@ Sub Globals
 	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 	Private dev As PhoneEvents
 	Private mpc1 As PieChart
+	Private ACButton2 As ACButton
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -106,11 +107,13 @@ Sub Activity_Create(FirstTime As Boolean)
 	ListView1.TwoLinesAndBitmap.ImageView.Width=32dip
 	ListView1.TwoLinesAndBitmap.ItemHeight=50dip
 	If FirstTime=True Then 
-		Msgbox("If the statistics is loaded for the first time it can take a while until the values ​​are displayed correctly, for example: current time and battery level -> 100% with the last 10 entries.","Please Note..!")	
+		Msgbox("Wenn die Statistik zum ersten Mal geladen wird, kann es eine Weile dauern, bis die Werte korrekt angezeigt werden, zB: V,C°,% der letzten 10 Einträge. Bitte beachte das die Werte nur ca sind da sie immer leicht Zeit versetzt gespeichert werden und nicht  den 'Live' Zustand anzeigen!","Wichtig!")
 	End If
 	kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
 	kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
+	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
+	kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
 	time2=DateTime.Time(DateTime.Now)
 	batt=LoadBitmap(File.DirAssets,"Battery Icons - White 64px (40).png")
 	pl=LoadBitmap(File.DirAssets,"Battery Icons - White 64px (28).png")
@@ -147,73 +150,63 @@ Sub popa_ItemClicked (Item As ACMenuItem)
 End Sub
 
 Sub ccl_click
+	
+	volt=bat.BatteryInformation(7)
+	temp=bat.BatteryInformation(6)
+		
+		kvstemp.DeleteAll
+		kvsvolt.DeleteAll
+	
+	kvstemp.PutSimple(temp,time2)
+	kvsvolt.PutSimple(volt,time2)
+	ToastMessageShow("warte auf Aktuelle werte..!",False)
+		Log(kvs2.ListKeys&" - clear")
+	c_start
+	get_log
+End Sub
+
+Sub graph_clear
+	kvs2.DeleteAll
 	level  = bat.BatteryInformation(0)
-		kvs2.DeleteAll
 	Log("put-> "&level&"%")
 	kvs2.PutSimple(level,time2)
-		ToastMessageShow("stats bitte neustarten für Aktuelle werte..!",False)
-		Log(kvs2.ListKeys&" - clear")
+	ToastMessageShow("warte auf Aktuelle werte..!",False)
 	c_start
 End Sub
 
 Sub c_start
 	If kvs2.IsInitialized Then
 		Log("KVS -> true")
-		
+	
 	Else
 		kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
 		kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
-		
+		kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
+		kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
 	End If
-	
+
 	get_log
-	bat_acusb
-	bat_health
 	chart_start
 End Sub
 
-Sub cl_click
-	Activity.Finish
-End Sub
 
 Sub get_log
-	level=bat.BatteryInformation(0)
-	ListView1.Clear
-	ListView1.AddTwoLinesAndBitmap("Bat. Level:",level&"%",batt)
-	ListView1.AddTwoLinesAndBitmap("Bat. Temperature:",temp&"°C",batt)
-	Return
-End Sub
-
-Sub bat_acusb
-	pk=LoadBitmap(File.DirAssets,"Battery Icons - White 64px (35).png")
-	If ac=1 Then
-		ListView1.AddTwoLinesAndBitmap("Bat. AC-Plugged:","@: "&volt&" V",pk)
+	If ListView1.Size>5 Then
+		ListView1.Clear
 	End If
-	If ac = 0 Or usb=0 Then
-		ListView1.AddTwoLinesAndbitmap("Bat. Discharge:","@: "&volt&" V",pl)
-	End If
+	Dim tm,vm As String 
 	
-	If usb=1 Then
-		ListView1.AddTwoLinesandbitmap("Bat. USB-Plugged:","@: "&volt&" V",pk)
-
-	End If
-	Return
+	For Each h As String   In  kvsvolt.ListKeys
+		Log(h)
+		For Each t As String In kvstemp.ListKeys
+			
+			Log(t)
+			tm=kvstemp.GetSimple(t)
+		ListView1.AddTwoLinesAndBitmap("@: "&tm,"Temp: "&t&"C° | Volt: "&h&"V",LoadBitmap(File.DirAssets,"Bar-chart48.png"))
+	Next
+	Next
 End Sub
 
-Sub bat_health
-	If bat.BatteryInformation(2)=1 Then
-		ListView1.AddTwoLines("Bat. Health:","Super")
-	Else
-		If 	bat.BatteryInformation(2) = 2 Then
-			ListView1.AddTwoLinesandbitmap("Bat. Health:","Good",LoadBitmap(File.DirAssets,"Battery icons - Colorful 64px (32).png"))
-		Else
-			If bat.BatteryInformation(2) < 2 Then
-				ListView1.AddTwoLines("Bat. Health:","Your Battery seems to be in a BAD-Discharge Status please recover a new one for your android Device!")
-			End If
-		End If
-	End If
-	Return
-End Sub
 
 
 Sub chart_start
@@ -230,10 +223,6 @@ Sub chart_start
 	LD.Target =Panel2
 	Charts.AddLineColor(LD, Colors.Red) 'First line color
 	Charts.AddLineColor(LD, Colors.Blue) 'Second line color
-	If kvs2.ListKeys.Size=20 Then
-		kvs2.DeleteAll
-		ToastMessageShow("Statistics Reset",False)
-	End If 
 	For Each h As String  In kvs2.ListKeys
 		fg=h
 		fn=kvs2.GetSimple(h)
@@ -264,6 +253,27 @@ End Sub
 
 Sub db_update
 	
+End Sub
+
+
+
+Sub ACButton1_Click
+	graph_clear
+End Sub
+
+ 
+Sub dev_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
+	Dim vl As List 
+	vl.Initialize
+	For v = 0 To Scale Step 2
+		vl.Add(v) 
+	If level1=v Then 
+		store_check
+		c_start
+		End If	
+	Next
+	
+		
 End Sub
 
 Sub store_check
@@ -374,63 +384,6 @@ Sub store_check
 	Activity.Invalidate
 End Sub
 
-'Sub MakeTransparent(Color As Int, Alpha As Int) As Int
-'	Return Bit.And(Color, Bit.Or(0x00FFFFFF, Bit.ShiftLeft(Alpha, 24)))
-'End Sub
-
-
-Sub ACButton1_Click
+Sub ACButton2_Click
 	ccl_click
 End Sub
-
- 
-Sub dev_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
-	If kvs2.ListKeys.Size>24 Then 
-		kvs3.DeleteAll
-		c_start
-	End If
-	Dim vl As List 
-	vl.Initialize
-	For v = 0 To Scale Step 2
-		vl.Add(v) 
-	If level1=v Then 
-		store_check
-		c_start
-		End If
-		
-Next 
-End Sub
-
-'########sub bardata old#############################
-
-'Dim BD As BarData
-'	BD.Initialize
-'	BD.Target = Panel2
-'	BD.BarsWidth = 10dip
-'	BD.Stacked = True 'Makes it a stacked bars chart
-'	Charts.AddBarColor(BD, MakeTransparent(Colors.white, 200)) 
-'	
-'	For Each j As String In kl
-'		Log(j)
-'		'mop.Put
-'		For Each d As Int  In dt
-'			Log(d)
-'			mop.Put(d,j)
-'		Next
-'	Next
-'	For Each h As String  In mop.Keys
-'		fg=mop.GetKeyAt(h)
-'		fn=mop.Get(h)
-'		Charts.AddBarPoint(BD, d, Array As Float(j))
-'	Next
-'	G.Title = "Power Chart"
-'	G.XAxis = "%"
-'	G.YAxis = "Values"
-'	G.YStart = 0
-'	G.YEnd = 100
-'	G.YInterval = 10
-'	G.AxisColor = Colors.White
-'	Charts.DrawBarsChart(G, BD, Colors.Transparent)
-
-
-'########sub bardata old#############################

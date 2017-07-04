@@ -128,6 +128,8 @@ public static anywheresoftware.b4a.objects.collections.List _list1 = null;
 public static com.batcat.keyvaluestore _kvs2 = null;
 public static com.batcat.keyvaluestore _kvs3 = null;
 public static com.batcat.keyvaluestore _kvs4 = null;
+public static com.batcat.keyvaluestore _kvstemp = null;
+public static com.batcat.keyvaluestore _kvsvolt = null;
 public static String _date = "";
 public static String _time = "";
 public static String _tt = "";
@@ -144,6 +146,7 @@ public static anywheresoftware.b4a.objects.collections.Map _m = null;
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
 public com.batcat.hw _hw = null;
+public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
@@ -152,23 +155,23 @@ public com.batcat.settings _settings = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
 public com.batcat.charts _charts = null;
-public com.batcat.webhost _webhost = null;
 public static boolean  _application_error(anywheresoftware.b4a.objects.B4AException _error,String _stacktrace) throws Exception{
- //BA.debugLineNum = 77;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
- //BA.debugLineNum = 78;BA.debugLine="ToastMessageShow(\"Status: Error Service Stop!\",Fa";
+ //BA.debugLineNum = 78;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
+ //BA.debugLineNum = 79;BA.debugLine="ToastMessageShow(\"Status: Error Service Stop!\",Fa";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Status: Error Service Stop!"),anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 79;BA.debugLine="Return True";
+ //BA.debugLineNum = 80;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
- //BA.debugLineNum = 80;BA.debugLine="End Sub";
+ //BA.debugLineNum = 81;BA.debugLine="End Sub";
 return false;
 }
 public static String  _device_batterychanged(int _level,int _scale,boolean _plugged,anywheresoftware.b4a.objects.IntentWrapper _intent) throws Exception{
-int _volta = 0;
 String _temp = "";
 String _volt = "";
 String _volt1 = "";
 String _temp2 = "";
 int _status = 0;
+int _g = 0;
+int _vo = 0;
 int _rst = 0;
 int _rl = 0;
 int _rm = 0;
@@ -177,198 +180,237 @@ int _hours = 0;
 int _minutes = 0;
 int _v = 0;
 int _days = 0;
- //BA.debugLineNum = 88;BA.debugLine="Sub device_BatteryChanged (Level As Int, Scale As";
- //BA.debugLineNum = 90;BA.debugLine="Dim volta As Int";
-_volta = 0;
- //BA.debugLineNum = 91;BA.debugLine="volta=Intent.GetExtra(\"voltage\")";
-_volta = (int)(BA.ObjectToNumber(_intent.GetExtra("voltage")));
- //BA.debugLineNum = 92;BA.debugLine="time=DateTime.Time(DateTime.Now)";
+int _sval = 0;
+ //BA.debugLineNum = 89;BA.debugLine="Sub device_BatteryChanged (Level As Int, Scale As";
+ //BA.debugLineNum = 90;BA.debugLine="time=DateTime.Time(DateTime.Now)";
 _time = anywheresoftware.b4a.keywords.Common.DateTime.Time(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
- //BA.debugLineNum = 94;BA.debugLine="Dim temp,volt,volt1,temp2 As String";
+ //BA.debugLineNum = 91;BA.debugLine="Dim temp,volt,volt1,temp2 As String";
 _temp = "";
 _volt = "";
 _volt1 = "";
 _temp2 = "";
- //BA.debugLineNum = 95;BA.debugLine="volt1=Intent.GetExtra(\"voltage\") /1000";
+ //BA.debugLineNum = 92;BA.debugLine="volt1=Intent.GetExtra(\"voltage\") /1000";
 _volt1 = BA.NumberToString((double)(BA.ObjectToNumber(_intent.GetExtra("voltage")))/(double)1000);
- //BA.debugLineNum = 96;BA.debugLine="temp2=Intent.GetExtra(\"temperature\") /10";
+ //BA.debugLineNum = 93;BA.debugLine="temp2=Intent.GetExtra(\"temperature\") /10";
 _temp2 = BA.NumberToString((double)(BA.ObjectToNumber(_intent.GetExtra("temperature")))/(double)10);
- //BA.debugLineNum = 97;BA.debugLine="Dim status As Int = Intent.GetExtra(\"voltage\")";
-_status = (int)(BA.ObjectToNumber(_intent.GetExtra("voltage")));
- //BA.debugLineNum = 98;BA.debugLine="volt=Rnd(volt1,volt1+1)";
+ //BA.debugLineNum = 94;BA.debugLine="Dim status As Int = Intent.GetExtra(\"status\")";
+_status = (int)(BA.ObjectToNumber(_intent.GetExtra("status")));
+ //BA.debugLineNum = 95;BA.debugLine="volt=Rnd(volt1,volt1+1)";
 _volt = BA.NumberToString(anywheresoftware.b4a.keywords.Common.Rnd((int)(Double.parseDouble(_volt1)),(int) ((double)(Double.parseDouble(_volt1))+1)));
- //BA.debugLineNum = 99;BA.debugLine="temp=Rnd(temp2,temp2+1)";
+ //BA.debugLineNum = 96;BA.debugLine="temp=Rnd(temp2,temp2+1)";
 _temp = BA.NumberToString(anywheresoftware.b4a.keywords.Common.Rnd((int)(Double.parseDouble(_temp2)),(int) ((double)(Double.parseDouble(_temp2))+1)));
- //BA.debugLineNum = 100;BA.debugLine="Dim rst,rl,rm As Int";
+ //BA.debugLineNum = 97;BA.debugLine="If kvsvolt.ListKeys.Size>15 Then";
+if (_kvsvolt._listkeys().getSize()>15) { 
+ //BA.debugLineNum = 98;BA.debugLine="kvs2.DeleteAll";
+_kvs2._deleteall();
+ //BA.debugLineNum = 99;BA.debugLine="kvsvolt.DeleteAll";
+_kvsvolt._deleteall();
+ //BA.debugLineNum = 100;BA.debugLine="kvstemp.DeleteAll";
+_kvstemp._deleteall();
+ //BA.debugLineNum = 101;BA.debugLine="ToastMessageShow(\"Statistics Reset\",False)";
+anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Statistics Reset"),anywheresoftware.b4a.keywords.Common.False);
+ };
+ //BA.debugLineNum = 103;BA.debugLine="For g = 0 To temp2";
+{
+final int step14 = 1;
+final int limit14 = (int)(Double.parseDouble(_temp2));
+for (_g = (int) (0) ; (step14 > 0 && _g <= limit14) || (step14 < 0 && _g >= limit14); _g = ((int)(0 + _g + step14)) ) {
+ //BA.debugLineNum = 104;BA.debugLine="If temp2=g Then";
+if ((_temp2).equals(BA.NumberToString(_g))) { 
+ //BA.debugLineNum = 105;BA.debugLine="kvstemp.PutSimple(temp2,time)";
+_kvstemp._putsimple(_temp2,(Object)(_time));
+ //BA.debugLineNum = 106;BA.debugLine="Log(time&\" Put-> \"&temp2&\"C°\")";
+anywheresoftware.b4a.keywords.Common.Log(_time+" Put-> "+_temp2+"C°");
+ };
+ }
+};
+ //BA.debugLineNum = 109;BA.debugLine="For vo = 2900 To Intent.GetExtra(\"voltage\")";
+{
+final int step20 = 1;
+final int limit20 = (int)(BA.ObjectToNumber(_intent.GetExtra("voltage")));
+for (_vo = (int) (2900) ; (step20 > 0 && _vo <= limit20) || (step20 < 0 && _vo >= limit20); _vo = ((int)(0 + _vo + step20)) ) {
+ //BA.debugLineNum = 110;BA.debugLine="If Intent.GetExtra(\"voltage\")=vo Then";
+if ((_intent.GetExtra("voltage")).equals((Object)(_vo))) { 
+ //BA.debugLineNum = 111;BA.debugLine="kvsvolt.PutSimple(volt1,time)";
+_kvsvolt._putsimple(_volt1,(Object)(_time));
+ //BA.debugLineNum = 112;BA.debugLine="Log(time&\" Put-> \"&Intent.GetExtra(\"voltage\")&\"";
+anywheresoftware.b4a.keywords.Common.Log(_time+" Put-> "+BA.ObjectToString(_intent.GetExtra("voltage"))+"V");
+ };
+ }
+};
+ //BA.debugLineNum = 115;BA.debugLine="Dim rst,rl,rm As Int";
 _rst = 0;
 _rl = 0;
 _rm = 0;
- //BA.debugLineNum = 101;BA.debugLine="Dim val,hours,minutes As Int";
+ //BA.debugLineNum = 116;BA.debugLine="Dim val,hours,minutes As Int";
 _val = 0;
 _hours = 0;
 _minutes = 0;
- //BA.debugLineNum = 102;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/ca";
+ //BA.debugLineNum = 117;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/ca";
 anywheresoftware.b4a.keywords.Common.File.WriteString(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","lvl.txt",BA.NumberToString(_level));
- //BA.debugLineNum = 103;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/ca";
+ //BA.debugLineNum = 118;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/ca";
 anywheresoftware.b4a.keywords.Common.File.WriteString(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","volt.txt",_volt);
- //BA.debugLineNum = 104;BA.debugLine="If Plugged  Then";
+ //BA.debugLineNum = 119;BA.debugLine="If Plugged  Then";
 if (_plugged) { 
- //BA.debugLineNum = 106;BA.debugLine="For v = 0 To Scale";
+ //BA.debugLineNum = 121;BA.debugLine="For v = 0 To Scale";
 {
-final int step15 = 1;
-final int limit15 = _scale;
-for (_v = (int) (0) ; (step15 > 0 && _v <= limit15) || (step15 < 0 && _v >= limit15); _v = ((int)(0 + _v + step15)) ) {
- //BA.debugLineNum = 107;BA.debugLine="nl.Add(v)";
-_nl.Add((Object)(_v));
- //BA.debugLineNum = 108;BA.debugLine="If Level=v Then";
+final int step31 = 1;
+final int limit31 = _scale;
+for (_v = (int) (0) ; (step31 > 0 && _v <= limit31) || (step31 < 0 && _v >= limit31); _v = ((int)(0 + _v + step31)) ) {
+ //BA.debugLineNum = 123;BA.debugLine="If Level=v Then";
 if (_level==_v) { 
- //BA.debugLineNum = 109;BA.debugLine="Log(\"Put-> \"&v)";
+ //BA.debugLineNum = 124;BA.debugLine="Log(\"Put-> \"&v)";
 anywheresoftware.b4a.keywords.Common.Log("Put-> "+BA.NumberToString(_v));
- //BA.debugLineNum = 110;BA.debugLine="kvs2.PutSimple(Level,time)";
+ //BA.debugLineNum = 125;BA.debugLine="kvs2.PutSimple(Level,time)";
 _kvs2._putsimple(BA.NumberToString(_level),(Object)(_time));
  };
  }
 };
- //BA.debugLineNum = 113;BA.debugLine="rst=Scale-Level";
+ //BA.debugLineNum = 128;BA.debugLine="rst=Scale-Level";
 _rst = (int) (_scale-_level);
- //BA.debugLineNum = 114;BA.debugLine="val = rst*Intent.GetExtra(\"voltage\") /1000";
+ //BA.debugLineNum = 129;BA.debugLine="val = rst*Intent.GetExtra(\"voltage\") /1000";
 _val = (int) (_rst*(double)(BA.ObjectToNumber(_intent.GetExtra("voltage")))/(double)1000);
- //BA.debugLineNum = 115;BA.debugLine="hours = Floor(val / 60)";
+ //BA.debugLineNum = 130;BA.debugLine="hours = Floor(val / 60)";
 _hours = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60));
- //BA.debugLineNum = 116;BA.debugLine="minutes = val Mod 60";
+ //BA.debugLineNum = 131;BA.debugLine="minutes = val Mod 60";
 _minutes = (int) (_val%60);
- //BA.debugLineNum = 117;BA.debugLine="If Level=100 Then";
+ //BA.debugLineNum = 132;BA.debugLine="If Level=100 Then";
 if (_level==100) { 
- //BA.debugLineNum = 118;BA.debugLine="sNotif.Icon=\"batusb\"";
+ //BA.debugLineNum = 133;BA.debugLine="sNotif.Icon=\"batusb\"";
 _snotif.setIcon("batusb");
- //BA.debugLineNum = 119;BA.debugLine="sNotif.Sound=False";
+ //BA.debugLineNum = 134;BA.debugLine="sNotif.Sound=False";
 _snotif.setSound(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 120;BA.debugLine="sNotif.SetInfo(\"Kabel entfernen: \"&Level&\"%\",vo";
+ //BA.debugLineNum = 135;BA.debugLine="sNotif.SetInfo(\"Kabel entfernen: \"&Level&\"%\",vo";
 _snotif.SetInfo(processBA,"Kabel entfernen: "+BA.NumberToString(_level)+"%",_volt+" V | "+_temp+"°C ",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 121;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 136;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
- //BA.debugLineNum = 123;BA.debugLine="Service.StartForeground(1,sNotif)";
+ //BA.debugLineNum = 138;BA.debugLine="Service.StartForeground(1,sNotif)";
 mostCurrent._service.StartForeground((int) (1),(android.app.Notification)(_snotif.getObject()));
  }else {
- //BA.debugLineNum = 125;BA.debugLine="sNotif.Icon=\"batusb\"";
+ //BA.debugLineNum = 140;BA.debugLine="sNotif.Icon=\"batusb\"";
 _snotif.setIcon("batusb");
- //BA.debugLineNum = 126;BA.debugLine="sNotif.Sound=False";
+ //BA.debugLineNum = 141;BA.debugLine="sNotif.Sound=False";
 _snotif.setSound(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 127;BA.debugLine="sNotif.SetInfo(\"laden: \"&Level&\" %\",volt&\" V | \"";
+ //BA.debugLineNum = 142;BA.debugLine="sNotif.SetInfo(\"laden: \"&Level&\" %\",volt&\" V | \"";
 _snotif.SetInfo(processBA,"laden: "+BA.NumberToString(_level)+" %",_volt+" V | "+_temp+"°C | noch: "+BA.NumberToString(_hours)+"h/"+BA.NumberToString(_minutes)+"min",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 128;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 143;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
- //BA.debugLineNum = 130;BA.debugLine="Service.StartForeground(1,sNotif)";
+ //BA.debugLineNum = 145;BA.debugLine="Service.StartForeground(1,sNotif)";
 mostCurrent._service.StartForeground((int) (1),(android.app.Notification)(_snotif.getObject()));
  };
  }else {
- //BA.debugLineNum = 133;BA.debugLine="For v = 0 To Scale";
+ //BA.debugLineNum = 148;BA.debugLine="For v = 0 To Scale";
 {
-final int step40 = 1;
-final int limit40 = _scale;
-for (_v = (int) (0) ; (step40 > 0 && _v <= limit40) || (step40 < 0 && _v >= limit40); _v = ((int)(0 + _v + step40)) ) {
- //BA.debugLineNum = 134;BA.debugLine="nl.Add(v)";
+final int step55 = 1;
+final int limit55 = _scale;
+for (_v = (int) (0) ; (step55 > 0 && _v <= limit55) || (step55 < 0 && _v >= limit55); _v = ((int)(0 + _v + step55)) ) {
+ //BA.debugLineNum = 149;BA.debugLine="nl.Add(v)";
 _nl.Add((Object)(_v));
- //BA.debugLineNum = 135;BA.debugLine="If Level=v Then";
+ //BA.debugLineNum = 150;BA.debugLine="If Level=v Then";
 if (_level==_v) { 
- //BA.debugLineNum = 136;BA.debugLine="Log(\"Put-> \"&v)";
+ //BA.debugLineNum = 151;BA.debugLine="Log(\"Put-> \"&v)";
 anywheresoftware.b4a.keywords.Common.Log("Put-> "+BA.NumberToString(_v));
- //BA.debugLineNum = 137;BA.debugLine="kvs2.PutSimple(Level,time)";
+ //BA.debugLineNum = 152;BA.debugLine="kvs2.PutSimple(Level,time)";
 _kvs2._putsimple(BA.NumberToString(_level),(Object)(_time));
  };
  }
 };
- //BA.debugLineNum = 140;BA.debugLine="Dim days As Int";
+ //BA.debugLineNum = 155;BA.debugLine="Dim days,sval As Int";
 _days = 0;
- //BA.debugLineNum = 141;BA.debugLine="val = Level*1000*60 /24";
-_val = (int) (_level*1000*60/(double)24);
- //BA.debugLineNum = 142;BA.debugLine="days=Floor(val/60/24)";
+_sval = 0;
+ //BA.debugLineNum = 156;BA.debugLine="sval = 1000*60*60*12*24";
+_sval = (int) (1000*60*60*12*24);
+ //BA.debugLineNum = 157;BA.debugLine="Log(sval)";
+anywheresoftware.b4a.keywords.Common.Log(BA.NumberToString(_sval));
+ //BA.debugLineNum = 158;BA.debugLine="val = Level/1000*60*60*24";
+_val = (int) (_level/(double)1000*60*60*24);
+ //BA.debugLineNum = 159;BA.debugLine="days=Floor(val/60/24)";
 _days = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60/(double)24));
- //BA.debugLineNum = 143;BA.debugLine="hours = Floor(val/60 Mod 24)";
+ //BA.debugLineNum = 160;BA.debugLine="hours = Floor(val/60 Mod 24)";
 _hours = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60%24));
- //BA.debugLineNum = 144;BA.debugLine="minutes = val Mod 60";
+ //BA.debugLineNum = 161;BA.debugLine="minutes = val Mod 60";
 _minutes = (int) (_val%60);
- //BA.debugLineNum = 145;BA.debugLine="If  Not (Level=0) Then";
+ //BA.debugLineNum = 162;BA.debugLine="If  Not (Level=0) Then";
 if (anywheresoftware.b4a.keywords.Common.Not(_level==0)) { 
- //BA.debugLineNum = 146;BA.debugLine="sNotif.SetInfo(\"Status: \"&Level&\" %\",volt&\" V |";
+ //BA.debugLineNum = 163;BA.debugLine="sNotif.SetInfo(\"Status: \"&Level&\" %\",volt&\" V |";
 _snotif.SetInfo(processBA,"Status: "+BA.NumberToString(_level)+" %",_volt+" V | "+_temp+"°C | noch: "+BA.NumberToString(_days)+"d "+BA.NumberToString(_hours)+"h "+BA.NumberToString(_minutes)+"m",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 147;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 164;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 149;BA.debugLine="If Level <= 100 Then";
+ //BA.debugLineNum = 166;BA.debugLine="If Level <= 100 Then";
 if (_level<=100) { 
- //BA.debugLineNum = 152;BA.debugLine="sNotif.Icon=\"bat100\"";
+ //BA.debugLineNum = 169;BA.debugLine="sNotif.Icon=\"bat100\"";
 _snotif.setIcon("bat100");
  };
- //BA.debugLineNum = 154;BA.debugLine="If Level <= 80 Then";
+ //BA.debugLineNum = 171;BA.debugLine="If Level <= 80 Then";
 if (_level<=80) { 
- //BA.debugLineNum = 156;BA.debugLine="sNotif.Icon=\"bat80\"";
+ //BA.debugLineNum = 173;BA.debugLine="sNotif.Icon=\"bat80\"";
 _snotif.setIcon("bat80");
  };
- //BA.debugLineNum = 158;BA.debugLine="If Level <= 60 Then";
+ //BA.debugLineNum = 175;BA.debugLine="If Level <= 60 Then";
 if (_level<=60) { 
- //BA.debugLineNum = 160;BA.debugLine="sNotif.Icon=\"bat60\"";
+ //BA.debugLineNum = 177;BA.debugLine="sNotif.Icon=\"bat60\"";
 _snotif.setIcon("bat60");
  };
- //BA.debugLineNum = 162;BA.debugLine="If Level <= 40 Then";
+ //BA.debugLineNum = 179;BA.debugLine="If Level <= 40 Then";
 if (_level<=40) { 
- //BA.debugLineNum = 164;BA.debugLine="sNotif.Icon=\"bat40\"";
+ //BA.debugLineNum = 181;BA.debugLine="sNotif.Icon=\"bat40\"";
 _snotif.setIcon("bat40");
  };
- //BA.debugLineNum = 166;BA.debugLine="If Level<=20 Then";
+ //BA.debugLineNum = 183;BA.debugLine="If Level<=20 Then";
 if (_level<=20) { 
- //BA.debugLineNum = 167;BA.debugLine="sNotif.Icon=\"bat20\"";
+ //BA.debugLineNum = 184;BA.debugLine="sNotif.Icon=\"bat20\"";
 _snotif.setIcon("bat20");
  };
- //BA.debugLineNum = 169;BA.debugLine="If Level = 5 Then";
+ //BA.debugLineNum = 186;BA.debugLine="If Level = 5 Then";
 if (_level==5) { 
- //BA.debugLineNum = 170;BA.debugLine="sNotif.Icon=\"bat5\"";
+ //BA.debugLineNum = 187;BA.debugLine="sNotif.Icon=\"bat5\"";
 _snotif.setIcon("bat5");
- //BA.debugLineNum = 171;BA.debugLine="sNotif.SetInfo(\"low Battery!: \",\"remain: \"&Level";
+ //BA.debugLineNum = 188;BA.debugLine="sNotif.SetInfo(\"low Battery!: \",\"remain: \"&Level";
 _snotif.SetInfo(processBA,"low Battery!: ","remain: "+BA.NumberToString(_level)+"% ",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 172;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 189;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 174;BA.debugLine="If Level = 4 Then";
+ //BA.debugLineNum = 191;BA.debugLine="If Level = 4 Then";
 if (_level==4) { 
- //BA.debugLineNum = 175;BA.debugLine="sNotif.Icon=\"batlow\"";
+ //BA.debugLineNum = 192;BA.debugLine="sNotif.Icon=\"batlow\"";
 _snotif.setIcon("batlow");
- //BA.debugLineNum = 176;BA.debugLine="sNotif.SetInfo(\"low Power!: \",\"set on low Power";
+ //BA.debugLineNum = 193;BA.debugLine="sNotif.SetInfo(\"low Power!: \",\"set on low Power";
 _snotif.SetInfo(processBA,"low Power!: ","set on low Power: "+BA.NumberToString(_level)+"% ",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 177;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 194;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 179;BA.debugLine="If temp >=41 Then";
+ //BA.debugLineNum = 196;BA.debugLine="If temp >=41 Then";
 if ((double)(Double.parseDouble(_temp))>=41) { 
- //BA.debugLineNum = 180;BA.debugLine="sNotif.Icon=\"batheat\"";
+ //BA.debugLineNum = 197;BA.debugLine="sNotif.Icon=\"batheat\"";
 _snotif.setIcon("batheat");
- //BA.debugLineNum = 181;BA.debugLine="sNotif.SetInfo(\"Achtung: \"&temp&\"°C !\",\"hier kli";
+ //BA.debugLineNum = 198;BA.debugLine="sNotif.SetInfo(\"Achtung: \"&temp&\"°C !\",\"hier kli";
 _snotif.SetInfo(processBA,"Achtung: "+_temp+"°C !","hier klicken um zum kühlen...",(Object)(mostCurrent._cool.getObject()));
- //BA.debugLineNum = 182;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 199;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
  };
- //BA.debugLineNum = 186;BA.debugLine="End Sub";
+ //BA.debugLineNum = 203;BA.debugLine="End Sub";
 return "";
 }
 public static String  _minutes_hours(int _ms) throws Exception{
 int _val = 0;
 int _hours = 0;
 int _minutes = 0;
- //BA.debugLineNum = 189;BA.debugLine="Sub minutes_hours ( ms As Int ) As String";
- //BA.debugLineNum = 190;BA.debugLine="Dim val,hours,minutes As Int";
+ //BA.debugLineNum = 206;BA.debugLine="Sub minutes_hours ( ms As Int ) As String";
+ //BA.debugLineNum = 207;BA.debugLine="Dim val,hours,minutes As Int";
 _val = 0;
 _hours = 0;
 _minutes = 0;
- //BA.debugLineNum = 191;BA.debugLine="val = ms";
+ //BA.debugLineNum = 208;BA.debugLine="val = ms";
 _val = _ms;
- //BA.debugLineNum = 192;BA.debugLine="hours = Floor(val / 60)";
+ //BA.debugLineNum = 209;BA.debugLine="hours = Floor(val / 60)";
 _hours = (int) (anywheresoftware.b4a.keywords.Common.Floor(_val/(double)60));
- //BA.debugLineNum = 193;BA.debugLine="minutes = val Mod 60";
+ //BA.debugLineNum = 210;BA.debugLine="minutes = val Mod 60";
 _minutes = (int) (_val%60);
- //BA.debugLineNum = 194;BA.debugLine="Return NumberFormat(hours, 1, 0) & \":\" & NumberFo";
+ //BA.debugLineNum = 211;BA.debugLine="Return NumberFormat(hours, 1, 0) & \":\" & NumberFo";
 if (true) return anywheresoftware.b4a.keywords.Common.NumberFormat(_hours,(int) (1),(int) (0))+":"+anywheresoftware.b4a.keywords.Common.NumberFormat(_minutes,(int) (2),(int) (0));
- //BA.debugLineNum = 195;BA.debugLine="End Sub";
+ //BA.debugLineNum = 212;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
@@ -379,10 +421,12 @@ _snotif = new anywheresoftware.b4a.objects.NotificationWrapper();
 _device = new anywheresoftware.b4a.phone.PhoneEvents();
  //BA.debugLineNum = 13;BA.debugLine="Dim list1 As List";
 _list1 = new anywheresoftware.b4a.objects.collections.List();
- //BA.debugLineNum = 14;BA.debugLine="Dim kvs2,kvs3,kvs4 As KeyValueStore";
+ //BA.debugLineNum = 14;BA.debugLine="Dim kvs2,kvs3,kvs4,kvstemp,kvsvolt As KeyValueSt";
 _kvs2 = new com.batcat.keyvaluestore();
 _kvs3 = new com.batcat.keyvaluestore();
 _kvs4 = new com.batcat.keyvaluestore();
+_kvstemp = new com.batcat.keyvaluestore();
+_kvsvolt = new com.batcat.keyvaluestore();
  //BA.debugLineNum = 15;BA.debugLine="Private date,time,tt As String";
 _date = "";
 _time = "";
@@ -452,29 +496,33 @@ _kvs2._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefa
 _kvs3._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_3");
  //BA.debugLineNum = 55;BA.debugLine="kvs4.Initialize(File.DirDefaultExternal, \"datasto";
 _kvs4._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_4");
- //BA.debugLineNum = 57;BA.debugLine="End Sub";
+ //BA.debugLineNum = 56;BA.debugLine="kvstemp.Initialize(File.DirDefaultExternal, \"data";
+_kvstemp._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_temp");
+ //BA.debugLineNum = 57;BA.debugLine="kvsvolt.Initialize(File.DirDefaultExternal, \"data";
+_kvsvolt._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_volt");
+ //BA.debugLineNum = 58;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_destroy() throws Exception{
- //BA.debugLineNum = 83;BA.debugLine="Sub Service_Destroy";
- //BA.debugLineNum = 84;BA.debugLine="ToastMessageShow(\"Status: Service End..\",False)";
+ //BA.debugLineNum = 84;BA.debugLine="Sub Service_Destroy";
+ //BA.debugLineNum = 85;BA.debugLine="ToastMessageShow(\"Status: Service End..\",False)";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Status: Service End.."),anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 85;BA.debugLine="End Sub";
+ //BA.debugLineNum = 86;BA.debugLine="End Sub";
 return "";
 }
 public static String  _service_start(anywheresoftware.b4a.objects.IntentWrapper _startingintent) throws Exception{
- //BA.debugLineNum = 59;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
- //BA.debugLineNum = 60;BA.debugLine="ToastMessageShow(\"Status: Service Start..\",False)";
+ //BA.debugLineNum = 60;BA.debugLine="Sub Service_Start (StartingIntent As Intent)";
+ //BA.debugLineNum = 61;BA.debugLine="ToastMessageShow(\"Status: Service Start..\",False)";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Status: Service Start.."),anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 61;BA.debugLine="If File.Exists(File.DirDefaultExternal&\"/mnt/cach";
+ //BA.debugLineNum = 62;BA.debugLine="If File.Exists(File.DirDefaultExternal&\"/mnt/cach";
 if (anywheresoftware.b4a.keywords.Common.File.Exists(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","lvl2.txt")) { 
  }else {
- //BA.debugLineNum = 66;BA.debugLine="File.MakeDir(File.DirDefaultExternal, \"mnt/cache";
+ //BA.debugLineNum = 67;BA.debugLine="File.MakeDir(File.DirDefaultExternal, \"mnt/cache";
 anywheresoftware.b4a.keywords.Common.File.MakeDir(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"mnt/cache");
- //BA.debugLineNum = 68;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/c";
+ //BA.debugLineNum = 69;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/c";
 anywheresoftware.b4a.keywords.Common.File.WriteString(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","lvl2.txt",BA.NumberToString(_level1));
  };
- //BA.debugLineNum = 74;BA.debugLine="End Sub";
+ //BA.debugLineNum = 75;BA.debugLine="End Sub";
 return "";
 }
 }

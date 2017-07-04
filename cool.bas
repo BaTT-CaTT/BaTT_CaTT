@@ -51,7 +51,7 @@ Sub Globals
 
 	'Private ListView1 As ListView
 	Private ImageView1 As ImageView
-	Private pg As NumberProgressBar
+	'Private pg As NumberProgressBar
 	Dim ffil,ffold As List
 	'Dim root As RuntimePermissions
 	Dim rot As String 
@@ -63,7 +63,8 @@ Sub Globals
 	Private mBmp As ColorDrawable
 	Dim ffiles,ffolders As List
 	Private dpm1 As DonutProgressMaster
-	dim root1 as string 
+	Dim root1 As String 
+	Dim anima As AnimationPlus
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -88,7 +89,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	ph.Initialize("ph")
 	piclist.Initialize
 	lis.Initialize
-
+	
 	'ml.Initialize
 	l1.Initialize("l1")
 	l2.Initialize("l2")
@@ -154,9 +155,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	'#########################End CLS Storage######################
 	ffil.Initialize
 	ffold.Initialize
-	'Activity.Color=Colors.ARGB(150,30,124,235)
-	Activity.SetColorAnimated(6000,mcl.md_deep_orange_A400,mcl.md_light_blue_A400)
-	Label1.SetTextColorAnimated(6000,Colors.White)
+	Activity.Color=mcl.md_white_1000
+	'Activity.SetColorAnimated(6000,mcl.md_deep_orange_A400,mcl.md_light_blue_A400)
+	'Label1.SetTextColorAnimated(6000,Colors.White)
 	'clist.Add(root.GetSafeDirDefaultExternal(""))
 	For h = 0 To clist.Size-1
 		Log(clist.Get(h))
@@ -166,7 +167,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	desk.Initialize(File.DirAssets, "ic_battery_alert_black_48dp.png")
 	work.Initialize(File.DirAssets, "ic_delete_black_48dp.png")
 	
-	
+	anima.InitializeAlpha("anima",0,1)
 		
 	
 	
@@ -179,6 +180,7 @@ End Sub
 
 Sub Activity_Resume
 	t1.Enabled=True
+	
 '	c_start
 '	clean_start
 End Sub
@@ -279,14 +281,18 @@ Sub cat_start
 '	p1.BackGroundColor=Colors.Transparent
 '	'p1.Diameter=360
 '	p1.InnerRadius=100
+	
 	dpm1.Color=Colors.Transparent
-	dpm1.FinishedStrokeColor=mcl.md_lime_700
-	dpm1.FinishedStrokeWidth=15
-	dpm1.InnerBackgroundColor=Colors.Transparent'Colors.ARGB(200,225,162,21)
-	dpm1.InnerBottomText="Boosting.."
-	dpm1.InnerBottomTextSize=20
+	dpm1.FinishedStrokeColor=mcl.md_light_blue_A700
+	dpm1.FinishedStrokeWidth=25
+	dpm1.UnfinishedStrokeColor=mcl.md_grey_700
+	dpm1.UnfinishedStrokeWidth=30
+	dpm1.SuffixText="% -> fertig.."
+	dpm1.InnerBackgroundColor=mcl.md_cyan_A100
+	dpm1.InnerBottomText="working..."
+	dpm1.InnerBottomTextSize=18
 	dpm1.InnerBottomTextColor=Colors.Black
-	dpm1.StartAngle=100
+	dpm1.PrefixText="Boost: "
 	'cat.Initialize(25,50*1024*1024,dir1)
 	clean_start
 	t1.Enabled=True
@@ -341,6 +347,7 @@ Sub li4
 	For u = 0 To list2.Size-1
 		Log(list2.Get(u))
 	Next
+	Return
 End Sub
 
 
@@ -409,15 +416,23 @@ Sub ph_DeviceStorageOk (Intent As Intent)
 End Sub
 
 Sub t1_Tick
-	'dpm1.Max=100
-	ImageView1.Visible=True
-	pg.SetColorAnimated(12000,Colors.Transparent,mcl.md_lime_A700)
-	ImageView1.Bitmap=andro
 	count=count+1
-	pg.incrementProgressBy(count*count)
-	dpm1.Progress=count*count*count*count*count*count
-	dpm1.UnfinishedStrokeWidth=12
+	anima.InitializeScale("anima",0dip,100dip,125dip,500dip)
+	anima.RepeatMode=anima.REPEAT_REVERSE
+	anima.Duration=5000
+	
+	anima.SetInterpolator(anima.INTERPOLATOR_ACCELERATE)
+	anima.Start(ImageView1)
+	dpm1.Max=100
+	ImageView1.Visible=True
+	'pg.SetColorAnimated(12000,Colors.Transparent,mcl.md_lime_A700)
+	ImageView1.Bitmap=andro
+	
+	'pg.incrementProgressBy(count*count)
+	dpm1.Progress=5
+	dpm1.UnfinishedStrokeWidth=20
 	dpm1.UnfinishedStrokeColor=Colors.ARGB(180,255,255,255)'mcl.md_light_green_A100
+	
 	'(mcl.md_white_1000,mcl.md_amber_400,mcl.md_light_green_400)
 	'spb1.ShowProgress=count
 	If count>0 Then 
@@ -425,6 +440,7 @@ Sub t1_Tick
 	End If
 	If count > 1 Then 
 		Label1.Text="check Battery.."
+		dpm1.Progress=20
 	End If
 	If count > 2 Then
 		Label1.Text="check Battery.."
@@ -433,19 +449,21 @@ Sub t1_Tick
 		'spb1.ImageBitmap = andro
 		'pg.Progress=28
 		Label1.Text="check System.."
-
+		dpm1.Progress=42
 	End If
 
 	If count > 4 Then
 		ImageView1.Bitmap=bat
 	
 		Label1.Text="clear Cache System.."
-
+		dpm1.Progress=67
 	End If
 	If count > 5 Then
 		Label1.Text="clear Cache System.."
 		ImageView1.Bitmap=desk
+		
 				Label1.Text="check "&op.formatSize(op.AvailableMemory)
+		dpm1.Progress=89
 	End If
 	If count > 6 Then
 		dpm1.Progress=100
@@ -465,14 +483,26 @@ Sub t1_Tick
 End Sub
 
 Sub delayed_t2
-		pg.Progress=100
+	dpm1.SetLayoutAnimated(0dip,0dip,0,0,0)
+	anima.Stop(ImageView1)
+		'pg.Progress=100
 		'prog.ClearProgress
 		'prog.SetProgress(360/100*3.6)
 		'prog1.Progress=360
 		'spb1.Progress=100
-		If count = 7 Then 
+		If count > 7 Then 
 			catdel.clearCache
-		t1.Enabled=False  
+		  
+		Label1.Text=op.formatSize(cat.FreeMemory)&" free.."
+		ToastMessageShow("closing in 2 sec...",False)
+		
+	End If
+	If count> 8 Then 
+		ToastMessageShow("closing in 1 sec...",False)
+	End If
+	If count = 9 Then 
+		t1.Enabled=False
+		ToastMessageShow("ready!",False)
 		ToastMessageShow(op.formatSize(cat.FreeMemory)&" free",False)
 		Activity.Finish
 		SetAnimation.setanimati ("extra_in", "extra_out")
@@ -491,54 +521,43 @@ Sub pg_onProgressChange(current As Int, maxvalue As Int)
 		Label1.Text=tr
 	Next
 	End If
-	If current=100 Then
+	If current=95 Then
 		ImageView1.Bitmap=LoadBitmap(File.DirAssets,"Accept128.png")
 	End If
 End Sub
 Sub clean_start
-	pg.incrementProgressBy(0)
-	pg.ProgressTextColor = Colors.Black
-	pg.ReachedBarColor = Colors.ARGB(185,255,255,255)
-	pg.UnreachedBarColor = Colors.Transparent
-	pg.UnreachedBarHeight = 25dip
-	pg.ReachedBarHeight = 20dip
-	pg.ProgressTextSize=20dip
-	pg.Max=100
-	pg.Width=100%x
-	pg.Left=1dip
-	pg.Prefix = "%"
-	pg.Suffix = "->"
+'	pg.incrementProgressBy(0)
+'	pg.ProgressTextColor = Colors.Black
+'	pg.ReachedBarColor = mcl.md_light_blue_A200'Colors.ARGB(185,255,255,255)
+'	pg.UnreachedBarColor = Colors.Transparent
+'	pg.UnreachedBarHeight = 25dip
+'	pg.ReachedBarHeight = 20dip
+'	pg.ProgressTextSize=20dip
+'	pg.Max=100
+'	pg.Width=100%x
+'	pg.Left=1dip
+'	pg.Prefix = "%"
+'	pg.Suffix = "->"
 End Sub
 
 
 
-Sub getdir(dir As String, recursive As Boolean) As Long
-	Dim si As String
-	Dim siz As Long
-	For Each f As String In File.ListFiles(dir)
-		If recursive Then
-			If File.IsDirectory(dir, f) Then
-				si = dir
-				Log(si)
-				siz = siz + getdir(File.Combine(dir, f),recursive)
-			End If
-		End If
-		siz = siz + File.Size(dir, f)
-	Next
-	Return siz
-End Sub
-'Sub ListFolders(dir As String)
-'	Dim list_files As List
-'	Dim lista_folders As List
-'	lista_folders.Initialize
-'	list_files=File.ListFiles(dir)
-'	For i= 0 To list_files.Size -1
-'		If File.IsDirectory(dir, list_files.Get(i))=True Then
-'			lista_folders.Add(list_files.Get(i))
+'Sub getdir(dir As String, recursive As Boolean) As Long
+'	Dim si As String
+'	Dim siz As Long
+'	For Each f As String In File.ListFiles(dir)
+'		If recursive Then
+'			If File.IsDirectory(dir, f) Then
+'				si = dir
+'				Log(si)
+'				siz = siz + getdir(File.Combine(dir, f),recursive)
+'			End If
 '		End If
+'		siz = siz + File.Size(dir, f)
 '	Next
-'	Return lista_folders
+'	Return siz
 'End Sub
+
 
 Sub app_info
 	
@@ -572,7 +591,7 @@ Sub app_info
 			list3.Add(packName)
 			'Log(GetParentPath(GetSourceDir(GetActivitiesInfo(packName)))&"/cache")
 		
-			Log(getdir(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),True))
+			'Log(getdir(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),True))
 			'CopyFolder(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),File.DirInternal&"/mnt/cache")
 			Log(ffolders.Size&" folder / "&ffiles.Size&" files")
 			

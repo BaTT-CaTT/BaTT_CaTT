@@ -6,9 +6,9 @@ B4A=true
 #Region  Activity Attributes 
 	#FullScreen: False
 	#IncludeTitle: True
-	
 #End Region
 #Extends: android.support.v7.app.AppCompatActivity
+	
 Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
@@ -46,12 +46,15 @@ Sub Globals
 	Dim cs As CSBuilder
 	Private cb1 As ACCheckBox
 	Private Panel3 As Panel
+
+	Private arb As ACSwitch
+
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("6")
-	Activity.Color=Colors.ARGB(200,255,255,255)
+	'Activity.Color=Colors.ARGB(200,255,255,255)
 	'Activity.AddMenuItem3("Info","pci",LoadBitmap(File.DirAssets, "Rss.png"),True)
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
 	kvs4sub.Initialize(File.DirDefaultExternal, "datastore_sub_4")
@@ -113,6 +116,7 @@ Sub Activity_Create(FirstTime As Boolean)
 
 	
 	ACSpinner1.Prompt="Wähle Farbe"
+	
 	ACSpinner1.Add2("light blue",cc1)
 	ACSpinner1.Add2("Amber",cc2)
 	ACSpinner1.Add2("White(Arctic)",cc3)'-<<<<<<change on main bardata and textflow!
@@ -134,9 +138,10 @@ Sub Activity_Create(FirstTime As Boolean)
 	ACButton1.ButtonColor=Colors.ARGB(180,255,255,255)
 	If StateManager.RestoreState(Activity, "Main", 60) = False Then
 		'set the default values
-		cb1.Checked=True
+		arb.Checked=True
 	End If
 	Dim AutoUpdate As Boolean
+
 	AutoUpdate = StateManager.GetSetting2("AutoUpdate", False)
 
 	store_check
@@ -148,8 +153,6 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 	If UserClosed Then
-		StateManager.ResetState("Main")
-	Else
 		StateManager.SaveState(Activity, "Main")
 	End If
 	StateManager.SaveSettings
@@ -174,6 +177,7 @@ Sub ACButton1_Click
 '	Else 
 '		popa.Close
 	'	End If
+	StateManager.SaveSettings
 	Activity.Finish
 	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
@@ -185,26 +189,77 @@ Sub popa_ItemClicked (Item As ACMenuItem)
 	End If
 End Sub
 
-Sub store_check 
+
+Sub dsf1_Click
+	
+End Sub
+
+Sub arb_CheckedChange(Checked As Boolean) 
+	If Checked=True Then
+		kvs4sub.DeleteAll
+		StartService(Starter)
+	'StartService(hw)
+		StartService(webhost)
+		Log("start")
+		ToastMessageShow("Services started..",False)
+'		'StopService(hw)
+		StateManager.SaveSettings
+	Else
+		If Checked=False Then
+			kvs4sub.DeleteAll
+			kvs4sub.PutSimple("off",Checked)
+			StopService(Starter)
+			StopService(webhost)
+			Log("Service Stop")
+			ToastMessageShow("Services closed!",False)
+		End If
+		StateManager.SaveSettings
+	End If
+End Sub
+
+Sub DSTabLayout1_TabSelected(Index As Int, SelectedTab As String, Tag As Object)
+	
+End Sub
+
+
+
+Sub tab_settings
+	Dim liv As ListView
+	Dim draw As BitmapDrawable
+	Dim bdraw As Bitmap
+	bdraw.Initialize(File.DirAssets,"ic_folder_special_black_48dp.png")
+	draw.Initialize(bdraw)
+	liv.Initialize("liv")
+	liv.Enabled=True
+	liv.AddSingleLine("Text")
+	liv.AddTwoLines("Text","Sub text..")
+
+	
+	
+	
+	
+End Sub
+
+Sub store_check
 	If kvs4sub.ContainsKey("off") Then
-			'cb1.Checked=True
-		StopService(Starter)
-		dev.StopListening
-		Log("AC_Off->")
-		Else
-			cb1.Checked=True
+		arb.Checked=False
+		'		StopService(Starter)
+		'		dev.StopListening
+		'		Log("AC_Off->")
+	Else
+		arb.Checked=True
 	End If
 	
 	If kvs4.ContainsKey("0")Then
 		Log("AC_true->1")
-	'act
-	ACSpinner1.SelectedIndex=0
+		'act
+		ACSpinner1.SelectedIndex=0
 		Panel2.Color=c1
 	End If
 	If kvs4.ContainsKey("1")Then
 		Log("AC_true->2")
 		ACSpinner1.SelectedIndex=1
-	Panel2.Color=c2
+		Panel2.Color=c2
 	Else
 		'Activity.Color=c1
 	End If
@@ -321,142 +376,116 @@ Sub store_check
 End Sub
 
 Sub ACSpinner1_ItemClick (Position As Int, Value As Object)
-	Value=ACSpinner1.SelectedIndex
+'	Value=ACSpinner1.SelectedIndex
 	ACSpinner1.SelectedIndex=Position
+	
 	If Position=0 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("0",Value)
-			ToastMessageShow("light blue",False)
-			Panel2.Color=c16
-			Log("Is in Store")
+		kvs4.DeleteAll
+		kvs4.PutSimple("0",Value)
+		ToastMessageShow(Value,False)
+		Panel2.Color=c16
+		Log("Is in Store")
 	End If
 	If Position=1 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("1",Value)
-			ToastMessageShow("Amber ",False)
-			Log("New Store")
+		kvs4.DeleteAll
+		kvs4.PutSimple("1",Value)
+		ToastMessageShow(Value,False)
+		Log("New Store")
 		Panel2.Color=c2
 	End If
 	If Position=2 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("2",Value)
-			ToastMessageShow("Lime ",False)
-			Log("Now Stored")
+		kvs4.DeleteAll
+		kvs4.PutSimple("2",Value)
+		ToastMessageShow(Value,False)
+		Log("Now Stored")
 		Panel2.Color=c3
 		Activity.Invalidate
 	End If
 	If Position=3 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("3",Value)
-			ToastMessageShow("Teal ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("3",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c4
-			Activity.Invalidate
+		Activity.Invalidate
 	End If
 	If Position=4 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("4",Value)
-			ToastMessageShow("purple(dark) ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("4",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c5
 	End If
 	If Position=5 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("5",Value)
-			ToastMessageShow("red ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("5",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c6
 	End If
 	If Position=6 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("6",Value)
-			ToastMessageShow("indigo ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("6",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c7
 	End If
 	If Position=7 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("7",Value)
-			ToastMessageShow("blue ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("7",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c8
 	End If
 	If Position=8 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("8",Value)
-			ToastMessageShow("orange",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("8",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c9
 	End If
 	If Position=9 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("9",Value)
-			ToastMessageShow("grey ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("9",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c10
 	End If
 	If Position=10 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("10",Value)
-			ToastMessageShow("green ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("10",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c11
-			Activity.Invalidate
+		Activity.Invalidate
 	End If
 	If Position=11 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("11",Value)
-			ToastMessageShow("light green ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("11",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c12
 	End If
 	If Position=12 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("12",Value)
-			ToastMessageShow("yellow ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("12",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c13
 	End If
 	If Position=13 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("13",Value)
-			ToastMessageShow("cyan ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("13",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c14
 	End If
 	If Position=14 Then
-			kvs4.DeleteAll
-			kvs4.PutSimple("14",Value)
-			ToastMessageShow("cyan ",False)
-			Log("Stored ---")
+		kvs4.DeleteAll
+		kvs4.PutSimple("14",Value)
+		ToastMessageShow(Value,False)
+		Log("Stored ---")
 		Panel2.Color=c15
 	End If
 End Sub
 
-Sub ACActionMenu1_MenuItemClick (Item As ACMenuItem)
-	
-End Sub
-
-Sub Panel2_Touch (Action As Int, X As Float, Y As Float)
-	
-End Sub
-
-
-
-Sub cb1_CheckedChange(Checked As Boolean)
-	If Checked=True Then
-			kvs4sub.DeleteAll
-					StartService(Starter)
-					StartService(hw)
-					StartService(webhost)
-			Log("start")
-		'StopService(hw)
-		Else
-			If Checked=False Then
-			kvs4sub.DeleteAll
-			kvs4sub.PutSimple("off",Checked)
-			Log("end")
-		End If 
-	End If
-	store_check
-End Sub

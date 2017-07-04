@@ -12,9 +12,17 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Dim ftp As FTP
+	Dim flist As List
+	Dim fdata As String
+	Dim fdir As String
 End Sub
 
 Sub Service_Create
+	fdir=File.DirDefaultExternal&"/mnt/data"
+	flist.Initialize
+	flist.AddAll(File.ListFiles(File.DirDefaultExternal&"/mnt/data"))
+	Log(File.ListFiles(File.DirDefaultExternal&"/mnt/data"))
+	ftp.Initialize("ftp","battcatt.bplaced.net","21","battcatt_app","recall0000")
 	ftp_start
 End Sub
 
@@ -26,15 +34,14 @@ Sub Service_Destroy
 
 End Sub
 
-
 Sub ftp_start
-	ftp.Initialize("ftp","battcatt.bplaced.net","21","battcatt_app","recall0000")
 	ftp.DownloadFile("/bc.txt",True,File.DirDefaultExternal&"/mnt/data","bc.txt")
-	If File.Exists(File.DirDefaultExternal&"/mnt/data","vid.txt") Then 
-	ftp.UploadFile(File.DirDefaultExternal&"/mnt/data","vid.txt",True,"/vid.txt")
-	Else
-		ToastMessageShow("Nothing to check..",False)
-		End If 
+	For i = 0 To flist.Size-1
+		fdata=flist.get(i)
+		Log(fdata) 
+	ftp.UploadFile(fdir,GetFileName(fdata),True,"/"&GetFileName(fdata))
+	ToastMessageShow("check for updates...",False)
+	Next
 End Sub
 
 
@@ -54,6 +61,7 @@ Sub ftp_DownloadCompleted (ServerPath As String, Success As Boolean)
 	If Success = False Then 
 		Log(LastException.Message)
 		Else
+			ftp.Close
 		Log(" Success=" & Success)
 	End If
 	
@@ -64,6 +72,11 @@ Sub ftp_UploadCompleted (ServerPath As String, Success As Boolean)
 	If Success = False Then 
 		Log(LastException.Message)     
 		Else
-			log(Success)      
+			Log(Success) 
+			ftp.Close     
 	End If
+End Sub
+
+Sub GetFileName(FullPath As String) As String
+	Return FullPath.SubString(FullPath.LastIndexOf("/")+1)
 End Sub
