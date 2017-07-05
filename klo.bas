@@ -48,6 +48,8 @@ Sub Globals
 	Private dev As PhoneEvents
 	Private mpc1 As PieChart
 	Private ACButton2 As ACButton
+	Dim osstat As OSStats
+	dim metric as MSOS
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -191,20 +193,7 @@ End Sub
 
 
 Sub get_log
-	If ListView1.Size>5 Then
-		ListView1.Clear
-	End If
-	Dim tm,vm As String 
 	
-	For Each h As String   In  kvsvolt.ListKeys
-		Log(h)
-		For Each t As String In kvstemp.ListKeys
-			
-			Log(t)
-			tm=kvstemp.GetSimple(t)
-		ListView1.AddTwoLinesAndBitmap("@: "&tm,"Temp: "&t&"C° | Volt: "&h&"V",LoadBitmap(File.DirAssets,"Bar-chart48.png"))
-	Next
-	Next
 End Sub
 
 

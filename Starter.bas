@@ -26,7 +26,7 @@ Sub Process_Globals
 	Dim labex As String
 	Dim sql As SQL
 	Dim m As Map
-	
+	dim bat as Batut
 End Sub
 
 Sub Service_Create
@@ -92,6 +92,15 @@ End Sub
 
 
 Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
+	Dim acc,ausb As Int
+	Dim us,ac As String 
+	acc=bat.BatteryInformation(10)
+	ausb=bat.BatteryInformation(9)
+	If acc = 1 Then 
+		ac="AC - Kabel: "
+		Else
+			ac="USB - Kabel: "
+	End If
 	time=DateTime.Time(DateTime.Now)
 	Dim temp,volt,volt1,temp2 As String
 	volt1=Intent.GetExtra("voltage") /1000
@@ -100,10 +109,14 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 	volt=Rnd(volt1,volt1+1)
 	temp=Rnd(temp2,temp2+1)
 	If kvsvolt.ListKeys.Size>15 Then
-		kvs2.DeleteAll
+		
 		kvsvolt.DeleteAll
 		kvstemp.DeleteAll
-		ToastMessageShow("Statistics Reset",False)
+		'ToastMessageShow("Reset",False)
+	End If
+	If kvs2.ListKeys.Size>25 Then 
+		kvs2.DeleteAll
+		ToastMessageShow("Reset",False)
 	End If
 	For g = 0 To temp2
 		If temp2=g Then
@@ -130,21 +143,21 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 				kvs2.PutSimple(Level,time) 
 			End If 
 	Next
-	rst=Scale-Level
+		rst=Scale-Level
 		val = rst*Intent.GetExtra("voltage") /1000
 		hours = Floor(val / 60)
 		minutes = val Mod 60
 		If Level=100 Then
 			sNotif.Icon="batusb"
 			sNotif.Sound=False
-			sNotif.SetInfo("Kabel entfernen: "&Level&"%",volt&" V | "&temp&"°C ",Main)
+			sNotif.SetInfo(Level&"%",volt&" V | "&temp&"°C ",Main)
 			sNotif.Notify(1)
 			'sql1.ExecNonQuery("INSERT INTO stats VALUES (NULL,"& tt &"," & level1 &")")
 			Service.StartForeground(1,sNotif)
 		Else
 		sNotif.Icon="batusb"
 		sNotif.Sound=False
-		sNotif.SetInfo("laden: "&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h/"&minutes&"min",Main)
+		sNotif.SetInfo(ac&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h/"&minutes&"min",Main)
 		sNotif.Notify(1)
 		'sql1.ExecNonQuery("INSERT INTO stats VALUES (NULL,"& tt &"," & level1 &")")
 		Service.StartForeground(1,sNotif)
@@ -158,14 +171,14 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			End If
 		Next
 		Dim days,sval As Int 
-		sval = 1000*60*60*12*24
+		sval =Intent.GetExtra("status")*60
 		Log(sval)
-		val = Level/1000*60*60*24 
+		val = sval
 		days=Floor(val/60/24)
 		hours = Floor(val/60 Mod 24)
 		minutes = val Mod 60
 		If  Not (Level=0) Then 
-			sNotif.SetInfo("Status: "&Level&" %",volt&" V | "&temp&"°C | noch: "&days&"d "&hours&"h "&minutes&"m",Main)
+			sNotif.SetInfo(Level&" %",volt&" V | "&temp&"°C | noch: "&days&"d "&hours&"h "&minutes&"m",Main)
 			sNotif.Notify(1)
 		End If
 	If Level <= 100 Then

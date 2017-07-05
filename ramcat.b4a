@@ -20,7 +20,7 @@ Module17=ClsExplorer
 Build1=Default,com.batcat
 ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~android:name="android.permission.GET_TASKS"/>~\n~AddApplicationText(<Activity android:name="anywheresoftware.b4a.objects.preferenceactivity"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~  android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~  )~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#455A64</item>~\n~        <item name="colorPrimaryDark">#455A64</item>~\n~        <item name="colorAccent">#64DD17</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
-NumberOfFiles=60
+NumberOfFiles=62
 File1=1.bal
 File2=2.bal
 File3=4.bal
@@ -76,12 +76,14 @@ File52=icon_batcat.png
 File53=Power.png
 File54=restart.png
 File55=Rss.png
-File56=squareprogressbar.jar
-File57=squareprogressbar.xml
-File58=sulo_log99.png
-File59=Tag.png
-File60=wid.bal
-NumberOfLibraries=37
+File56=soff.png
+File57=son.png
+File58=squareprogressbar.jar
+File59=squareprogressbar.xml
+File60=sulo_log99.png
+File61=Tag.png
+File62=wid.bal
+NumberOfLibraries=42
 Library1=core
 Library2=phone
 Library3=reflection
@@ -119,15 +121,20 @@ Library34=fontawesome
 Library35=materialicons
 Library36=fft
 Library37=animationplus
+Library38=floatingactionbutton
+Library39=androidproviders
+Library40=uiswitch
+Library41=msos
+Library42=osstats
 @EndOfDesignText@
  #Region  Project Attributes 
 	#ApplicationLabel: BATT-CaTT
-	#VersionCode: 262
-	#VersionName: 1.9.9.2
+	#VersionCode: 268
+	#VersionName: 1.9.9.4
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: false
-	#BridgeLogger:true
+	#BridgeLogger:false
 	#AdditionalRes:"C:\Users\trow\Documents\Apps\Worground\RAM_Cat\res"
 	
 #End Region
@@ -211,6 +218,9 @@ Sub Globals
 	Private prb1 As ProgressRoundButton
 	Dim volt,root1 As String 
 	Dim ffiles,ffolders As List
+	
+	Dim xMSOS As MSOS
+	Dim xOSStats As OSStats
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -255,6 +265,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	ramlist.Initialize
 	ffiles.Initialize
 	ffolders.Initialize
+	'##########OS Stats#############################################################
+	xOSStats.Initialize(400, 50, Me, "myStats")
+	
 	'###############################################################################
 	panel3.AddView(lk,10,5,80%x,50%y)
 	lv2.FastScrollEnabled=True
@@ -399,18 +412,19 @@ Sub Activity_Create(FirstTime As Boolean)
 	store_check
 	app_info
 	label_text
-	li2
+	
 	'######################################################Subs End ###########################
 End Sub
 
 Sub Activity_Resume
-	
+	xOSStats.StartStats
 	store_check
-	li2
+	
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
-	cat.CloseAndClearDiskCache
+	xOSStats.EndStats
+	'cat.CloseAndClearDiskCache
 End Sub
 
 
@@ -742,48 +756,13 @@ Sub pci_click
 	End If
 End Sub
 
-
-Sub Panel2_Touch (Action As Int, X As Float, Y As Float)
-	
-End Sub
-
 Sub ser_start
 	 ProgressDialogShow("loading")
 End Sub
-Sub li2
-	list2.Clear
-	list4.Clear
-	list5.Clear
-	list7.Clear
-	proc.Clear
-	ramlist.Clear
-	cat.Initialize(25,100*1024*1024,File.DirDefaultExternal&"/mnt/cache")
-	Dim si,st As Int
-	st=ra.AvailableMemory*1024*1024
-	Log(FormatFileSize(st))
-	'Log(ra.formatSize(st))
-	si=ra.AvailableInternalMemorySize
-	proc=ra.getRecentTasks(99,0)
-	ramlist=ra.RunningServiceInfo(999,list7,list8,list9)
-	list2=ra.RunningAppProcesses'Info(list4,list5,list6)
-	Dim math1,math2 As Int
-	'proc.Size+list4.Size*1000*1024*10
-	
-	Dim ti As Int=list2.Size+list7.Size+st
-	math1=ti*10*1024*1024
-	Log(FormatFileSize(math1))
 
-	math2=cat.DiskFree
-	Label5.Text=list7.size&"% "&FormatFileSize(math1+math2)
-	For z = 0 To  list7.Size-1
-	'Log(ra.formatSize(math1))
-	For h = 0 To  list2.size-1
-		'Log(list2.Get(h))
-		'Log(FormatFileSize(math1))
-		ProgressBar1.Progress=z
-	Next
-	Next
-	Return 
+Sub myStats_Update(CPUEfficiency() As Float, RAMUsage As Float)
+	ProgressBar1.Progress=RAMUsage
+	Label5.Text=NumberFormat2(RAMUsage, 0, 0, 0, False) & "%"& " - "&FormatFileSize(RAMUsage*1024*1024*10)
 End Sub
 	
 Sub CalcSize(Folder As String, recursive As Boolean) As Long
@@ -896,7 +875,6 @@ End Sub
 
 
 Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
-	li2
 	ProgressDialogHide
 	Dim val,hours,minutes,rst,ts,volta,vs As Int
 	volta=Intent.GetExtra("voltage")/1000
@@ -948,7 +926,7 @@ Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Inten
 		Dim vol As Int 
 		vol=Intent.GetExtra("voltage")
 		Dim days As Int
-		val = level+list4.Size/1000*60*60*24
+		val = level*1000*60*60/level
 		days=Floor(val/60/24)
 		hours = Floor(val/60 Mod 24)
 		minutes = val Mod 60
@@ -1038,15 +1016,6 @@ Sub app_info
 
 End Sub
 
-Sub BytesToFile (Dir As String, FileName As String, Data() As Byte)
-	Dim out As OutputStream = File.OpenOutput(Dir, FileName, False)
-	out.WriteBytes(Data, 0, Data.Length)
-	out.Close
-End Sub
-
-Sub FileToBytes (Dir As String, FileName As String) As Byte()
-	Return Bit.InputStreamToBytes(File.OpenInput(Dir, FileName))
-End Sub
 
 Sub fc_CopyDone(Key As String, Error As Boolean)
 			
@@ -2640,3 +2609,8 @@ import java.util.UUID;
 
 
 
+
+
+Sub FloatingActionButton1_Click
+	
+End Sub

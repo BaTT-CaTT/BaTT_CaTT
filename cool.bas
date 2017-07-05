@@ -19,27 +19,23 @@ Sub Globals
 	Dim args(1) As Object
 	Dim Obj1, Obj2, Obj3 As Reflector
 	Dim Types(1), name,packName,date,time As String
-'	Dim cache,stats,stats2 As Long
     Dim icon As BitmapDrawable
 	Dim pak As PackageManager
-	Dim list1,list2,list3,clist,piclist,phlis,list4,list5,list6,lis,list7,list8,list9,apklist,reslist,aclist,apclist,filelist As List 
+	Dim list4,list1,apklist,list2,list5,list6,list7 As List
 	Dim catdel As CacheCleaner
 	Dim cat As Cache
-	'Dim dir1 As String =File.DirDefaultExternal&"/mnt/cache/store"
+	Dim dir1 As String =File.DirDefaultExternal&"/mnt/cache/store"
 	Private lw2 As ListView
 	Dim l1,l2,l3 As Label 
 	Dim ph As PhoneEvents
 	Dim size,flags,count As Int
 	Dim ffiles,ffolders As List
-'	Private ion As Object
-	'Dim cas As String
 	Private dialog As CustomDialog2
 	Dim diapan As Panel
 	Dim dial As Label
 	Dim dill As List
 	Dim ActivityManager1 As ActivityManager
 	Dim RunningTaskInfos() As RunningTaskInfo
-
 	Dim paths As Map
 	Dim panel1 As Panel 
 	Dim storage As env
@@ -48,23 +44,18 @@ Sub Globals
 	Dim extsdcard As String = de
 	Dim nativeMe As JavaObject
 	Private Panel2 As Panel
-
-	'Private ListView1 As ListView
 	Private ImageView1 As ImageView
-	'Private pg As NumberProgressBar
 	Dim ffil,ffold As List
-	'Dim root As RuntimePermissions
-	Dim rot As String 
-'	Private pgWheel1 As pgWheel
 	Dim andro,bat,desk,work As Bitmap
-'	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15 As Int
 	Private mcl As MaterialColors
-	'Private p1 As MaterialCircleProgress
-	Private mBmp As ColorDrawable
 	Dim ffiles,ffolders As List
 	Private dpm1 As DonutProgressMaster
 	Dim root1 As String 
 	Dim anima As AnimationPlus
+	Dim xMSOS As MSOS
+	Dim xOSStats As OSStats
+	Private ListView1 As ListView
+	Dim l1,l2,l3 As Label
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -73,28 +64,17 @@ Sub Activity_Create(FirstTime As Boolean)
 	op.Initialize("op")
 	list1.Initialize
 	list2.Initialize
-	list3.Initialize
+	l1.Initialize("l1")
+	l2.Initialize("l2")
+	l3.Initialize("l3")
 	list4.Initialize
 	list5.Initialize
 	list6.Initialize
 	list7.Initialize
-	list8.Initialize
-	list9.Initialize
-	reslist.Initialize
 	apklist.Initialize
-	clist.Initialize
-	aclist.Initialize
-	filelist.Initialize
-	apclist.Initialize
 	ph.Initialize("ph")
-	piclist.Initialize
-	lis.Initialize
-	
-	'ml.Initialize
 	l1.Initialize("l1")
 	l2.Initialize("l2")
-
-	phlis.Initialize
 	diapan.Initialize("diapan")
 	dial.Initialize("dial") 
 	dill.Initialize
@@ -103,9 +83,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	ph.Initialize("ph")
 	ffiles.Initialize
 	ffolders.Initialize
-	'Activity.Background=c1
+	xOSStats.Initialize(400, 50, Me, "myStats")
 		If FirstTime Then 
-		
+	
 		If File.Exists(File.DirDefaultExternal&"/mnt/cache","ressize.txt") Then
 			ToastMessageShow("core ready...!",False)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","sv.txt",list4)
@@ -116,12 +96,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	File.MakeDir(File.DirDefaultExternal, "mnt/cache/store")
 	File.WriteList(File.DirDefaultExternal&"/mnt/cache","sv.txt",list4)
 	File.WriteList(File.DirDefaultExternal&"/mnt/cache","fn.txt",list1)
-	File.WriteList(File.DirDefaultExternal&"/mnt/cache","apk1.txt",list7)
-	File.WriteList(File.DirDefaultExternal&"/mnt/cache","apk2.txt",list8)
-	File.WriteList(File.DirDefaultExternal&"/mnt/cache","apk3.txt",list9)
-	File.WriteList(File.DirDefaultExternal&"/mnt/cache","pn1.txt",lis)
-	File.WriteList(File.DirDefaultExternal&"/mnt/cache","apsize.txt",clist)
-	File.WriteList(File.DirDefaultExternal&"/mnt/cache","ressize.txt",reslist)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","cclist.txt","")
 	ToastMessageShow("Files ready! "&date&", "&time,False)
 	End If 
@@ -130,13 +104,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	t1.Initialize("t1",1000)
 	t1.Enabled=False
 	
-
-	
     ffolders.Initialize
-    'root = File.DirRootExternal
-	'sdint = File.DirDefaultExternal
-	'nat_me
-
 	dial.TextSize=15
 	dial.TextColor=Colors.White
 	dialog.AddView(diapan,350,350)
@@ -146,46 +114,34 @@ Sub Activity_Create(FirstTime As Boolean)
 	paths = storage.Initialize
 	nativeMe.InitializeContext
 	'#########################End LP Storage#######################
-'	pgWheel1.Visible=False
-	'prog.Initialize(Activity,12%x,5%y,360,10,mcl.md_indigo_A200,mcl.md_white_1000,Null)
 
-	'prog.BringToFront
 	'#########################CLS Storage##########################
 	Panel2.Visible=False
 	'#########################End CLS Storage######################
 	ffil.Initialize
 	ffold.Initialize
 	Activity.Color=mcl.md_white_1000
-	'Activity.SetColorAnimated(6000,mcl.md_deep_orange_A400,mcl.md_light_blue_A400)
-	'Label1.SetTextColorAnimated(6000,Colors.White)
-	'clist.Add(root.GetSafeDirDefaultExternal(""))
-	For h = 0 To clist.Size-1
-		Log(clist.Get(h))
-	Next
 	andro.Initialize(File.DirAssets,"ic_autorenew_black_48dp.png")
 	bat.Initialize(File.DirAssets,"ic_data_usage_black_48dp.png")
 	desk.Initialize(File.DirAssets, "ic_battery_alert_black_48dp.png")
 	work.Initialize(File.DirAssets, "ic_delete_black_48dp.png")
 	
 	anima.InitializeAlpha("anima",0,1)
-		
-	
-	
-	
+	l1=ListView1.SingleLineLayout.Label
+	l1.TextSize=15
+	l1.TextColor=mcl.md_white_1000
 	GetDeviceId
 	c_start
-'	loading_norm
-	clean_start
+
 End Sub
 
 Sub Activity_Resume
 	t1.Enabled=True
-	
-'	c_start
-'	clean_start
+	xOSStats.StartStats
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
+	xOSStats.EndStats
 	Activity.Finish
 End Sub
 
@@ -198,22 +154,16 @@ End Sub
 
 Sub c_start	 
 	app_info
-'	pgWheel1.Visible=False
 	dill.Clear
-	reslist.Clear
-	piclist.Clear
-	filelist.Clear
-	apclist.Clear
 	list2.Clear
 	list4.Clear
-	phlis.Clear
-	piclist.Add(andro)
-	piclist.Add(bat)
-	piclist.Add(desk)
-	li4
+	apklist.Clear
 	cat_start
 End Sub
-
+Sub myStats_Update(CPUEfficiency() As Float, RAMUsage As Float)
+	apklist.AddAll(xOSStats.BufferRAM)
+	ListView1.AddSingleLine(NumberFormat2(RAMUsage, 0, 0, 0, False) & "%"& " - "&xMSOS.formateFileSize(RAMUsage*1024*1024*10))
+End Sub
 Sub GetDeviceId As String
 	Dim api As Int
 	Dim r As Reflector
@@ -234,9 +184,6 @@ Sub GetDeviceId As String
 	Else
 		'New device
 		Return r.GetStaticField("android.os.Build", "SERIAL")
-		
-
-		
 		storage_check
 	End If
 End Sub
@@ -272,52 +219,23 @@ Sub storage_check
 End Sub 
 
 Sub cat_start
-'	p1.Colors = Array As Int(Colors.Red,Colors.Yellow,Colors.Green)
-'	p1.CircleBackgroundEnabled = False
-'	p1.ProgressStrokeWidth = 2dip
-'	p1.ShowArrow = True
-'	p1.ArrowHeight = 25dip
-'	p1.ArrowWidth = 30dip
-'	p1.BackGroundColor=Colors.Transparent
-'	'p1.Diameter=360
-'	p1.InnerRadius=100
-	
+	dpm1.TextColor=Colors.White
 	dpm1.Color=Colors.Transparent
-	dpm1.FinishedStrokeColor=mcl.md_light_blue_A700
+	dpm1.FinishedStrokeColor= mcl.md_light_blue_700
 	dpm1.FinishedStrokeWidth=25
-	dpm1.UnfinishedStrokeColor=mcl.md_grey_700
+	dpm1.UnfinishedStrokeColor=Colors.Transparent
 	dpm1.UnfinishedStrokeWidth=30
 	dpm1.SuffixText="% -> fertig.."
-	dpm1.InnerBackgroundColor=mcl.md_cyan_A100
+	dpm1.InnerBackgroundColor=mcl.md_light_blue_A200
 	dpm1.InnerBottomText="working..."
 	dpm1.InnerBottomTextSize=18
 	dpm1.InnerBottomTextColor=Colors.Black
 	dpm1.PrefixText="Boost: "
-	'cat.Initialize(25,50*1024*1024,dir1)
-	clean_start
+	'cat.Initialize(25,100*1024*1024,File.DirRootExternal)
 	t1.Enabled=True
 	t1_Tick
 End Sub
 
-
-
-Sub logcat_LogCatData(Buffer() As Byte, Length As Int)
-	Dim data As String
-	data = BytesToString(Buffer,0,Length,"UTF-8")
-	'lw2.AddSingleLine(data)
-	Log(data)
-End Sub
-
-Private Sub CopyFolder(Source As String, targetFolder As String)
-	If File.Exists(targetFolder, "") = False Then File.MakeDir(targetFolder, "")
-	For Each f As String In File.ListFiles(Source)
-		If File.IsDirectory(Source, f) Then
-			CopyFolder(File.Combine(Source, f), File.Combine(targetFolder, f))
-			Continue
-		End If
-		File.Copy(Source, f, targetFolder, f)
-	Next
-End Sub
 
 Sub ReadDir(folder As String, recursive As Boolean)
 	ffolders.Clear
@@ -342,12 +260,7 @@ End Sub
 
 
 Sub li4
-	
-	list2=op.RunningServiceInfo(999,list4,list5,list6)
-	For u = 0 To list2.Size-1
-		Log(list2.Get(u))
-	Next
-	Return
+
 End Sub
 
 
@@ -356,14 +269,14 @@ Sub close
 		If Not(apklist.size=0) Then
 				Dim df As String  
 		df=apklist.size
-		Label1.Text=op.formatSize(cat.FreeMemory)&" RAM free! "&list4.Size&" -Backround Processes closed."&df&" Files and Trash Data cleared"
+		Label1.Text=op.formatSize(cat.FreeMemory)&" RAM free! "&list2.Size&" -Backround Processes closed."&xMSOS.formateFileSize(df)&" Files and Trash Data cleared"
 		Else
 		Label1.Text=op.formatSize(cat.FreeMemory)&" RAM free! "&list4.Size&" Backround Processes killed...!"
 	
 		End If 	
 		
-		
 	delayed_t2
+	Return
 End Sub
 
 Sub del_quest
@@ -376,39 +289,23 @@ Sub del_quest
 
 End Sub
 
-Sub deleting_files
-	dill.Clear
-
-	Dim dd As String
-	Dim ens As String
-	For i = 0 To  list3.Size-1
-		dd=list3.Get(i)
-		ens=GetParentPath(GetSourceDir(GetActivitiesInfo(dd)))
-		ReadDir(ens,True)
-	Next
-	
-	For d = 0 To ffold.Size-1
-		'bc=ffold.Get(d)
-	
-	Next
-End Sub
-
-
 Sub real_delete
-'	pgWheel1.Progress=360
 	RunningTaskInfos=ActivityManager1.GetRunningTasks
 	Log("RunningTaskInfos.Length="&RunningTaskInfos.Length)
 
 	For Each RunningTaskInfo1 As RunningTaskInfo In RunningTaskInfos
-		
-		'op.killBackgroundProcesses(RunningTaskInfo1.GetPackageName)
-		Label1.Text=RunningTaskInfo1.GetApplicationName&"  - "&RunningTaskInfo1.GetPackageName
-		'Log(RunningTaskInfo1.GetPackageName)
+		op.killBackgroundProcesses(RunningTaskInfo1.GetPackageName)
 	Next
-		'cat.CloseAndClearDiskCache
-	
-	
+	op.killBackgroundProcesses("com.batcat")
 	close
+End Sub
+
+Sub li_sub
+	list2=op.RunningServiceInfo(999,list5,list6,list7)
+	For i = 0 To list6.Size-1
+		apklist.Add(xMSOS.getProcessMemoryInfo(i))
+	Next
+	Return
 End Sub
 
 Sub ph_DeviceStorageOk (Intent As Intent)
@@ -416,6 +313,11 @@ Sub ph_DeviceStorageOk (Intent As Intent)
 End Sub
 
 Sub t1_Tick
+	ListView1.Clear
+	For k = 0 To apklist.Size-1
+		Log(apklist.Get(k))
+		ListView1.AddSingleLine(apklist.Get(k))
+	Next
 	count=count+1
 	anima.InitializeScale("anima",0dip,100dip,125dip,500dip)
 	anima.RepeatMode=anima.REPEAT_REVERSE
@@ -444,6 +346,7 @@ Sub t1_Tick
 	End If
 	If count > 2 Then
 		Label1.Text="check Battery.."
+		dpm1.Progress=36
 	End If
 	If count > 3 Then
 		'spb1.ImageBitmap = andro
@@ -453,31 +356,26 @@ Sub t1_Tick
 	End If
 
 	If count > 4 Then
+		dpm1.Progress=52
 		ImageView1.Bitmap=bat
 	
 		Label1.Text="clear Cache System.."
 		dpm1.Progress=67
 	End If
 	If count > 5 Then
+		dpm1.Progress=89
 		Label1.Text="clear Cache System.."
 		ImageView1.Bitmap=desk
 		
 				Label1.Text="check "&op.formatSize(op.AvailableMemory)
-		dpm1.Progress=89
+		
+		dpm1.Progress=100
 	End If
 	If count > 6 Then
-		dpm1.Progress=100
+		
 		dpm1.Visible=False
 		Label1.Text=op.formatSize(cat.FreeMemory)
-			If Not (filelist.Size=1) Then
-			ImageView1.Bitmap=andro
-				Label1.Text=nativeMe.RunMethod("getOSCodename", Null)
-			ImageView1.Bitmap=bat
-			Else
-			ImageView1.Bitmap=andro
-			
-			ImageView1.Bitmap=desk
-			End If
+
 		CallSub(Me,"del_quest")
 	End If
 End Sub
@@ -485,78 +383,23 @@ End Sub
 Sub delayed_t2
 	dpm1.SetLayoutAnimated(0dip,0dip,0,0,0)
 	anima.Stop(ImageView1)
-		'pg.Progress=100
-		'prog.ClearProgress
-		'prog.SetProgress(360/100*3.6)
-		'prog1.Progress=360
-		'spb1.Progress=100
 		If count > 7 Then 
 			catdel.clearCache
 		  
 		Label1.Text=op.formatSize(cat.FreeMemory)&" free.."
-		ToastMessageShow("closing in 2 sec...",False)
+		ToastMessageShow("closing in 1 sec...",False)
 		
 	End If
 	If count> 8 Then 
-		ToastMessageShow("closing in 1 sec...",False)
+		'ToastMessageShow("closing in 1 sec...",False)
 	End If
 	If count = 9 Then 
 		t1.Enabled=False
-		ToastMessageShow("ready!",False)
 		ToastMessageShow(op.formatSize(cat.FreeMemory)&" free",False)
 		Activity.Finish
-		SetAnimation.setanimati ("extra_in", "extra_out")
+		SetAnimation.setanimati ("extra_out", "extra_in")
 	End If
 End Sub
-
-Sub pg_onProgressChange(current As Int, maxvalue As Int)
-	andro.Initialize(File.DirAssets,"Android.png")
-	bat.Initialize(File.DirAssets,"Battery.png")
-	desk.Initialize(File.DirAssets, "Chart.png")
-	maxvalue=100
-	If current=count+1 Then 
-	For Each tr As String In reslist
-		Log(tr)
-		ImageView1.Bitmap=andro
-		Label1.Text=tr
-	Next
-	End If
-	If current=95 Then
-		ImageView1.Bitmap=LoadBitmap(File.DirAssets,"Accept128.png")
-	End If
-End Sub
-Sub clean_start
-'	pg.incrementProgressBy(0)
-'	pg.ProgressTextColor = Colors.Black
-'	pg.ReachedBarColor = mcl.md_light_blue_A200'Colors.ARGB(185,255,255,255)
-'	pg.UnreachedBarColor = Colors.Transparent
-'	pg.UnreachedBarHeight = 25dip
-'	pg.ReachedBarHeight = 20dip
-'	pg.ProgressTextSize=20dip
-'	pg.Max=100
-'	pg.Width=100%x
-'	pg.Left=1dip
-'	pg.Prefix = "%"
-'	pg.Suffix = "->"
-End Sub
-
-
-
-'Sub getdir(dir As String, recursive As Boolean) As Long
-'	Dim si As String
-'	Dim siz As Long
-'	For Each f As String In File.ListFiles(dir)
-'		If recursive Then
-'			If File.IsDirectory(dir, f) Then
-'				si = dir
-'				Log(si)
-'				siz = siz + getdir(File.Combine(dir, f),recursive)
-'			End If
-'		End If
-'		siz = siz + File.Size(dir, f)
-'	Next
-'	Return siz
-'End Sub
 
 
 Sub app_info
@@ -567,10 +410,7 @@ Sub app_info
 	Obj1.Target = Obj1.RunMethod("getPackageManager") ' PackageManager
 	Obj2.Target = Obj1.RunMethod2("getInstalledPackages", 0, "java.lang.int") ' List<PackageInfo>
 	size = Obj2.RunMethod("size")
-		
-	'packName = Obj3.GetField("packageName")
-	' name = Obj1.RunMethod4("getApplicationLabel", args, Types)
-	' icon = Obj1.RunMethod4("getApplicationIcon", args, Types)
+
 	For i = 0 To size -1
 		Obj3.Target = Obj2.RunMethod2("get", i, "java.lang.int") ' PackageInfo
 		size = Obj2.RunMethod("size")
@@ -587,13 +427,6 @@ Sub app_info
 			name = Obj1.RunMethod4("getApplicationLabel", args, Types)
 			icon = Obj1.RunMethod4("getApplicationIcon", args, Types)
 
-			phlis.Add(icon.Bitmap)
-			list3.Add(packName)
-			'Log(GetParentPath(GetSourceDir(GetActivitiesInfo(packName)))&"/cache")
-		
-			'Log(getdir(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),True))
-			'CopyFolder(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),File.DirInternal&"/mnt/cache")
-			Log(ffolders.Size&" folder / "&ffiles.Size&" files")
 			
 			
 		End If
@@ -622,44 +455,6 @@ End Sub
 
 Sub fc2_PutDone(key As String,Error As Boolean)
 	'Log(key&":"&DateTime.Date(DateTime.Now))
-End Sub
-
-Sub GetParentPath(Path As String) As String
-	Dim L As String
-	Dim Path1 As String
-	If Path = "/" Then
-		Return "/"
-	End If
-	L = Path.LastIndexOf("/")
-	If L = Path.Length - 1 Then
-		'Strip the last slash
-		Path1 = Path.SubString2(0,L)
-	Else
-		Path1 = Path
-	End If
-	L = Path.LastIndexOf("/")
-	If L = 0 Then
-		L = 1
-	End If
-	Return Path1.SubString2(0,L)
-End Sub
-
-Sub GetActivitiesInfo(package As String) As Object
-	Dim r As Reflector
-	r.Target = r.GetContext
-	r.Target = r.RunMethod("getPackageManager")
-	r.Target = r.RunMethod3("getPackageInfo", package, "java.lang.String", 0x00000001, "java.lang.int")
-	Return r.GetField("applicationInfo")
-End Sub
-
-Sub GetSourceDir(AppInfo As Object) As String
-	Try
-		Dim r As Reflector
-		r.Target = AppInfo
-		Return r.GetField("sourceDir")
-	Catch
-		Return ""
-	End Try
 End Sub
 
 Sub CalcSize(Folder As String, recursive As Boolean) As Long

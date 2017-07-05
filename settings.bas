@@ -48,7 +48,9 @@ Sub Globals
 	Private Panel3 As Panel
 
 	Private arb As ACSwitch
-
+	'Private ui As UISwitch
+	Dim uon,uoff As Bitmap 
+	Private Label5 As Label
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -62,13 +64,16 @@ Sub Activity_Create(FirstTime As Boolean)
 	If FirstTime Then
 		parser.Initialize
 	End If
-	
+	uon=LoadBitmap(File.DirAssets,"son.png")
+	uoff=LoadBitmap(File.DirAssets,"soff.png")
 	Dim bd As BitmapDrawable
 	bd.Initialize(LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png"))
 	'icon.Initialize(File.DirAssets,"ic_snooze_black_18dp.png")
 	popa.Initialize("popa",Panel3)
 	colist.Initialize
-	
+	'arb.Visible=False
+'	ui.Initialize(Me,"ui","33333333",90,45,uon,uoff)
+'	Activity.AddView(ui.asView,375,60,90,45)
 '	ACToolBarLight1.SetAsActionBar
 '	ac.SetElevation(ACToolBarLight1,4dip)
 '	ToolbarHelper.Initialize
@@ -132,13 +137,13 @@ Sub Activity_Create(FirstTime As Boolean)
 	ACSpinner1.Add2("yellow",cc13)
 	ACSpinner1.Add2("cyan",cc14)
 	ACSpinner1.Add2("blue grey",cc15)
-
-
 	ACSpinner1.Color=Colors.Transparent
-	ACButton1.ButtonColor=Colors.ARGB(180,255,255,255)
+	'ACButton1.ButtonColor=Colors.ARGB(180,255,255,255)
+	
 	If StateManager.RestoreState(Activity, "Main", 60) = False Then
 		'set the default values
 		arb.Checked=True
+		ui_Click(1,"33333333")
 	End If
 	Dim AutoUpdate As Boolean
 
@@ -190,10 +195,6 @@ Sub popa_ItemClicked (Item As ACMenuItem)
 End Sub
 
 
-Sub dsf1_Click
-	
-End Sub
-
 Sub arb_CheckedChange(Checked As Boolean) 
 	If Checked=True Then
 		kvs4sub.DeleteAll
@@ -217,11 +218,20 @@ Sub arb_CheckedChange(Checked As Boolean)
 	End If
 End Sub
 
-Sub DSTabLayout1_TabSelected(Index As Int, SelectedTab As String, Tag As Object)
-	
+
+Sub ui_Click(pPosition As Int,pTag As String)
+	Log("switch "&pPosition)
+	If pPosition = 0 Then
+		arb_CheckedChange(False)
+		
+		Else
+			If pPosition=1 Then 
+		arb_CheckedChange(True)
+			
+		End If 
+	End If
+	StateManager.SaveSettings
 End Sub
-
-
 
 Sub tab_settings
 	Dim liv As ListView
@@ -243,11 +253,13 @@ End Sub
 Sub store_check
 	If kvs4sub.ContainsKey("off") Then
 		arb.Checked=False
+		ui_Click(0,"33333333")
 		'		StopService(Starter)
 		'		dev.StopListening
 		'		Log("AC_Off->")
 	Else
 		arb.Checked=True
+		ui_Click(1,"33333333")
 	End If
 	
 	If kvs4.ContainsKey("0")Then
@@ -266,7 +278,7 @@ Sub store_check
 	If kvs4.ContainsKey("2")Then
 		Log("AC_true->3")
 		Panel2.Color=c3
-		ACSpinner1.SelectedIndex=2
+		'CSpinner1.SelectedIndex=2
 		'act
 	Else
 		'Activity.Color=c1
@@ -324,7 +336,7 @@ Sub store_check
 		Log("AC_true->4")
 		'Activity.Color=c10
 		Panel2.Color=c10
-		ACSpinner1.SelectedIndex=9
+	ACSpinner1.SelectedIndex=9
 		'act
 	Else
 		'Activity.Color=c4
@@ -341,6 +353,7 @@ Sub store_check
 		Log("AC_true->4")
 		'act
 		Panel2.Color=c12
+		Label5.TextColor=Colors.White
 		ACSpinner1.SelectedIndex=11
 		'Activity.Color=c12
 	Else
@@ -378,7 +391,8 @@ End Sub
 Sub ACSpinner1_ItemClick (Position As Int, Value As Object)
 '	Value=ACSpinner1.SelectedIndex
 	ACSpinner1.SelectedIndex=Position
-	
+	ACSpinner1.Prompt="Select Color:"
+	 ACSpinner1.DropdownBackgroundColor= ACSpinner1.THEME_LIGHT
 	If Position=0 Then
 		kvs4.DeleteAll
 		kvs4.PutSimple("0",Value)
@@ -465,6 +479,7 @@ Sub ACSpinner1_ItemClick (Position As Int, Value As Object)
 		ToastMessageShow(Value,False)
 		Log("Stored ---")
 		Panel2.Color=c12
+		Label5.TextColor=Colors.White
 	End If
 	If Position=12 Then
 		kvs4.DeleteAll
