@@ -51,6 +51,8 @@ Sub Globals
 	'Private ui As UISwitch
 	Dim uon,uoff As Bitmap 
 	Private Label5 As Label
+	Dim AutoUpdate As Boolean
+	
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -140,19 +142,20 @@ Sub Activity_Create(FirstTime As Boolean)
 	ACSpinner1.Color=Colors.Transparent
 	'ACButton1.ButtonColor=Colors.ARGB(180,255,255,255)
 	
-	If StateManager.RestoreState(Activity, "Main", 60) = False Then
+	If StateManager.RestoreState(Activity, "Main", 0) = False Then
 		'set the default values
 		arb.Checked=True
-		ui_Click(1,"33333333")
+		ACSpinner1_ItemClick(0,0)
 	End If
-	Dim AutoUpdate As Boolean
-
 	AutoUpdate = StateManager.GetSetting2("AutoUpdate", False)
+
+	
 
 	store_check
 End Sub
 
 Sub Activity_Resume
+	'AutoUpdate
 	store_check
 End Sub
 
@@ -177,11 +180,6 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the ev
 End Sub
 
 Sub ACButton1_Click
-'	If Not(Panel2.Visible=False) Then
-'	popa.Show
-'	Else 
-'		popa.Close
-	'	End If
 	StateManager.SaveSettings
 	Activity.Finish
 	SetAnimation.setanimati("extra_in", "extra_out")
@@ -216,22 +214,9 @@ Sub arb_CheckedChange(Checked As Boolean)
 		End If
 		StateManager.SaveSettings
 	End If
+	'AutoUpdate
 End Sub
 
-
-Sub ui_Click(pPosition As Int,pTag As String)
-	Log("switch "&pPosition)
-	If pPosition = 0 Then
-		arb_CheckedChange(False)
-		
-		Else
-			If pPosition=1 Then 
-		arb_CheckedChange(True)
-			
-		End If 
-	End If
-	StateManager.SaveSettings
-End Sub
 
 Sub tab_settings
 	Dim liv As ListView
@@ -242,24 +227,16 @@ Sub tab_settings
 	liv.Initialize("liv")
 	liv.Enabled=True
 	liv.AddSingleLine("Text")
-	liv.AddTwoLines("Text","Sub text..")
-
-	
-	
-	
-	
+	liv.AddTwoLines("Text","Sub text..")	
 End Sub
 
 Sub store_check
 	If kvs4sub.ContainsKey("off") Then
 		arb.Checked=False
-		ui_Click(0,"33333333")
-		'		StopService(Starter)
-		'		dev.StopListening
-		'		Log("AC_Off->")
+	
 	Else
 		arb.Checked=True
-		ui_Click(1,"33333333")
+	
 	End If
 	
 	If kvs4.ContainsKey("0")Then
@@ -389,7 +366,7 @@ Sub store_check
 End Sub
 
 Sub ACSpinner1_ItemClick (Position As Int, Value As Object)
-'	Value=ACSpinner1.SelectedIndex
+	Value=ACSpinner1.SelectedIndex
 	ACSpinner1.SelectedIndex=Position
 	ACSpinner1.Prompt="Select Color:"
 	 ACSpinner1.DropdownBackgroundColor= ACSpinner1.THEME_LIGHT

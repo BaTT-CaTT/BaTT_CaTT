@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.batcat"
-	android:versionCode="268"
-	android:versionName="1.9.9.4"
+	android:versionCode="271"
+	android:versionName="1.9.9.5"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>
@@ -50,7 +50,8 @@
 			android:launchMode="singleTop"
 			android:name=".main"
 			android:label="BATT-CaTT"
-			android:screenOrientation="portrait">
+			android:screenOrientation="portrait"
+			android:excludeFromRecents="true">
 			<intent-filter>
 			   <action android:name="android.intent.action.MAIN" />
 			   <category android:name="android.intent.category.LAUNCHER" />

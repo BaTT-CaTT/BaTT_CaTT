@@ -26,7 +26,7 @@ Sub Process_Globals
 	Dim labex As String
 	Dim sql As SQL
 	Dim m As Map
-	dim bat as Batut
+	Dim bat As Batut
 End Sub
 
 Sub Service_Create
@@ -41,7 +41,7 @@ Sub Service_Create
    sNotif.Sound = False
    sNotif.Vibrate=False  
    sNotif.Notify(1)   
-   Service.StartForeground(1,sNotif)
+   
 	device.Initialize("device")
 	list1.Initialize
 	m.Initialize
@@ -60,6 +60,7 @@ Sub Service_Create
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
 	kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
 	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
+	Service.StartForeground(1,sNotif)
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
@@ -102,7 +103,7 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			ac="USB - Kabel: "
 	End If
 	time=DateTime.Time(DateTime.Now)
-	Dim temp,volt,volt1,temp2 As String
+	Dim temp,volt,volt1,temp2 As Int
 	volt1=Intent.GetExtra("voltage") /1000
 	temp2=Intent.GetExtra("temperature") /10
 	Dim status As Int = Intent.GetExtra("status")
@@ -119,14 +120,14 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 		ToastMessageShow("Reset",False)
 	End If
 	For g = 0 To temp2
-		If temp2=g Then
-			kvstemp.PutSimple(temp2,time)
+		If g=temp2 Then
+			kvstemp.PutSimple(g,time)
 			Log(time&" Put-> "&temp2&"C°")
 		End If
 	Next
-	For vo = 2900 To Intent.GetExtra("voltage")
-		If Intent.GetExtra("voltage")=vo Then 
-			 kvsvolt.PutSimple(volt1,time)
+	For vo = 3000 To Intent.GetExtra("voltage")
+		If vo =Intent.GetExtra("voltage") Then 
+			 kvsvolt.PutSimple(vo,time)
 			Log(time&" Put-> "&Intent.GetExtra("voltage")&"V")
 		End If
 	Next
@@ -138,9 +139,9 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 	
 		For v = 0 To Scale 
 			'nl.Add(v)
-			If Level=v Then
+			If v=Level Then
 				Log("Put-> "&v)
-				kvs2.PutSimple(Level,time) 
+				kvs2.PutSimple(v,time) 
 			End If 
 	Next
 		rst=Scale-Level
@@ -165,13 +166,13 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 	Else
 		For v = 0 To Scale
 			nl.Add(v)
-			If Level=v Then
+			If v=Level Then
 				Log("Put-> "&v)
-				kvs2.PutSimple(Level,time)
+				kvs2.PutSimple(v,time)
 			End If
 		Next
 		Dim days,sval As Int 
-		sval =Intent.GetExtra("status")*60
+		sval =Intent.GetExtra("status")/1000
 		Log(sval)
 		val = sval
 		days=Floor(val/60/24)
@@ -211,7 +212,7 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			sNotif.SetInfo("low Power!: ","set on low Power: "&Level&"% ",Main)
 			sNotif.Notify(1)
 	End If 
-	If temp >=41 Then
+	If temp >=45 Then
 		sNotif.Icon="batheat"
 		sNotif.SetInfo("Achtung: "&temp&"°C !","hier klicken um zum kühlen...",cool)
 		sNotif.Notify(1)

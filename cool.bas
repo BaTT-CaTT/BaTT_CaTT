@@ -21,7 +21,7 @@ Sub Globals
 	Dim Types(1), name,packName,date,time As String
     Dim icon As BitmapDrawable
 	Dim pak As PackageManager
-	Dim list4,list1,apklist,list2,list5,list6,list7 As List
+	Dim list4,list1,apklist,list2,list5,list6,list7,list8,list9,list10 As List
 	Dim catdel As CacheCleaner
 	Dim cat As Cache
 	Dim dir1 As String =File.DirDefaultExternal&"/mnt/cache/store"
@@ -56,6 +56,7 @@ Sub Globals
 	Dim xOSStats As OSStats
 	Private ListView1 As ListView
 	Dim l1,l2,l3 As Label
+	Private cav As CoolAnimView
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -71,6 +72,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	list5.Initialize
 	list6.Initialize
 	list7.Initialize
+	list8.Initialize
+	list9.Initialize
+	list10.Initialize
 	apklist.Initialize
 	ph.Initialize("ph")
 	l1.Initialize("l1")
@@ -125,19 +129,20 @@ Sub Activity_Create(FirstTime As Boolean)
 	bat.Initialize(File.DirAssets,"ic_data_usage_black_48dp.png")
 	desk.Initialize(File.DirAssets, "ic_battery_alert_black_48dp.png")
 	work.Initialize(File.DirAssets, "ic_delete_black_48dp.png")
-	
+	ImageView1.BringToFront
 	anima.InitializeAlpha("anima",0,1)
 	l1=ListView1.SingleLineLayout.Label
 	l1.TextSize=15
 	l1.TextColor=mcl.md_white_1000
 	GetDeviceId
 	c_start
-
+	
 End Sub
 
 Sub Activity_Resume
 	t1.Enabled=True
 	xOSStats.StartStats
+	c_start
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
@@ -157,12 +162,20 @@ Sub c_start
 	dill.Clear
 	list2.Clear
 	list4.Clear
+	list7.Clear
 	apklist.Clear
+	list2=op.RunningTaskInfo(99,list8,list9,list10)
 	cat_start
+	Return
 End Sub
 Sub myStats_Update(CPUEfficiency() As Float, RAMUsage As Float)
 	apklist.AddAll(xOSStats.BufferRAM)
-	ListView1.AddSingleLine(NumberFormat2(RAMUsage, 0, 0, 0, False) & "%"& " - "&xMSOS.formateFileSize(RAMUsage*1024*1024*10))
+	For k = 0 To list2.Size-1
+		Log(list2.Get(k))
+		ListView1.AddSingleLine(list2.Get(k))
+		ListView1.AddSingleLine(NumberFormat2(RAMUsage, 0, 0, 0, False) & "%"& " - "&xMSOS.formateFileSize(RAMUsage*1024*1024*10))
+	Next
+	
 End Sub
 Sub GetDeviceId As String
 	Dim api As Int
@@ -232,6 +245,8 @@ Sub cat_start
 	dpm1.InnerBottomTextColor=Colors.Black
 	dpm1.PrefixText="Boost: "
 	'cat.Initialize(25,100*1024*1024,File.DirRootExternal)
+	ReadDir(dir1,False)
+	cav.init
 	t1.Enabled=True
 	t1_Tick
 End Sub
@@ -248,22 +263,18 @@ Sub ReadDir(folder As String, recursive As Boolean)
 			v = folder&"/"&lst.Get(i)
 			'Log("v="&v)
 			ffolders.Add(v.SubString(root1.Length+1))
+			
 			If recursive Then
 				ReadDir(v,recursive)
 			End If
+			ListView1.AddSingleLine(lst.Get(i))
 		Else
 			ffiles.Add(folder&"/"&lst.Get(i))
+			ListView1.AddSingleLine(lst.Get(i))
 		End If
 	Next
-	'Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
+	Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
 End Sub
-
-
-Sub li4
-
-End Sub
-
-
 
 Sub close
 		If Not(apklist.size=0) Then
@@ -280,6 +291,8 @@ Sub close
 End Sub
 
 Sub del_quest
+	cav.stopAnim
+	dpm1.Visible=False
 '	pgWheel1.Visible=False
 	ImageView1.Bitmap=LoadBitmap(File.DirAssets,"Accept128.png")
 		Label1.Text= "clear RAM and close.."
@@ -292,21 +305,18 @@ End Sub
 Sub real_delete
 	RunningTaskInfos=ActivityManager1.GetRunningTasks
 	Log("RunningTaskInfos.Length="&RunningTaskInfos.Length)
-
-	For Each RunningTaskInfo1 As RunningTaskInfo In RunningTaskInfos
-		op.killBackgroundProcesses(RunningTaskInfo1.GetPackageName)
+	
+	For j = 0 To list7.Size-1
+		Log("Recent Tasks: "&list7.get(j))
+		op.killBackgroundProcesses("com.batcat")
+		op.killProcess(list7.Get(j))
 	Next
-	op.killBackgroundProcesses("com.batcat")
+	
 	close
-End Sub
-
-Sub li_sub
-	list2=op.RunningServiceInfo(999,list5,list6,list7)
-	For i = 0 To list6.Size-1
-		apklist.Add(xMSOS.getProcessMemoryInfo(i))
-	Next
 	Return
 End Sub
+
+
 
 Sub ph_DeviceStorageOk (Intent As Intent)
 	Log(Intent.ExtrasToString)
@@ -314,10 +324,6 @@ End Sub
 
 Sub t1_Tick
 	ListView1.Clear
-	For k = 0 To apklist.Size-1
-		Log(apklist.Get(k))
-		ListView1.AddSingleLine(apklist.Get(k))
-	Next
 	count=count+1
 	anima.InitializeScale("anima",0dip,100dip,125dip,500dip)
 	anima.RepeatMode=anima.REPEAT_REVERSE
@@ -340,7 +346,8 @@ Sub t1_Tick
 	If count>0 Then 
 		Label1.Text="check Battery.."
 	End If
-	If count > 1 Then 
+	If count > 1 Then
+		ListView1.Clear
 		Label1.Text="check Battery.."
 		dpm1.Progress=20
 	End If
@@ -349,6 +356,7 @@ Sub t1_Tick
 		dpm1.Progress=36
 	End If
 	If count > 3 Then
+		ListView1.Clear
 		'spb1.ImageBitmap = andro
 		'pg.Progress=28
 		Label1.Text="check System.."
@@ -356,6 +364,7 @@ Sub t1_Tick
 	End If
 
 	If count > 4 Then
+		ListView1.Clear
 		dpm1.Progress=52
 		ImageView1.Bitmap=bat
 	
@@ -372,22 +381,24 @@ Sub t1_Tick
 		dpm1.Progress=100
 	End If
 	If count > 6 Then
-		
+		ListView1.Clear
+		ListView1.Visible=False
 		dpm1.Visible=False
 		Label1.Text=op.formatSize(cat.FreeMemory)
-
+		ToastMessageShow("closing in 1 sec...",False)
 		CallSub(Me,"del_quest")
 	End If
 End Sub
 
 Sub delayed_t2
-	dpm1.SetLayoutAnimated(0dip,0dip,0,0,0)
+	
+	dpm1.SetLayoutAnimated(2dip,46dip,50,10,25)
 	anima.Stop(ImageView1)
 		If count > 7 Then 
 			catdel.clearCache
 		  
 		Label1.Text=op.formatSize(cat.FreeMemory)&" free.."
-		ToastMessageShow("closing in 1 sec...",False)
+		
 		
 	End If
 	If count> 8 Then 
@@ -397,15 +408,15 @@ Sub delayed_t2
 		t1.Enabled=False
 		ToastMessageShow(op.formatSize(cat.FreeMemory)&" free",False)
 		Activity.Finish
-		SetAnimation.setanimati ("extra_out", "extra_in")
+		SetAnimation.setanimati ("extra_out", "extra_out")
 	End If
 End Sub
 
 
 Sub app_info
-	
+
 	list1=pak.GetInstalledPackages
-	'Log(list1.Get(i))
+
 	Obj1.Target = Obj1.GetContext
 	Obj1.Target = Obj1.RunMethod("getPackageManager") ' PackageManager
 	Obj2.Target = Obj1.RunMethod2("getInstalledPackages", 0, "java.lang.int") ' List<PackageInfo>

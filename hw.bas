@@ -12,6 +12,7 @@ Sub Process_Globals
     Dim rv As RemoteViews
 	Dim bat As PhoneEvents
 	Dim bat20,bat40,bat60,bat80,bat100,batlow,usb0,usb1,usb2,usb3,usbc,ulow As Bitmap
+	
 End Sub
 
 Sub Service_Create
@@ -28,6 +29,7 @@ Sub Service_Create
 	rv.SetTextSize("label3",15)
 	rv.SetTextSize("label2",13)
 	rv.SetTextSize("label1",13)
+	
    
 	'rv.SetImage("im1",LoadBitmap(File.DirAssets, "Battery.png"))
 	
@@ -75,7 +77,7 @@ Sub bat_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent A
 	Dim temp As String 
 	temp=Intent.GetExtra("temperature")/10
 	rv.SetText("label1",temp&"°C")
-	rv.SetText("label2",Intent.GetExtra("technology"))
+	rv.SetText("label2",Intent.GetExtra("voltage"))
 	rv.SetText("label3",Level&"%")
 	If Plugged=True Then 
 		rv.SetImage("im1",usb1)
@@ -116,6 +118,17 @@ Sub bat_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent A
 		rv.SetText("label3","Akku fast leer! "&Level)
 		rv.SetVisible("im1",True)
 	End If
-	End If 
-	
+	End If
+	If temp<=39 Then
+		rv.SetTextColor("label3",Colors.Green)
+		rv.SetText("label1",temp&"°C")
+	End If
+	If temp>=39 Then
+		rv.SetTextColor("label3",Colors.ARGB(200,244,144,17))
+		rv.SetText("label1",temp&"°C")
+	End If
+	If temp >=45 Then
+		rv.SetTextColor("label3",Colors.ARGB(200,218,15,15))
+		rv.SetText("label1",temp&"°C")
+		End If 
 End Sub

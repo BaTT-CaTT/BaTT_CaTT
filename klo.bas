@@ -20,7 +20,7 @@ Sub Globals
 	'These global variables will be redeclared each time the activity is created.
 	'These variables can only be accessed from this module.
 	'Dim count As Int=0
-	Private ListView1 As ListView
+	'Private ListView1 As ListView
 	Dim l1,l2,l3 As Label
 
 	Private Panel1 As Panel
@@ -49,7 +49,8 @@ Sub Globals
 	Private mpc1 As PieChart
 	Private ACButton2 As ACButton
 	Dim osstat As OSStats
-	dim metric as MSOS
+	Dim metric As MSOS
+
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -79,35 +80,35 @@ Sub Activity_Create(FirstTime As Boolean)
 	kl.Initialize
 	dt.Initialize
 	ls.Initialize
-	l1=ListView1.SingleLineLayout.Label
-	l1.TextSize=15
-	l1.TextColor=Colors.White
-	l2=ListView1.TwoLinesLayout.Label
-	l3=ListView1.TwoLinesLayout.SecondLabel
-	l2.TextSize=18
-	l3.TextSize=12
-	l2.TextColor=Colors.Black
-	l3.TextColor=Colors.Cyan
-	ListView1.SingleLineLayout.ItemHeight=90
+'	l1=ListView1.SingleLineLayout.Label
+'	l1.TextSize=15
+'	l1.TextColor=Colors.White
+'	l2=ListView1.TwoLinesLayout.Label
+'	l3=ListView1.TwoLinesLayout.SecondLabel
+'	l2.TextSize=18
+'	l3.TextSize=12
+'	l2.TextColor=Colors.Black
+'	l3.TextColor=Colors.Cyan
+'	ListView1.SingleLineLayout.ItemHeight=90
 	volt=bat.BatteryInformation(7)/1000
 	temp=bat.BatteryInformation(6)/10
 	usb =bat.BatteryInformation(9)
 	ac =bat.BatteryInformation(8)
 	G.Initialize
 	'#######Listview Settings###########
-	Dim la,la1,la2 As Label
-	la.Initialize("la")
-	la1.Initialize("la1")
-	la2.Initialize("la2")
-	la2=ListView1.TwoLinesLayout.SecondLabel
-	la2.TextSize=11
-	la2.TextColor=Colors.ARGB(240,255,255,255)
-	la1=ListView1.TwoLinesAndBitmap.SecondLabel
-	la1.TextSize=10
-	la1.TextColor=Colors.LightGray
-	ListView1.TwoLinesAndBitmap.ImageView.Height=32dip
-	ListView1.TwoLinesAndBitmap.ImageView.Width=32dip
-	ListView1.TwoLinesAndBitmap.ItemHeight=50dip
+'	Dim la,la1,la2 As Label
+'	la.Initialize("la")
+'	la1.Initialize("la1")
+'	la2.Initialize("la2")
+'	la2=ListView1.TwoLinesLayout.SecondLabel
+'	la2.TextSize=11
+'	la2.TextColor=Colors.ARGB(240,255,255,255)
+'	la1=ListView1.TwoLinesAndBitmap.SecondLabel
+'	la1.TextSize=10
+'	la1.TextColor=Colors.LightGray
+'	ListView1.TwoLinesAndBitmap.ImageView.Height=32dip
+'	ListView1.TwoLinesAndBitmap.ImageView.Width=32dip
+'	ListView1.TwoLinesAndBitmap.ItemHeight=50dip
 	If FirstTime=True Then 
 		Msgbox("Wenn die Statistik zum ersten Mal geladen wird, kann es eine Weile dauern, bis die Werte korrekt angezeigt werden, zB: V,C°,% der letzten 10 Einträge. Bitte beachte das die Werte nur ca sind da sie immer leicht Zeit versetzt gespeichert werden und nicht  den 'Live' Zustand anzeigen!","Wichtig!")
 	End If
