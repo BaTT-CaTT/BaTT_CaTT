@@ -3,10 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
-'Class module
-'Version: 1.1
-'Author: Frédéric Leneuf-Magaud
-'This class is released as donationware.
+'BaTT CaTT source Project by D.Trojan
+'Copyrights D.Trojan and SM/Media ©2017
+'Class Module created by trOw
 Sub Class_Globals
 	Private pnlContent As Panel
 	Private pnlSidebar As Panel

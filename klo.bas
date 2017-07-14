@@ -3,6 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Code Module created by trOw
 #Region  Activity Attributes 
 	#FullScreen: False
 	#IncludeTitle: True
@@ -37,7 +40,7 @@ Sub Globals
 	Dim dt As List
 	Dim kl As List
 	Dim suc As List
-	Dim g As Graph
+	Dim g,g2 As Graph
 	Dim ls As LinePoint
 	Dim batt,pl,pk As Bitmap
 	Dim mcl As MaterialColors
@@ -46,11 +49,23 @@ Sub Globals
 	Dim level As Int
 	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 	Private dev As PhoneEvents
-	Private mpc1 As PieChart
+
 	Private ACButton2 As ACButton
 	Dim osstat As OSStats
 	Dim metric As MSOS
 
+	Private MultiBubbleChart1 As MultiBubbleChart
+	Private mbc1 As BarChart
+	Private mlc1 As LineChart
+	Private Panel3 As Panel
+	Dim fn2 As String
+	Dim fg2 As Int
+	Dim LD2 As BarData
+	Dim fn As String
+	Dim fg As Int
+	Dim LD As LineData
+	Private sm As SlidingMenuStd
+	Private cb1 As Circlebutton
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -68,47 +83,22 @@ Sub Activity_Create(FirstTime As Boolean)
 	c2=mcl.md_amber_A700
 	c3=mcl.md_lime_A700
 	c4=mcl.md_teal_A700
-	Activity.Color=c1
-	
-
+	Activity.Color=mcl.md_white_1000
 	dev.Initialize("dev")
 	
 	'################## second end#####################
 	m.Initialize
 	bat.Initialize
-
+	
 	kl.Initialize
 	dt.Initialize
 	ls.Initialize
-'	l1=ListView1.SingleLineLayout.Label
-'	l1.TextSize=15
-'	l1.TextColor=Colors.White
-'	l2=ListView1.TwoLinesLayout.Label
-'	l3=ListView1.TwoLinesLayout.SecondLabel
-'	l2.TextSize=18
-'	l3.TextSize=12
-'	l2.TextColor=Colors.Black
-'	l3.TextColor=Colors.Cyan
-'	ListView1.SingleLineLayout.ItemHeight=90
 	volt=bat.BatteryInformation(7)/1000
 	temp=bat.BatteryInformation(6)/10
 	usb =bat.BatteryInformation(9)
 	ac =bat.BatteryInformation(8)
 	G.Initialize
-	'#######Listview Settings###########
-'	Dim la,la1,la2 As Label
-'	la.Initialize("la")
-'	la1.Initialize("la1")
-'	la2.Initialize("la2")
-'	la2=ListView1.TwoLinesLayout.SecondLabel
-'	la2.TextSize=11
-'	la2.TextColor=Colors.ARGB(240,255,255,255)
-'	la1=ListView1.TwoLinesAndBitmap.SecondLabel
-'	la1.TextSize=10
-'	la1.TextColor=Colors.LightGray
-'	ListView1.TwoLinesAndBitmap.ImageView.Height=32dip
-'	ListView1.TwoLinesAndBitmap.ImageView.Width=32dip
-'	ListView1.TwoLinesAndBitmap.ItemHeight=50dip
+	g2.Initialize
 	If FirstTime=True Then 
 		Msgbox("Wenn die Statistik zum ersten Mal geladen wird, kann es eine Weile dauern, bis die Werte korrekt angezeigt werden, zB: V,C°,% der letzten 10 Einträge. Bitte beachte das die Werte nur ca sind da sie immer leicht Zeit versetzt gespeichert werden und nicht  den 'Live' Zustand anzeigen!","Wichtig!")
 	End If
@@ -121,7 +111,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	batt=LoadBitmap(File.DirAssets,"Battery Icons - White 64px (40).png")
 	pl=LoadBitmap(File.DirAssets,"Battery Icons - White 64px (28).png")
 	'#################Menu###############################################
-	popa.Initialize("popa",Panel2)
+	popa.Initialize("popa",Panel3)
 	Dim bd,bd1 As BitmapDrawable
 	bd.Initialize(LoadBitmap(File.DirAssets,"ic_clear_black_48dp.png"))
 	bd1.Initialize(LoadBitmap(File.DirAssets,"ic_autorenew_black_48dp.png"))
@@ -129,18 +119,83 @@ Sub Activity_Create(FirstTime As Boolean)
 	popa.AddMenuItem(1,"Schließen",bd)
 	'########################################################################
 	
+	
+	cb1.ButtonColor=mcl.md_lime_A200
+	cb1.ImageBitmap=LoadBitmap(File.DirAssets,"Bar-chart48.png")
+	
+	build
 	store_check
 	c_start
 
 End Sub
 
 Sub Activity_Resume 
+	build
 c_start
 store_check
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 	'tim.Enabled=False
+End Sub
+Sub cb1_Click
+	If Not (Panel3.Visible=True) Then
+		'Panel3.Visible=True	
+		Panel2.SendToBack
+		Panel1.SendToBack
+		Panel2.SetVisibleAnimated(550,False)
+		Panel1.SetVisibleAnimated(550,False)
+		Panel3.SetVisibleAnimated(550,True)
+		Else
+			Panel2.SetVisibleAnimated(550,True)
+			Panel1.SetVisibleAnimated(550,True)
+			Panel3.SetVisibleAnimated(550,False)
+			'Panel3.Visible=False
+	End If
+End Sub
+Sub build
+	Dim lv As ListView
+	lv.Initialize("lv")
+	Dim lva,lvb As Label
+	lva.Initialize("lva")
+	lvb.Initialize("lvb")
+	lva=lv.TwoLinesAndBitmap.Label
+	lvb=lv.TwoLinesAndBitmap.SecondLabel
+	lva.TextSize=13
+	lva.TextColor=mcl.md_black_1000
+	lvb.TextSize=11
+	lvb.TextColor=mcl.md_grey_700
+	lv.TwoLinesAndBitmap.ImageView.Height=40dip
+	lv.TwoLinesAndBitmap.ImageView.Width=40dip
+	lv.TwoLinesAndBitmap.ItemHeight=60dip
+	lv.Enabled=True
+	Panel3.AddView(lv,0dip,0dip,60%x,100%y)
+	lv.AddTwoLinesAndBitmap2("Reset C°","setzt alle Werte wieder auf 0 und löscht die Temperatur Ansicht",LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png"),0) 
+	lv.AddTwoLinesAndBitmap2("Reset Level","setzt alle Werte wieder auf 0 und löscht die Batterie-Level Ansicht",LoadBitmap(File.DirAssets,"ic_battery_alert_black_48dp.png"),1) 
+	lv.AddTwoLinesAndBitmap2("OS Power","Android Power Menü",LoadBitmap(File.DirAssets,"Battery.png"),2)
+	lv.AddTwoLinesAndBitmap2("Close","zurück zum Hauptmenü",LoadBitmap(File.DirAssets,"ic_clear_black_48dp.png"),3)
+End Sub
+
+Sub lv_ItemClick (Position As Int, Value As Object)
+	Dim ipo As Intent
+	If Value=0 Then 
+		ccl_click
+		cb1_Click
+		Activity.Invalidate
+	End If
+	If Value=1 Then 
+		graph_clear
+		cb1_Click
+		Activity.Invalidate
+	End If
+	If Value=2 Then 
+		ipo.Initialize( "android.intent.action.POWER_USAGE_SUMMARY", "")
+		cb1_Click
+		Activity.Invalidate
+	End If
+	If Value= 3 Then 
+		Activity_KeyPress(KeyCodes.KEYCODE_BACK)
+	End If
 End Sub
 
 Sub popa_ItemClicked (Item As ACMenuItem)
@@ -153,34 +208,26 @@ Sub popa_ItemClicked (Item As ACMenuItem)
 End Sub
 
 Sub ccl_click
-	
-	volt=bat.BatteryInformation(7)
-	temp=bat.BatteryInformation(6)
-		
-		kvstemp.DeleteAll
-		kvsvolt.DeleteAll
-	
-	kvstemp.PutSimple(temp,time2)
-	kvsvolt.PutSimple(volt,time2)
+	kvstemp.DeleteAll
+	kvsvolt.DeleteAll
+	kvstemp.PutSimple(bat.BatteryInformation(6)/10,time2)
 	ToastMessageShow("warte auf Aktuelle werte..!",False)
-		Log(kvs2.ListKeys&" - clear")
-	c_start
-	get_log
+	chart_2
+	Activity.Invalidate
 End Sub
 
 Sub graph_clear
+	
 	kvs2.DeleteAll
-	level  = bat.BatteryInformation(0)
-	Log("put-> "&level&"%")
-	kvs2.PutSimple(level,time2)
+	kvs2.PutSimple(bat.BatteryInformation(0),time2)
 	ToastMessageShow("warte auf Aktuelle werte..!",False)
-	c_start
+	chart_start
+	Activity.Invalidate
 End Sub
 
 Sub c_start
 	If kvs2.IsInitialized Then
 		Log("KVS -> true")
-	
 	Else
 		kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
 		kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
@@ -188,48 +235,75 @@ Sub c_start
 		kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
 	End If
 
-	get_log
+	chart_2
 	chart_start
 End Sub
 
 
-Sub get_log
-	
-End Sub
-
-
-
 Sub chart_start
-	level=bat.BatteryInformation(0)
-	Dim fn As String
-	Dim fg As Int
-	
-	g.Initialize
-	level=bat.BatteryInformation(0)
-	Dim fn As String
-	Dim fg As Int
-	Dim LD As LineData
-	LD.Initialize
+	If LD.IsInitialized Then
+	Else
+		LD.Initialize
+	End If
 	LD.Target =Panel2
-	Charts.AddLineColor(LD, Colors.Red) 'First line color
-	Charts.AddLineColor(LD, Colors.Blue) 'Second line color
-	For Each h As String  In kvs2.ListKeys
+	If kvs4.ContainsKey("5")Then
+		Log("AC_true->4")
+		
+		Charts.AddLineColor(LD, Colors.Blue) 'First line color
+	Else
+		Charts.AddLineColor(LD, Colors.Red) 'First line color
+	End If
+	
+	
+	For Each h As String  In kvs2.ListKeys 
 		fg=h
-		fn=kvs2.GetSimple(h)
+		fn=kvs2.GetSimple(h) 
 		Log("Map Key-> "&fg)
 		'Charts.AddBarPoint(BD, fn, Array As Float(fg))
 		Charts.AddLinePoint(LD, fn,fg, True)
 		'Charts.AddLineMultiplePoints(LD, fn, Array As Float(fg),True)
 	Next
-	G.Title = "BCT Power Chart"
-	G.XAxis = time2
-	G.YAxis = "Level:"
+	G.Title = "Level in %"
+	G.XAxis = "<- Battery Stats ->"
+	G.YAxis = "Level"
 	G.YStart = 0
 	G.YEnd = 100
 	G.YInterval = 5
 	G.AxisColor = Colors.White
 	'Charts.DrawBarsChart(G, BD, Colors.Transparent)
 	Charts.DrawLineChart(G, LD, Colors.Transparent)
+	
+End Sub
+
+Sub chart_2
+	
+	If LD2.IsInitialized Then
+	Else
+		LD2.Initialize
+	End If
+	LD2.Target =Panel1
+	LD2.BarsWidth=10
+	'Charts.AddLineColor(LD, Colors.Red) 'First line color
+	
+	Charts.AddBarColor(LD2, mcl.md_lime_A200) 'Second line color
+	For Each h Step 4 As String  In kvstemp.ListKeys 
+		fg2=h
+		fn2=kvstemp.GetSimple(h) 
+		Log("Bar Key-> "&h)
+		'Charts.AddBarPoint(BD, fn, Array As Float(fg))
+		Charts.AddBarPoint(LD2, fn2,Array As Float(fg2))
+		'Charts.AddLineMultiplePoints(LD, fn, Array As Float(fg),True)
+	Next
+	g2.Title = "Temp. in C°"
+	g2.XAxis = ""
+	g2.YAxis = "Temperature"
+	g2.YStart = 10
+	g2.YEnd = 60
+	g2.YInterval = 5
+	g2.AxisColor = Colors.White
+	'Charts.DrawBarsChart(G, BD, Colors.Transparent)
+	Charts.DrawBarsChart(g2, LD2, Colors.Transparent)
+
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
@@ -259,7 +333,7 @@ Sub dev_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent 
 		vl.Add(v) 
 	If level1=v Then 
 		store_check
-		c_start
+		'c_start
 		End If	
 	Next
 	
@@ -267,22 +341,22 @@ Sub dev_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent 
 End Sub
 
 Sub store_check
-	c1=mcl.md_light_blue_A700
-	c2=mcl.md_amber_A700
+	c1=mcl.md_light_blue_A400
+	c2=mcl.md_amber_A400
 	c3=mcl.md_white_1000
-	c4=mcl.md_teal_A700
-	c5=mcl.md_deep_purple_A700
+	c4=mcl.md_teal_A400
+	c5=mcl.md_deep_purple_A400
 	c6=mcl.md_red_A700
-	c7=mcl.md_indigo_A700
-	c8=mcl.md_blue_A700
+	c7=mcl.md_indigo_A400
+	c8=mcl.md_blue_A400
 	c9=mcl.md_orange_A700
-	c10=mcl.md_grey_700
-	c11=mcl.md_green_A700
+	c10=mcl.md_grey_600
+	c11=mcl.md_green_A400
 	c12=mcl.md_black_1000
-	c13=mcl.md_yellow_A700
-	c14=mcl.md_cyan_A700
-	c15=mcl.md_blue_grey_700
-	c16=mcl.md_light_blue_A700
+	c13=mcl.md_light_green_A400
+	c14=mcl.md_cyan_A400
+	c15=mcl.md_blue_grey_400
+	c16=mcl.md_light_blue_A400
 	If kvs4.ContainsKey("0")Then
 		Log("AC_true->1")
 		Activity.Color=c1
@@ -296,6 +370,8 @@ Sub store_check
 	If kvs4.ContainsKey("2")Then
 		Log("AC_true->3")
 		Activity.Color=c3
+		g.AxisColor = Colors.Black
+		g2.AxisColor = Colors.Black
 	Else
 		'Activity.Color=c1
 	End If
@@ -314,6 +390,7 @@ Sub store_check
 	If kvs4.ContainsKey("5")Then
 		Log("AC_true->4")
 		Activity.Color=c6
+		 'Second line color
 	Else
 		'Activity.Color=c4
 	End If
@@ -376,4 +453,11 @@ End Sub
 
 Sub ACButton2_Click
 	ccl_click
+End Sub
+
+
+
+
+Sub mlc1_value_selected(index As Int, value As Float)
+	
 End Sub

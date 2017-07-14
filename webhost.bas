@@ -3,6 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Service Module created by trOw
 #Region  Service Attributes 
 	#StartAtBoot: False
 	

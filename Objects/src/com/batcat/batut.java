@@ -34,46 +34,49 @@ public class batut extends B4AClass.ImplB4AClass implements BA.SubDelegator{
 public anywheresoftware.b4j.object.JavaObject _nativeme = null;
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
+public com.batcat.set2 _set2 = null;
+public com.batcat.settings _settings = null;
 public com.batcat.hw _hw = null;
 public com.batcat.starter _starter = null;
 public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
-public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.cool _cool = null;
+public com.batcat.pman _pman = null;
+public com.batcat.wait _wait = null;
+public com.batcat.xmlviewex _xmlviewex = null;
+public com.batcat.charts _charts = null;
 public com.batcat.setanimation _setanimation = null;
-public com.batcat.settings _settings = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
-public com.batcat.charts _charts = null;
 public String  _class_globals() throws Exception{
- //BA.debugLineNum = 1;BA.debugLine="Sub Class_Globals";
- //BA.debugLineNum = 2;BA.debugLine="Private nativeMe As JavaObject";
+ //BA.debugLineNum = 4;BA.debugLine="Sub Class_Globals";
+ //BA.debugLineNum = 5;BA.debugLine="Private nativeMe As JavaObject";
 _nativeme = new anywheresoftware.b4j.object.JavaObject();
- //BA.debugLineNum = 4;BA.debugLine="End Sub";
+ //BA.debugLineNum = 7;BA.debugLine="End Sub";
 return "";
 }
 public int[]  _getbatteryinformation() throws Exception{
 int _dummy = 0;
 int[] _batteryinfo = null;
- //BA.debugLineNum = 21;BA.debugLine="Public Sub getBatteryInformation () As Int()";
- //BA.debugLineNum = 23;BA.debugLine="Dim dummy As Int = 1";
+ //BA.debugLineNum = 13;BA.debugLine="Public Sub getBatteryInformation () As Int()";
+ //BA.debugLineNum = 15;BA.debugLine="Dim dummy As Int = 1";
 _dummy = (int) (1);
- //BA.debugLineNum = 24;BA.debugLine="Dim batteryInfo(11)  As Int";
+ //BA.debugLineNum = 16;BA.debugLine="Dim batteryInfo(11)  As Int";
 _batteryinfo = new int[(int) (11)];
 ;
- //BA.debugLineNum = 25;BA.debugLine="batteryInfo = nativeMe.RunMethod(\"getBatteryInfor";
+ //BA.debugLineNum = 17;BA.debugLine="batteryInfo = nativeMe.RunMethod(\"getBatteryInfor";
 _batteryinfo = (int[])(_nativeme.RunMethod("getBatteryInformation",new Object[]{(Object)(_dummy)}));
- //BA.debugLineNum = 26;BA.debugLine="Return batteryInfo";
+ //BA.debugLineNum = 18;BA.debugLine="Return batteryInfo";
 if (true) return _batteryinfo;
- //BA.debugLineNum = 28;BA.debugLine="End Sub";
+ //BA.debugLineNum = 20;BA.debugLine="End Sub";
 return null;
 }
 public String  _initialize(anywheresoftware.b4a.BA _ba) throws Exception{
 innerInitialize(_ba);
- //BA.debugLineNum = 6;BA.debugLine="Public Sub Initialize";
- //BA.debugLineNum = 7;BA.debugLine="nativeMe = Me";
+ //BA.debugLineNum = 9;BA.debugLine="Public Sub Initialize";
+ //BA.debugLineNum = 10;BA.debugLine="nativeMe = Me";
 _nativeme.setObject((java.lang.Object)(this));
- //BA.debugLineNum = 8;BA.debugLine="End Sub";
+ //BA.debugLineNum = 11;BA.debugLine="End Sub";
 return "";
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {

@@ -14,7 +14,6 @@ views.get("panel1").vw.setTop((int)(0d));
 views.get("panel1").vw.setHeight((int)(0-1d - (0d)));
 views.get("listview1").vw.setLeft((int)(0d));
 views.get("listview1").vw.setWidth((int)(0-1d - (0d)));
-//BA.debugLineNum = 6;BA.debugLine="ListView1.SetTopAndBottom(1,-1)"[4/General script]
 views.get("listview1").vw.setTop((int)(1d));
 views.get("listview1").vw.setHeight((int)(0-1d - (1d)));
 

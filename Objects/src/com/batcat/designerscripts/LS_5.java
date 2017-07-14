@@ -13,10 +13,8 @@ views.get("panel1").vw.setLeft((int)((0d * scale)));
 views.get("panel1").vw.setWidth((int)((100d / 100 * width) - ((0d * scale))));
 views.get("panel1").vw.setTop((int)(0d));
 views.get("panel1").vw.setHeight((int)((60d / 100 * height) - (0d)));
-//BA.debugLineNum = 6;BA.debugLine="Panel2.SetTopAndBottom(60%y,100%y)"[5/General script]
 views.get("panel2").vw.setTop((int)((60d / 100 * height)));
 views.get("panel2").vw.setHeight((int)((100d / 100 * height) - ((60d / 100 * height))));
-//BA.debugLineNum = 7;BA.debugLine="ImageView1.SetLeftAndRight(35%x,65%x)"[5/General script]
 views.get("imageview1").vw.setLeft((int)((35d / 100 * width)));
 views.get("imageview1").vw.setWidth((int)((65d / 100 * width) - ((35d / 100 * width))));
 

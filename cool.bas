@@ -3,6 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Code Module created by trOw
 #Region  Activity Attributes 
 	#FullScreen: False
 	#IncludeTitle: True
@@ -10,19 +13,20 @@ B4A=true
 #Extends: android.support.v7.app.AppCompatActivity
 Sub Process_Globals
 	Dim t1 As Timer 
+	Dim catdel As CacheCleaner
 End Sub
 
 Sub Globals
 	Dim op As OperatingSystem
-	Private Label1 As Label
+	'Private Label1 As Label
 	Dim count As Int=0
 	Dim args(1) As Object
 	Dim Obj1, Obj2, Obj3 As Reflector
 	Dim Types(1), name,packName,date,time As String
     Dim icon As BitmapDrawable
 	Dim pak As PackageManager
-	Dim list4,list1,apklist,list2,list5,list6,list7,list8,list9,list10 As List
-	Dim catdel As CacheCleaner
+	Dim list4,list1,apklist,list2,list5,list6,list7,list8,list9,list10,trash As List
+
 	Dim cat As Cache
 	Dim dir1 As String =File.DirDefaultExternal&"/mnt/cache/store"
 	Private lw2 As ListView
@@ -57,12 +61,15 @@ Sub Globals
 	Private ListView1 As ListView
 	Dim l1,l2,l3 As Label
 	Private cav As CoolAnimView
+	Private Label1 As Label
+	Dim catlist As List
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("5")
 	Activity.Title=pak.GetApplicationLabel("com.batcat")&" - "&pak.GetVersionName("com.batcat")
 	op.Initialize("op")
+	catdel.initialize("catdel")
 	list1.Initialize
 	list2.Initialize
 	l1.Initialize("l1")
@@ -76,6 +83,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	list9.Initialize
 	list10.Initialize
 	apklist.Initialize
+	trash.Initialize
+	catlist.Initialize
 	ph.Initialize("ph")
 	l1.Initialize("l1")
 	l2.Initialize("l2")
@@ -88,9 +97,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	ffiles.Initialize
 	ffolders.Initialize
 	xOSStats.Initialize(400, 50, Me, "myStats")
-		If FirstTime Then 
 	
-		If File.Exists(File.DirDefaultExternal&"/mnt/cache","ressize.txt") Then
+		If File.Exists(File.DirDefaultExternal&"/mnt/cache","cdata.txt") Then
 			ToastMessageShow("core ready...!",False)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","sv.txt",list4)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","fn.txt",list1)
@@ -100,9 +108,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	File.MakeDir(File.DirDefaultExternal, "mnt/cache/store")
 	File.WriteList(File.DirDefaultExternal&"/mnt/cache","sv.txt",list4)
 	File.WriteList(File.DirDefaultExternal&"/mnt/cache","fn.txt",list1)
+		File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",catlist)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","cclist.txt","")
 	ToastMessageShow("Files ready! "&date&", "&time,False)
-	End If 
 	End If 
 	'#######Timer Settings##############
 	t1.Initialize("t1",1000)
@@ -113,7 +121,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	dial.TextColor=Colors.White
 	dialog.AddView(diapan,350,350)
 	diapan.AddView(lw2,3,3,-1,-1)
-
+	'catlist.Add(time)
 	'#######################Storage Lolipop########################
 	paths = storage.Initialize
 	nativeMe.InitializeContext
@@ -130,17 +138,19 @@ Sub Activity_Create(FirstTime As Boolean)
 	desk.Initialize(File.DirAssets, "ic_battery_alert_black_48dp.png")
 	work.Initialize(File.DirAssets, "ic_delete_black_48dp.png")
 	ImageView1.BringToFront
-	anima.InitializeAlpha("anima",0,1)
 	l1=ListView1.SingleLineLayout.Label
 	l1.TextSize=15
-	l1.TextColor=mcl.md_white_1000
+	l1.TextColor=mcl.md_black_1000
 	GetDeviceId
+	t1.Enabled=False
 	c_start
-	
+	ListView1.SetSelection(-1)
+	catdel.ScanCache
 End Sub
 
 Sub Activity_Resume
-	t1.Enabled=True
+	t1.Enabled=False
+	catdel.ScanCache
 	xOSStats.StartStats
 	c_start
 End Sub
@@ -158,25 +168,81 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the ev
 End Sub
 
 Sub c_start	 
+	
+	ListView1.SetSelection(-1)
 	app_info
+	catlist.Clear
 	dill.Clear
 	list2.Clear
 	list4.Clear
 	list7.Clear
 	apklist.Clear
+	'catlist.AddAll(xOSStats.BufferRAM)
 	list2=op.RunningTaskInfo(99,list8,list9,list10)
 	cat_start
 	Return
 End Sub
+
 Sub myStats_Update(CPUEfficiency() As Float, RAMUsage As Float)
-	apklist.AddAll(xOSStats.BufferRAM)
-	For k = 0 To list2.Size-1
-		Log(list2.Get(k))
-		ListView1.AddSingleLine(list2.Get(k))
-		ListView1.AddSingleLine(NumberFormat2(RAMUsage, 0, 0, 0, False) & "%"& " - "&xMSOS.formateFileSize(RAMUsage*1024*1024*10))
-	Next
+
+End Sub
+
+Sub catdel_OnScanStarted
+	Log("Started")
 	
 End Sub
+
+Sub catdel_onScanProgress (Current As Int , Total As Int)
+	'dpm1.Max=100
+	'dpm1.Progress=100/Total*Current
+	Label1.Text="durchsuche -> "&Current&" Apps nach Müll"
+	'Log(Current&"/"&Total)
+End Sub
+
+Sub catdel_onCleanStarted
+	ListView1.AddSingleLine("lösche..." )
+End Sub
+
+Sub catdel_onCleanCompleted (CacheSize As Long)	
+		'catlist.Add(CacheSize&" clean")
+	'Label1.Text=xMSOS.formateFileSize(CacheSize)&" cleaned !"
+	dpm1.InnerBottomText=xMSOS.formateFileSize(CacheSize)&" clean!"
+	ListView1.AddSingleLine(xMSOS.formateFileSize(CacheSize)&" gesäubert")
+End Sub
+
+Sub catdel_onScanCompleted (AppsList As Object)
+	time=DateTime.Time(DateTime.Now)
+	Dim totalsize As Long = 0
+	Dim pm As PackageManager
+	ListView1.Clear
+	ListView1.SetSelection(-1)
+	Try
+		Dim lu As List = AppsList
+		If lu.Size=0 Then
+			'Cache is Empty
+			ListView1.AddSingleLine("No App cache found. All clear")
+			catlist.Clear
+			catlist.Add(time&" - No App cache found")
+			Return
+		End If 
+		For n = 0 To lu.Size-1
+			Dim app() As Object = lu.Get(n)
+			If app(1) = "com.android.systemui" Then Continue 'This Pakage Have No Icon In Some Android 5
+			Dim icon As BitmapDrawable = pm.GetApplicationIcon(app(1))
+			ListView1.SetSelection(n)
+			ListView1.AddTwoLinesAndBitmap(app(0),NumberFormat2(app(2)/1024/1024,1,2,2,True)&"MB",icon.Bitmap)
+			totalsize = totalsize+app(2)
+			catlist.Clear
+			catlist.Add(app(0)&" - "&NumberFormat2(app(2)/1024/1024,1,2,2,True)&"MB cache"&" | "&op.formatSize(totalsize))
+			File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",catlist)
+		Next
+		
+	Catch
+		Log(LastException.Message)
+		catlist.Add(LastException.Message)
+	End Try
+End Sub
+
 Sub GetDeviceId As String
 	Dim api As Int
 	Dim r As Reflector
@@ -238,15 +304,17 @@ Sub cat_start
 	dpm1.FinishedStrokeWidth=25
 	dpm1.UnfinishedStrokeColor=Colors.Transparent
 	dpm1.UnfinishedStrokeWidth=30
-	dpm1.SuffixText="% -> fertig.."
+	dpm1.SuffixText="%"
 	dpm1.InnerBackgroundColor=mcl.md_light_blue_A200
-	dpm1.InnerBottomText="working..."
+	'dpm1.InnerBottomText="working..."
 	dpm1.InnerBottomTextSize=18
 	dpm1.InnerBottomTextColor=Colors.Black
-	dpm1.PrefixText="Boost: "
+	dpm1.PrefixText="Cleaning: "
 	'cat.Initialize(25,100*1024*1024,File.DirRootExternal)
 	ReadDir(dir1,False)
+	cav.SetVisibleAnimated(10000,False)
 	cav.init
+	ImageView1.Visible=False
 	t1.Enabled=True
 	t1_Tick
 End Sub
@@ -267,36 +335,43 @@ Sub ReadDir(folder As String, recursive As Boolean)
 			If recursive Then
 				ReadDir(v,recursive)
 			End If
-			ListView1.AddSingleLine(lst.Get(i))
+			'ListView1.AddSingleLine(lst.Get(i))
 		Else
 			ffiles.Add(folder&"/"&lst.Get(i))
-			ListView1.AddSingleLine(lst.Get(i))
+			'ListView1.AddSingleLine(lst.Get(i))
 		End If
 	Next
 	Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
 End Sub
 
 Sub close
-		If Not(apklist.size=0) Then
+		If Not(catlist.size=0) Then
 				Dim df As String  
 		df=apklist.size
 		Label1.Text=op.formatSize(cat.FreeMemory)&" RAM free! "&list2.Size&" -Backround Processes closed."&xMSOS.formateFileSize(df)&" Files and Trash Data cleared"
+		'catlist.Add("RAM boosted: "&op.formatSize(cat.FreeMemory))
+		catdel.CleanCache
+		Log("----------------CDATA -> "&catlist.Size)
 		Else
+			catlist.Clear
 		Label1.Text=op.formatSize(cat.FreeMemory)&" RAM free! "&list4.Size&" Backround Processes killed...!"
-	
+		catlist.Add(time&" - No App cache found")
+		Log("--------------- NO CDATA--------------")
 		End If 	
-		
+	cav.stopAnim
+	
 	delayed_t2
 	Return
 End Sub
 
 Sub del_quest
-	cav.stopAnim
+	
+	ImageView1.Visible=True
 	dpm1.Visible=False
 '	pgWheel1.Visible=False
 	ImageView1.Bitmap=LoadBitmap(File.DirAssets,"Accept128.png")
 		Label1.Text= "clear RAM and close.."
-	
+	'File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",catlist)
 		real_delete
 	
 
@@ -323,90 +398,83 @@ Sub ph_DeviceStorageOk (Intent As Intent)
 End Sub
 
 Sub t1_Tick
-	ListView1.Clear
 	count=count+1
-	anima.InitializeScale("anima",0dip,100dip,125dip,500dip)
-	anima.RepeatMode=anima.REPEAT_REVERSE
-	anima.Duration=5000
-	
-	anima.SetInterpolator(anima.INTERPOLATOR_ACCELERATE)
-	anima.Start(ImageView1)
+	ListView1.SetSelection(-1)
 	dpm1.Max=100
-	ImageView1.Visible=True
-	'pg.SetColorAnimated(12000,Colors.Transparent,mcl.md_lime_A700)
-	ImageView1.Bitmap=andro
-	
-	'pg.incrementProgressBy(count*count)
-	dpm1.Progress=5
 	dpm1.UnfinishedStrokeWidth=20
 	dpm1.UnfinishedStrokeColor=Colors.ARGB(180,255,255,255)'mcl.md_light_green_A100
-	
-	'(mcl.md_white_1000,mcl.md_amber_400,mcl.md_light_green_400)
-	'spb1.ShowProgress=count
 	If count>0 Then 
-		Label1.Text="check Battery.."
+		Label1.text="search Battery.."
 	End If
 	If count > 1 Then
-		ListView1.Clear
-		Label1.Text="check Battery.."
+		'ListView1.Clear
+		Label1.text="check Battery.."
 		dpm1.Progress=20
 	End If
 	If count > 2 Then
-		Label1.Text="check Battery.."
+		Label1.text="optimize Battery.."
 		dpm1.Progress=36
 	End If
 	If count > 3 Then
-		ListView1.Clear
-		'spb1.ImageBitmap = andro
-		'pg.Progress=28
-		Label1.Text="check System.."
+
+		Label1.text="search Application cache"
+		
 		dpm1.Progress=42
 	End If
 
 	If count > 4 Then
-		ListView1.Clear
+		'#ListView1.Clear
 		dpm1.Progress=52
 		ImageView1.Bitmap=bat
 	
-		Label1.Text="clear Cache System.."
+		Label1.text="cleaning Cache System.."
+		
 		dpm1.Progress=67
 	End If
 	If count > 5 Then
 		dpm1.Progress=89
-		Label1.Text="clear Cache System.."
+		Label1.text="deleting Garbage Cache.."
 		ImageView1.Bitmap=desk
 		
-				Label1.Text="check "&op.formatSize(op.AvailableMemory)
+				Label1.text="check: "&op.formatSize(op.AvailableMemory)
 		
 		dpm1.Progress=100
 	End If
 	If count > 6 Then
-		ListView1.Clear
-		ListView1.Visible=False
-		dpm1.Visible=False
-		Label1.Text=op.formatSize(cat.FreeMemory)
-		ToastMessageShow("closing in 1 sec...",False)
+		'#ListView1.Clear
+		
+		Label1.text=op.formatSize(cat.FreeMemory)
+		'ToastMessageShow("closing in 1 sec...",False)
 		CallSub(Me,"del_quest")
 	End If
 End Sub
 
 Sub delayed_t2
-	
-	dpm1.SetLayoutAnimated(2dip,46dip,50,10,25)
-	anima.Stop(ImageView1)
+	dpm1.InnerBottomText=Label1.text
+	dpm1.Progress=100
+	'dpm1.SetLayoutAnimated(2dip,46dip,50,10,25)
 		If count > 7 Then 
-			catdel.clearCache
-		  
-		Label1.Text=op.formatSize(cat.FreeMemory)&" free.."
-		
-		
+		Label1.text=op.formatSize(cat.FreeMemory)&" free.."
+		ListView1.Clear
 	End If
 	If count> 8 Then 
+		Label1.text=op.formatSize(cat.FreeMemory)
+		'ToastMessageShow("closing in 1 sec...",False)
+		ListView1.AddSingleLine(xMSOS.formateFileSize(cat.FreeMemory))
+	End If
+	If count> 9 Then
+		
+		
+		dpm1.Visible=False
 		'ToastMessageShow("closing in 1 sec...",False)
 	End If
-	If count = 9 Then 
+	If count> 10 Then
+		'ToastMessageShow("closing in 1 sec...",False)
+	End If
+	If count = 11 Then 
+		
 		t1.Enabled=False
-		ToastMessageShow(op.formatSize(cat.FreeMemory)&" free",False)
+		'ToastMessageShow(op.formatSize(cat.FreeMemory)&" free",False)
 		Activity.Finish
 		SetAnimation.setanimati ("extra_out", "extra_out")
 	End If

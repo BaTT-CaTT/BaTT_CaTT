@@ -3,6 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Code Module created by trOw
 #Region  Activity Attributes 
 	#FullScreen: False
 	#IncludeTitle: True
@@ -25,14 +28,14 @@ Sub Globals
 	Dim l1,l2,l3 As Label
 	Private ACToolBarLight1 As ACToolBarLight
 	Private ToolbarHelper As ACActionBar
-	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15 As Int
+	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	
 	Activity.LoadLayout("4")
 	Activity.Title=pak.GetApplicationLabel("com.batcat")&" - "&pak.GetVersionName("com.batcat")
-	Activity.Color=Colors.ARGB(150,30,124,235)
+	Activity.Color=mcl.md_white_1000
 
 
 	dev.Initialize("dev")
@@ -111,21 +114,22 @@ End Sub
 
 
 Sub store_check
-	c1=mcl.md_light_blue_A700
-	c2=mcl.md_amber_A700
+	c1=mcl.md_light_blue_A400
+	c2=mcl.md_amber_A400
 	c3=mcl.md_white_1000
-	c4=mcl.md_teal_A700
-	c5=mcl.md_deep_purple_A700
+	c4=mcl.md_teal_A400
+	c5=mcl.md_deep_purple_A400
 	c6=mcl.md_red_A700
-	c7=mcl.md_indigo_A700
-	c8=mcl.md_blue_A700
+	c7=mcl.md_indigo_A400
+	c8=mcl.md_blue_A400
 	c9=mcl.md_orange_A700
-	c10=mcl.md_grey_700
-	c11=mcl.md_green_A700
+	c10=mcl.md_grey_600
+	c11=mcl.md_green_A400
 	c12=mcl.md_black_1000
-	c13=mcl.md_yellow_A700
-	c14=mcl.md_cyan_A700
-	c15=mcl.md_blue_grey_700
+	c13=mcl.md_light_green_A400
+	c14=mcl.md_cyan_A400
+	c15=mcl.md_blue_grey_400
+	c16=mcl.md_light_blue_A400
 	'c16=mcl.md_light_blue_A700
 	If kvs4.ContainsKey("0")Then
 		Log("AC_true->1")

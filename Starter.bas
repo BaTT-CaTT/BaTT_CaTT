@@ -3,6 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Service Module created by trOw
 #Region  Service Attributes 
 	#StartAtBoot: true
 	'#ExcludeFromLibrary: True
@@ -16,7 +19,7 @@ Sub Process_Globals
 		Dim sNotif As Notification
       Dim device As PhoneEvents
 	Dim list1 As List
-	 Dim kvs2,kvs3,kvs4,kvstemp,kvsvolt As KeyValueStore 
+	 Dim kvs2,kvs3,kvs4,kvstemp,kvsvolt,kvstime As KeyValueStore 
 	 Private date,time,tt As String
 	 Dim bat As Batut
 	Dim level1 As Int
@@ -60,11 +63,12 @@ Sub Service_Create
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
 	kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
 	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
+	kvstime.Initialize(File.DirDefaultExternal,"datastore_time")
 	Service.StartForeground(1,sNotif)
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
-	ToastMessageShow("Status: Service Start..",False)
+	'ToastMessageShow("Service Start..",False)
 	If File.Exists(File.DirDefaultExternal&"/mnt/cache","lvl2.txt") Then
 		'ToastMessageShow("Welcome!",False)
 		'ListView1.Clear
@@ -88,7 +92,7 @@ End Sub
 
 
 Sub Service_Destroy
-	ToastMessageShow("Status: Service End..",False)
+	'ToastMessageShow("Status: Service End..",False)
 End Sub
 
 
@@ -109,43 +113,37 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 	Dim status As Int = Intent.GetExtra("status")
 	volt=Rnd(volt1,volt1+1)
 	temp=Rnd(temp2,temp2+1)
-	If kvsvolt.ListKeys.Size>15 Then
-		
+	If kvs2.ListKeys.Size=10 Then
 		kvsvolt.DeleteAll
 		kvstemp.DeleteAll
-		'ToastMessageShow("Reset",False)
-	End If
-	If kvs2.ListKeys.Size>25 Then 
 		kvs2.DeleteAll
-		ToastMessageShow("Reset",False)
+		'ToastMessageShow("BC Reload",False)
 	End If
-	For g = 0 To temp2
+	For v = 0 To Scale
+		'nl.Add(v)
+		If v=Level Then
+			Log("Put-> "&v)
+			kvs2.PutSimple(v,time)
+		End If
+	Next
+	For g = 0 To 60
 		If g=temp2 Then
 			kvstemp.PutSimple(g,time)
 			Log(time&" Put-> "&temp2&"C°")
 		End If
 	Next
-	For vo = 3000 To Intent.GetExtra("voltage")
-		If vo =Intent.GetExtra("voltage") Then 
+	For vo = 2500 To 6000
+		If vo=Intent.GetExtra("voltage") Then 
 			 kvsvolt.PutSimple(vo,time)
 			Log(time&" Put-> "&Intent.GetExtra("voltage")&"V")
 		End If
 	Next
 	Dim rst,rl,rm As Int
 	Dim val,hours,minutes As Int
-	File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl.txt",Level)
-	File.WriteString(File.DirDefaultExternal&"/mnt/cache","volt.txt",volt)
 	If Plugged  Then
-	
-		For v = 0 To Scale 
-			'nl.Add(v)
-			If v=Level Then
-				Log("Put-> "&v)
-				kvs2.PutSimple(v,time) 
-			End If 
-	Next
+		
 		rst=Scale-Level
-		val = rst*Intent.GetExtra("voltage") /1000
+		val = rst*Intent.GetExtra("voltage")/1000
 		hours = Floor(val / 60)
 		minutes = val Mod 60
 		If Level=100 Then
@@ -153,28 +151,28 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			sNotif.Sound=False
 			sNotif.SetInfo(Level&"%",volt&" V | "&temp&"°C ",Main)
 			sNotif.Notify(1)
-			'sql1.ExecNonQuery("INSERT INTO stats VALUES (NULL,"& tt &"," & level1 &")")
 			Service.StartForeground(1,sNotif)
+
+			
 		Else
 		sNotif.Icon="batusb"
 		sNotif.Sound=False
-		sNotif.SetInfo(ac&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h/"&minutes&"min",Main)
+		sNotif.SetInfo(ac&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h - "&minutes&"min",Main)
 		sNotif.Notify(1)
-		'sql1.ExecNonQuery("INSERT INTO stats VALUES (NULL,"& tt &"," & level1 &")")
 		Service.StartForeground(1,sNotif)
 		End If
 	Else
 		For v = 0 To Scale
 			nl.Add(v)
 			If v=Level Then
-				Log("Put-> "&v)
+				'Log("Put-> "&v)
 				kvs2.PutSimple(v,time)
 			End If
 		Next
 		Dim days,sval As Int 
-		sval =Intent.GetExtra("status")/1000
-		Log(sval)
-		val = sval
+		sval =Intent.GetExtra("voltage")
+		'Log(sval)
+		val = Scale/sval*Level*1000
 		days=Floor(val/60/24)
 		hours = Floor(val/60 Mod 24)
 		minutes = val Mod 60
@@ -183,8 +181,6 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			sNotif.Notify(1)
 		End If
 	If Level <= 100 Then
-		'kvs2.PutSimple(Level,time)
-			
 		sNotif.Icon="bat100"
 	End If
 	If Level <= 80 Then

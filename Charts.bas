@@ -3,9 +3,11 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
-'Code module
+
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Main Code Module created by trOw
 Sub Process_Globals
-	'VERSION: 1.04
 	Type PieItem (Name As String, Value As Float, Color As Int) 
 	Type PieData (Items As List, Target As Panel, Canvas As Canvas, GapDegrees As Int, _
 		LegendTextSize As Float, LegendBackColor As Int)

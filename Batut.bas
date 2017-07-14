@@ -3,6 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Class Module created by trOw
 Sub Class_Globals
 	Private nativeMe As JavaObject
 	
@@ -11,18 +14,7 @@ End Sub
 Public Sub Initialize
 	nativeMe = Me
 End Sub
-'Return information about the battery status. It returns the following 11 values in an integer Array: 
-'EXTRA_LEVEL = current battery level, from 0 To EXTRA_SCALE. 
-'EXTRA_SCALE = the maximum battery level possible.
-'EXTRA_HEALTH = the current health constant.
-'EXTRA_ICON_SMALL = the resource ID of a small status bar icon indicating the current battery state. 
-'EXTRA_PLUGGED = whether the device is plugged into a Power source; 0 means it is on battery, other constants are different types of Power sources.
-'EXTRA_STATUS = the current status constant.
-'EXTRA_TEMPERATURE = the current battery temperature. 
-'EXTRA_VOLTAGE = the current battery voltage level.
-'A value indicating if the battery is being charged or fully charged (If neither it returns 0 Else it returns 1)
-'A value indicating if it is charging via USB (0 = Not USB, 2 = USB)
-'A value indicating if it is charging via AC (0 = Not AC, 1 = AC)
+
 Public Sub getBatteryInformation () As Int()
 
 	Dim dummy As Int = 1
@@ -31,8 +23,6 @@ Public Sub getBatteryInformation () As Int()
 	Return batteryInfo
 
 End Sub
-
-
 
 #If Java
 

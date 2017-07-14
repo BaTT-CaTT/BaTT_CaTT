@@ -3,6 +3,9 @@ Version=6.8
 ModulesStructureVersion=1
 B4A=true
 @EndOfDesignText@
+'BaTT CaTT source Project 
+'Copyrights D.Trojan(trOw) and SM/Media ©2017
+'Code Module created by trOw
 #Region  Activity Attributes 
 	#FullScreen: False
 	#IncludeTitle: True
@@ -58,7 +61,7 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	Activity.LoadLayout("6")
-	'Activity.Color=Colors.ARGB(200,255,255,255)
+	Activity.color=Colors.ARGB(200,255,255,255)
 	'Activity.AddMenuItem3("Info","pci",LoadBitmap(File.DirAssets, "Rss.png"),True)
 	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
 	kvs4sub.Initialize(File.DirDefaultExternal, "datastore_sub_4")
@@ -87,22 +90,22 @@ Sub Activity_Create(FirstTime As Boolean)
 
 	popa.AddMenuItem(0,"Save",bd)
 	nativeMe.InitializeContext
-	c1=mcl.md_light_blue_A700
-	c2=mcl.md_amber_A700
+	c1=mcl.md_light_blue_A400
+	c2=mcl.md_amber_A400
 	c3=mcl.md_white_1000
-	c4=mcl.md_teal_A700
-	c5=mcl.md_deep_purple_A700
+	c4=mcl.md_teal_A400
+	c5=mcl.md_deep_purple_A400
 	c6=mcl.md_red_A700
-	c7=mcl.md_indigo_A700
-	c8=mcl.md_blue_A700
+	c7=mcl.md_indigo_A400
+	c8=mcl.md_blue_A400
 	c9=mcl.md_orange_A700
-	c10=mcl.md_grey_700
-	c11=mcl.md_green_A700
+	c10=mcl.md_grey_600
+	c11=mcl.md_green_A400
 	c12=mcl.md_black_1000
-	c13=mcl.md_yellow_A700
-	c14=mcl.md_cyan_A700
-	c15=mcl.md_blue_grey_700
-	c16=mcl.md_light_blue_A700
+	c13=mcl.md_light_green_A400
+	c14=mcl.md_cyan_A400
+	c15=mcl.md_blue_grey_400
+	c16=mcl.md_light_blue_A400
 	
 	cc1.Initialize(c1,5dip)
 	cc2.Initialize(c2,5dip)
@@ -125,8 +128,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	ACSpinner1.Prompt="Wähle Farbe"
 	
 	ACSpinner1.Add2("light blue",cc1)
-	ACSpinner1.Add2("Amber",cc2)
-	ACSpinner1.Add2("White(Arctic)",cc3)'-<<<<<<change on main bardata and textflow!
+	ACSpinner1.Add2("amber",cc2)
+	ACSpinner1.Add2("white(Arctic)",cc3)'-<<<<<<change on main bardata and textflow!
 	ACSpinner1.Add2("teal",cc4)
 	ACSpinner1.Add2("purple(dark)",cc5)
 	ACSpinner1.Add2("red",cc6)
@@ -135,13 +138,13 @@ Sub Activity_Create(FirstTime As Boolean)
 	ACSpinner1.Add2("orange",cc9)
 	ACSpinner1.Add2("grey",cc10)
 	ACSpinner1.Add2("green",cc11)
-	ACSpinner1.Add2("Black(Ultra)",cc12)'-<<<<<<change on main bardata and textflow!
-	ACSpinner1.Add2("yellow",cc13)
+	ACSpinner1.Add2("black(Ultra)",cc12)'-<<<<<<change on main bardata and textflow!
+	ACSpinner1.Add2("light green",cc13)
 	ACSpinner1.Add2("cyan",cc14)
 	ACSpinner1.Add2("blue grey",cc15)
 	ACSpinner1.Color=Colors.Transparent
 	'ACButton1.ButtonColor=Colors.ARGB(180,255,255,255)
-	
+	ACSpinner1.TextColor=mcl.md_black_1000
 	If StateManager.RestoreState(Activity, "Main", 0) = False Then
 		'set the default values
 		arb.Checked=True
@@ -171,12 +174,12 @@ End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
 	If KeyCode=KeyCodes.KEYCODE_BACK Then
-		Activity.Finish
-		SetAnimation.setanimati("extra_in", "extra_out")
-			StateManager.SaveState(Activity, "Main")
+'		Activity.Finish
+'		SetAnimation.setanimati("extra_in", "extra_out")
+'			StateManager.SaveState(Activity, "Main")
 		End If
 		StateManager.SaveSettings
-	Return(True)
+	Return(False)
 End Sub
 
 Sub ACButton1_Click
@@ -244,45 +247,44 @@ Sub store_check
 		'act
 		ACSpinner1.SelectedIndex=0
 		Panel2.Color=c1
+		
 	End If
 	If kvs4.ContainsKey("1")Then
 		Log("AC_true->2")
 		ACSpinner1.SelectedIndex=1
 		Panel2.Color=c2
-	Else
-		'Activity.Color=c1
+		Activity.Color=c1
 	End If
 	If kvs4.ContainsKey("2")Then
 		Log("AC_true->3")
 		Panel2.Color=c3
 		'CSpinner1.SelectedIndex=2
 		'act
-	Else
-		'Activity.Color=c1
+		Activity.Color=c1
 	End If
 	If kvs4.ContainsKey("3")Then
 		Log("AC_true->4")
 		Panel2.Color=c4
 		ACSpinner1.SelectedIndex=3
-		'Activity.Color=c4
+		Activity.Color=c4
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("4")Then
 		Log("AC_true->4")
 		'act
 		ACSpinner1.SelectedIndex=4
 		Panel2.Color=c5
-	Else
-		'Activity.Color=c4
+
+	Activity.Color=c4
 	End If
 	If kvs4.ContainsKey("5")Then
 		Log("AC_true->4")
-		'Activity.Color=c6
+		Activity.color=c6
 		Panel2.Color=c6
 		ACSpinner1.SelectedIndex=5
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("6")Then
 		Log("AC_true->4")
@@ -290,7 +292,7 @@ Sub store_check
 		ACSpinner1.SelectedIndex=6
 		Panel2.Color=c7
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("7")Then
 		Log("AC_true->4")
@@ -298,25 +300,25 @@ Sub store_check
 		'act
 		ACSpinner1.SelectedIndex=7
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("8")Then
 		Log("AC_true->4")
 		'act
-		'Activity.Color=c9
+		Activity.color=c9
 		Panel2.Color=c9
 		ACSpinner1.SelectedIndex=8
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("9")Then
 		Log("AC_true->4")
-		'Activity.Color=c10
+		Activity.color=c10
 		Panel2.Color=c10
 	ACSpinner1.SelectedIndex=9
 		'act
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("10")Then
 		Log("AC_true->4")
@@ -324,7 +326,7 @@ Sub store_check
 		ACSpinner1.SelectedIndex=10
 		'act
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("11")Then
 		Log("AC_true->4")
@@ -332,36 +334,36 @@ Sub store_check
 		Panel2.Color=c12
 		Label5.TextColor=Colors.White
 		ACSpinner1.SelectedIndex=11
-		'Activity.Color=c12
+		Activity.color=c12
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("12")Then
 		Log("AC_true->4")
 		'act
 		Panel2.Color=c13
 		ACSpinner1.SelectedIndex=12
-		'Activity.Color=c13
+		Activity.color=c13
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("13")Then
 		Log("AC_true->4")
 		ACSpinner1.SelectedIndex=13
 		Panel2.Color=c14
 		'act
-		'Activity.Color=c14
+		Activity.color=c14
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 	If kvs4.ContainsKey("14")Then
 		Log("AC_true->4")
 		'act
 		Panel2.Color=c15
 		ACSpinner1.SelectedIndex=14
-		'Activity.Color=c15
+		Activity.color=c15
 	Else
-		'Activity.Color=c4
+		Activity.color=c4
 	End If
 End Sub
 
