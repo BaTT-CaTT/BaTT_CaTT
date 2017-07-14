@@ -48,7 +48,7 @@ End Sub
 
 Sub Activity_Resume
 	credits.ScrollPosition = 0
-	tmr.Enabled=True
+'	tmr.Enabled=True
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)

@@ -26,11 +26,12 @@ public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.cool _cool = null;
 public com.batcat.pman _pman = null;
+public com.batcat.setanimation _setanimation = null;
 public com.batcat.wait _wait = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.charts _charts = null;
-public com.batcat.setanimation _setanimation = null;
 public com.batcat.dbutils _dbutils = null;
+public com.batcat.datacount _datacount = null;
 public static Object[]  _getnextitem(anywheresoftware.b4a.BA _ba,anywheresoftware.b4a.objects.collections.List _list1) throws Exception{
  //BA.debugLineNum = 198;BA.debugLine="Sub getNextItem(list1 As List) As Object()";
  //BA.debugLineNum = 199;BA.debugLine="listPosition = listPosition + 1";

@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.batcat"
-	android:versionCode="279"
-	android:versionName="1.9.9.7"
+	android:versionCode="280"
+	android:versionName="1.9.9.8"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>
@@ -145,6 +145,13 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".wait"
+			android:label="BaTT CaTT (1.9.9.7)"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".datacount"
 			android:label="BaTT CaTT (1.9.9.7)"
 			android:screenOrientation="portrait">
 		</activity>

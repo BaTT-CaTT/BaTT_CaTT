@@ -14,8 +14,8 @@ import anywheresoftware.b4a.B4AUncaughtException;
 import anywheresoftware.b4a.debug.*;
 import java.lang.ref.WeakReference;
 
-public class wait extends android.support.v7.app.AppCompatActivity implements B4AActivity{
-	public static wait mostCurrent;
+public class datacount extends Activity implements B4AActivity{
+	public static datacount mostCurrent;
 	static boolean afterFirstLayout;
 	static boolean isFirst = true;
     private static boolean processGlobalsRun = false;
@@ -32,7 +32,7 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (isFirst) {
-			processBA = new BA(this.getApplicationContext(), null, null, "com.batcat", "com.batcat.wait");
+			processBA = new BA(this.getApplicationContext(), null, null, "com.batcat", "com.batcat.datacount");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -41,7 +41,7 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
 		else if (previousOne != null) {
 			Activity p = previousOne.get();
 			if (p != null && p != this) {
-                BA.LogInfo("Killing previous instance (wait).");
+                BA.LogInfo("Killing previous instance (datacount).");
 				p.finish();
 			}
 		}
@@ -83,7 +83,7 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
 	private void afterFirstLayout() {
         if (this != mostCurrent)
 			return;
-		activityBA = new BA(this, layout, processBA, "com.batcat", "com.batcat.wait");
+		activityBA = new BA(this, layout, processBA, "com.batcat", "com.batcat.datacount");
         
         processBA.sharedProcessBA.activityBA = new java.lang.ref.WeakReference<BA>(activityBA);
         anywheresoftware.b4a.objects.ViewWrapper.lastId = 0;
@@ -92,19 +92,19 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
         if (BA.isShellModeRuntimeCheck(processBA)) {
 			if (isFirst)
 				processBA.raiseEvent2(null, true, "SHELL", false);
-			processBA.raiseEvent2(null, true, "CREATE", true, "com.batcat.wait", processBA, activityBA, _activity, anywheresoftware.b4a.keywords.Common.Density, mostCurrent);
+			processBA.raiseEvent2(null, true, "CREATE", true, "com.batcat.datacount", processBA, activityBA, _activity, anywheresoftware.b4a.keywords.Common.Density, mostCurrent);
 			_activity.reinitializeForShell(activityBA, "activity");
 		}
         initializeProcessGlobals();		
         initializeGlobals();
         
-        BA.LogInfo("** Activity (wait) Create, isFirst = " + isFirst + " **");
+        BA.LogInfo("** Activity (datacount) Create, isFirst = " + isFirst + " **");
         processBA.raiseEvent2(null, true, "activity_create", false, isFirst);
 		isFirst = false;
 		if (this != mostCurrent)
 			return;
         processBA.setActivityPaused(false);
-        BA.LogInfo("** Activity (wait) Resume **");
+        BA.LogInfo("** Activity (datacount) Resume **");
         processBA.raiseEvent(null, "activity_resume");
         if (android.os.Build.VERSION.SDK_INT >= 11) {
 			try {
@@ -193,7 +193,7 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
 		}
 	}
     public static Class<?> getObject() {
-		return wait.class;
+		return datacount.class;
 	}
     private Boolean onKeySubExist = null;
     private Boolean onKeyUpSubExist = null;
@@ -262,7 +262,7 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
         if (_activity == null) //workaround for emulator bug (Issue 2423)
             return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (wait) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        BA.LogInfo("** Activity (datacount) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
         processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
         processBA.setActivityPaused(true);
         mostCurrent = null;
@@ -298,7 +298,7 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
 			if (mostCurrent == null || mostCurrent != activity.get())
 				return;
 			processBA.setActivityPaused(false);
-            BA.LogInfo("** Activity (wait) Resume **");
+            BA.LogInfo("** Activity (datacount) Resume **");
 		    processBA.raiseEvent(mostCurrent._activity, "activity_resume", (Object[])null);
 		}
     }
@@ -321,15 +321,9 @@ public class wait extends android.support.v7.app.AppCompatActivity implements B4
     }
 
 public anywheresoftware.b4a.keywords.Common __c = null;
-public static anywheresoftware.b4a.phone.PackageManagerWrapper _pak = null;
-public static String _crtext = "";
-public com.tchart.materialcolors.MaterialColors _mcl = null;
-public static int _creditsmax = 0;
-public static int _creditspos = 0;
-public anywheresoftware.b4a.objects.Timer _tmr = null;
-public de.donmanfred.CreditsRollViewWrapper _credits = null;
-public anywheresoftware.b4a.objects.ImageViewWrapper _iv1 = null;
-public static int _count = 0;
+public static anywheresoftware.b4a.objects.Timer _t3 = null;
+public com.batcat.keyvaluestore _kvdata = null;
+public anywheresoftware.b4a.objects.IntentWrapper _i = null;
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
 public com.batcat.set2 _set2 = null;
@@ -341,11 +335,11 @@ public com.batcat.sys _sys = null;
 public com.batcat.cool _cool = null;
 public com.batcat.pman _pman = null;
 public com.batcat.setanimation _setanimation = null;
+public com.batcat.wait _wait = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.charts _charts = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
-public com.batcat.datacount _datacount = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -355,113 +349,83 @@ public static void initializeProcessGlobals() {
             }
 }
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 29;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 31;BA.debugLine="Activity.LoadLayout(\"8\")";
-mostCurrent._activity.LoadLayout("8",mostCurrent.activityBA);
- //BA.debugLineNum = 32;BA.debugLine="Activity.Color=mcl.md_light_blue_100";
-mostCurrent._activity.setColor(mostCurrent._mcl.getmd_light_blue_100());
- //BA.debugLineNum = 33;BA.debugLine="crtext=\"Version: \"&pak.GetVersionName(\"com.batcat";
-mostCurrent._crtext = "Version: "+_pak.GetVersionName("com.batcat")+", Integer: "+BA.NumberToString(_pak.GetVersionCode("com.batcat"))+" Programmed in: Basic4A, Android and Java. Java is a free OpenSurce software and is subject to the free Creative public license. Android is under the google license, all associated names and content are protected by the google Inc. software agreement. For more information, visit www.google.com/license. All rights to the code and the design are reserved to BaTTCaTT and its owners..Code by D. Trojan, published by SuloMedia™ www.battcatt.bplaced.net for Recent News & Updates. All Rights Reserved BC ©2017 "+_pak.GetApplicationLabel("com.batcat");
- //BA.debugLineNum = 34;BA.debugLine="credits.Text=crtext";
-mostCurrent._credits.setText(BA.ObjectToCharSequence(mostCurrent._crtext));
- //BA.debugLineNum = 35;BA.debugLine="credits.TextColor=Colors.Black";
-mostCurrent._credits.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 37;BA.debugLine="credits.EndScrollMult=1.0";
-mostCurrent._credits.setEndScrollMult((float) (1.0));
- //BA.debugLineNum = 38;BA.debugLine="tmr.Initialize(\"timer\",90)";
-mostCurrent._tmr.Initialize(processBA,"timer",(long) (90));
- //BA.debugLineNum = 39;BA.debugLine="tmr.Enabled = True";
-mostCurrent._tmr.setEnabled(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 40;BA.debugLine="iv1.Visible=True";
-mostCurrent._iv1.setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 41;BA.debugLine="iv1.SetVisibleAnimated(15000,False)";
-mostCurrent._iv1.SetVisibleAnimated((int) (15000),anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 42;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 49;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 51;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 44;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 45;BA.debugLine="credits.ScrollPosition = 0";
-mostCurrent._credits.setScrollPosition((float) (0));
- //BA.debugLineNum = 47;BA.debugLine="End Sub";
-return "";
-}
-public static String  _globals() throws Exception{
- //BA.debugLineNum = 16;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 19;BA.debugLine="Private crtext As String";
-mostCurrent._crtext = "";
- //BA.debugLineNum = 20;BA.debugLine="Private mcl As MaterialColors";
-mostCurrent._mcl = new com.tchart.materialcolors.MaterialColors();
- //BA.debugLineNum = 21;BA.debugLine="Dim creditsMax As Int = 30000";
-_creditsmax = (int) (30000);
- //BA.debugLineNum = 22;BA.debugLine="Dim creditsPos As Int = 0";
-_creditspos = (int) (0);
- //BA.debugLineNum = 23;BA.debugLine="Dim tmr As Timer";
-mostCurrent._tmr = new anywheresoftware.b4a.objects.Timer();
- //BA.debugLineNum = 24;BA.debugLine="Private credits As CreditsRollView";
-mostCurrent._credits = new de.donmanfred.CreditsRollViewWrapper();
- //BA.debugLineNum = 25;BA.debugLine="Private iv1 As ImageView";
-mostCurrent._iv1 = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 26;BA.debugLine="Dim count As Int";
-_count = 0;
+ //BA.debugLineNum = 19;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 22;BA.debugLine="t3.Initialize(\"t3\",1000)";
+_t3.Initialize(processBA,"t3",(long) (1000));
+ //BA.debugLineNum = 24;BA.debugLine="kvdata.Initialize(File.DirDefaultExternal,\"datast";
+mostCurrent._kvdata._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_data");
  //BA.debugLineNum = 27;BA.debugLine="End Sub";
 return "";
 }
-public static String  _iv1_click() throws Exception{
- //BA.debugLineNum = 80;BA.debugLine="Sub iv1_Click";
- //BA.debugLineNum = 82;BA.debugLine="End Sub";
+public static String  _activity_pause(boolean _userclosed) throws Exception{
+ //BA.debugLineNum = 34;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 35;BA.debugLine="t3.Enabled=False";
+_t3.setEnabled(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 36;BA.debugLine="End Sub";
+return "";
+}
+public static String  _activity_resume() throws Exception{
+ //BA.debugLineNum = 29;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 30;BA.debugLine="t3.Enabled=True";
+_t3.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 32;BA.debugLine="End Sub";
+return "";
+}
+public static String  _globals() throws Exception{
+ //BA.debugLineNum = 12;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 15;BA.debugLine="Dim kvdata As KeyValueStore";
+mostCurrent._kvdata = new com.batcat.keyvaluestore();
+ //BA.debugLineNum = 16;BA.debugLine="Dim i As Intent";
+mostCurrent._i = new anywheresoftware.b4a.objects.IntentWrapper();
+ //BA.debugLineNum = 17;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 10;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 13;BA.debugLine="Private pak As PackageManager";
-_pak = new anywheresoftware.b4a.phone.PackageManagerWrapper();
- //BA.debugLineNum = 14;BA.debugLine="End Sub";
+ //BA.debugLineNum = 6;BA.debugLine="Sub Process_Globals";
+ //BA.debugLineNum = 9;BA.debugLine="Dim t3 As Timer";
+_t3 = new anywheresoftware.b4a.objects.Timer();
+ //BA.debugLineNum = 10;BA.debugLine="End Sub";
 return "";
 }
-public static String  _rebound() throws Exception{
- //BA.debugLineNum = 74;BA.debugLine="Sub rebound";
- //BA.debugLineNum = 76;BA.debugLine="CallSubDelayed(pman,\"app_manage\")";
-anywheresoftware.b4a.keywords.Common.CallSubDelayed(mostCurrent.activityBA,(Object)(mostCurrent._pman.getObject()),"app_manage");
- //BA.debugLineNum = 77;BA.debugLine="End Sub";
+public static String  _start() throws Exception{
+ //BA.debugLineNum = 39;BA.debugLine="Sub start";
+ //BA.debugLineNum = 40;BA.debugLine="If kvdata.ContainsKey(\"data\") Then";
+if (mostCurrent._kvdata._containskey("data")) { 
+ //BA.debugLineNum = 41;BA.debugLine="t3.Enabled=True";
+_t3.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 42;BA.debugLine="t3_Tick";
+_t3_tick();
+ //BA.debugLineNum = 43;BA.debugLine="i.Initialize(\"android.intent.action.DELETE\",\"pac";
+mostCurrent._i.Initialize("android.intent.action.DELETE","package:"+mostCurrent._kvdata._getsimple("data"));
+ //BA.debugLineNum = 44;BA.debugLine="StartActivity(i)";
+anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)(mostCurrent._i.getObject()));
+ };
+ //BA.debugLineNum = 47;BA.debugLine="Return";
+if (true) return "";
+ //BA.debugLineNum = 48;BA.debugLine="End Sub";
 return "";
 }
-public static String  _timer_tick() throws Exception{
- //BA.debugLineNum = 52;BA.debugLine="Sub timer_Tick";
- //BA.debugLineNum = 53;BA.debugLine="count=creditsPos";
-_count = _creditspos;
- //BA.debugLineNum = 56;BA.debugLine="If count < creditsMax Then";
-if (_count<_creditsmax) { 
- //BA.debugLineNum = 57;BA.debugLine="creditsPos = creditsPos +1";
-_creditspos = (int) (_creditspos+1);
+public static String  _t3_tick() throws Exception{
+int _count = 0;
+ //BA.debugLineNum = 50;BA.debugLine="Sub t3_Tick";
+ //BA.debugLineNum = 51;BA.debugLine="Dim count As Int";
+_count = 0;
+ //BA.debugLineNum = 52;BA.debugLine="count =count+1";
+_count = (int) (_count+1);
+ //BA.debugLineNum = 53;BA.debugLine="If count>1 Then";
+if (_count>1) { 
  };
- //BA.debugLineNum = 60;BA.debugLine="If (creditsPos/400) >= 1 Then";
-if ((_creditspos/(double)400)>=1) { 
- //BA.debugLineNum = 61;BA.debugLine="tmr.Enabled = False";
-mostCurrent._tmr.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 62;BA.debugLine="iv1.SetVisibleAnimated(20,True)";
-mostCurrent._iv1.SetVisibleAnimated((int) (20),anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 63;BA.debugLine="StartActivity(Main)";
-anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)(mostCurrent._main.getObject()));
+ //BA.debugLineNum = 56;BA.debugLine="If count>2 Then";
+if (_count>2) { 
  };
- //BA.debugLineNum = 65;BA.debugLine="credits.ScrollPosition = (creditsPos/400)";
-mostCurrent._credits.setScrollPosition((float) ((_creditspos/(double)400)));
- //BA.debugLineNum = 66;BA.debugLine="credits.DistanceFromText = 50dip";
-mostCurrent._credits.setDistanceFromText((float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (50))));
- //BA.debugLineNum = 67;BA.debugLine="credits.Angle = 20";
-mostCurrent._credits.setAngle((float) (20));
- //BA.debugLineNum = 68;BA.debugLine="credits.Height = 100%y";
-mostCurrent._credits.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 69;BA.debugLine="credits.Width = 100%x";
-mostCurrent._credits.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 70;BA.debugLine="credits.TextSize = 30";
-mostCurrent._credits.setTextSize((float) (30));
- //BA.debugLineNum = 72;BA.debugLine="End Sub";
+ //BA.debugLineNum = 59;BA.debugLine="If count=3 Then";
+if (_count==3) { 
+ //BA.debugLineNum = 60;BA.debugLine="t3.Enabled=False";
+_t3.setEnabled(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 61;BA.debugLine="StartActivity(pman)";
+anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)(mostCurrent._pman.getObject()));
+ };
+ //BA.debugLineNum = 63;BA.debugLine="End Sub";
 return "";
 }
 }

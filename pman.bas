@@ -31,6 +31,7 @@ Sub Globals
 	Private subapp As ListView
 	Private Panel1 As Panel
 	Private ion As Object
+	Private kvdata As KeyValueStore
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -39,6 +40,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	sublist.Initialize
 	data.Initialize
 	del.Initialize
+	kvdata.Initialize(File.DirDefaultExternal,"datastore_data")
 	Dim la,lb,lc,ld As Label 
 	la =applist.TwoLinesAndBitmap.Label
 	lc =subapp.SingleLineLayout.Label
@@ -62,6 +64,7 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 
 Sub Activity_Resume
+	app_manage
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
@@ -100,16 +103,25 @@ End Sub
 
 Sub abf1_Click
 	
-	Dim iu As Intent
+'	Dim iu As Intent
 	Dim ndel As String 
 	ndel=del.Get(0)
-	applist.Clear
-	panset
-	Activity.Invalidate
-	iu.Initialize("android.intent.action.DELETE","package:"&ndel)
-	StartActivityForResult(iu)
-	res_bo
-
+'	applist.Clear
+'	panset
+'	Activity.Invalidate
+'	iu.Initialize("android.intent.action.DELETE","package:"&ndel)
+'	StartActivityForResult(iu)
+'	res_bo
+	If kvdata.ContainsKey("data") Then 
+		kvdata.DeleteAll
+		kvdata.PutSimple("data",ndel)
+		CallSubDelayed(datacount,"start")
+		panset
+	Else
+		kvdata.PutSimple("data",ndel)
+		panset
+		CallSubDelayed(datacount,"start")
+	End If 
 End Sub
 Sub res_bo
 	CallSub(Main,"rebound")

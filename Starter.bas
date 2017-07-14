@@ -98,13 +98,13 @@ End Sub
 
 Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
 	Dim acc,ausb As Int
-	Dim us,ac As String 
+	Dim us,ac As String
 	acc=bat.BatteryInformation(10)
 	ausb=bat.BatteryInformation(9)
-	If acc = 1 Then 
+	If acc = 1 Then
 		ac="AC - Kabel: "
-		Else
-			ac="USB - Kabel: "
+	Else
+		ac="USB - Kabel: "
 	End If
 	time=DateTime.Time(DateTime.Now)
 	Dim temp,volt,volt1,temp2 As Int
@@ -133,8 +133,8 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 		End If
 	Next
 	For vo = 2500 To 6000
-		If vo=Intent.GetExtra("voltage") Then 
-			 kvsvolt.PutSimple(vo,time)
+		If vo=Intent.GetExtra("voltage") Then
+			kvsvolt.PutSimple(vo,time)
 			Log(time&" Put-> "&Intent.GetExtra("voltage")&"V")
 		End If
 	Next
@@ -155,11 +155,11 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 
 			
 		Else
-		sNotif.Icon="batusb"
-		sNotif.Sound=False
-		sNotif.SetInfo(ac&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h - "&minutes&"min",Main)
-		sNotif.Notify(1)
-		Service.StartForeground(1,sNotif)
+			sNotif.Icon="batusb"
+			sNotif.Sound=False
+			sNotif.SetInfo(ac&Level&" %",volt&" V | "&temp&"°C | noch: "&hours&"h - "&minutes&"min",Main)
+			sNotif.Notify(1)
+			Service.StartForeground(1,sNotif)
 		End If
 	Else
 		For v = 0 To Scale
@@ -169,54 +169,54 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 				kvs2.PutSimple(v,time)
 			End If
 		Next
-		Dim days,sval As Int 
+		Dim days,sval As Int
 		sval =Intent.GetExtra("voltage")
 		'Log(sval)
 		val = Scale/sval*Level*1000
 		days=Floor(val/60/24)
 		hours = Floor(val/60 Mod 24)
 		minutes = val Mod 60
-		If  Not (Level=0) Then 
+		If  Not (Level=0) Then
 			sNotif.SetInfo(Level&" %",volt&" V | "&temp&"°C | noch: "&days&"d "&hours&"h "&minutes&"m",Main)
 			sNotif.Notify(1)
 		End If
-	If Level <= 100 Then
-		sNotif.Icon="bat100"
-	End If
-	If Level <= 80 Then
-	
-		sNotif.Icon="bat80"
-	End If
-	If Level <= 60 Then
-		
-		sNotif.Icon="bat60"
-	End If
-	If Level <= 40 Then
-			
-		sNotif.Icon="bat40"
-	End If
-	If Level<=20 Then 
-		sNotif.Icon="bat20"
-	End If
-	If Level = 5 Then
-		sNotif.Icon="bat5"
-		sNotif.SetInfo("low Battery!: ","remain: "&Level&"% ",Main)
-		sNotif.Notify(1)
-	End If
-	If Level = 4 Then
-			sNotif.Icon="batlow"
-			sNotif.SetInfo("low Power!: ","set on low Power: "&Level&"% ",Main)
-			sNotif.Notify(1)
-	End If 
-	If temp >=45 Then
-		sNotif.Icon="batheat"
-		sNotif.SetInfo("Achtung: "&temp&"°C !","hier klicken um zum kühlen...",cool)
-		sNotif.Notify(1)
+		If Level < 100 Then
+			sNotif.Icon="bat100"
 		End If
-	End If
+		If Level < 80 Then
 	
+			sNotif.Icon="bat80"
+		End If
+		If Level < 60 Then
+		
+			sNotif.Icon="bat60"
+		End If
+		If Level < 40 Then
+			
+			sNotif.Icon="bat40"
+		End If
+		If Level<20 Then
+			sNotif.Icon="bat20"
+		End If
+		If Level =15  Then
+			sNotif.Icon="bat5"
+			sNotif.SetInfo(Level&" %",volt&" V | "&temp&"°C | ca: "&days&"d "&hours&"h "&minutes&"m",Main)
+			sNotif.Light=True
+			sNotif.Sound=True
+			sNotif.Notify(1)
+		End If
+		If temp =50 Then
+			sNotif.Icon="batheat"
+			sNotif.SetInfo("Achtung: "&temp&"°C !","hier klicken um zum kühlen...",cool)
+			sNotif.Light=True
+			sNotif.Sound=True
+			sNotif.Notify(1)
+		
+		End If
+		
+		
+	End If
 End Sub
-
 
 Sub minutes_hours ( ms As Int ) As String
 	Dim val,hours,minutes As Int

@@ -60,9 +60,11 @@ Sub Globals
 	Dim xOSStats As OSStats
 	Private ListView1 As ListView
 	Dim l1,l2,l3 As Label
-	Private cav As CoolAnimView
+	'Private cav As CoolAnimView
 	Private Label1 As Label
 	Dim catlist As List
+	Private lvg As LVGearsTwo
+	'Private lvb As  LVCircularSmile
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -145,6 +147,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	t1.Enabled=False
 	c_start
 	ListView1.SetSelection(-1)
+	lvg.startAnim
+	'lvb.startAnim
 	catdel.ScanCache
 End Sub
 
@@ -312,8 +316,8 @@ Sub cat_start
 	dpm1.PrefixText="Cleaning: "
 	'cat.Initialize(25,100*1024*1024,File.DirRootExternal)
 	ReadDir(dir1,False)
-	cav.SetVisibleAnimated(10000,False)
-	cav.init
+'	cav.SetVisibleAnimated(10000,False)
+'	cav.init
 	ImageView1.Visible=False
 	t1.Enabled=True
 	t1_Tick
@@ -358,8 +362,9 @@ Sub close
 		catlist.Add(time&" - No App cache found")
 		Log("--------------- NO CDATA--------------")
 		End If 	
-	cav.stopAnim
-	
+'	cav.stopAnim
+	'lvg.stopAnim
+	'lvb.stopAnim
 	delayed_t2
 	Return
 End Sub
@@ -452,6 +457,8 @@ End Sub
 Sub delayed_t2
 	dpm1.InnerBottomText=Label1.text
 	dpm1.Progress=100
+	lvg.SetVisibleAnimated(100,False)
+	lvg.stopAnim
 	'dpm1.SetLayoutAnimated(2dip,46dip,50,10,25)
 		If count > 7 Then 
 		Label1.text=op.formatSize(cat.FreeMemory)&" free.."

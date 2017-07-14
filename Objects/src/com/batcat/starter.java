@@ -153,12 +153,13 @@ public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.cool _cool = null;
 public com.batcat.pman _pman = null;
+public com.batcat.setanimation _setanimation = null;
 public com.batcat.wait _wait = null;
 public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.charts _charts = null;
-public com.batcat.setanimation _setanimation = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
+public com.batcat.datacount _datacount = null;
 public static boolean  _application_error(anywheresoftware.b4a.objects.B4AException _error,String _stacktrace) throws Exception{
  //BA.debugLineNum = 83;BA.debugLine="Sub Application_Error (Error As Exception, StackTr";
  //BA.debugLineNum = 84;BA.debugLine="ToastMessageShow(\"Status: Error Service Stop!\",Fa";
@@ -311,7 +312,7 @@ mostCurrent._service.StartForeground((int) (1),(android.app.Notification)(_snoti
 _snotif.setIcon("batusb");
  //BA.debugLineNum = 154;BA.debugLine="sNotif.Sound=False";
 _snotif.setSound(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 155;BA.debugLine="sNotif.SetInfo(ac&Level&\" %\",volt&\" V | \"&temp&\"";
+ //BA.debugLineNum = 155;BA.debugLine="sNotif.SetInfo(ac&Level&\" %\",volt&\" V | \"&temp&";
 _snotif.SetInfo(processBA,_ac+BA.NumberToString(_level)+" %",BA.NumberToString(_volt)+" V | "+BA.NumberToString(_temp)+"°C | noch: "+BA.NumberToString(_hours)+"h - "+BA.NumberToString(_minutes)+"min",(Object)(mostCurrent._main.getObject()));
  //BA.debugLineNum = 156;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
@@ -353,60 +354,59 @@ _snotif.SetInfo(processBA,BA.NumberToString(_level)+" %",BA.NumberToString(_volt
  //BA.debugLineNum = 176;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 178;BA.debugLine="If Level <= 100 Then";
-if (_level<=100) { 
+ //BA.debugLineNum = 178;BA.debugLine="If Level < 100 Then";
+if (_level<100) { 
  //BA.debugLineNum = 179;BA.debugLine="sNotif.Icon=\"bat100\"";
 _snotif.setIcon("bat100");
  };
- //BA.debugLineNum = 181;BA.debugLine="If Level <= 80 Then";
-if (_level<=80) { 
+ //BA.debugLineNum = 181;BA.debugLine="If Level < 80 Then";
+if (_level<80) { 
  //BA.debugLineNum = 183;BA.debugLine="sNotif.Icon=\"bat80\"";
 _snotif.setIcon("bat80");
  };
- //BA.debugLineNum = 185;BA.debugLine="If Level <= 60 Then";
-if (_level<=60) { 
+ //BA.debugLineNum = 185;BA.debugLine="If Level < 60 Then";
+if (_level<60) { 
  //BA.debugLineNum = 187;BA.debugLine="sNotif.Icon=\"bat60\"";
 _snotif.setIcon("bat60");
  };
- //BA.debugLineNum = 189;BA.debugLine="If Level <= 40 Then";
-if (_level<=40) { 
+ //BA.debugLineNum = 189;BA.debugLine="If Level < 40 Then";
+if (_level<40) { 
  //BA.debugLineNum = 191;BA.debugLine="sNotif.Icon=\"bat40\"";
 _snotif.setIcon("bat40");
  };
- //BA.debugLineNum = 193;BA.debugLine="If Level<=20 Then";
-if (_level<=20) { 
+ //BA.debugLineNum = 193;BA.debugLine="If Level<20 Then";
+if (_level<20) { 
  //BA.debugLineNum = 194;BA.debugLine="sNotif.Icon=\"bat20\"";
 _snotif.setIcon("bat20");
  };
- //BA.debugLineNum = 196;BA.debugLine="If Level = 5 Then";
-if (_level==5) { 
+ //BA.debugLineNum = 196;BA.debugLine="If Level =15  Then";
+if (_level==15) { 
  //BA.debugLineNum = 197;BA.debugLine="sNotif.Icon=\"bat5\"";
 _snotif.setIcon("bat5");
- //BA.debugLineNum = 198;BA.debugLine="sNotif.SetInfo(\"low Battery!: \",\"remain: \"&Level";
-_snotif.SetInfo(processBA,"low Battery!: ","remain: "+BA.NumberToString(_level)+"% ",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 199;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 198;BA.debugLine="sNotif.SetInfo(Level&\" %\",volt&\" V | \"&temp&\"°C";
+_snotif.SetInfo(processBA,BA.NumberToString(_level)+" %",BA.NumberToString(_volt)+" V | "+BA.NumberToString(_temp)+"°C | ca: "+BA.NumberToString(_days)+"d "+BA.NumberToString(_hours)+"h "+BA.NumberToString(_minutes)+"m",(Object)(mostCurrent._main.getObject()));
+ //BA.debugLineNum = 199;BA.debugLine="sNotif.Light=True";
+_snotif.setLight(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 200;BA.debugLine="sNotif.Sound=True";
+_snotif.setSound(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 201;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
- //BA.debugLineNum = 201;BA.debugLine="If Level = 4 Then";
-if (_level==4) { 
- //BA.debugLineNum = 202;BA.debugLine="sNotif.Icon=\"batlow\"";
-_snotif.setIcon("batlow");
- //BA.debugLineNum = 203;BA.debugLine="sNotif.SetInfo(\"low Power!: \",\"set on low Power";
-_snotif.SetInfo(processBA,"low Power!: ","set on low Power: "+BA.NumberToString(_level)+"% ",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 204;BA.debugLine="sNotif.Notify(1)";
-_snotif.Notify((int) (1));
- };
- //BA.debugLineNum = 206;BA.debugLine="If temp >=45 Then";
-if (_temp>=45) { 
- //BA.debugLineNum = 207;BA.debugLine="sNotif.Icon=\"batheat\"";
+ //BA.debugLineNum = 203;BA.debugLine="If temp =50 Then";
+if (_temp==50) { 
+ //BA.debugLineNum = 204;BA.debugLine="sNotif.Icon=\"batheat\"";
 _snotif.setIcon("batheat");
- //BA.debugLineNum = 208;BA.debugLine="sNotif.SetInfo(\"Achtung: \"&temp&\"°C !\",\"hier kli";
+ //BA.debugLineNum = 205;BA.debugLine="sNotif.SetInfo(\"Achtung: \"&temp&\"°C !\",\"hier kl";
 _snotif.SetInfo(processBA,"Achtung: "+BA.NumberToString(_temp)+"°C !","hier klicken um zum kühlen...",(Object)(mostCurrent._cool.getObject()));
- //BA.debugLineNum = 209;BA.debugLine="sNotif.Notify(1)";
+ //BA.debugLineNum = 206;BA.debugLine="sNotif.Light=True";
+_snotif.setLight(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 207;BA.debugLine="sNotif.Sound=True";
+_snotif.setSound(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 208;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
  };
- //BA.debugLineNum = 213;BA.debugLine="End Sub";
+ //BA.debugLineNum = 214;BA.debugLine="End Sub";
 return "";
 }
 public static String  _minutes_hours(int _ms) throws Exception{
