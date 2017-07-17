@@ -332,7 +332,6 @@ public anywheresoftware.b4a.objects.ImageViewWrapper _iv1 = null;
 public static int _count = 0;
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
-public com.batcat.set2 _set2 = null;
 public com.batcat.settings _settings = null;
 public com.batcat.hw _hw = null;
 public com.batcat.starter _starter = null;
@@ -340,12 +339,13 @@ public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.cool _cool = null;
 public com.batcat.pman _pman = null;
+public com.batcat.charts _charts = null;
+public com.batcat.set2 _set2 = null;
+public com.batcat.datacount _datacount = null;
 public com.batcat.setanimation _setanimation = null;
 public com.batcat.xmlviewex _xmlviewex = null;
-public com.batcat.charts _charts = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
-public com.batcat.datacount _datacount = null;
 
 public static void initializeProcessGlobals() {
              try {
@@ -368,14 +368,14 @@ mostCurrent._credits.setText(BA.ObjectToCharSequence(mostCurrent._crtext));
 mostCurrent._credits.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  //BA.debugLineNum = 37;BA.debugLine="credits.EndScrollMult=1.0";
 mostCurrent._credits.setEndScrollMult((float) (1.0));
- //BA.debugLineNum = 38;BA.debugLine="tmr.Initialize(\"timer\",90)";
-mostCurrent._tmr.Initialize(processBA,"timer",(long) (90));
+ //BA.debugLineNum = 38;BA.debugLine="tmr.Initialize(\"timer\",100)";
+mostCurrent._tmr.Initialize(processBA,"timer",(long) (100));
  //BA.debugLineNum = 39;BA.debugLine="tmr.Enabled = True";
 mostCurrent._tmr.setEnabled(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 40;BA.debugLine="iv1.Visible=True";
 mostCurrent._iv1.setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 41;BA.debugLine="iv1.SetVisibleAnimated(15000,False)";
-mostCurrent._iv1.SetVisibleAnimated((int) (15000),anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 41;BA.debugLine="iv1.SetVisibleAnimated(4000,False)";
+mostCurrent._iv1.SetVisibleAnimated((int) (4000),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 42;BA.debugLine="End Sub";
 return "";
 }
@@ -388,6 +388,8 @@ public static String  _activity_resume() throws Exception{
  //BA.debugLineNum = 44;BA.debugLine="Sub Activity_Resume";
  //BA.debugLineNum = 45;BA.debugLine="credits.ScrollPosition = 0";
 mostCurrent._credits.setScrollPosition((float) (0));
+ //BA.debugLineNum = 46;BA.debugLine="tmr.Enabled=True";
+mostCurrent._tmr.setEnabled(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 47;BA.debugLine="End Sub";
 return "";
 }
@@ -397,8 +399,8 @@ public static String  _globals() throws Exception{
 mostCurrent._crtext = "";
  //BA.debugLineNum = 20;BA.debugLine="Private mcl As MaterialColors";
 mostCurrent._mcl = new com.tchart.materialcolors.MaterialColors();
- //BA.debugLineNum = 21;BA.debugLine="Dim creditsMax As Int = 30000";
-_creditsmax = (int) (30000);
+ //BA.debugLineNum = 21;BA.debugLine="Dim creditsMax As Int = 1500";
+_creditsmax = (int) (1500);
  //BA.debugLineNum = 22;BA.debugLine="Dim creditsPos As Int = 0";
 _creditspos = (int) (0);
  //BA.debugLineNum = 23;BA.debugLine="Dim tmr As Timer";
@@ -413,8 +415,8 @@ _count = 0;
 return "";
 }
 public static String  _iv1_click() throws Exception{
- //BA.debugLineNum = 80;BA.debugLine="Sub iv1_Click";
- //BA.debugLineNum = 82;BA.debugLine="End Sub";
+ //BA.debugLineNum = 77;BA.debugLine="Sub iv1_Click";
+ //BA.debugLineNum = 79;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
@@ -425,43 +427,41 @@ _pak = new anywheresoftware.b4a.phone.PackageManagerWrapper();
 return "";
 }
 public static String  _rebound() throws Exception{
- //BA.debugLineNum = 74;BA.debugLine="Sub rebound";
- //BA.debugLineNum = 76;BA.debugLine="CallSubDelayed(pman,\"app_manage\")";
+ //BA.debugLineNum = 71;BA.debugLine="Sub rebound";
+ //BA.debugLineNum = 73;BA.debugLine="CallSubDelayed(pman,\"app_manage\")";
 anywheresoftware.b4a.keywords.Common.CallSubDelayed(mostCurrent.activityBA,(Object)(mostCurrent._pman.getObject()),"app_manage");
- //BA.debugLineNum = 77;BA.debugLine="End Sub";
+ //BA.debugLineNum = 74;BA.debugLine="End Sub";
 return "";
 }
 public static String  _timer_tick() throws Exception{
  //BA.debugLineNum = 52;BA.debugLine="Sub timer_Tick";
- //BA.debugLineNum = 53;BA.debugLine="count=creditsPos";
-_count = _creditspos;
- //BA.debugLineNum = 56;BA.debugLine="If count < creditsMax Then";
+ //BA.debugLineNum = 53;BA.debugLine="If count < creditsMax Then";
 if (_count<_creditsmax) { 
- //BA.debugLineNum = 57;BA.debugLine="creditsPos = creditsPos +1";
+ //BA.debugLineNum = 54;BA.debugLine="creditsPos = creditsPos +1";
 _creditspos = (int) (_creditspos+1);
  };
- //BA.debugLineNum = 60;BA.debugLine="If (creditsPos/400) >= 1 Then";
-if ((_creditspos/(double)400)>=1) { 
- //BA.debugLineNum = 61;BA.debugLine="tmr.Enabled = False";
-mostCurrent._tmr.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 62;BA.debugLine="iv1.SetVisibleAnimated(20,True)";
+ //BA.debugLineNum = 57;BA.debugLine="If (creditsPos/1000) >= 1 Then";
+if ((_creditspos/(double)1000)>=1) { 
+ //BA.debugLineNum = 58;BA.debugLine="tmr.Enabled = True";
+mostCurrent._tmr.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 59;BA.debugLine="iv1.SetVisibleAnimated(20,True)";
 mostCurrent._iv1.SetVisibleAnimated((int) (20),anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 63;BA.debugLine="StartActivity(Main)";
+ //BA.debugLineNum = 60;BA.debugLine="StartActivity(Main)";
 anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)(mostCurrent._main.getObject()));
  };
- //BA.debugLineNum = 65;BA.debugLine="credits.ScrollPosition = (creditsPos/400)";
-mostCurrent._credits.setScrollPosition((float) ((_creditspos/(double)400)));
- //BA.debugLineNum = 66;BA.debugLine="credits.DistanceFromText = 50dip";
+ //BA.debugLineNum = 62;BA.debugLine="credits.ScrollPosition = (creditsPos/1000)";
+mostCurrent._credits.setScrollPosition((float) ((_creditspos/(double)1000)));
+ //BA.debugLineNum = 63;BA.debugLine="credits.DistanceFromText = 50dip";
 mostCurrent._credits.setDistanceFromText((float) (anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (50))));
- //BA.debugLineNum = 67;BA.debugLine="credits.Angle = 20";
+ //BA.debugLineNum = 64;BA.debugLine="credits.Angle = 20";
 mostCurrent._credits.setAngle((float) (20));
- //BA.debugLineNum = 68;BA.debugLine="credits.Height = 100%y";
+ //BA.debugLineNum = 65;BA.debugLine="credits.Height = 100%y";
 mostCurrent._credits.setHeight(anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 69;BA.debugLine="credits.Width = 100%x";
+ //BA.debugLineNum = 66;BA.debugLine="credits.Width = 100%x";
 mostCurrent._credits.setWidth(anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 70;BA.debugLine="credits.TextSize = 30";
+ //BA.debugLineNum = 67;BA.debugLine="credits.TextSize = 30";
 mostCurrent._credits.setTextSize((float) (30));
- //BA.debugLineNum = 72;BA.debugLine="End Sub";
+ //BA.debugLineNum = 69;BA.debugLine="End Sub";
 return "";
 }
 }

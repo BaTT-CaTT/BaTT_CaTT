@@ -321,12 +321,13 @@ public class datacount extends Activity implements B4AActivity{
     }
 
 public anywheresoftware.b4a.keywords.Common __c = null;
-public static anywheresoftware.b4a.objects.Timer _t3 = null;
 public com.batcat.keyvaluestore _kvdata = null;
 public anywheresoftware.b4a.objects.IntentWrapper _i = null;
+public anywheresoftware.b4a.objects.LabelWrapper _la = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _button = null;
+public com.tchart.materialcolors.MaterialColors _mcl = null;
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
-public com.batcat.set2 _set2 = null;
 public com.batcat.settings _settings = null;
 public com.batcat.hw _hw = null;
 public com.batcat.starter _starter = null;
@@ -334,10 +335,11 @@ public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.cool _cool = null;
 public com.batcat.pman _pman = null;
-public com.batcat.setanimation _setanimation = null;
 public com.batcat.wait _wait = null;
-public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.charts _charts = null;
+public com.batcat.set2 _set2 = null;
+public com.batcat.setanimation _setanimation = null;
+public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
 
@@ -349,83 +351,91 @@ public static void initializeProcessGlobals() {
             }
 }
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 19;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 22;BA.debugLine="t3.Initialize(\"t3\",1000)";
-_t3.Initialize(processBA,"t3",(long) (1000));
- //BA.debugLineNum = 24;BA.debugLine="kvdata.Initialize(File.DirDefaultExternal,\"datast";
+ //BA.debugLineNum = 22;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 23;BA.debugLine="Activity.Color=Colors.ARGB(220,255,255,255)";
+mostCurrent._activity.setColor(anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (220),(int) (255),(int) (255),(int) (255)));
+ //BA.debugLineNum = 24;BA.debugLine="button.Initialize(\"button\")";
+mostCurrent._button.Initialize(mostCurrent.activityBA,"button");
+ //BA.debugLineNum = 25;BA.debugLine="la.Initialize(\"la\")";
+mostCurrent._la.Initialize(mostCurrent.activityBA,"la");
+ //BA.debugLineNum = 26;BA.debugLine="la.Enabled=True";
+mostCurrent._la.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 27;BA.debugLine="la.Visible=True";
+mostCurrent._la.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 28;BA.debugLine="button.Enabled=True";
+mostCurrent._button.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 29;BA.debugLine="button.Visible=True";
+mostCurrent._button.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 30;BA.debugLine="Activity.AddView(la,20dip,30%y,300dip,150dip)";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._la.getObject()),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (20)),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (30),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (300)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (150)));
+ //BA.debugLineNum = 31;BA.debugLine="Activity.AddView(button,35%x,70%y,120dip,50dip)";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._button.getObject()),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (35),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (70),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (120)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (50)));
+ //BA.debugLineNum = 32;BA.debugLine="button.Text=\"zurück\"";
+mostCurrent._button.setText(BA.ObjectToCharSequence("zurück"));
+ //BA.debugLineNum = 33;BA.debugLine="button.TextSize=15";
+mostCurrent._button.setTextSize((float) (15));
+ //BA.debugLineNum = 34;BA.debugLine="button.Color=mcl.md_light_blue_300";
+mostCurrent._button.setColor(mostCurrent._mcl.getmd_light_blue_300());
+ //BA.debugLineNum = 35;BA.debugLine="la.Text=\"Deinstallation beendet!\"";
+mostCurrent._la.setText(BA.ObjectToCharSequence("Deinstallation beendet!"));
+ //BA.debugLineNum = 36;BA.debugLine="la.TextSize=20";
+mostCurrent._la.setTextSize((float) (20));
+ //BA.debugLineNum = 37;BA.debugLine="la.Gravity=Gravity.CENTER";
+mostCurrent._la.setGravity(anywheresoftware.b4a.keywords.Common.Gravity.CENTER);
+ //BA.debugLineNum = 42;BA.debugLine="kvdata.Initialize(File.DirDefaultExternal,\"datast";
 mostCurrent._kvdata._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_data");
- //BA.debugLineNum = 27;BA.debugLine="End Sub";
+ //BA.debugLineNum = 45;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 34;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 35;BA.debugLine="t3.Enabled=False";
-_t3.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 36;BA.debugLine="End Sub";
+ //BA.debugLineNum = 52;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 54;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 29;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 30;BA.debugLine="t3.Enabled=True";
-_t3.setEnabled(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 32;BA.debugLine="End Sub";
+ //BA.debugLineNum = 47;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 50;BA.debugLine="End Sub";
+return "";
+}
+public static String  _button_click() throws Exception{
+ //BA.debugLineNum = 56;BA.debugLine="Sub button_click";
+ //BA.debugLineNum = 57;BA.debugLine="Activity.Finish";
+mostCurrent._activity.Finish();
+ //BA.debugLineNum = 58;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
- //BA.debugLineNum = 12;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 13;BA.debugLine="Sub Globals";
  //BA.debugLineNum = 15;BA.debugLine="Dim kvdata As KeyValueStore";
 mostCurrent._kvdata = new com.batcat.keyvaluestore();
  //BA.debugLineNum = 16;BA.debugLine="Dim i As Intent";
 mostCurrent._i = new anywheresoftware.b4a.objects.IntentWrapper();
- //BA.debugLineNum = 17;BA.debugLine="End Sub";
+ //BA.debugLineNum = 17;BA.debugLine="Dim la As Label";
+mostCurrent._la = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 18;BA.debugLine="Dim button As Button";
+mostCurrent._button = new anywheresoftware.b4a.objects.ButtonWrapper();
+ //BA.debugLineNum = 19;BA.debugLine="Private mcl As MaterialColors";
+mostCurrent._mcl = new com.tchart.materialcolors.MaterialColors();
+ //BA.debugLineNum = 20;BA.debugLine="End Sub";
 return "";
 }
 public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 6;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 9;BA.debugLine="Dim t3 As Timer";
-_t3 = new anywheresoftware.b4a.objects.Timer();
- //BA.debugLineNum = 10;BA.debugLine="End Sub";
+ //BA.debugLineNum = 9;BA.debugLine="Sub Process_Globals";
+ //BA.debugLineNum = 11;BA.debugLine="End Sub";
 return "";
 }
 public static String  _start() throws Exception{
- //BA.debugLineNum = 39;BA.debugLine="Sub start";
- //BA.debugLineNum = 40;BA.debugLine="If kvdata.ContainsKey(\"data\") Then";
+ //BA.debugLineNum = 60;BA.debugLine="Sub start";
+ //BA.debugLineNum = 61;BA.debugLine="If kvdata.ContainsKey(\"data\") Then";
 if (mostCurrent._kvdata._containskey("data")) { 
- //BA.debugLineNum = 41;BA.debugLine="t3.Enabled=True";
-_t3.setEnabled(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 42;BA.debugLine="t3_Tick";
-_t3_tick();
- //BA.debugLineNum = 43;BA.debugLine="i.Initialize(\"android.intent.action.DELETE\",\"pac";
+ //BA.debugLineNum = 62;BA.debugLine="i.Initialize(\"android.intent.action.DELETE\",\"pac";
 mostCurrent._i.Initialize("android.intent.action.DELETE","package:"+mostCurrent._kvdata._getsimple("data"));
- //BA.debugLineNum = 44;BA.debugLine="StartActivity(i)";
+ //BA.debugLineNum = 63;BA.debugLine="StartActivity(i)";
 anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)(mostCurrent._i.getObject()));
  };
- //BA.debugLineNum = 47;BA.debugLine="Return";
+ //BA.debugLineNum = 66;BA.debugLine="Return";
 if (true) return "";
- //BA.debugLineNum = 48;BA.debugLine="End Sub";
-return "";
-}
-public static String  _t3_tick() throws Exception{
-int _count = 0;
- //BA.debugLineNum = 50;BA.debugLine="Sub t3_Tick";
- //BA.debugLineNum = 51;BA.debugLine="Dim count As Int";
-_count = 0;
- //BA.debugLineNum = 52;BA.debugLine="count =count+1";
-_count = (int) (_count+1);
- //BA.debugLineNum = 53;BA.debugLine="If count>1 Then";
-if (_count>1) { 
- };
- //BA.debugLineNum = 56;BA.debugLine="If count>2 Then";
-if (_count>2) { 
- };
- //BA.debugLineNum = 59;BA.debugLine="If count=3 Then";
-if (_count==3) { 
- //BA.debugLineNum = 60;BA.debugLine="t3.Enabled=False";
-_t3.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 61;BA.debugLine="StartActivity(pman)";
-anywheresoftware.b4a.keywords.Common.StartActivity(mostCurrent.activityBA,(Object)(mostCurrent._pman.getObject()));
- };
- //BA.debugLineNum = 63;BA.debugLine="End Sub";
+ //BA.debugLineNum = 67;BA.debugLine="End Sub";
 return "";
 }
 }

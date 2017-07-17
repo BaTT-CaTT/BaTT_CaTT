@@ -13,13 +13,14 @@ B4A=true
 
 Sub Process_Globals
 	Private pak As PackageManager
+	Dim catdel As CacheCleaner
 End Sub
 
 Sub Globals
 	Private applist As ListView
 	Private name,apath,l,Types(1),packName As String
 	Private icon As BitmapDrawable 
-	Private sublist,data,del As List 
+	Private sublist,data,del,clist As List 
 	Dim args(1) As Object
 	Dim Obj1, Obj2, Obj3 As Reflector
 	Dim size,flags As Int
@@ -32,6 +33,7 @@ Sub Globals
 	Private Panel1 As Panel
 	Private ion As Object
 	Private kvdata As KeyValueStore
+	Private op As OperatingSystem
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -40,7 +42,14 @@ Sub Activity_Create(FirstTime As Boolean)
 	sublist.Initialize
 	data.Initialize
 	del.Initialize
+	clist.Initialize
+	catdel.initialize("catdel")
 	kvdata.Initialize(File.DirDefaultExternal,"datastore_data")
+	op.Initialize("op")
+	'##############Initialize the App cach########################
+	
+	
+	'#############################################################
 	Dim la,lb,lc,ld As Label 
 	la =applist.TwoLinesAndBitmap.Label
 	lc =subapp.SingleLineLayout.Label
@@ -64,6 +73,8 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 
 Sub Activity_Resume
+	
+	
 	app_manage
 End Sub
 
@@ -79,39 +90,57 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the ev
 	Return(True)
 End Sub
 
-Sub StartActivityForResult(i As Intent)
-	Dim jo As JavaObject =GetBA
-	ion = jo.CreateEvent("anywheresoftware.b4a.IOnActivityResult", "ion", Null)
-	jo.RunMethod("startActivityForResult", Array As Object(ion, i))
+
+Sub catdel_OnScanStarted
+	
 End Sub
 
-Sub ion_Event (MethodName As String, args1() As Object) As Object
-	'Args1(0) = resultCode
-	'Args1(1) = intent
-	If args1(0) = -1 Then 'resultCode = RESULT_OK
-		CallSub(Main,"rebound")
-	End If
-	Return(True)
+Sub catdel_onScanProgress (Current As Int , Total As Int)
+	ProgressDialogShow("Suche &"&Current&"Apps:: "&Total&" gefunden")
 End Sub
-Sub GetBA As Object
-	Dim jo As JavaObject
-	Dim cls As String = Me
-	cls = cls.SubString("class ".Length)
-	jo.InitializeStatic(cls)
-	Return jo.GetField("processBA")
+
+Sub catdel_onScanCompleted (AppsList As Object)
+	'time=DateTime.Time(DateTime.Now)
+	ProgressDialogHide
+	Dim totalsize As Long = 0
+	Dim pm As PackageManager
+	
+	Try
+		Dim lu As List = AppsList
+		If lu.Size=0 Then
+			'Cache is Empty
+			clist.Add(op.formatSize("0000"))
+			app_manage
+			Return
+		End If
+		For n = 0 To lu.Size-1
+			Dim app() As Object = lu.Get(n)
+			If app(1) = "com.android.systemui" Then Continue 'This Pakage Have No Icon In Some Android 5
+			
+			
+			totalsize = totalsize+app(2)
+			clist.Clear
+			clist.Add(app(0)&totalsize)
+			clist.Add(app(2)&totalsize)
+			File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",clist)
+			app_manage
+		Next
+		
+	Catch
+		Log(LastException.Message)
+		'catlist.Add(LastException.Message)
+	End Try
 End Sub
+
+Sub catdel_onCleanStarted
+	
+End Sub
+
+
 
 Sub abf1_Click
-	
-'	Dim iu As Intent
 	Dim ndel As String 
 	ndel=del.Get(0)
-'	applist.Clear
-'	panset
-'	Activity.Invalidate
-'	iu.Initialize("android.intent.action.DELETE","package:"&ndel)
-'	StartActivityForResult(iu)
-'	res_bo
 	If kvdata.ContainsKey("data") Then 
 		kvdata.DeleteAll
 		kvdata.PutSimple("data",ndel)
@@ -123,6 +152,7 @@ Sub abf1_Click
 		CallSubDelayed(datacount,"start")
 	End If 
 End Sub
+
 Sub res_bo
 	CallSub(Main,"rebound")
 End Sub
@@ -190,12 +220,11 @@ Sub app_manage
 			icon = Obj1.RunMethod4("getApplicationIcon", args, Types)
 		Dim total As String 
 			total = File.Size(GetParentPath(GetSourceDir(GetActivitiesInfo(packName))),GetFileName(GetSourceDir(GetActivitiesInfo(packName))))
-		applist.AddTwoLinesAndBitmap2(name,packName&" | "&FormatFileSize(total),icon.Bitmap,packName)
-		'subapp.AddTwoLinesAndBitmap2(name,packName&" | "&FormatFileSize(total),icon.Bitmap,packName)
-			data.Add(packName)
-			'sublist.Add(packName)
-			End If
-		Next
+					applist.AddTwoLinesAndBitmap2(name,packName&" | "&FormatFileSize(total),icon.Bitmap,packName)
+	
+		data.Add(packName)
+	End If 
+	Next
 End Sub
 	
 	

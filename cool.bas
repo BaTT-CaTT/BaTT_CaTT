@@ -26,7 +26,7 @@ Sub Globals
     Dim icon As BitmapDrawable
 	Dim pak As PackageManager
 	Dim list4,list1,apklist,list2,list5,list6,list7,list8,list9,list10,trash As List
-
+	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 	Dim cat As Cache
 	Dim dir1 As String =File.DirDefaultExternal&"/mnt/cache/store"
 	Private lw2 As ListView
@@ -65,6 +65,7 @@ Sub Globals
 	Dim catlist As List
 	Private lvg As LVGearsTwo
 	'Private lvb As  LVCircularSmile
+	Private kvs4sub,kvs4 As KeyValueStore
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -99,9 +100,12 @@ Sub Activity_Create(FirstTime As Boolean)
 	ffiles.Initialize
 	ffolders.Initialize
 	xOSStats.Initialize(400, 50, Me, "myStats")
-	
+	kvs4sub.Initialize(File.DirDefaultExternal, "datastore_sub_4")
+	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
+	If FirstTime Then 
+		Activity.Color=c10
 		If File.Exists(File.DirDefaultExternal&"/mnt/cache","cdata.txt") Then
-			ToastMessageShow("core ready...!",False)
+			'ToastMessageShow("core ready...!",False)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","sv.txt",list4)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","fn.txt",list1)
 			'ListView1.Clear
@@ -113,6 +117,9 @@ Sub Activity_Create(FirstTime As Boolean)
 		File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",catlist)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","cclist.txt","")
 	ToastMessageShow("Files ready! "&date&", "&time,False)
+	End If 
+	Else
+	
 	End If 
 	'#######Timer Settings##############
 	t1.Initialize("t1",1000)
@@ -127,23 +134,39 @@ Sub Activity_Create(FirstTime As Boolean)
 	'#######################Storage Lolipop########################
 	paths = storage.Initialize
 	nativeMe.InitializeContext
-	'#########################End LP Storage#######################
-
+	'######################################################Activity Colors######################
+	c1=mcl.md_light_blue_A400
+	c2=mcl.md_amber_A400
+	c3=mcl.md_white_1000
+	c4=mcl.md_teal_A400
+	c5=mcl.md_deep_purple_A400
+	c6=mcl.md_red_A700
+	c7=mcl.md_indigo_A400
+	c8=mcl.md_blue_A400
+	c9=mcl.md_orange_A700
+	c10=mcl.md_grey_600
+	c11=mcl.md_green_A400
+	c12=mcl.md_black_1000
+	c13=mcl.md_light_green_A400
+	c14=mcl.md_cyan_A400
+	c15=mcl.md_blue_grey_400
+	c16=mcl.md_light_blue_A400
 	'#########################CLS Storage##########################
 	Panel2.Visible=False
 	'#########################End CLS Storage######################
+	
 	ffil.Initialize
 	ffold.Initialize
 	Activity.Color=mcl.md_white_1000
-	andro.Initialize(File.DirAssets,"ic_autorenew_black_48dp.png")
-	bat.Initialize(File.DirAssets,"ic_data_usage_black_48dp.png")
-	desk.Initialize(File.DirAssets, "ic_battery_alert_black_48dp.png")
-	work.Initialize(File.DirAssets, "ic_delete_black_48dp.png")
 	ImageView1.BringToFront
-	l1=ListView1.SingleLineLayout.Label
+	Dim secl As Label = ListView1.TwoLinesAndBitmap.SecondLabel
+	l1=ListView1.TwoLinesAndBitmap.Label
 	l1.TextSize=15
-	l1.TextColor=mcl.md_black_1000
+	secl.TextSize=12
+	l1.TextColor=mcl.md_blue_400
+	secl.TextColor=mcl.md_black_1000
 	GetDeviceId
+	store_check
 	t1.Enabled=False
 	c_start
 	ListView1.SetSelection(-1)
@@ -153,8 +176,9 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 
 Sub Activity_Resume
+	store_check
 	t1.Enabled=False
-	catdel.ScanCache
+	'catdel.ScanCache
 	xOSStats.StartStats
 	c_start
 End Sub
@@ -170,9 +194,105 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the ev
 	End If
 	Return(True)
 End Sub
-
+Sub store_check
+	c1=mcl.md_light_blue_A400
+	c2=mcl.md_amber_A400
+	c3=mcl.md_white_1000
+	c4=mcl.md_teal_A400
+	c5=mcl.md_deep_purple_A400
+	c6=mcl.md_red_A700
+	c7=mcl.md_indigo_A400
+	c8=mcl.md_blue_A400
+	c9=mcl.md_orange_A700
+	c10=mcl.md_grey_600
+	c11=mcl.md_green_A400
+	c12=mcl.md_black_1000
+	c13=mcl.md_light_green_A400
+	c14=mcl.md_cyan_A400
+	c15=mcl.md_blue_grey_400
+	c16=mcl.md_light_blue_A400
+	If kvs4sub.ContainsKey("off") Then
+		StopService(Starter)
+	End If
+	If kvs4.ContainsKey("0")Then
+		Log("AC_true->1")
+		Activity.Color=c1
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("1")Then
+		Log("AC_true->2")
+		Activity.Color=c2
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("2")Then
+		Log("AC_true->3")
+		Activity.Color=c3
+		Label1.TextColor=Colors.Black
+	End If
+	If kvs4.ContainsKey("3")Then
+		Log("AC_true->4")
+		Activity.Color=c4
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("4")Then
+		Log("AC_true->4")
+		Activity.Color=c5
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("5")Then
+		Log("AC_true->4")
+		Activity.Color=c6
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("6")Then
+		Log("AC_true->4")
+		Activity.Color=c7
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("7")Then
+		Log("AC_true->4")
+		Activity.Color=c8
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("8")Then
+		Log("AC_true->4")
+		Activity.Color=c9
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("9")Then
+		Log("AC_true->4")
+		Activity.Color=c10
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("10")Then
+		Log("AC_true->4")
+		Activity.Color=c11
+		''Button4.Color=mcl.md_lime_A400
+	End If
+	If kvs4.ContainsKey("11")Then
+		Log("AC_true->4")
+		Activity.Color=c12
+		Label1.TextColor=Colors.ARGB(200,255,255,255)
+	End If
+	If kvs4.ContainsKey("12")Then
+		Log("AC_true->4")
+		Activity.Color=c13
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	If kvs4.ContainsKey("13")Then
+		Log("AC_true->4")
+		Activity.Color=c14
+		''Button4.Color=mcl.md_lime_A400
+	End If
+	If kvs4.ContainsKey("14")Then
+		Log("AC_true->4")
+		Activity.Color=c15
+		''Button4.Color=Colors.ARGB(150,255,255,255)
+	End If
+	Activity.Invalidate
+End Sub
 Sub c_start	 
-	
+	catdel.ScanCache
 	ListView1.SetSelection(-1)
 	app_info
 	catlist.Clear
@@ -430,7 +550,7 @@ Sub t1_Tick
 	If count > 4 Then
 		'#ListView1.Clear
 		dpm1.Progress=52
-		ImageView1.Bitmap=bat
+		'ImageView1.Bitmap=bat
 	
 		Label1.text="cleaning Cache System.."
 		
@@ -439,7 +559,7 @@ Sub t1_Tick
 	If count > 5 Then
 		dpm1.Progress=89
 		Label1.text="deleting Garbage Cache.."
-		ImageView1.Bitmap=desk
+		'ImageView1.Bitmap=desk
 		
 				Label1.text="check: "&op.formatSize(op.AvailableMemory)
 		
@@ -483,7 +603,7 @@ Sub delayed_t2
 		t1.Enabled=False
 		'ToastMessageShow(op.formatSize(cat.FreeMemory)&" free",False)
 		Activity.Finish
-		SetAnimation.setanimati ("extra_out", "extra_out")
+		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 End Sub
 

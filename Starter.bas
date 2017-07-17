@@ -23,21 +23,24 @@ Sub Process_Globals
 	 Private date,time,tt As String
 	 Dim bat As Batut
 	Dim level1 As Int
-	Dim kl,dt,nl As List
+	Dim kl,dt,nl,logfile As List
 	Dim cs As CSBuilder
 	Dim dir As String=File.DirDefaultExternal&"/mnt/cache"
 	Dim labex As String
 	Dim sql As SQL
 	Dim m As Map
 	Dim bat As Batut
+	Dim t6 As Timer 
+	Dim count As Int
 End Sub
 
 Sub Service_Create
 	'This is the program entry point.
 	'This is a good place to load resources that are not specific to a single activity.
-	
+	t6.Initialize("t6",1000)
    sNotif.Initialize
    bat.Initialize
+   logfile.Initialize
    sNotif.Light=False
    sNotif.Icon= "bat100"
    sNotif.SetInfo("Bat-Cat","Welcome",Main)
@@ -48,7 +51,13 @@ Sub Service_Create
 	device.Initialize("device")
 	list1.Initialize
 	m.Initialize
-	'File.WriteList(File.DirDefaultExternal&"/mnt/cache","sstats.txt",list1)
+	'File.WriteList(File.DirDefaultExternal&"/mnt/cache","log.txt",logfile)
+	If File.Exists(File.DirDefaultExternal&"/mnt/cache","log.txt") Then 
+		
+		Else
+			File.MakeDir(File.DirDefaultExternal,"mnt/cache")
+			File.WriteList(dir,"log.txt",logfile)
+	End If
 	date=DateTime.Date(DateTime.Now)
 	
 	sql.Initialize(File.DirRootExternal, "1.db", True)
@@ -65,26 +74,16 @@ Sub Service_Create
 	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
 	kvstime.Initialize(File.DirDefaultExternal,"datastore_time")
 	Service.StartForeground(1,sNotif)
+	
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
 	'ToastMessageShow("Service Start..",False)
-	If File.Exists(File.DirDefaultExternal&"/mnt/cache","lvl2.txt") Then
-		'ToastMessageShow("Welcome!",False)
-		'ListView1.Clear
-		'lis.Add("App StartActivity "&date&" - "&time)
-	Else
-		File.MakeDir(File.DirDefaultExternal, "mnt/cache")
-	
-		File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl2.txt",level1)
-	
-		'ToastMessageShow("BC loaded..! "&date&", "&time,False)
-	End If
-	
+	Dim volt As String = bat.BatteryInformation(7)
+		logfile.Add("App StartActivity "&date&" - "&time)
+		logfile.Add(date&"/"&time&": "&level1&" | "&volt)
+End Sub 
 
-End Sub
-
-'Return true to allow the OS default exceptions handler to handle the uncaught exception.
 Sub Application_Error (Error As Exception, StackTrace As String) As Boolean
 	ToastMessageShow("Status: Error Service Stop!",False)
 	Return True
@@ -113,40 +112,20 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 	Dim status As Int = Intent.GetExtra("status")
 	volt=Rnd(volt1,volt1+1)
 	temp=Rnd(temp2,temp2+1)
-	If kvs2.ListKeys.Size=10 Then
-		kvsvolt.DeleteAll
-		kvstemp.DeleteAll
-		kvs2.DeleteAll
-		'ToastMessageShow("BC Reload",False)
-	End If
-	For v = 0 To Scale
-		'nl.Add(v)
-		If v=Level Then
-			Log("Put-> "&v)
-			kvs2.PutSimple(v,time)
-		End If
-	Next
-	For g = 0 To 60
-		If g=temp2 Then
-			kvstemp.PutSimple(g,time)
-			Log(time&" Put-> "&temp2&"C°")
-		End If
-	Next
-	For vo = 2500 To 6000
-		If vo=Intent.GetExtra("voltage") Then
-			kvsvolt.PutSimple(vo,time)
-			Log(time&" Put-> "&Intent.GetExtra("voltage")&"V")
-		End If
-	Next
 	Dim rst,rl,rm As Int
 	Dim val,hours,minutes As Int
+	If Level < Scale Then
+		kvs2.PutSimple(Level,date&"/"&time)
+		data_cache
+	End If
 	If Plugged  Then
-		
+		ac_check
 		rst=Scale-Level
 		val = rst*Intent.GetExtra("voltage")/1000
 		hours = Floor(val / 60)
 		minutes = val Mod 60
 		If Level=100 Then
+			load_check
 			sNotif.Icon="batusb"
 			sNotif.Sound=False
 			sNotif.SetInfo(Level&"%",volt&" V | "&temp&"°C ",Main)
@@ -162,13 +141,7 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			Service.StartForeground(1,sNotif)
 		End If
 	Else
-		For v = 0 To Scale
-			nl.Add(v)
-			If v=Level Then
-				'Log("Put-> "&v)
-				kvs2.PutSimple(v,time)
-			End If
-		Next
+		
 		Dim days,sval As Int
 		sval =Intent.GetExtra("voltage")
 		'Log(sval)
@@ -206,6 +179,7 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			sNotif.Notify(1)
 		End If
 		If temp =50 Then
+			logfile.Add(date&"/"&time&": "&temp&"C°")
 			sNotif.Icon="batheat"
 			sNotif.SetInfo("Achtung: "&temp&"°C !","hier klicken um zum kühlen...",cool)
 			sNotif.Light=True
@@ -213,10 +187,70 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 			sNotif.Notify(1)
 		
 		End If
-		
-		
 	End If
 End Sub
+
+
+Sub value_check 
+	Log("check...")
+End Sub
+Sub ac_check
+	Dim acc,ausb As Int
+	Dim us,ac As String
+	acc=bat.BatteryInformation(10)
+	ausb=bat.BatteryInformation(9)
+	If acc = 1 Then
+		ac="AC - Kabel: "
+		logfile.Add(date&"/"&time&": "&ac&" angeschlossen.")
+		kvstime.DeleteAll
+		kvstime.PutSimple(date&"/"&time&" - AC",acc)
+		'value_check
+	Else
+		ac="USB - Kabel: "
+		logfile.Add(date&"/"&time&": "&ac&" angeschlossen.")
+		kvstime.DeleteAll
+		kvstime.PutSimple(date&"/"&time&" - USB",acc)
+		'value_check
+	End If
+	
+End Sub
+
+Sub load_check
+	Dim load As String = bat.BatteryInformation(0)
+	If load=100 Then
+		kvstime.DeleteAll
+		kvstime.PutSimple(date&"/"&time&": "&load&"% AC",load)
+		logfile.Add(date&"/"&time&": "&load&"% geladen.")
+		'value_check
+	End If
+End Sub
+
+Sub data_cache
+	time=DateTime.Time(DateTime.Now)
+	Dim temp,volt As Int
+	volt=bat.BatteryInformation(7)/1000
+	temp=bat.BatteryInformation(6)/10
+	If kvs2.ListKeys.Size=15 Then
+		kvsvolt.DeleteAll
+		kvstemp.DeleteAll
+		kvs2.DeleteAll
+		'ToastMessageShow("BC Reload",False)
+	End If
+	For g = 0 To 60
+		If g=temp Then
+			kvstemp.PutSimple(g,time)
+			Log(time&" Put-> "&temp&"C°")
+		End If
+	Next
+	For vo = 2500 To 6000
+		If vo=volt Then
+			kvsvolt.PutSimple(vo,time)
+			Log(time&" Put-> "&volt&"V")
+		End If
+	Next
+End Sub
+
+
 
 Sub minutes_hours ( ms As Int ) As String
 	Dim val,hours,minutes As Int

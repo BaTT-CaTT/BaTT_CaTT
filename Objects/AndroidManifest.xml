@@ -2,7 +2,7 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.batcat"
-	android:versionCode="280"
+	android:versionCode="283"
 	android:versionName="1.9.9.8"
 	android:installLocation="internalOnly">
 	
@@ -59,7 +59,7 @@
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 	<application
 		android:icon="@drawable/icon"
-		android:label="BaTT CaTT (1.9.9.7)"
+		android:label="BaTT CaTT(Build 282)"
 		android:theme="@style/MyAppTheme">
 		
 		<service android:name="com.frozendevs.cache.cleaner.model.CleanerService"/>
@@ -67,7 +67,7 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".main"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait"
 			android:excludeFromRecents="false">
 			<intent-filter>
@@ -80,21 +80,14 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".klo"
-			android:label="BaTT CaTT (1.9.9.7)"
-			android:screenOrientation="portrait">
-		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
-			android:name=".set2"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".settings"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait">
 		</activity>
 		<service android:name=".hw">
@@ -124,35 +117,42 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".sys"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".cool"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".pman"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".wait"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".set2"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".datacount"
-			android:label="BaTT CaTT (1.9.9.7)"
+			android:label="BaTT CaTT(Build 282)"
 			android:screenOrientation="portrait">
 		</activity>
 	</application>

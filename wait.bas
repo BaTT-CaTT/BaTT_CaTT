@@ -23,7 +23,7 @@ Sub Globals
 	'These variables can only be accessed from this module.
 	Private crtext As String 
 	Private mcl As MaterialColors
-	Dim creditsMax As Int = 30000
+	Dim creditsMax As Int = 1500
 	Dim creditsPos As Int = 0
 	Dim tmr As Timer
 	Private credits As CreditsRollView
@@ -40,34 +40,31 @@ Sub Activity_Create(FirstTime As Boolean)
 	credits.TextColor=Colors.Black
 
 	credits.EndScrollMult=1.0
-	tmr.Initialize("timer",90)
+	tmr.Initialize("timer",100)
 	tmr.Enabled = True
 	iv1.Visible=True
-	iv1.SetVisibleAnimated(15000,False)
+	iv1.SetVisibleAnimated(4000,False)
 End Sub
 
 Sub Activity_Resume
 	credits.ScrollPosition = 0
-'	tmr.Enabled=True
+	tmr.Enabled=True
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 	
 End Sub
 Sub timer_Tick
-	count=creditsPos
-
-
 		If count < creditsMax Then
 			creditsPos = creditsPos +1
 		End If
 		'Log((creditsPos/1000))
-		If (creditsPos/400) >= 1 Then
-			tmr.Enabled = False
+		If (creditsPos/1000) >= 1 Then
+			tmr.Enabled = True
 		iv1.SetVisibleAnimated(20,True)
 		StartActivity(Main)
 		End If
-		credits.ScrollPosition = (creditsPos/400)
+		credits.ScrollPosition = (creditsPos/1000)
 		credits.DistanceFromText = 50dip
 		credits.Angle = 20
 		credits.Height = 100%y

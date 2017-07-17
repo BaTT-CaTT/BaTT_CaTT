@@ -72,9 +72,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	uon=LoadBitmap(File.DirAssets,"son.png")
 	uoff=LoadBitmap(File.DirAssets,"soff.png")
 	Dim bd As BitmapDrawable
-	bd.Initialize(LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png"))
+	'bd.Initialize(LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png"))
 	'icon.Initialize(File.DirAssets,"ic_snooze_black_18dp.png")
-	popa.Initialize("popa",Panel3)
+	'popa.Initialize("popa",Panel3)
 	colist.Initialize
 	'arb.Visible=False
 '	ui.Initialize(Me,"ui","33333333",90,45,uon,uoff)
@@ -88,7 +88,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	'Panel2.RemoveView
 	
 
-	popa.AddMenuItem(0,"Save",bd)
+	'popa.AddMenuItem(0,"Save",bd)
 	nativeMe.InitializeContext
 	c1=mcl.md_light_blue_A400
 	c2=mcl.md_amber_A400
@@ -221,17 +221,7 @@ Sub arb_CheckedChange(Checked As Boolean)
 End Sub
 
 
-Sub tab_settings
-	Dim liv As ListView
-	Dim draw As BitmapDrawable
-	Dim bdraw As Bitmap
-	bdraw.Initialize(File.DirAssets,"ic_folder_special_black_48dp.png")
-	draw.Initialize(bdraw)
-	liv.Initialize("liv")
-	liv.Enabled=True
-	liv.AddSingleLine("Text")
-	liv.AddTwoLines("Text","Sub text..")	
-End Sub
+
 
 Sub store_check
 	If kvs4sub.ContainsKey("off") Then

@@ -1,31 +1,31 @@
 ﻿Version=6.8
 NumberOfModules=22
 Module1=klo
-Module2=set2
-Module3=settings
-Module4=hw
-Module5=Starter
-Module6=webhost
-Module7=sys
-Module8=cool
+Module2=settings
+Module3=hw
+Module4=Starter
+Module5=webhost
+Module6=sys
+Module7=cool
+Module8=Batut
 Module9=pman
-Module10=Batut
-Module11=SetAnimation
-Module12=wait
-Module13=ClsSlidingSideBar
-Module14=XmlViewEx
-Module15=Charts
-Module16=SettingUI
-Module17=StateManager
-Module18=DBUtils
-Module19=KeyValueStore
-Module20=ClsCheckList
-Module21=ClsExplorer
-Module22=datacount
+Module10=wait
+Module11=Charts
+Module12=set2
+Module13=datacount
+Module14=SetAnimation
+Module15=ClsSlidingSideBar
+Module16=XmlViewEx
+Module17=SettingUI
+Module18=StateManager
+Module19=DBUtils
+Module20=KeyValueStore
+Module21=ClsCheckList
+Module22=ClsExplorer
 Build1=Default,com.batcat
 ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission       android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission ~\n~android:name="android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~ android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~ android:name="android.permission.GET_PACKAGE_SIZE"/>~\n~<uses-permission ~\n~ android:name="android.permission.GET_TASKS"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~ android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.BATTERY_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.MODIFY_PHONE_STATE"/>~\n~<uses-permission~\n~  android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>~\n~<uses-permission~\n~  android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>~\n~<uses-permission~\n~  android:name="android.permission.SET_ALWAYS_FINISH"/>~\n~<uses-permssion~\n~  android:name="android.permission.UPDATE_DEVICE_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.BIND_APPWIDGET"/>~\n~  )~\n~AddApplicationText(<service android:name="com.frozendevs.cache.cleaner.model.CleanerService"/>)~\n~SetActivityAttribute(Main, "android:excludeFromRecents", "false")~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#37474F</item>~\n~        <item name="colorPrimaryDark">#37474F</item>~\n~        <item name="colorAccent">#76FF03</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
-NumberOfFiles=68
+NumberOfFiles=56
 File1=1.bal
 File2=2.bal
 File3=4.bal
@@ -35,66 +35,54 @@ File6=6_sub.bal
 File7=7.bal
 File8=8.bal
 File9=Accept128.png
-File10=Android.png
-File11=Bar-chart48.png
-File12=Battery Icons - Colorful 128px (1).png
-File13=Battery Icons - Colorful 128px (10).png
-File14=Battery Icons - Colorful 128px (14).png
-File15=Battery Icons - Colorful 128px (16).png
-File16=Battery Icons - Colorful 128px (2).png
-File17=Battery Icons - Colorful 128px (3).png
-File18=Battery Icons - Colorful 128px (4).png
-File19=Battery Icons - Colorful 128px (5).png
-File20=Battery Icons - Colorful 128px (6).png
-File21=Battery Icons - Colorful 128px (7).png
-File22=Battery Icons - Colorful 128px (8).png
-File23=Battery Icons - Colorful 128px (9).png
-File24=Battery icons - Colorful 64px (32).png
-File25=Battery Icons - White 64px (28).png
-File26=Battery Icons - White 64px (35).png
-File27=Battery Icons - White 64px (40).png
-File28=Battery.png
-File29=bclean.png
-File30=bclean_shadow.png
-File31=Chart.png
-File32=Control.png
-File33=ic_autorenew_black_48dp.png
-File34=ic_battery_90_white_24dp.png
-File35=ic_battery_alert_black_48dp.png
-File36=ic_battery_charging_50_white_24dp.png
-File37=ic_brightness_auto_black_24dp.png
-File38=ic_brightness_auto_grey600_24dp.png
-File39=ic_clear_black_48dp.png
-File40=ic_data_usage_black_48dp.png
-File41=ic_delete_black_48dp.png
-File42=ic_folder_special_black_48dp.png
-File43=ic_looks_black_36dp.png
-File44=ic_looks_grey600_36dp.png
-File45=ic_network_cell_black_24dp.png
-File46=ic_network_cell_grey600_24dp.png
-File47=ic_network_wifi_black_24dp.png
-File48=ic_network_wifi_grey600_24dp.png
-File49=ic_rotate_right_black_24dp.png
-File50=ic_rotate_right_grey600_24dp.png
-File51=ic_sim_card_black_24dp.png
-File52=ic_sim_card_white_24dp.png
-File53=ic_swap_vert_circle_black_24dp.png
-File54=ic_swap_vert_circle_grey600_24dp.png
-File55=ic_usb_black_24dp.png
-File56=ic_usb_grey600_24dp.png
-File57=icon_batcat.png
-File58=OpenSans.ttf
-File59=Power.png
-File60=restart.png
-File61=Rss.png
-File62=soff.png
-File63=son.png
-File64=squareprogressbar.jar
-File65=squareprogressbar.xml
-File66=sulo_log99.png
-File67=Tag.png
-File68=wid.bal
-NumberOfLibraries=48
+File10=alarm-clock.png
+File11=Android.png
+File12=app.png
+File13=Bar-chart48.png
+File14=Battery Icons - Colorful 128px (1).png
+File15=Battery Icons - Colorful 128px (10).png
+File16=Battery Icons - Colorful 128px (14).png
+File17=Battery Icons - Colorful 128px (16).png
+File18=Battery Icons - Colorful 128px (2).png
+File19=Battery Icons - Colorful 128px (3).png
+File20=Battery Icons - Colorful 128px (4).png
+File21=Battery Icons - Colorful 128px (5).png
+File22=Battery Icons - Colorful 128px (6).png
+File23=Battery Icons - Colorful 128px (7).png
+File24=Battery Icons - Colorful 128px (8).png
+File25=Battery Icons - Colorful 128px (9).png
+File26=Battery icons - Colorful 64px (32).png
+File27=Battery Icons - White 64px (28).png
+File28=Battery Icons - White 64px (35).png
+File29=Battery Icons - White 64px (40).png
+File30=Battery.png
+File31=bclean.png
+File32=bclean_shadow.png
+File33=Chart.png
+File34=Control.png
+File35=icon_batcat.png
+File36=idea.png
+File37=info.png
+File38=menu-1.png
+File39=multiply-1.png
+File40=OpenSans.ttf
+File41=Power.png
+File42=repeat-1.png
+File43=restart.png
+File44=Rss.png
+File45=settings-1.png
+File46=shutdown.png
+File47=soff.png
+File48=son.png
+File49=squareprogressbar.jar
+File50=squareprogressbar.xml
+File51=success.png
+File52=sulo_log99.png
+File53=tabs.png
+File54=Tag.png
+File55=warning.png
+File56=wid.bal
+NumberOfLibraries=42
 Library1=core
 Library2=phone
 Library3=reflection
@@ -124,32 +112,26 @@ Library26=net
 Library27=network
 Library28=collectionsextra
 Library29=fontawesome
-Library30=materialicons
-Library31=fft
-Library32=animationplus
-Library33=floatingactionbutton
-Library34=msos
-Library35=osstats
-Library36=coolanimview
-Library37=coloringloadingview
-Library38=papershredderview
-Library39=ahpreferenceactivity
-Library40=mpchartlib
-Library41=creditsroll
-Library42=ss_slidingmenustandard
-Library43=circlebutton
-Library44=intent id
-Library45=preferenceactivity
-Library46=stringutils
-Library47=activityrecognition
-Library48=loadingviews
+Library30=fft
+Library31=animationplus
+Library32=msos
+Library33=osstats
+Library34=coolanimview
+Library35=ahpreferenceactivity
+Library36=creditsroll
+Library37=ss_slidingmenustandard
+Library38=circlebutton
+Library39=intent id
+Library40=preferenceactivity
+Library41=stringutils
+Library42=loadingviews
 @EndOfDesignText@
-   'BaTT CaTT source Project 
+'BaTT CaTT source Project 
 'Copyrights D.Trojan(trOw) and SM/Media ©2017
 'Main Code Module created by trOw
  #Region  Project Attributes 
-	#ApplicationLabel: BaTT CaTT (1.9.9.7)
-	#VersionCode: 280
+	#ApplicationLabel: BaTT CaTT(Build 282)
+	#VersionCode: 283
 	#VersionName: 1.9.9.8
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
@@ -201,7 +183,7 @@ Sub Globals
 	Dim cas As Int
 	Dim size,flags As Int
 	Dim Types(1), name,packName,date,time,l,ramsize As String
-	Dim List,list1,list2,list3,list4,list5,list6,list7,list8,list9,phlis,Lis,setlist,datalist As List
+	Dim List,list1,list2,list3,list4,list5,list6,list7,list8,list9,phlis,Lis,setlist,datalist,logfile As List
 	Dim cd2,cd As CustomDialog2
 	Dim FakeActionBar  As Panel
 	Dim sd,sdi As Bitmap
@@ -224,7 +206,7 @@ Sub Globals
 	Dim xOSStats As OSStats
 	Private pbe2 As ACButton
 	Dim listview1 As ListView
-	Private clv As ColoringLoadingView
+	'Private clv As ColoringLoadingView
 	'Private cb2 As Circlebutton
 	'Private 'b1 As Button
 	Dim dir1 As String = File.DirDefaultExternal&"/mnt/cache/store"
@@ -232,6 +214,8 @@ Sub Globals
 	Dim catlist As List 
 	Private prboost As Button
 	Private lvbat As LVBattery
+	Private info_but As Button
+	Private Label6 As Label
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -252,6 +236,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	listview1.Initialize("listview1")
 	listview1.Enabled=True
 	List.Initialize
+	logfile.Initialize
 	list1.Initialize
 	list2.Initialize
 	list3.Initialize
@@ -413,6 +398,7 @@ Sub Activity_Create(FirstTime As Boolean)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","pn1.txt",Lis)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","settings.txt",setlist)
 			File.WriteList(File.DirDefaultExternal&"/mnt/cache","proc.txt",proc)
+			File.Writelist(File.DirDefaultExternal&"/mnt/cache","log.txt",logfile)
 			File.WriteString(File.DirDefaultExternal&"/mnt/cache","lvl2.txt","0")
 			File.WriteMap(File.DirDefaultExternal&"/mnt/cache","smap1.txt",optmap)
 			ToastMessageShow("Datein für den ersten-Start vorbereitet! "&date&", "&time,False)
@@ -502,6 +488,7 @@ Sub Menu_onFullyClosed
 	''b1.SetLayoutAnimated(100,110dip,55%y,95dip,90dip)
 	prboost.SetVisibleAnimated(100,True)
 	prboost.BringToFront
+	Label6.BringToFront
 End Sub
 
 Sub Menu_onMove (IsOpening As Boolean)
@@ -511,48 +498,35 @@ Sub Menu_onMove (IsOpening As Boolean)
 	End If 
 End Sub
 
+Sub read_log
+	logfile=File.ReadList(File.DirDefaultExternal&"/mnt/cache/","log.txt")
+	For h = 0 To logfile.Size-1
+		Log(logfile.Get(h))
+		
+	Next
+	InputList(logfile,"Event log:",1)
+End Sub
+
 Sub value_check
 	lv3.Clear
 	For Each d As String In kvstime.ListKeys
 		Log(d)
-		lv3.AddTwoLinesAndBitmap("Lade Info:",d,LoadBitmap(File.DirAssets,"Bar-chart48.png"))
+		lv3.AddTwoLinesAndBitmap2("Info:",d,LoadBitmap(File.DirAssets,"idea.png"),0)
 	Next
 End Sub
-
-Sub ac_check
-	
-	Dim acc,ausb As Int
-	Dim us,ac As String
-	acc=bat.BatteryInformation(10)
-	ausb=bat.BatteryInformation(9)
-	If acc = 1 Then
-		ac="AC - Kabel: "
-		kvstime.DeleteAll
-		kvstime.PutSimple(time&" - AC",acc)
-		value_check
-	Else
-		ac="USB - Kabel: "
-		kvstime.DeleteAll
-		kvstime.PutSimple(time&" - USB",acc)
-		value_check
-	End If
-	
-End Sub
-
-Sub load_check
-	Dim load As String = bat.BatteryInformation(0)
-	If load=100 Then
-		kvstime.DeleteAll
-		kvstime.PutSimple(time&": "&load&"% AC",load)
-		value_check
+Sub lv3_ItemClick (Position As Int, Value As Object)
+	If Value=0 Then 
+		read_log
 	End If
 End Sub
 Sub rebound
 	CallSubDelayed(pman,"app_manage")
 End Sub
+
 Sub prboost_Click
 	Button4_Click
 End Sub
+
 Sub store_check
 	c1=mcl.md_light_blue_A400
 	c2=mcl.md_amber_A400
@@ -849,7 +823,15 @@ End Sub
 Sub ab1_Click
 	Button4_Click
 End Sub
+Sub button2_Click
+	StartActivity(pman)
+	SetAnimation.setanimati("extra_in", "extra_out")
+End Sub 
 
+Sub info_but_Click
+	StartActivity(wait)
+	SetAnimation.setanimati("extra_in", "extra_out")
+End Sub
 Sub label_text
 	lk.TextSize=13
 	lk.TextColor=Colors.Black
@@ -943,8 +925,11 @@ Sub Label1_Click
 End Sub
 
 Sub Button1_Click
-	StartActivity(klo)
-	SetAnimation.setanimati("extra_in", "extra_out")
+	If slm.IsSidebarVisible Then 
+		slm.CloseSidebar
+	Else
+	slm.OpenSidebar
+	End If 
 End Sub
 
 Sub cl_click As Boolean
@@ -973,7 +958,7 @@ End Sub
 
 
 Sub Button3_Click
-	StartActivity(sys)
+	StartActivity(settings)
 	SetAnimation.setanimati("extra_in", "extra_out")
 End Sub
 
@@ -981,7 +966,7 @@ End Sub
 Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
 	
 	
-	load_check
+	'load_check
 	Dim val,hours,minutes,rst,ts,volta,vs As Int
 	volta=Intent.GetExtra("voltage")/1000
 	temp=Intent.GetExtra("temperature")/10
@@ -999,10 +984,10 @@ Sub device_BatteryChanged (level As Int, Scale As Int, Plugged As Boolean, Inten
 	If Plugged=True Then
 		lvbat.SetVisibleAnimated(100,True)
 		lvbat.startAnim
-		ac_check
+		'ac_check
 		'ims3.Bitmap=LoadBitmap(File.DirAssets,"ic_usb_black_24dp.png")
 		apm.BottomText="Aufladen via USB: "&volta&" V"
-		Log("VOLT: "&Intent.GetExtra("voltage"))
+		'Log("VOLT: "&Intent.GetExtra("voltage"))
 		val =rst*Intent.GetExtra("voltage") /1000
 		hours = Floor(val / 60)
 		minutes = val Mod 60
@@ -2654,3 +2639,4 @@ import java.util.UUID;
 
 
 #End If
+

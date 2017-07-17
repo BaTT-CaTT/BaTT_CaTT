@@ -388,20 +388,20 @@ public static int _c15 = 0;
 public static int _c16 = 0;
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
-public com.batcat.set2 _set2 = null;
 public com.batcat.settings _settings = null;
 public com.batcat.hw _hw = null;
 public com.batcat.starter _starter = null;
 public com.batcat.webhost _webhost = null;
 public com.batcat.cool _cool = null;
 public com.batcat.pman _pman = null;
-public com.batcat.setanimation _setanimation = null;
 public com.batcat.wait _wait = null;
-public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.charts _charts = null;
+public com.batcat.set2 _set2 = null;
+public com.batcat.datacount _datacount = null;
+public com.batcat.setanimation _setanimation = null;
+public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
-public com.batcat.datacount _datacount = null;
 
 public static void initializeProcessGlobals() {
              try {

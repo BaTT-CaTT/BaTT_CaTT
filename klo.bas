@@ -17,6 +17,7 @@ Sub Process_Globals
 '	Dim tim As Timer
 '	Dim counter As Int
 	Dim sql As SQL
+	Dim t1 As Timer
 End Sub
 
 Sub Globals
@@ -34,7 +35,7 @@ Sub Globals
 	Dim time2 As String
 	Dim bat As Batut
 	Dim volt,temp,usb,ac As String
-	'Dim device As PhoneEvents
+	Dim device As PhoneEvents
 	Dim pak1 As PackageManager
 	Dim kvs2,kvs3,kvs4,kvsvolt,kvstemp As KeyValueStore
 	Dim dt As List
@@ -48,24 +49,25 @@ Sub Globals
 	Private ACButton1 As ACButton
 	Dim level As Int
 	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
-	Private dev As PhoneEvents
+	'Private dev As PhoneEvents
 
 	Private ACButton2 As ACButton
 	Dim osstat As OSStats
 	Dim metric As MSOS
 
-	Private MultiBubbleChart1 As MultiBubbleChart
-	Private mbc1 As BarChart
-	Private mlc1 As LineChart
+'	Private MultiBubbleChart1 As MultiBubbleChart
+'	Private mbc1 As BarChart
+'	Private mlc1 As LineChart
 	Private Panel3 As Panel
 	Dim fn2 As String
 	Dim fg2 As Int
-	Dim LD2 As BarData
+	Dim LD2 As LineData
 	Dim fn As String
 	Dim fg As Int
 	Dim LD As LineData
 	Private sm As SlidingMenuStd
 	Private cb1 As Circlebutton
+	Dim count As Int 
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -78,14 +80,15 @@ Sub Activity_Create(FirstTime As Boolean)
 	l1.Initialize("l1")
 	l2.Initialize("l2")
 	l3.Initialize("l3")
+	device.Initialize("device")
 	'###############Colors##################
 	c1=mcl.md_light_blue_A700
 	c2=mcl.md_amber_A700
 	c3=mcl.md_lime_A700
 	c4=mcl.md_teal_A700
 	Activity.Color=mcl.md_white_1000
-	dev.Initialize("dev")
-	
+	'dev.Initialize("dev")
+	t1.Initialize("t1",1000) 
 	'################## second end#####################
 	m.Initialize
 	bat.Initialize
@@ -93,6 +96,13 @@ Sub Activity_Create(FirstTime As Boolean)
 	kl.Initialize
 	dt.Initialize
 	ls.Initialize
+	kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
+	kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
+	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
+	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
+	kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
+	time2=DateTime.Time(DateTime.Now)
+	Dim bbat As String = bat.BatteryInformation(0)
 	volt=bat.BatteryInformation(7)/1000
 	temp=bat.BatteryInformation(6)/10
 	usb =bat.BatteryInformation(9)
@@ -100,21 +110,18 @@ Sub Activity_Create(FirstTime As Boolean)
 	G.Initialize
 	g2.Initialize
 	If FirstTime=True Then 
+		kvs2.PutSimple(bbat,time2)
+		kvstemp.PutSimple(temp,time2)
 		Msgbox("Wenn die Statistik zum ersten Mal geladen wird, kann es eine Weile dauern, bis die Werte korrekt angezeigt werden, zB: V,C°,% der letzten 10 Einträge. Bitte beachte das die Werte nur ca sind da sie immer leicht Zeit versetzt gespeichert werden und nicht  den 'Live' Zustand anzeigen!","Wichtig!")
 	End If
-	kvs2.Initialize(File.DirDefaultExternal, "datastore_2")
-	kvs3.Initialize(File.DirDefaultExternal, "datastore_3")
-	kvs4.Initialize(File.DirDefaultExternal, "datastore_4")
-	kvsvolt.Initialize(File.DirDefaultExternal, "datastore_volt")
-	kvstemp.Initialize(File.DirDefaultExternal, "datastore_temp")
-	time2=DateTime.Time(DateTime.Now)
+	
 	batt=LoadBitmap(File.DirAssets,"Battery Icons - White 64px (40).png")
 	pl=LoadBitmap(File.DirAssets,"Battery Icons - White 64px (28).png")
 	'#################Menu###############################################
 	popa.Initialize("popa",Panel3)
 	Dim bd,bd1 As BitmapDrawable
-	bd.Initialize(LoadBitmap(File.DirAssets,"ic_clear_black_48dp.png"))
-	bd1.Initialize(LoadBitmap(File.DirAssets,"ic_autorenew_black_48dp.png"))
+	bd.Initialize(LoadBitmap(File.DirAssets,"multiply-1.png"))
+	bd1.Initialize(LoadBitmap(File.DirAssets,"warning.png"))
 	popa.AddMenuItem(0,"Reload Stats",bd1)
 	popa.AddMenuItem(1,"Schließen",bd)
 	'########################################################################
@@ -126,18 +133,32 @@ Sub Activity_Create(FirstTime As Boolean)
 	build
 	store_check
 	c_start
-
+	t1_Tick
 End Sub
 
 Sub Activity_Resume 
+	t1.Enabled=True
 	build
 c_start
 store_check
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
-	'tim.Enabled=False
+	t1.Enabled=False
 End Sub
+
+
+
+
+Sub t1_Tick
+	count=count+1
+	If count = 100 Then 
+		Log("200")
+		ToastMessageShow("lade neue werte...",False)
+		c_start
+	End If		
+End Sub
+
 Sub cb1_Click
 	If Not (Panel3.Visible=True) Then
 		'Panel3.Visible=True	
@@ -153,6 +174,7 @@ Sub cb1_Click
 			'Panel3.Visible=False
 	End If
 End Sub
+
 Sub build
 	Dim lv As ListView
 	lv.Initialize("lv")
@@ -170,20 +192,22 @@ Sub build
 	lv.TwoLinesAndBitmap.ItemHeight=60dip
 	lv.Enabled=True
 	Panel3.AddView(lv,0dip,0dip,60%x,100%y)
-	lv.AddTwoLinesAndBitmap2("Reset C°","setzt alle Werte wieder auf 0 und löscht die Temperatur Ansicht",LoadBitmap(File.DirAssets,"ic_data_usage_black_48dp.png"),0) 
-	lv.AddTwoLinesAndBitmap2("Reset Level","setzt alle Werte wieder auf 0 und löscht die Batterie-Level Ansicht",LoadBitmap(File.DirAssets,"ic_battery_alert_black_48dp.png"),1) 
+	lv.AddTwoLinesAndBitmap2("Reset C°","setzt alle Werte wieder auf 0 und löscht die Temperatur Ansicht",LoadBitmap(File.DirAssets,"warning.png"),0) 
+	lv.AddTwoLinesAndBitmap2("Reset Level","setzt alle Werte wieder auf 0 und löscht die Batterie-Level Ansicht",LoadBitmap(File.DirAssets,"warning.png"),1) 
 	lv.AddTwoLinesAndBitmap2("OS Power","Android Power Menü",LoadBitmap(File.DirAssets,"Battery.png"),2)
-	lv.AddTwoLinesAndBitmap2("Close","zurück zum Hauptmenü",LoadBitmap(File.DirAssets,"ic_clear_black_48dp.png"),3)
+	lv.AddTwoLinesAndBitmap2("Close","zurück zum Hauptmenü",LoadBitmap(File.DirAssets,"multiply-1.png"),3)
 End Sub
 
 Sub lv_ItemClick (Position As Int, Value As Object)
 	Dim ipo As Intent
 	If Value=0 Then 
+		ProgressDialogShow("lade...")
 		ccl_click
 		cb1_Click
 		Activity.Invalidate
 	End If
 	If Value=1 Then 
+		ProgressDialogShow("lade...")
 		graph_clear
 		cb1_Click
 		Activity.Invalidate
@@ -212,16 +236,16 @@ Sub ccl_click
 	kvsvolt.DeleteAll
 	kvstemp.PutSimple(bat.BatteryInformation(6)/10,time2)
 	ToastMessageShow("warte auf Aktuelle werte..!",False)
-	chart_2
+	c_start
 	Activity.Invalidate
 End Sub
 
 Sub graph_clear
-	
+	ProgressDialogShow("lade...")
 	kvs2.DeleteAll
 	kvs2.PutSimple(bat.BatteryInformation(0),time2)
 	ToastMessageShow("warte auf Aktuelle werte..!",False)
-	chart_start
+	c_start
 	Activity.Invalidate
 End Sub
 
@@ -255,7 +279,7 @@ Sub chart_start
 	End If
 	
 	
-	For Each h As String  In kvs2.ListKeys 
+	For Each h Step 3 As String  In kvs2.ListKeys 
 		fg=h
 		fn=kvs2.GetSimple(h) 
 		Log("Map Key-> "&fg)
@@ -282,16 +306,16 @@ Sub chart_2
 		LD2.Initialize
 	End If
 	LD2.Target =Panel1
-	LD2.BarsWidth=10
+	'LD2.BarsWidth=10
 	'Charts.AddLineColor(LD, Colors.Red) 'First line color
 	
-	Charts.AddBarColor(LD2, mcl.md_lime_A200) 'Second line color
-	For Each h Step 4 As String  In kvstemp.ListKeys 
-		fg2=h
+	Charts.AddlineColor(LD2, mcl.md_light_blue_A700) 'Second line color
+	For Each h Step 3  As String  In kvstemp.ListKeys  
+		fg2=h  
 		fn2=kvstemp.GetSimple(h) 
 		Log("Bar Key-> "&h)
 		'Charts.AddBarPoint(BD, fn, Array As Float(fg))
-		Charts.AddBarPoint(LD2, fn2,Array As Float(fg2))
+		Charts.AddLinePoint(LD2, fn2,fg2,True)
 		'Charts.AddLineMultiplePoints(LD, fn, Array As Float(fg),True)
 	Next
 	g2.Title = "Temp. in C°"
@@ -302,7 +326,7 @@ Sub chart_2
 	g2.YInterval = 5
 	g2.AxisColor = Colors.White
 	'Charts.DrawBarsChart(G, BD, Colors.Transparent)
-	Charts.DrawBarsChart(g2, LD2, Colors.Transparent)
+	Charts.DrawLineChart(g2, LD2, Colors.Transparent)
 
 End Sub
 
@@ -326,16 +350,33 @@ Sub ACButton1_Click
 End Sub
 
  
-Sub dev_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
-	Dim vl As List 
-	vl.Initialize
-	For v = 0 To Scale Step 2
-		vl.Add(v) 
-	If level1=v Then 
-		store_check
-		'c_start
-		End If	
-	Next
+Sub device_BatteryChanged (level1 As Int, Scale As Int, Plugged As Boolean, Intent As Intent)
+'	Dim vl As List 
+'	vl.Initialize
+'	vl.Clear
+'	If kvs2.ListKeys.Size>6 Then
+'		kvsvolt.DeleteAll
+'		kvstemp.DeleteAll 
+'	End If
+'	If Plugged Then 
+'	For v = 0 To Scale Step 1
+'		vl.Add(v) 
+'	If level1=v Then 
+'		ProgressDialogHide
+'		store_check
+'		c_start
+'		End If	
+'	Next
+'	Else
+'		For v = 0 To Scale Step 1
+'			vl.Add(v)
+'			If level1=v Then
+'				ProgressDialogHide
+'				store_check
+'				c_start
+'			End If
+'		Next
+'	End If 
 	
 		
 End Sub
@@ -450,11 +491,6 @@ Sub store_check
 	End If
 	Activity.Invalidate
 End Sub
-
-Sub ACButton2_Click
-	ccl_click
-End Sub
-
 
 
 

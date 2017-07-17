@@ -138,20 +138,20 @@ public static anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper 
 public static anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper _ulow = null;
 public com.batcat.main _main = null;
 public com.batcat.klo _klo = null;
-public com.batcat.set2 _set2 = null;
 public com.batcat.settings _settings = null;
 public com.batcat.starter _starter = null;
 public com.batcat.webhost _webhost = null;
 public com.batcat.sys _sys = null;
 public com.batcat.cool _cool = null;
 public com.batcat.pman _pman = null;
-public com.batcat.setanimation _setanimation = null;
 public com.batcat.wait _wait = null;
-public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.charts _charts = null;
+public com.batcat.set2 _set2 = null;
+public com.batcat.datacount _datacount = null;
+public com.batcat.setanimation _setanimation = null;
+public com.batcat.xmlviewex _xmlviewex = null;
 public com.batcat.statemanager _statemanager = null;
 public com.batcat.dbutils _dbutils = null;
-public com.batcat.datacount _datacount = null;
 public static String  _bat_batterychanged(int _level,int _scale,boolean _plugged,anywheresoftware.b4a.objects.IntentWrapper _intent) throws Exception{
 String _temp = "";
  //BA.debugLineNum = 73;BA.debugLine="Sub bat_BatteryChanged (Level As Int, Scale As Int";
