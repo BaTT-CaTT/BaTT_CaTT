@@ -174,8 +174,8 @@ Sub device_BatteryChanged (Level As Int, Scale As Int, Plugged As Boolean, Inten
 		If Level =15  Then
 			sNotif.Icon="bat5"
 			sNotif.SetInfo(Level&" %",volt&" V | "&temp&"°C | ca: "&days&"d "&hours&"h "&minutes&"m",Main)
-			sNotif.Light=True
-			sNotif.Sound=True
+'			sNotif.Light=True
+'			sNotif.Sound=True
 			sNotif.Notify(1)
 		End If
 		If temp =50 Then

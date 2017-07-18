@@ -425,10 +425,6 @@ if (_level==15) {
 _snotif.setIcon("bat5");
  //BA.debugLineNum = 171;BA.debugLine="sNotif.SetInfo(Level&\" %\",volt&\" V | \"&temp&\"°C";
 _snotif.SetInfo(processBA,BA.NumberToString(_level)+" %",BA.NumberToString(_volt)+" V | "+BA.NumberToString(_temp)+"°C | ca: "+BA.NumberToString(_days)+"d "+BA.NumberToString(_hours)+"h "+BA.NumberToString(_minutes)+"m",(Object)(mostCurrent._main.getObject()));
- //BA.debugLineNum = 172;BA.debugLine="sNotif.Light=True";
-_snotif.setLight(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 173;BA.debugLine="sNotif.Sound=True";
-_snotif.setSound(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 174;BA.debugLine="sNotif.Notify(1)";
 _snotif.Notify((int) (1));
  };
