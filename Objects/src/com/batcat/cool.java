@@ -1,43 +1,5 @@
 package com.batcat;
 
-import android.view.*;
-import android.Manifest;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.TargetApi;
-import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationManager;
-import android.media.AudioManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.net.wifi.WifiManager;
-import android.os.BatteryManager;
-import android.os.Build;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.MotionEvent;
-import android.view.WindowManager;
-import android.webkit.WebView;
-import java.io.File;
-import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
 
 import anywheresoftware.b4a.B4AMenuItem;
 import android.app.Activity;
@@ -404,6 +366,7 @@ public static int _c16 = 0;
 public flm.b4a.cache.Cache _cat = null;
 public static String _dir1 = "";
 public anywheresoftware.b4a.objects.ListViewWrapper _lw2 = null;
+public anywheresoftware.b4a.objects.ListViewWrapper _lw3 = null;
 public anywheresoftware.b4a.objects.LabelWrapper _l1 = null;
 public anywheresoftware.b4a.objects.LabelWrapper _l2 = null;
 public anywheresoftware.b4a.objects.LabelWrapper _l3 = null;
@@ -437,6 +400,7 @@ public com.tchart.materialcolors.MaterialColors _mcl = null;
 public circleprogressmasterwrapper.donutProgressMasterWrapper _dpm1 = null;
 public static String _root1 = "";
 public flm.b4a.animationplus.AnimationPlusWrapper _anima = null;
+public anywheresoftware.b4a.objects.AnimationWrapper _ani = null;
 public com.maximussoft.msos.MSOS _xmsos = null;
 public b4a.example.osstats _xosstats = null;
 public anywheresoftware.b4a.objects.ListViewWrapper _listview1 = null;
@@ -471,385 +435,387 @@ public static void initializeProcessGlobals() {
 }
 public static String  _activity_create(boolean _firsttime) throws Exception{
 anywheresoftware.b4a.objects.LabelWrapper _secl = null;
- //BA.debugLineNum = 66;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 67;BA.debugLine="Activity.LoadLayout(\"5\")";
+ //BA.debugLineNum = 67;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 68;BA.debugLine="Activity.LoadLayout(\"5\")";
 mostCurrent._activity.LoadLayout("5",mostCurrent.activityBA);
- //BA.debugLineNum = 68;BA.debugLine="Activity.Title=pak.GetApplicationLabel(\"com.batca";
+ //BA.debugLineNum = 69;BA.debugLine="Activity.Title=pak.GetApplicationLabel(\"com.batca";
 mostCurrent._activity.setTitle(BA.ObjectToCharSequence(mostCurrent._pak.GetApplicationLabel("com.batcat")+" - "+mostCurrent._pak.GetVersionName("com.batcat")));
- //BA.debugLineNum = 69;BA.debugLine="op.Initialize(\"op\")";
+ //BA.debugLineNum = 70;BA.debugLine="op.Initialize(\"op\")";
 mostCurrent._op.Initialize(processBA,"op");
- //BA.debugLineNum = 70;BA.debugLine="catdel.initialize(\"catdel\")";
+ //BA.debugLineNum = 71;BA.debugLine="catdel.initialize(\"catdel\")";
 _catdel.initialize("catdel",processBA);
- //BA.debugLineNum = 71;BA.debugLine="list1.Initialize";
+ //BA.debugLineNum = 72;BA.debugLine="list1.Initialize";
 mostCurrent._list1.Initialize();
- //BA.debugLineNum = 72;BA.debugLine="list2.Initialize";
+ //BA.debugLineNum = 73;BA.debugLine="list2.Initialize";
 mostCurrent._list2.Initialize();
- //BA.debugLineNum = 73;BA.debugLine="l1.Initialize(\"l1\")";
+ //BA.debugLineNum = 74;BA.debugLine="l1.Initialize(\"l1\")";
 mostCurrent._l1.Initialize(mostCurrent.activityBA,"l1");
- //BA.debugLineNum = 74;BA.debugLine="l2.Initialize(\"l2\")";
+ //BA.debugLineNum = 75;BA.debugLine="l2.Initialize(\"l2\")";
 mostCurrent._l2.Initialize(mostCurrent.activityBA,"l2");
- //BA.debugLineNum = 75;BA.debugLine="l3.Initialize(\"l3\")";
+ //BA.debugLineNum = 76;BA.debugLine="l3.Initialize(\"l3\")";
 mostCurrent._l3.Initialize(mostCurrent.activityBA,"l3");
- //BA.debugLineNum = 76;BA.debugLine="list4.Initialize";
+ //BA.debugLineNum = 77;BA.debugLine="list4.Initialize";
 mostCurrent._list4.Initialize();
- //BA.debugLineNum = 77;BA.debugLine="list5.Initialize";
+ //BA.debugLineNum = 78;BA.debugLine="list5.Initialize";
 mostCurrent._list5.Initialize();
- //BA.debugLineNum = 78;BA.debugLine="list6.Initialize";
+ //BA.debugLineNum = 79;BA.debugLine="list6.Initialize";
 mostCurrent._list6.Initialize();
- //BA.debugLineNum = 79;BA.debugLine="list7.Initialize";
+ //BA.debugLineNum = 80;BA.debugLine="list7.Initialize";
 mostCurrent._list7.Initialize();
- //BA.debugLineNum = 80;BA.debugLine="list8.Initialize";
+ //BA.debugLineNum = 81;BA.debugLine="list8.Initialize";
 mostCurrent._list8.Initialize();
- //BA.debugLineNum = 81;BA.debugLine="list9.Initialize";
+ //BA.debugLineNum = 82;BA.debugLine="list9.Initialize";
 mostCurrent._list9.Initialize();
- //BA.debugLineNum = 82;BA.debugLine="list10.Initialize";
+ //BA.debugLineNum = 83;BA.debugLine="list10.Initialize";
 mostCurrent._list10.Initialize();
- //BA.debugLineNum = 83;BA.debugLine="apklist.Initialize";
+ //BA.debugLineNum = 84;BA.debugLine="apklist.Initialize";
 mostCurrent._apklist.Initialize();
- //BA.debugLineNum = 84;BA.debugLine="trash.Initialize";
+ //BA.debugLineNum = 85;BA.debugLine="trash.Initialize";
 mostCurrent._trash.Initialize();
- //BA.debugLineNum = 85;BA.debugLine="catlist.Initialize";
+ //BA.debugLineNum = 86;BA.debugLine="catlist.Initialize";
 mostCurrent._catlist.Initialize();
- //BA.debugLineNum = 86;BA.debugLine="ph.Initialize(\"ph\")";
+ //BA.debugLineNum = 87;BA.debugLine="ph.Initialize(\"ph\")";
 mostCurrent._ph.Initialize(processBA,"ph");
- //BA.debugLineNum = 87;BA.debugLine="l1.Initialize(\"l1\")";
+ //BA.debugLineNum = 88;BA.debugLine="l1.Initialize(\"l1\")";
 mostCurrent._l1.Initialize(mostCurrent.activityBA,"l1");
- //BA.debugLineNum = 88;BA.debugLine="l2.Initialize(\"l2\")";
+ //BA.debugLineNum = 89;BA.debugLine="l2.Initialize(\"l2\")";
 mostCurrent._l2.Initialize(mostCurrent.activityBA,"l2");
- //BA.debugLineNum = 89;BA.debugLine="diapan.Initialize(\"diapan\")";
+ //BA.debugLineNum = 90;BA.debugLine="diapan.Initialize(\"diapan\")";
 mostCurrent._diapan.Initialize(mostCurrent.activityBA,"diapan");
- //BA.debugLineNum = 90;BA.debugLine="dial.Initialize(\"dial\")";
+ //BA.debugLineNum = 91;BA.debugLine="dial.Initialize(\"dial\")";
 mostCurrent._dial.Initialize(mostCurrent.activityBA,"dial");
- //BA.debugLineNum = 91;BA.debugLine="dill.Initialize";
+ //BA.debugLineNum = 92;BA.debugLine="dill.Initialize";
 mostCurrent._dill.Initialize();
- //BA.debugLineNum = 92;BA.debugLine="lw2.Initialize(\"lw2\")";
+ //BA.debugLineNum = 93;BA.debugLine="lw2.Initialize(\"lw2\")";
 mostCurrent._lw2.Initialize(mostCurrent.activityBA,"lw2");
- //BA.debugLineNum = 93;BA.debugLine="ffiles.Initialize";
-mostCurrent._ffiles.Initialize();
- //BA.debugLineNum = 94;BA.debugLine="ph.Initialize(\"ph\")";
-mostCurrent._ph.Initialize(processBA,"ph");
+ //BA.debugLineNum = 94;BA.debugLine="lw3.Initialize(\"lw3\")";
+mostCurrent._lw3.Initialize(mostCurrent.activityBA,"lw3");
  //BA.debugLineNum = 95;BA.debugLine="ffiles.Initialize";
 mostCurrent._ffiles.Initialize();
- //BA.debugLineNum = 96;BA.debugLine="ffolders.Initialize";
+ //BA.debugLineNum = 96;BA.debugLine="ph.Initialize(\"ph\")";
+mostCurrent._ph.Initialize(processBA,"ph");
+ //BA.debugLineNum = 97;BA.debugLine="ffiles.Initialize";
+mostCurrent._ffiles.Initialize();
+ //BA.debugLineNum = 98;BA.debugLine="ffolders.Initialize";
 mostCurrent._ffolders.Initialize();
- //BA.debugLineNum = 97;BA.debugLine="xOSStats.Initialize(400, 50, Me, \"myStats\")";
+ //BA.debugLineNum = 99;BA.debugLine="xOSStats.Initialize(400, 50, Me, \"myStats\")";
 mostCurrent._xosstats._initialize(mostCurrent.activityBA,(int) (400),(int) (50),cool.getObject(),"myStats");
- //BA.debugLineNum = 98;BA.debugLine="kvs4sub.Initialize(File.DirDefaultExternal, \"data";
+ //BA.debugLineNum = 100;BA.debugLine="kvs4sub.Initialize(File.DirDefaultExternal, \"data";
 mostCurrent._kvs4sub._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_sub_4");
- //BA.debugLineNum = 99;BA.debugLine="kvs4.Initialize(File.DirDefaultExternal, \"datasto";
+ //BA.debugLineNum = 101;BA.debugLine="kvs4.Initialize(File.DirDefaultExternal, \"datasto";
 mostCurrent._kvs4._initialize(processBA,anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"datastore_4");
- //BA.debugLineNum = 100;BA.debugLine="If FirstTime Then";
+ //BA.debugLineNum = 102;BA.debugLine="If FirstTime Then";
 if (_firsttime) { 
- //BA.debugLineNum = 101;BA.debugLine="Activity.Color=c10";
+ //BA.debugLineNum = 103;BA.debugLine="Activity.Color=c10";
 mostCurrent._activity.setColor(_c10);
- //BA.debugLineNum = 102;BA.debugLine="If File.Exists(File.DirDefaultExternal&\"/mnt/cac";
+ //BA.debugLineNum = 104;BA.debugLine="If File.Exists(File.DirDefaultExternal&\"/mnt/cac";
 if (anywheresoftware.b4a.keywords.Common.File.Exists(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","cdata.txt")) { 
- //BA.debugLineNum = 104;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/ca";
+ //BA.debugLineNum = 106;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/ca";
 anywheresoftware.b4a.keywords.Common.File.WriteList(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","sv.txt",mostCurrent._list4);
- //BA.debugLineNum = 105;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/ca";
+ //BA.debugLineNum = 107;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/ca";
 anywheresoftware.b4a.keywords.Common.File.WriteList(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","fn.txt",mostCurrent._list1);
  }else {
- //BA.debugLineNum = 108;BA.debugLine="File.MakeDir(File.DirDefaultExternal, \"mnt/cache\"";
+ //BA.debugLineNum = 110;BA.debugLine="File.MakeDir(File.DirDefaultExternal, \"mnt/cache\"";
 anywheresoftware.b4a.keywords.Common.File.MakeDir(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"mnt/cache");
- //BA.debugLineNum = 109;BA.debugLine="File.MakeDir(File.DirDefaultExternal, \"mnt/cache/";
+ //BA.debugLineNum = 111;BA.debugLine="File.MakeDir(File.DirDefaultExternal, \"mnt/cache/";
 anywheresoftware.b4a.keywords.Common.File.MakeDir(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal(),"mnt/cache/store");
- //BA.debugLineNum = 110;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/cach";
+ //BA.debugLineNum = 112;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/cach";
 anywheresoftware.b4a.keywords.Common.File.WriteList(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","sv.txt",mostCurrent._list4);
- //BA.debugLineNum = 111;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/cach";
+ //BA.debugLineNum = 113;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/cach";
 anywheresoftware.b4a.keywords.Common.File.WriteList(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","fn.txt",mostCurrent._list1);
- //BA.debugLineNum = 112;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/cac";
+ //BA.debugLineNum = 114;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/cac";
 anywheresoftware.b4a.keywords.Common.File.WriteList(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","cdata.txt",mostCurrent._catlist);
- //BA.debugLineNum = 113;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/";
+ //BA.debugLineNum = 115;BA.debugLine="File.WriteString(File.DirDefaultExternal&\"/mnt/";
 anywheresoftware.b4a.keywords.Common.File.WriteString(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","cclist.txt","");
- //BA.debugLineNum = 114;BA.debugLine="ToastMessageShow(\"Files ready! \"&date&\", \"&time,F";
+ //BA.debugLineNum = 116;BA.debugLine="ToastMessageShow(\"Files ready! \"&date&\", \"&time,F";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Files ready! "+mostCurrent._date+", "+mostCurrent._time),anywheresoftware.b4a.keywords.Common.False);
  };
  }else {
  };
- //BA.debugLineNum = 120;BA.debugLine="t1.Initialize(\"t1\",1000)";
+ //BA.debugLineNum = 122;BA.debugLine="t1.Initialize(\"t1\",1000)";
 _t1.Initialize(processBA,"t1",(long) (1000));
- //BA.debugLineNum = 121;BA.debugLine="t1.Enabled=False";
+ //BA.debugLineNum = 123;BA.debugLine="t1.Enabled=False";
 _t1.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 123;BA.debugLine="ffolders.Initialize";
+ //BA.debugLineNum = 125;BA.debugLine="ffolders.Initialize";
 mostCurrent._ffolders.Initialize();
- //BA.debugLineNum = 124;BA.debugLine="dial.TextSize=15";
+ //BA.debugLineNum = 126;BA.debugLine="dial.TextSize=15";
 mostCurrent._dial.setTextSize((float) (15));
- //BA.debugLineNum = 125;BA.debugLine="dial.TextColor=Colors.White";
+ //BA.debugLineNum = 127;BA.debugLine="dial.TextColor=Colors.White";
 mostCurrent._dial.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.White);
- //BA.debugLineNum = 126;BA.debugLine="dialog.AddView(diapan,350,350)";
+ //BA.debugLineNum = 128;BA.debugLine="dialog.AddView(diapan,350,350)";
 mostCurrent._dialog.AddView((android.view.View)(mostCurrent._diapan.getObject()),(int) (350),(int) (350));
- //BA.debugLineNum = 127;BA.debugLine="diapan.AddView(lw2,3,3,-1,-1)";
+ //BA.debugLineNum = 129;BA.debugLine="diapan.AddView(lw2,3,3,-1,-1)";
 mostCurrent._diapan.AddView((android.view.View)(mostCurrent._lw2.getObject()),(int) (3),(int) (3),(int) (-1),(int) (-1));
- //BA.debugLineNum = 130;BA.debugLine="paths = storage.Initialize";
+ //BA.debugLineNum = 132;BA.debugLine="paths = storage.Initialize";
 mostCurrent._paths = mostCurrent._storage.Initialize();
- //BA.debugLineNum = 131;BA.debugLine="nativeMe.InitializeContext";
+ //BA.debugLineNum = 133;BA.debugLine="nativeMe.InitializeContext";
 mostCurrent._nativeme.InitializeContext(processBA);
- //BA.debugLineNum = 133;BA.debugLine="c1=mcl.md_light_blue_A400";
+ //BA.debugLineNum = 135;BA.debugLine="c1=mcl.md_light_blue_A400";
 _c1 = mostCurrent._mcl.getmd_light_blue_A400();
- //BA.debugLineNum = 134;BA.debugLine="c2=mcl.md_amber_A400";
+ //BA.debugLineNum = 136;BA.debugLine="c2=mcl.md_amber_A400";
 _c2 = mostCurrent._mcl.getmd_amber_A400();
- //BA.debugLineNum = 135;BA.debugLine="c3=mcl.md_white_1000";
+ //BA.debugLineNum = 137;BA.debugLine="c3=mcl.md_white_1000";
 _c3 = mostCurrent._mcl.getmd_white_1000();
- //BA.debugLineNum = 136;BA.debugLine="c4=mcl.md_teal_A400";
+ //BA.debugLineNum = 138;BA.debugLine="c4=mcl.md_teal_A400";
 _c4 = mostCurrent._mcl.getmd_teal_A400();
- //BA.debugLineNum = 137;BA.debugLine="c5=mcl.md_deep_purple_A400";
+ //BA.debugLineNum = 139;BA.debugLine="c5=mcl.md_deep_purple_A400";
 _c5 = mostCurrent._mcl.getmd_deep_purple_A400();
- //BA.debugLineNum = 138;BA.debugLine="c6=mcl.md_red_A700";
+ //BA.debugLineNum = 140;BA.debugLine="c6=mcl.md_red_A700";
 _c6 = mostCurrent._mcl.getmd_red_A700();
- //BA.debugLineNum = 139;BA.debugLine="c7=mcl.md_indigo_A400";
+ //BA.debugLineNum = 141;BA.debugLine="c7=mcl.md_indigo_A400";
 _c7 = mostCurrent._mcl.getmd_indigo_A400();
- //BA.debugLineNum = 140;BA.debugLine="c8=mcl.md_blue_A400";
+ //BA.debugLineNum = 142;BA.debugLine="c8=mcl.md_blue_A400";
 _c8 = mostCurrent._mcl.getmd_blue_A400();
- //BA.debugLineNum = 141;BA.debugLine="c9=mcl.md_orange_A700";
+ //BA.debugLineNum = 143;BA.debugLine="c9=mcl.md_orange_A700";
 _c9 = mostCurrent._mcl.getmd_orange_A700();
- //BA.debugLineNum = 142;BA.debugLine="c10=mcl.md_grey_600";
+ //BA.debugLineNum = 144;BA.debugLine="c10=mcl.md_grey_600";
 _c10 = mostCurrent._mcl.getmd_grey_600();
- //BA.debugLineNum = 143;BA.debugLine="c11=mcl.md_green_A400";
+ //BA.debugLineNum = 145;BA.debugLine="c11=mcl.md_green_A400";
 _c11 = mostCurrent._mcl.getmd_green_A400();
- //BA.debugLineNum = 144;BA.debugLine="c12=mcl.md_black_1000";
+ //BA.debugLineNum = 146;BA.debugLine="c12=mcl.md_black_1000";
 _c12 = mostCurrent._mcl.getmd_black_1000();
- //BA.debugLineNum = 145;BA.debugLine="c13=mcl.md_light_green_A400";
+ //BA.debugLineNum = 147;BA.debugLine="c13=mcl.md_light_green_A400";
 _c13 = mostCurrent._mcl.getmd_light_green_A400();
- //BA.debugLineNum = 146;BA.debugLine="c14=mcl.md_cyan_A400";
+ //BA.debugLineNum = 148;BA.debugLine="c14=mcl.md_cyan_A400";
 _c14 = mostCurrent._mcl.getmd_cyan_A400();
- //BA.debugLineNum = 147;BA.debugLine="c15=mcl.md_blue_grey_400";
+ //BA.debugLineNum = 149;BA.debugLine="c15=mcl.md_blue_grey_400";
 _c15 = mostCurrent._mcl.getmd_blue_grey_400();
- //BA.debugLineNum = 148;BA.debugLine="c16=mcl.md_light_blue_A400";
+ //BA.debugLineNum = 150;BA.debugLine="c16=mcl.md_light_blue_A400";
 _c16 = mostCurrent._mcl.getmd_light_blue_A400();
- //BA.debugLineNum = 150;BA.debugLine="Panel2.Visible=False";
+ //BA.debugLineNum = 153;BA.debugLine="ani.InitializeTranslate(\"ani\",0,1,5,9)";
+mostCurrent._ani.InitializeTranslate(mostCurrent.activityBA,"ani",(float) (0),(float) (1),(float) (5),(float) (9));
+ //BA.debugLineNum = 156;BA.debugLine="Panel2.Visible=False";
 mostCurrent._panel2.setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 153;BA.debugLine="ffil.Initialize";
+ //BA.debugLineNum = 159;BA.debugLine="ffil.Initialize";
 mostCurrent._ffil.Initialize();
- //BA.debugLineNum = 154;BA.debugLine="ffold.Initialize";
+ //BA.debugLineNum = 160;BA.debugLine="ffold.Initialize";
 mostCurrent._ffold.Initialize();
- //BA.debugLineNum = 155;BA.debugLine="Activity.Color=mcl.md_white_1000";
+ //BA.debugLineNum = 161;BA.debugLine="Activity.Color=mcl.md_white_1000";
 mostCurrent._activity.setColor(mostCurrent._mcl.getmd_white_1000());
- //BA.debugLineNum = 156;BA.debugLine="ImageView1.BringToFront";
+ //BA.debugLineNum = 162;BA.debugLine="ImageView1.BringToFront";
 mostCurrent._imageview1.BringToFront();
- //BA.debugLineNum = 157;BA.debugLine="Dim secl As Label = ListView1.TwoLinesAndBitmap.S";
+ //BA.debugLineNum = 163;BA.debugLine="Dim secl As Label = ListView1.TwoLinesAndBitmap.S";
 _secl = new anywheresoftware.b4a.objects.LabelWrapper();
 _secl = mostCurrent._listview1.getTwoLinesAndBitmap().SecondLabel;
- //BA.debugLineNum = 158;BA.debugLine="l1=ListView1.TwoLinesAndBitmap.Label";
+ //BA.debugLineNum = 164;BA.debugLine="l1=ListView1.TwoLinesAndBitmap.Label";
 mostCurrent._l1 = mostCurrent._listview1.getTwoLinesAndBitmap().Label;
- //BA.debugLineNum = 159;BA.debugLine="l1.TextSize=15";
+ //BA.debugLineNum = 165;BA.debugLine="l1.TextSize=15";
 mostCurrent._l1.setTextSize((float) (15));
- //BA.debugLineNum = 160;BA.debugLine="secl.TextSize=12";
+ //BA.debugLineNum = 166;BA.debugLine="secl.TextSize=12";
 _secl.setTextSize((float) (12));
- //BA.debugLineNum = 161;BA.debugLine="l1.TextColor=mcl.md_blue_400";
+ //BA.debugLineNum = 167;BA.debugLine="l1.TextColor=mcl.md_blue_400";
 mostCurrent._l1.setTextColor(mostCurrent._mcl.getmd_blue_400());
- //BA.debugLineNum = 162;BA.debugLine="secl.TextColor=mcl.md_black_1000";
+ //BA.debugLineNum = 168;BA.debugLine="secl.TextColor=mcl.md_black_1000";
 _secl.setTextColor(mostCurrent._mcl.getmd_black_1000());
- //BA.debugLineNum = 163;BA.debugLine="GetDeviceId";
+ //BA.debugLineNum = 169;BA.debugLine="GetDeviceId";
 _getdeviceid();
- //BA.debugLineNum = 164;BA.debugLine="store_check";
+ //BA.debugLineNum = 170;BA.debugLine="store_check";
 _store_check();
- //BA.debugLineNum = 165;BA.debugLine="t1.Enabled=False";
+ //BA.debugLineNum = 171;BA.debugLine="t1.Enabled=False";
 _t1.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 166;BA.debugLine="c_start";
-_c_start();
- //BA.debugLineNum = 167;BA.debugLine="ListView1.SetSelection(-1)";
-mostCurrent._listview1.SetSelection((int) (-1));
- //BA.debugLineNum = 168;BA.debugLine="lvg.startAnim";
-mostCurrent._lvg.startAnim();
- //BA.debugLineNum = 170;BA.debugLine="catdel.ScanCache";
-_catdel.ScanCache();
- //BA.debugLineNum = 171;BA.debugLine="End Sub";
+ //BA.debugLineNum = 172;BA.debugLine="cat_start";
+_cat_start();
+ //BA.debugLineNum = 173;BA.debugLine="s_scan";
+_s_scan();
+ //BA.debugLineNum = 174;BA.debugLine="End Sub";
 return "";
 }
 public static boolean  _activity_keypress(int _keycode) throws Exception{
- //BA.debugLineNum = 186;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
- //BA.debugLineNum = 187;BA.debugLine="If KeyCode=KeyCodes.KEYCODE_BACK Then";
+ //BA.debugLineNum = 192;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
+ //BA.debugLineNum = 193;BA.debugLine="If KeyCode=KeyCodes.KEYCODE_BACK Then";
 if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) { 
- //BA.debugLineNum = 188;BA.debugLine="SetAnimation.setanimati(\"extra_in\", \"extra_out\")";
+ //BA.debugLineNum = 194;BA.debugLine="Activity.Finish";
+mostCurrent._activity.Finish();
+ //BA.debugLineNum = 195;BA.debugLine="SetAnimation.setanimati(\"extra_in\", \"extra_out\")";
 mostCurrent._setanimation._setanimati(mostCurrent.activityBA,"extra_in","extra_out");
  };
- //BA.debugLineNum = 190;BA.debugLine="Return(True)";
-if (true) return (anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 191;BA.debugLine="End Sub";
+ //BA.debugLineNum = 197;BA.debugLine="Return True";
+if (true) return anywheresoftware.b4a.keywords.Common.True;
+ //BA.debugLineNum = 198;BA.debugLine="End Sub";
 return false;
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 181;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 182;BA.debugLine="xOSStats.EndStats";
+ //BA.debugLineNum = 186;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 187;BA.debugLine="xOSStats.EndStats";
 mostCurrent._xosstats._endstats();
- //BA.debugLineNum = 183;BA.debugLine="Activity.Finish";
+ //BA.debugLineNum = 188;BA.debugLine="anima.Stop(ImageView1)";
+mostCurrent._anima.Stop((android.view.View)(mostCurrent._imageview1.getObject()));
+ //BA.debugLineNum = 189;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
- //BA.debugLineNum = 184;BA.debugLine="End Sub";
+ //BA.debugLineNum = 190;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 173;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 174;BA.debugLine="store_check";
+ //BA.debugLineNum = 176;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 177;BA.debugLine="anima.InitializeRotateCenter(\"anima\",1,3,ImageVie";
+mostCurrent._anima.InitializeRotateCenter(mostCurrent.activityBA,"anima",(float) (1),(float) (3),(android.view.View)(mostCurrent._imageview1.getObject()));
+ //BA.debugLineNum = 178;BA.debugLine="anima.RepeatMode=anima.REPEAT_INFINITE";
+mostCurrent._anima.setRepeatMode(mostCurrent._anima.REPEAT_INFINITE);
+ //BA.debugLineNum = 179;BA.debugLine="anima.SetInterpolator(anima.INTERPOLATOR_BOUNCE)";
+mostCurrent._anima.SetInterpolator(mostCurrent._anima.INTERPOLATOR_BOUNCE);
+ //BA.debugLineNum = 180;BA.debugLine="store_check";
 _store_check();
- //BA.debugLineNum = 175;BA.debugLine="t1.Enabled=False";
-_t1.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 177;BA.debugLine="xOSStats.StartStats";
+ //BA.debugLineNum = 181;BA.debugLine="xOSStats.StartStats";
 mostCurrent._xosstats._startstats();
- //BA.debugLineNum = 178;BA.debugLine="c_start";
-_c_start();
- //BA.debugLineNum = 179;BA.debugLine="End Sub";
+ //BA.debugLineNum = 182;BA.debugLine="cat_start";
+_cat_start();
+ //BA.debugLineNum = 183;BA.debugLine="s_scan";
+_s_scan();
+ //BA.debugLineNum = 184;BA.debugLine="End Sub";
 return "";
 }
 public static String  _app_info() throws Exception{
 int _i = 0;
- //BA.debugLineNum = 606;BA.debugLine="Sub app_info";
- //BA.debugLineNum = 608;BA.debugLine="list1=pak.GetInstalledPackages";
+ //BA.debugLineNum = 590;BA.debugLine="Sub app_info";
+ //BA.debugLineNum = 592;BA.debugLine="list1=pak.GetInstalledPackages";
 mostCurrent._list1 = mostCurrent._pak.GetInstalledPackages();
- //BA.debugLineNum = 610;BA.debugLine="Obj1.Target = Obj1.GetContext";
+ //BA.debugLineNum = 594;BA.debugLine="Obj1.Target = Obj1.GetContext";
 mostCurrent._obj1.Target = (Object)(mostCurrent._obj1.GetContext(processBA));
- //BA.debugLineNum = 611;BA.debugLine="Obj1.Target = Obj1.RunMethod(\"getPackageManager\")";
+ //BA.debugLineNum = 595;BA.debugLine="Obj1.Target = Obj1.RunMethod(\"getPackageManager\")";
 mostCurrent._obj1.Target = mostCurrent._obj1.RunMethod("getPackageManager");
- //BA.debugLineNum = 612;BA.debugLine="Obj2.Target = Obj1.RunMethod2(\"getInstalledPackag";
+ //BA.debugLineNum = 596;BA.debugLine="Obj2.Target = Obj1.RunMethod2(\"getInstalledPackag";
 mostCurrent._obj2.Target = mostCurrent._obj1.RunMethod2("getInstalledPackages",BA.NumberToString(0),"java.lang.int");
- //BA.debugLineNum = 613;BA.debugLine="size = Obj2.RunMethod(\"size\")";
+ //BA.debugLineNum = 597;BA.debugLine="size = Obj2.RunMethod(\"size\")";
 _size = (int)(BA.ObjectToNumber(mostCurrent._obj2.RunMethod("size")));
- //BA.debugLineNum = 615;BA.debugLine="For i = 0 To size -1";
+ //BA.debugLineNum = 599;BA.debugLine="For i = 0 To size -1";
 {
 final int step6 = 1;
 final int limit6 = (int) (_size-1);
 for (_i = (int) (0) ; (step6 > 0 && _i <= limit6) || (step6 < 0 && _i >= limit6); _i = ((int)(0 + _i + step6)) ) {
- //BA.debugLineNum = 616;BA.debugLine="Obj3.Target = Obj2.RunMethod2(\"get\", i, \"java.la";
+ //BA.debugLineNum = 600;BA.debugLine="Obj3.Target = Obj2.RunMethod2(\"get\", i, \"java.la";
 mostCurrent._obj3.Target = mostCurrent._obj2.RunMethod2("get",BA.NumberToString(_i),"java.lang.int");
- //BA.debugLineNum = 617;BA.debugLine="size = Obj2.RunMethod(\"size\")";
+ //BA.debugLineNum = 601;BA.debugLine="size = Obj2.RunMethod(\"size\")";
 _size = (int)(BA.ObjectToNumber(mostCurrent._obj2.RunMethod("size")));
- //BA.debugLineNum = 619;BA.debugLine="Obj3.Target = Obj3.GetField(\"applicationInfo\") '";
+ //BA.debugLineNum = 603;BA.debugLine="Obj3.Target = Obj3.GetField(\"applicationInfo\") '";
 mostCurrent._obj3.Target = mostCurrent._obj3.GetField("applicationInfo");
- //BA.debugLineNum = 620;BA.debugLine="flags = Obj3.GetField(\"flags\")";
+ //BA.debugLineNum = 604;BA.debugLine="flags = Obj3.GetField(\"flags\")";
 _flags = (int)(BA.ObjectToNumber(mostCurrent._obj3.GetField("flags")));
- //BA.debugLineNum = 621;BA.debugLine="packName = Obj3.GetField(\"packageName\")";
+ //BA.debugLineNum = 605;BA.debugLine="packName = Obj3.GetField(\"packageName\")";
 mostCurrent._packname = BA.ObjectToString(mostCurrent._obj3.GetField("packageName"));
- //BA.debugLineNum = 623;BA.debugLine="If Bit.And(flags, 1)  = 0 Then";
+ //BA.debugLineNum = 607;BA.debugLine="If Bit.And(flags, 1)  = 0 Then";
 if (anywheresoftware.b4a.keywords.Common.Bit.And(_flags,(int) (1))==0) { 
- //BA.debugLineNum = 626;BA.debugLine="args(0) = Obj3.Target";
+ //BA.debugLineNum = 610;BA.debugLine="args(0) = Obj3.Target";
 mostCurrent._args[(int) (0)] = mostCurrent._obj3.Target;
- //BA.debugLineNum = 627;BA.debugLine="Types(0) = \"android.content.pm.ApplicationInfo\"";
+ //BA.debugLineNum = 611;BA.debugLine="Types(0) = \"android.content.pm.ApplicationInfo\"";
 mostCurrent._types[(int) (0)] = "android.content.pm.ApplicationInfo";
- //BA.debugLineNum = 628;BA.debugLine="name = Obj1.RunMethod4(\"getApplicationLabel\", a";
+ //BA.debugLineNum = 612;BA.debugLine="name = Obj1.RunMethod4(\"getApplicationLabel\", a";
 mostCurrent._name = BA.ObjectToString(mostCurrent._obj1.RunMethod4("getApplicationLabel",mostCurrent._args,mostCurrent._types));
- //BA.debugLineNum = 629;BA.debugLine="icon = Obj1.RunMethod4(\"getApplicationIcon\", ar";
+ //BA.debugLineNum = 613;BA.debugLine="icon = Obj1.RunMethod4(\"getApplicationIcon\", ar";
 mostCurrent._icon.setObject((android.graphics.drawable.BitmapDrawable)(mostCurrent._obj1.RunMethod4("getApplicationIcon",mostCurrent._args,mostCurrent._types)));
  };
  }
 };
- //BA.debugLineNum = 636;BA.debugLine="End Sub";
+ //BA.debugLineNum = 620;BA.debugLine="End Sub";
 return "";
 }
 public static Object  _byte_to_object(byte[] _data) throws Exception{
 anywheresoftware.b4a.randomaccessfile.B4XSerializator _ser = null;
- //BA.debugLineNum = 643;BA.debugLine="Sub byte_to_object(data() As Byte)As Object";
- //BA.debugLineNum = 644;BA.debugLine="Dim ser As B4XSerializator";
+ //BA.debugLineNum = 675;BA.debugLine="Sub byte_to_object(data() As Byte)As Object";
+ //BA.debugLineNum = 676;BA.debugLine="Dim ser As B4XSerializator";
 _ser = new anywheresoftware.b4a.randomaccessfile.B4XSerializator();
- //BA.debugLineNum = 645;BA.debugLine="Return ser.ConvertBytesToObject(data)";
+ //BA.debugLineNum = 677;BA.debugLine="Return ser.ConvertBytesToObject(data)";
 if (true) return _ser.ConvertBytesToObject(_data);
- //BA.debugLineNum = 646;BA.debugLine="End Sub";
+ //BA.debugLineNum = 678;BA.debugLine="End Sub";
 return null;
 }
 public static String  _c_start() throws Exception{
- //BA.debugLineNum = 289;BA.debugLine="Sub c_start";
- //BA.debugLineNum = 290;BA.debugLine="catdel.ScanCache";
-_catdel.ScanCache();
- //BA.debugLineNum = 291;BA.debugLine="ListView1.SetSelection(-1)";
-mostCurrent._listview1.SetSelection((int) (-1));
- //BA.debugLineNum = 292;BA.debugLine="app_info";
+ //BA.debugLineNum = 323;BA.debugLine="Sub c_start";
+ //BA.debugLineNum = 324;BA.debugLine="app_info";
 _app_info();
- //BA.debugLineNum = 293;BA.debugLine="catlist.Clear";
+ //BA.debugLineNum = 325;BA.debugLine="catlist.Clear";
 mostCurrent._catlist.Clear();
- //BA.debugLineNum = 294;BA.debugLine="dill.Clear";
+ //BA.debugLineNum = 326;BA.debugLine="dill.Clear";
 mostCurrent._dill.Clear();
- //BA.debugLineNum = 295;BA.debugLine="list2.Clear";
+ //BA.debugLineNum = 327;BA.debugLine="list2.Clear";
 mostCurrent._list2.Clear();
- //BA.debugLineNum = 296;BA.debugLine="list4.Clear";
+ //BA.debugLineNum = 328;BA.debugLine="list4.Clear";
 mostCurrent._list4.Clear();
- //BA.debugLineNum = 297;BA.debugLine="list7.Clear";
+ //BA.debugLineNum = 329;BA.debugLine="list7.Clear";
 mostCurrent._list7.Clear();
- //BA.debugLineNum = 298;BA.debugLine="apklist.Clear";
+ //BA.debugLineNum = 330;BA.debugLine="apklist.Clear";
 mostCurrent._apklist.Clear();
- //BA.debugLineNum = 300;BA.debugLine="list2=op.RunningTaskInfo(99,list8,list9,list10)";
+ //BA.debugLineNum = 332;BA.debugLine="list2=op.RunningTaskInfo(99,list8,list9,list10)";
 mostCurrent._list2.setObject((java.util.List)(mostCurrent._op.RunningTaskInfo((int) (99),(java.util.List)(mostCurrent._list8.getObject()),(java.util.List)(mostCurrent._list9.getObject()),(java.util.List)(mostCurrent._list10.getObject()))));
- //BA.debugLineNum = 301;BA.debugLine="cat_start";
-_cat_start();
- //BA.debugLineNum = 302;BA.debugLine="Return";
+ //BA.debugLineNum = 333;BA.debugLine="Return";
 if (true) return "";
- //BA.debugLineNum = 303;BA.debugLine="End Sub";
+ //BA.debugLineNum = 334;BA.debugLine="End Sub";
 return "";
 }
 public static long  _calcsize(String _folder,boolean _recursive) throws Exception{
 long _size1 = 0L;
 String _f = "";
- //BA.debugLineNum = 661;BA.debugLine="Sub CalcSize(Folder As String, recursive As Boolea";
- //BA.debugLineNum = 662;BA.debugLine="Dim size1 As Long";
+ //BA.debugLineNum = 680;BA.debugLine="Sub CalcSize(Folder As String, recursive As Boolea";
+ //BA.debugLineNum = 681;BA.debugLine="Dim size1 As Long";
 _size1 = 0L;
- //BA.debugLineNum = 663;BA.debugLine="For Each f As String In File.ListFiles(Folder)";
+ //BA.debugLineNum = 682;BA.debugLine="For Each f As String In File.ListFiles(Folder)";
 final anywheresoftware.b4a.BA.IterableList group2 = anywheresoftware.b4a.keywords.Common.File.ListFiles(_folder);
 final int groupLen2 = group2.getSize();
 for (int index2 = 0;index2 < groupLen2 ;index2++){
 _f = BA.ObjectToString(group2.Get(index2));
- //BA.debugLineNum = 664;BA.debugLine="If recursive Then";
+ //BA.debugLineNum = 683;BA.debugLine="If recursive Then";
 if (_recursive) { 
- //BA.debugLineNum = 665;BA.debugLine="If File.IsDirectory(Folder, f) Then";
+ //BA.debugLineNum = 684;BA.debugLine="If File.IsDirectory(Folder, f) Then";
 if (anywheresoftware.b4a.keywords.Common.File.IsDirectory(_folder,_f)) { 
- //BA.debugLineNum = 666;BA.debugLine="size1 = size1 + CalcSize(File.Combine(Folder,";
+ //BA.debugLineNum = 685;BA.debugLine="size1 = size1 + CalcSize(File.Combine(Folder,";
 _size1 = (long) (_size1+_calcsize(anywheresoftware.b4a.keywords.Common.File.Combine(_folder,_f),_recursive));
  };
  };
- //BA.debugLineNum = 669;BA.debugLine="size1 = size1 + File.Size(Folder, f)";
+ //BA.debugLineNum = 688;BA.debugLine="size1 = size1 + File.Size(Folder, f)";
 _size1 = (long) (_size1+anywheresoftware.b4a.keywords.Common.File.Size(_folder,_f));
  }
 ;
- //BA.debugLineNum = 671;BA.debugLine="Return size1";
+ //BA.debugLineNum = 690;BA.debugLine="Return size1";
 if (true) return _size1;
- //BA.debugLineNum = 672;BA.debugLine="End Sub";
+ //BA.debugLineNum = 691;BA.debugLine="End Sub";
 return 0L;
 }
 public static String  _cat_start() throws Exception{
- //BA.debugLineNum = 419;BA.debugLine="Sub cat_start";
- //BA.debugLineNum = 420;BA.debugLine="dpm1.TextColor=Colors.White";
+ //BA.debugLineNum = 199;BA.debugLine="Sub cat_start";
+ //BA.debugLineNum = 200;BA.debugLine="dpm1.TextColor=Colors.White";
 mostCurrent._dpm1.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.White);
- //BA.debugLineNum = 421;BA.debugLine="dpm1.Color=Colors.Transparent";
+ //BA.debugLineNum = 201;BA.debugLine="dpm1.Color=Colors.Transparent";
 mostCurrent._dpm1.setColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
- //BA.debugLineNum = 422;BA.debugLine="dpm1.FinishedStrokeColor= mcl.md_light_blue_700";
+ //BA.debugLineNum = 202;BA.debugLine="dpm1.FinishedStrokeColor= mcl.md_light_blue_700";
 mostCurrent._dpm1.setFinishedStrokeColor(mostCurrent._mcl.getmd_light_blue_700());
- //BA.debugLineNum = 423;BA.debugLine="dpm1.FinishedStrokeWidth=25";
+ //BA.debugLineNum = 203;BA.debugLine="dpm1.FinishedStrokeWidth=25";
 mostCurrent._dpm1.setFinishedStrokeWidth((float) (25));
- //BA.debugLineNum = 424;BA.debugLine="dpm1.UnfinishedStrokeColor=Colors.Transparent";
+ //BA.debugLineNum = 204;BA.debugLine="dpm1.UnfinishedStrokeColor=Colors.Transparent";
 mostCurrent._dpm1.setUnfinishedStrokeColor(anywheresoftware.b4a.keywords.Common.Colors.Transparent);
- //BA.debugLineNum = 425;BA.debugLine="dpm1.UnfinishedStrokeWidth=30";
+ //BA.debugLineNum = 205;BA.debugLine="dpm1.UnfinishedStrokeWidth=30";
 mostCurrent._dpm1.setUnfinishedStrokeWidth((float) (30));
- //BA.debugLineNum = 426;BA.debugLine="dpm1.SuffixText=\"%\"";
+ //BA.debugLineNum = 206;BA.debugLine="dpm1.SuffixText=\"%\"";
 mostCurrent._dpm1.setSuffixText("%");
- //BA.debugLineNum = 427;BA.debugLine="dpm1.InnerBackgroundColor=mcl.md_light_blue_A200";
+ //BA.debugLineNum = 207;BA.debugLine="dpm1.InnerBackgroundColor=mcl.md_light_blue_A200";
 mostCurrent._dpm1.setInnerBackgroundColor(mostCurrent._mcl.getmd_light_blue_A200());
- //BA.debugLineNum = 429;BA.debugLine="dpm1.InnerBottomTextSize=18";
+ //BA.debugLineNum = 209;BA.debugLine="dpm1.InnerBottomTextSize=18";
 mostCurrent._dpm1.setInnerBottomTextSize((float) (18));
- //BA.debugLineNum = 430;BA.debugLine="dpm1.InnerBottomTextColor=Colors.Black";
+ //BA.debugLineNum = 210;BA.debugLine="dpm1.InnerBottomTextColor=Colors.Black";
 mostCurrent._dpm1.setInnerBottomTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
- //BA.debugLineNum = 431;BA.debugLine="dpm1.PrefixText=\"Cleaning: \"";
+ //BA.debugLineNum = 211;BA.debugLine="dpm1.PrefixText=\"Cleaning: \"";
 mostCurrent._dpm1.setPrefixText("Cleaning: ");
- //BA.debugLineNum = 433;BA.debugLine="ReadDir(dir1,False)";
+ //BA.debugLineNum = 213;BA.debugLine="ReadDir(dir1,False)";
 _readdir(mostCurrent._dir1,anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 436;BA.debugLine="ImageView1.Visible=False";
+ //BA.debugLineNum = 217;BA.debugLine="ImageView1.Visible=False";
 mostCurrent._imageview1.setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 437;BA.debugLine="t1.Enabled=True";
-_t1.setEnabled(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 438;BA.debugLine="t1_Tick";
-_t1_tick();
- //BA.debugLineNum = 439;BA.debugLine="End Sub";
+ //BA.debugLineNum = 219;BA.debugLine="End Sub";
 return "";
 }
 public static String  _catdel_oncleancompleted(long _cachesize) throws Exception{
- //BA.debugLineNum = 325;BA.debugLine="Sub catdel_onCleanCompleted (CacheSize As Long)";
- //BA.debugLineNum = 328;BA.debugLine="dpm1.InnerBottomText=xMSOS.formateFileSize(CacheS";
+ //BA.debugLineNum = 387;BA.debugLine="Sub catdel_onCleanCompleted (CacheSize As Long)";
+ //BA.debugLineNum = 390;BA.debugLine="dpm1.InnerBottomText=xMSOS.formateFileSize(CacheS";
 mostCurrent._dpm1.setInnerBottomText(mostCurrent._xmsos.formateFileSize(mostCurrent.activityBA,_cachesize)+" clean!");
- //BA.debugLineNum = 329;BA.debugLine="ListView1.AddSingleLine(xMSOS.formateFileSize(Cac";
+ //BA.debugLineNum = 391;BA.debugLine="ListView1.AddSingleLine(xMSOS.formateFileSize(Cac";
 mostCurrent._listview1.AddSingleLine(BA.ObjectToCharSequence(mostCurrent._xmsos.formateFileSize(mostCurrent.activityBA,_cachesize)+" gesäubert"));
- //BA.debugLineNum = 330;BA.debugLine="End Sub";
+ //BA.debugLineNum = 392;BA.debugLine="t_start";
+_t_start();
+ //BA.debugLineNum = 393;BA.debugLine="End Sub";
 return "";
 }
 public static String  _catdel_oncleanstarted() throws Exception{
- //BA.debugLineNum = 321;BA.debugLine="Sub catdel_onCleanStarted";
- //BA.debugLineNum = 322;BA.debugLine="ListView1.AddSingleLine(\"lösche...\" )";
+ //BA.debugLineNum = 383;BA.debugLine="Sub catdel_onCleanStarted";
+ //BA.debugLineNum = 384;BA.debugLine="ListView1.AddSingleLine(\"lösche...\" )";
 mostCurrent._listview1.AddSingleLine(BA.ObjectToCharSequence("lösche..."));
- //BA.debugLineNum = 323;BA.debugLine="End Sub";
+ //BA.debugLineNum = 385;BA.debugLine="End Sub";
 return "";
 }
 public static String  _catdel_onscancompleted(Object _appslist) throws Exception{
@@ -858,236 +824,279 @@ anywheresoftware.b4a.phone.PackageManagerWrapper _pm = null;
 anywheresoftware.b4a.objects.collections.List _lu = null;
 int _n = 0;
 Object[] _app = null;
- //BA.debugLineNum = 332;BA.debugLine="Sub catdel_onScanCompleted (AppsList As Object)";
- //BA.debugLineNum = 333;BA.debugLine="time=DateTime.Time(DateTime.Now)";
+ //BA.debugLineNum = 395;BA.debugLine="Sub catdel_onScanCompleted (AppsList As Object)";
+ //BA.debugLineNum = 396;BA.debugLine="time=DateTime.Time(DateTime.Now)";
 mostCurrent._time = anywheresoftware.b4a.keywords.Common.DateTime.Time(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
- //BA.debugLineNum = 334;BA.debugLine="Dim totalsize As Long = 0";
+ //BA.debugLineNum = 397;BA.debugLine="lvg.stopAnim";
+mostCurrent._lvg.stopAnim();
+ //BA.debugLineNum = 398;BA.debugLine="Dim totalsize As Long = 0";
 _totalsize = (long) (0);
- //BA.debugLineNum = 335;BA.debugLine="Dim pm As PackageManager";
+ //BA.debugLineNum = 399;BA.debugLine="Dim pm As PackageManager";
 _pm = new anywheresoftware.b4a.phone.PackageManagerWrapper();
- //BA.debugLineNum = 336;BA.debugLine="ListView1.Clear";
+ //BA.debugLineNum = 400;BA.debugLine="ListView1.Clear";
 mostCurrent._listview1.Clear();
- //BA.debugLineNum = 337;BA.debugLine="ListView1.SetSelection(-1)";
-mostCurrent._listview1.SetSelection((int) (-1));
- //BA.debugLineNum = 338;BA.debugLine="Try";
-try { //BA.debugLineNum = 339;BA.debugLine="Dim lu As List = AppsList";
+ //BA.debugLineNum = 401;BA.debugLine="lw2.Clear";
+mostCurrent._lw2.Clear();
+ //BA.debugLineNum = 402;BA.debugLine="Try";
+try { //BA.debugLineNum = 403;BA.debugLine="Dim lu As List = AppsList";
 _lu = new anywheresoftware.b4a.objects.collections.List();
 _lu.setObject((java.util.List)(_appslist));
- //BA.debugLineNum = 340;BA.debugLine="If lu.Size=0 Then";
+ //BA.debugLineNum = 404;BA.debugLine="If lu.Size=0 Then";
 if (_lu.getSize()==0) { 
- //BA.debugLineNum = 342;BA.debugLine="ListView1.AddSingleLine(\"No App cache found. Al";
+ //BA.debugLineNum = 406;BA.debugLine="ListView1.AddSingleLine(\"No App cache found. Al";
 mostCurrent._listview1.AddSingleLine(BA.ObjectToCharSequence("No App cache found. All clear"));
- //BA.debugLineNum = 343;BA.debugLine="catlist.Clear";
+ //BA.debugLineNum = 407;BA.debugLine="catlist.Clear";
 mostCurrent._catlist.Clear();
- //BA.debugLineNum = 344;BA.debugLine="catlist.Add(time&\" - No App cache found\")";
+ //BA.debugLineNum = 408;BA.debugLine="catlist.Add(time&\" - No App cache found\")";
 mostCurrent._catlist.Add((Object)(mostCurrent._time+" - No App cache found"));
- //BA.debugLineNum = 345;BA.debugLine="Return";
+ //BA.debugLineNum = 409;BA.debugLine="t_start";
+_t_start();
+ //BA.debugLineNum = 410;BA.debugLine="Return";
 if (true) return "";
  };
- //BA.debugLineNum = 347;BA.debugLine="For n = 0 To lu.Size-1";
+ //BA.debugLineNum = 412;BA.debugLine="For n = 0 To lu.Size-1";
 {
-final int step14 = 1;
-final int limit14 = (int) (_lu.getSize()-1);
-for (_n = (int) (0) ; (step14 > 0 && _n <= limit14) || (step14 < 0 && _n >= limit14); _n = ((int)(0 + _n + step14)) ) {
- //BA.debugLineNum = 348;BA.debugLine="Dim app() As Object = lu.Get(n)";
+final int step16 = 1;
+final int limit16 = (int) (_lu.getSize()-1);
+for (_n = (int) (0) ; (step16 > 0 && _n <= limit16) || (step16 < 0 && _n >= limit16); _n = ((int)(0 + _n + step16)) ) {
+ //BA.debugLineNum = 413;BA.debugLine="Dim app() As Object = lu.Get(n)";
 _app = (Object[])(_lu.Get(_n));
- //BA.debugLineNum = 349;BA.debugLine="If app(1) = \"com.android.systemui\" Then Continu";
+ //BA.debugLineNum = 414;BA.debugLine="If app(1) = \"com.android.systemui\" Then Continu";
 if ((_app[(int) (1)]).equals((Object)("com.android.systemui"))) { 
 if (true) continue;};
- //BA.debugLineNum = 350;BA.debugLine="Dim icon As BitmapDrawable = pm.GetApplicationI";
+ //BA.debugLineNum = 415;BA.debugLine="Dim icon As BitmapDrawable = pm.GetApplicationI";
 mostCurrent._icon = new anywheresoftware.b4a.objects.drawable.BitmapDrawable();
 mostCurrent._icon.setObject((android.graphics.drawable.BitmapDrawable)(_pm.GetApplicationIcon(BA.ObjectToString(_app[(int) (1)]))));
- //BA.debugLineNum = 351;BA.debugLine="ListView1.SetSelection(n)";
+ //BA.debugLineNum = 416;BA.debugLine="ListView1.SetSelection(n)";
 mostCurrent._listview1.SetSelection(_n);
- //BA.debugLineNum = 352;BA.debugLine="ListView1.AddTwoLinesAndBitmap(app(0),NumberFor";
+ //BA.debugLineNum = 417;BA.debugLine="ListView1.AddTwoLinesAndBitmap(app(0),NumberFor";
 mostCurrent._listview1.AddTwoLinesAndBitmap(BA.ObjectToCharSequence(_app[(int) (0)]),BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.NumberFormat2((double)(BA.ObjectToNumber(_app[(int) (2)]))/(double)1024/(double)1024,(int) (1),(int) (2),(int) (2),anywheresoftware.b4a.keywords.Common.True)+"MB"),mostCurrent._icon.getBitmap());
- //BA.debugLineNum = 353;BA.debugLine="totalsize = totalsize+app(2)";
+ //BA.debugLineNum = 418;BA.debugLine="lw3.AddTwoLinesAndBitmap(app(0),NumberFormat2(a";
+mostCurrent._lw3.AddTwoLinesAndBitmap(BA.ObjectToCharSequence(_app[(int) (0)]),BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.NumberFormat2((double)(BA.ObjectToNumber(_app[(int) (2)]))/(double)1024/(double)1024,(int) (1),(int) (2),(int) (2),anywheresoftware.b4a.keywords.Common.True)+"MB"),mostCurrent._icon.getBitmap());
+ //BA.debugLineNum = 419;BA.debugLine="totalsize = totalsize+app(2)";
 _totalsize = (long) (_totalsize+(double)(BA.ObjectToNumber(_app[(int) (2)])));
- //BA.debugLineNum = 354;BA.debugLine="catlist.Clear";
+ //BA.debugLineNum = 420;BA.debugLine="catlist.Clear";
 mostCurrent._catlist.Clear();
- //BA.debugLineNum = 355;BA.debugLine="catlist.Add(app(0)&\" - \"&NumberFormat2(app(2)/1";
+ //BA.debugLineNum = 421;BA.debugLine="catlist.Add(app(0)&\" - \"&NumberFormat2(app(2)/1";
 mostCurrent._catlist.Add((Object)(BA.ObjectToString(_app[(int) (0)])+" - "+anywheresoftware.b4a.keywords.Common.NumberFormat2((double)(BA.ObjectToNumber(_app[(int) (2)]))/(double)1024/(double)1024,(int) (1),(int) (2),(int) (2),anywheresoftware.b4a.keywords.Common.True)+"MB cache"+" | "+mostCurrent._op.formatSize(_totalsize)));
- //BA.debugLineNum = 356;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/ca";
+ //BA.debugLineNum = 422;BA.debugLine="File.WriteList(File.DirDefaultExternal&\"/mnt/ca";
 anywheresoftware.b4a.keywords.Common.File.WriteList(anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache","cdata.txt",mostCurrent._catlist);
  }
 };
  } 
-       catch (Exception e26) {
-			processBA.setLastException(e26); //BA.debugLineNum = 360;BA.debugLine="Log(LastException.Message)";
+       catch (Exception e29) {
+			processBA.setLastException(e29); //BA.debugLineNum = 427;BA.debugLine="Log(LastException.Message)";
 anywheresoftware.b4a.keywords.Common.Log(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA).getMessage());
- //BA.debugLineNum = 361;BA.debugLine="catlist.Add(LastException.Message)";
+ //BA.debugLineNum = 428;BA.debugLine="catlist.Add(LastException.Message)";
 mostCurrent._catlist.Add((Object)(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA).getMessage()));
  };
- //BA.debugLineNum = 363;BA.debugLine="End Sub";
+ //BA.debugLineNum = 430;BA.debugLine="If lu.Size>0 Then";
+if (_lu.getSize()>0) { 
+ //BA.debugLineNum = 431;BA.debugLine="cl_msg";
+_cl_msg();
+ }else {
+ //BA.debugLineNum = 433;BA.debugLine="close";
+_close();
+ };
+ //BA.debugLineNum = 435;BA.debugLine="End Sub";
 return "";
 }
 public static String  _catdel_onscanprogress(int _current,int _total) throws Exception{
- //BA.debugLineNum = 314;BA.debugLine="Sub catdel_onScanProgress (Current As Int , Total";
- //BA.debugLineNum = 317;BA.debugLine="Label1.Text=\"durchsuche -> \"&Current&\" Apps nach";
+ //BA.debugLineNum = 376;BA.debugLine="Sub catdel_onScanProgress (Current As Int , Total";
+ //BA.debugLineNum = 377;BA.debugLine="dpm1.Max=Total";
+mostCurrent._dpm1.setMax(_total);
+ //BA.debugLineNum = 378;BA.debugLine="dpm1.Progress=Current";
+mostCurrent._dpm1.setProgress(_current);
+ //BA.debugLineNum = 379;BA.debugLine="Label1.Text=\"durchsuche -> \"&Current&\" Apps nach";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("durchsuche -> "+BA.NumberToString(_current)+" Apps nach Müll"));
- //BA.debugLineNum = 319;BA.debugLine="End Sub";
+ //BA.debugLineNum = 381;BA.debugLine="End Sub";
 return "";
 }
 public static String  _catdel_onscanstarted() throws Exception{
- //BA.debugLineNum = 309;BA.debugLine="Sub catdel_OnScanStarted";
- //BA.debugLineNum = 310;BA.debugLine="Log(\"Started\")";
+ //BA.debugLineNum = 340;BA.debugLine="Sub catdel_OnScanStarted";
+ //BA.debugLineNum = 341;BA.debugLine="Log(\"Started\")";
 anywheresoftware.b4a.keywords.Common.Log("Started");
- //BA.debugLineNum = 312;BA.debugLine="End Sub";
+ //BA.debugLineNum = 343;BA.debugLine="End Sub";
+return "";
+}
+public static String  _cl_msg() throws Exception{
+flm.b4a.betterdialogs.BetterDialogs _diap = null;
+int _res = 0;
+ //BA.debugLineNum = 437;BA.debugLine="Sub cl_msg";
+ //BA.debugLineNum = 438;BA.debugLine="Dim diap As BetterDialogs";
+_diap = new flm.b4a.betterdialogs.BetterDialogs();
+ //BA.debugLineNum = 439;BA.debugLine="Dim res As Int";
+_res = 0;
+ //BA.debugLineNum = 440;BA.debugLine="res=diap.CustomDialog(\"Cache found:\",130dip,80dip";
+_res = _diap.CustomDialog((Object)("Cache found:"),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (130)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (80)),(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(mostCurrent._lw3.getObject())),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (300)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (350)),anywheresoftware.b4a.keywords.Common.DipToCurrent((int) (10)),(Object)(anywheresoftware.b4a.keywords.Common.Colors.White),(Object)("Ja löschen"),(Object)(""),(Object)("Nein Ende"),anywheresoftware.b4a.keywords.Common.False,"diap",mostCurrent.activityBA);
+ //BA.debugLineNum = 441;BA.debugLine="If res=DialogResponse.POSITIVE Then";
+if (_res==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
+ //BA.debugLineNum = 442;BA.debugLine="catdel.CleanCache";
+_catdel.CleanCache();
+ //BA.debugLineNum = 443;BA.debugLine="t_start";
+_t_start();
+ }else {
+ //BA.debugLineNum = 445;BA.debugLine="ImageView1.Visible=True";
+mostCurrent._imageview1.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 446;BA.debugLine="dpm1.Visible=False";
+mostCurrent._dpm1.setVisible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 448;BA.debugLine="anima.Start(ImageView1)";
+mostCurrent._anima.Start((android.view.View)(mostCurrent._imageview1.getObject()));
+ //BA.debugLineNum = 449;BA.debugLine="full_close";
+_full_close();
+ };
+ //BA.debugLineNum = 451;BA.debugLine="End Sub";
 return "";
 }
 public static String  _close() throws Exception{
 String _df = "";
- //BA.debugLineNum = 466;BA.debugLine="Sub close";
- //BA.debugLineNum = 467;BA.debugLine="If Not(catlist.size=0) Then";
+ //BA.debugLineNum = 460;BA.debugLine="Sub close";
+ //BA.debugLineNum = 461;BA.debugLine="If Not(catlist.size=0) Then";
 if (anywheresoftware.b4a.keywords.Common.Not(mostCurrent._catlist.getSize()==0)) { 
- //BA.debugLineNum = 468;BA.debugLine="Dim df As String";
+ //BA.debugLineNum = 462;BA.debugLine="Dim df As String";
 _df = "";
- //BA.debugLineNum = 469;BA.debugLine="df=apklist.size";
+ //BA.debugLineNum = 463;BA.debugLine="df=apklist.size";
 _df = BA.NumberToString(mostCurrent._apklist.getSize());
- //BA.debugLineNum = 470;BA.debugLine="Label1.Text=op.formatSize(cat.FreeMemory)&\" RAM";
+ //BA.debugLineNum = 464;BA.debugLine="Label1.Text=op.formatSize(cat.FreeMemory)&\" RAM";
 mostCurrent._label1.setText(BA.ObjectToCharSequence(mostCurrent._op.formatSize(mostCurrent._cat.getFreeMemory())+" RAM free! "+BA.NumberToString(mostCurrent._list2.getSize())+" -Backround Processes closed."+mostCurrent._xmsos.formateFileSize(mostCurrent.activityBA,(long)(Double.parseDouble(_df)))+" Files and Trash Data cleared"));
- //BA.debugLineNum = 472;BA.debugLine="catdel.CleanCache";
+ //BA.debugLineNum = 466;BA.debugLine="catdel.CleanCache";
 _catdel.CleanCache();
- //BA.debugLineNum = 473;BA.debugLine="Log(\"----------------CDATA -> \"&catlist.Size)";
+ //BA.debugLineNum = 467;BA.debugLine="Log(\"----------------CDATA -> \"&catlist.Size)";
 anywheresoftware.b4a.keywords.Common.Log("----------------CDATA -> "+BA.NumberToString(mostCurrent._catlist.getSize()));
  }else {
- //BA.debugLineNum = 475;BA.debugLine="catlist.Clear";
+ //BA.debugLineNum = 469;BA.debugLine="catlist.Clear";
 mostCurrent._catlist.Clear();
- //BA.debugLineNum = 476;BA.debugLine="Label1.Text=op.formatSize(cat.FreeMemory)&\" RAM";
+ //BA.debugLineNum = 470;BA.debugLine="Label1.Text=op.formatSize(cat.FreeMemory)&\" RAM";
 mostCurrent._label1.setText(BA.ObjectToCharSequence(mostCurrent._op.formatSize(mostCurrent._cat.getFreeMemory())+" RAM free! "+BA.NumberToString(mostCurrent._list4.getSize())+" Backround Processes killed...!"));
- //BA.debugLineNum = 477;BA.debugLine="catlist.Add(time&\" - No App cache found\")";
+ //BA.debugLineNum = 471;BA.debugLine="catlist.Add(time&\" - No App cache found\")";
 mostCurrent._catlist.Add((Object)(mostCurrent._time+" - No App cache found"));
- //BA.debugLineNum = 478;BA.debugLine="Log(\"--------------- NO CDATA--------------\")";
+ //BA.debugLineNum = 472;BA.debugLine="Log(\"--------------- NO CDATA--------------\")";
 anywheresoftware.b4a.keywords.Common.Log("--------------- NO CDATA--------------");
  };
- //BA.debugLineNum = 483;BA.debugLine="delayed_t2";
+ //BA.debugLineNum = 474;BA.debugLine="delayed_t2";
 _delayed_t2();
- //BA.debugLineNum = 484;BA.debugLine="Return";
+ //BA.debugLineNum = 475;BA.debugLine="Return";
 if (true) return "";
- //BA.debugLineNum = 485;BA.debugLine="End Sub";
+ //BA.debugLineNum = 476;BA.debugLine="End Sub";
 return "";
 }
 public static String  _del_quest() throws Exception{
- //BA.debugLineNum = 487;BA.debugLine="Sub del_quest";
- //BA.debugLineNum = 489;BA.debugLine="ImageView1.Visible=True";
+ //BA.debugLineNum = 478;BA.debugLine="Sub del_quest";
+ //BA.debugLineNum = 479;BA.debugLine="ImageView1.Visible=True";
 mostCurrent._imageview1.setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 490;BA.debugLine="dpm1.Visible=False";
+ //BA.debugLineNum = 480;BA.debugLine="dpm1.Visible=False";
 mostCurrent._dpm1.setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 492;BA.debugLine="ImageView1.Bitmap=LoadBitmap(File.DirAssets,\"Acce";
+ //BA.debugLineNum = 482;BA.debugLine="ImageView1.Bitmap=LoadBitmap(File.DirAssets,\"Acce";
 mostCurrent._imageview1.setBitmap((android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.LoadBitmap(anywheresoftware.b4a.keywords.Common.File.getDirAssets(),"Accept128.png").getObject()));
- //BA.debugLineNum = 493;BA.debugLine="Label1.Text= \"clear RAM and close..\"";
+ //BA.debugLineNum = 483;BA.debugLine="Label1.Text= \"clear RAM and close..\"";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("clear RAM and close.."));
- //BA.debugLineNum = 495;BA.debugLine="real_delete";
+ //BA.debugLineNum = 485;BA.debugLine="real_delete";
 _real_delete();
- //BA.debugLineNum = 498;BA.debugLine="End Sub";
+ //BA.debugLineNum = 486;BA.debugLine="End Sub";
 return "";
 }
 public static String  _delayed_t2() throws Exception{
- //BA.debugLineNum = 572;BA.debugLine="Sub delayed_t2";
- //BA.debugLineNum = 573;BA.debugLine="dpm1.InnerBottomText=Label1.text";
+ //BA.debugLineNum = 553;BA.debugLine="Sub delayed_t2";
+ //BA.debugLineNum = 554;BA.debugLine="dpm1.InnerBottomText=Label1.text";
 mostCurrent._dpm1.setInnerBottomText(mostCurrent._label1.getText());
- //BA.debugLineNum = 574;BA.debugLine="dpm1.Progress=100";
+ //BA.debugLineNum = 555;BA.debugLine="dpm1.Progress=100";
 mostCurrent._dpm1.setProgress((int) (100));
- //BA.debugLineNum = 575;BA.debugLine="lvg.SetVisibleAnimated(100,False)";
+ //BA.debugLineNum = 556;BA.debugLine="lvg.SetVisibleAnimated(100,False)";
 mostCurrent._lvg.SetVisibleAnimated((int) (100),anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 576;BA.debugLine="lvg.stopAnim";
+ //BA.debugLineNum = 557;BA.debugLine="lvg.stopAnim";
 mostCurrent._lvg.stopAnim();
- //BA.debugLineNum = 578;BA.debugLine="If count > 7 Then";
+ //BA.debugLineNum = 559;BA.debugLine="If count > 7 Then";
 if (_count>7) { 
- //BA.debugLineNum = 579;BA.debugLine="Label1.text=op.formatSize(cat.FreeMemory)&\" free";
+ //BA.debugLineNum = 560;BA.debugLine="Label1.text=op.formatSize(cat.FreeMemory)&\" free";
 mostCurrent._label1.setText(BA.ObjectToCharSequence(mostCurrent._op.formatSize(mostCurrent._cat.getFreeMemory())+" free.."));
- //BA.debugLineNum = 580;BA.debugLine="ListView1.Clear";
+ //BA.debugLineNum = 561;BA.debugLine="ListView1.Clear";
 mostCurrent._listview1.Clear();
  };
- //BA.debugLineNum = 582;BA.debugLine="If count> 8 Then";
+ //BA.debugLineNum = 563;BA.debugLine="If count> 8 Then";
 if (_count>8) { 
- //BA.debugLineNum = 583;BA.debugLine="Label1.text=op.formatSize(cat.FreeMemory)";
+ //BA.debugLineNum = 564;BA.debugLine="Label1.text=op.formatSize(cat.FreeMemory)";
 mostCurrent._label1.setText(BA.ObjectToCharSequence(mostCurrent._op.formatSize(mostCurrent._cat.getFreeMemory())));
- //BA.debugLineNum = 585;BA.debugLine="ListView1.AddSingleLine(xMSOS.formateFileSize(ca";
+ //BA.debugLineNum = 566;BA.debugLine="ListView1.AddSingleLine(xMSOS.formateFileSize(ca";
 mostCurrent._listview1.AddSingleLine(BA.ObjectToCharSequence(mostCurrent._xmsos.formateFileSize(mostCurrent.activityBA,mostCurrent._cat.getFreeMemory())));
  };
- //BA.debugLineNum = 587;BA.debugLine="If count> 9 Then";
+ //BA.debugLineNum = 568;BA.debugLine="If count> 9 Then";
 if (_count>9) { 
- //BA.debugLineNum = 590;BA.debugLine="dpm1.Visible=False";
+ //BA.debugLineNum = 570;BA.debugLine="anima.Start(ImageView1)";
+mostCurrent._anima.Start((android.view.View)(mostCurrent._imageview1.getObject()));
+ //BA.debugLineNum = 571;BA.debugLine="dpm1.Visible=False";
 mostCurrent._dpm1.setVisible(anywheresoftware.b4a.keywords.Common.False);
  };
- //BA.debugLineNum = 593;BA.debugLine="If count> 10 Then";
+ //BA.debugLineNum = 574;BA.debugLine="If count> 10 Then";
 if (_count>10) { 
  };
- //BA.debugLineNum = 596;BA.debugLine="If count = 11 Then";
+ //BA.debugLineNum = 577;BA.debugLine="If count = 11 Then";
 if (_count==11) { 
- //BA.debugLineNum = 598;BA.debugLine="t1.Enabled=False";
+ //BA.debugLineNum = 579;BA.debugLine="t1.Enabled=False";
 _t1.setEnabled(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 600;BA.debugLine="Activity.Finish";
+ //BA.debugLineNum = 581;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
- //BA.debugLineNum = 601;BA.debugLine="SetAnimation.setanimati(\"extra_in\", \"extra_out\")";
+ //BA.debugLineNum = 582;BA.debugLine="SetAnimation.setanimati(\"extra_in\", \"extra_out\")";
 mostCurrent._setanimation._setanimati(mostCurrent.activityBA,"extra_in","extra_out");
  };
- //BA.debugLineNum = 603;BA.debugLine="End Sub";
-return "";
-}
-public static String  _fc_copydone(String _key,boolean _error) throws Exception{
- //BA.debugLineNum = 649;BA.debugLine="Sub fc_CopyDone(Key As String, Error As Boolean)";
- //BA.debugLineNum = 651;BA.debugLine="End Sub";
-return "";
-}
-public static String  _fc_putdone(String _key,boolean _error) throws Exception{
- //BA.debugLineNum = 653;BA.debugLine="Sub fc_PutDone(key As String,Error As Boolean)";
- //BA.debugLineNum = 655;BA.debugLine="End Sub";
-return "";
-}
-public static String  _fc2_putdone(String _key,boolean _error) throws Exception{
- //BA.debugLineNum = 657;BA.debugLine="Sub fc2_PutDone(key As String,Error As Boolean)";
- //BA.debugLineNum = 659;BA.debugLine="End Sub";
+ //BA.debugLineNum = 584;BA.debugLine="End Sub";
 return "";
 }
 public static String  _file_copydone() throws Exception{
- //BA.debugLineNum = 674;BA.debugLine="Sub file_CopyDone";
- //BA.debugLineNum = 675;BA.debugLine="Log(\"copy done!\")";
+ //BA.debugLineNum = 693;BA.debugLine="Sub file_CopyDone";
+ //BA.debugLineNum = 694;BA.debugLine="Log(\"copy done!\")";
 anywheresoftware.b4a.keywords.Common.Log("copy done!");
- //BA.debugLineNum = 677;BA.debugLine="End Sub";
+ //BA.debugLineNum = 696;BA.debugLine="End Sub";
+return "";
+}
+public static String  _full_close() throws Exception{
+ //BA.debugLineNum = 585;BA.debugLine="Sub full_close";
+ //BA.debugLineNum = 586;BA.debugLine="Activity.Finish";
+mostCurrent._activity.Finish();
+ //BA.debugLineNum = 587;BA.debugLine="SetAnimation.setanimati(\"extra_in\", \"extra_out\")";
+mostCurrent._setanimation._setanimati(mostCurrent.activityBA,"extra_in","extra_out");
+ //BA.debugLineNum = 588;BA.debugLine="End Sub";
 return "";
 }
 public static String  _getdeviceid() throws Exception{
 int _api = 0;
 anywheresoftware.b4a.agraham.reflection.Reflection _r = null;
 int _id = 0;
- //BA.debugLineNum = 365;BA.debugLine="Sub GetDeviceId As String";
- //BA.debugLineNum = 366;BA.debugLine="Dim api As Int";
+ //BA.debugLineNum = 646;BA.debugLine="Sub GetDeviceId As String";
+ //BA.debugLineNum = 647;BA.debugLine="Dim api As Int";
 _api = 0;
- //BA.debugLineNum = 367;BA.debugLine="Dim r As Reflector";
+ //BA.debugLineNum = 648;BA.debugLine="Dim r As Reflector";
 _r = new anywheresoftware.b4a.agraham.reflection.Reflection();
- //BA.debugLineNum = 368;BA.debugLine="api = r.GetStaticField(\"android.os.Build$VERSION\"";
+ //BA.debugLineNum = 649;BA.debugLine="api = r.GetStaticField(\"android.os.Build$VERSION\"";
 _api = (int)(BA.ObjectToNumber(_r.GetStaticField("android.os.Build$VERSION","SDK_INT")));
- //BA.debugLineNum = 369;BA.debugLine="If api < 18 Then";
+ //BA.debugLineNum = 650;BA.debugLine="If api < 18 Then";
 if (_api<18) { 
- //BA.debugLineNum = 371;BA.debugLine="If File.Exists(File.DirInternal, \"__id\") Then";
+ //BA.debugLineNum = 652;BA.debugLine="If File.Exists(File.DirInternal, \"__id\") Then";
 if (anywheresoftware.b4a.keywords.Common.File.Exists(anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"__id")) { 
- //BA.debugLineNum = 372;BA.debugLine="Return File.ReadString(File.DirInternal, \"__id\"";
+ //BA.debugLineNum = 653;BA.debugLine="Return File.ReadString(File.DirInternal, \"__id\"";
 if (true) return anywheresoftware.b4a.keywords.Common.File.ReadString(anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"__id");
- //BA.debugLineNum = 373;BA.debugLine="c_start";
+ //BA.debugLineNum = 654;BA.debugLine="c_start";
 _c_start();
  }else {
- //BA.debugLineNum = 375;BA.debugLine="c_start";
+ //BA.debugLineNum = 656;BA.debugLine="c_start";
 _c_start();
- //BA.debugLineNum = 376;BA.debugLine="Dim id As Int";
+ //BA.debugLineNum = 657;BA.debugLine="Dim id As Int";
 _id = 0;
- //BA.debugLineNum = 377;BA.debugLine="id = Rnd(0x10000000, 0x7FFFFFFF)";
+ //BA.debugLineNum = 658;BA.debugLine="id = Rnd(0x10000000, 0x7FFFFFFF)";
 _id = anywheresoftware.b4a.keywords.Common.Rnd((int) (0x10000000),(int) (0x7fffffff));
- //BA.debugLineNum = 378;BA.debugLine="File.WriteString(File.DirInternal, \"__id\", id)";
+ //BA.debugLineNum = 659;BA.debugLine="File.WriteString(File.DirInternal, \"__id\", id)";
 anywheresoftware.b4a.keywords.Common.File.WriteString(anywheresoftware.b4a.keywords.Common.File.getDirInternal(),"__id",BA.NumberToString(_id));
- //BA.debugLineNum = 379;BA.debugLine="Return id";
+ //BA.debugLineNum = 660;BA.debugLine="Return id";
 if (true) return BA.NumberToString(_id);
  };
- //BA.debugLineNum = 381;BA.debugLine="Log(api)";
+ //BA.debugLineNum = 662;BA.debugLine="Log(api)";
 anywheresoftware.b4a.keywords.Common.Log(BA.NumberToString(_api));
  }else {
- //BA.debugLineNum = 384;BA.debugLine="Return r.GetStaticField(\"android.os.Build\", \"SER";
+ //BA.debugLineNum = 665;BA.debugLine="Return r.GetStaticField(\"android.os.Build\", \"SER";
 if (true) return BA.ObjectToString(_r.GetStaticField("android.os.Build","SERIAL"));
- //BA.debugLineNum = 385;BA.debugLine="storage_check";
+ //BA.debugLineNum = 666;BA.debugLine="storage_check";
 _storage_check();
  };
- //BA.debugLineNum = 387;BA.debugLine="End Sub";
+ //BA.debugLineNum = 668;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
@@ -1153,8 +1162,9 @@ _c16 = 0;
 mostCurrent._cat = new flm.b4a.cache.Cache();
  //BA.debugLineNum = 26;BA.debugLine="Dim dir1 As String =File.DirDefaultExternal&\"/mnt";
 mostCurrent._dir1 = anywheresoftware.b4a.keywords.Common.File.getDirDefaultExternal()+"/mnt/cache/store";
- //BA.debugLineNum = 27;BA.debugLine="Private lw2 As ListView";
+ //BA.debugLineNum = 27;BA.debugLine="Private lw2,lw3 As ListView";
 mostCurrent._lw2 = new anywheresoftware.b4a.objects.ListViewWrapper();
+mostCurrent._lw3 = new anywheresoftware.b4a.objects.ListViewWrapper();
  //BA.debugLineNum = 28;BA.debugLine="Dim l1,l2,l3 As Label";
 mostCurrent._l1 = new anywheresoftware.b4a.objects.LabelWrapper();
 mostCurrent._l2 = new anywheresoftware.b4a.objects.LabelWrapper();
@@ -1225,49 +1235,44 @@ mostCurrent._dpm1 = new circleprogressmasterwrapper.donutProgressMasterWrapper()
 mostCurrent._root1 = "";
  //BA.debugLineNum = 53;BA.debugLine="Dim anima As AnimationPlus";
 mostCurrent._anima = new flm.b4a.animationplus.AnimationPlusWrapper();
- //BA.debugLineNum = 54;BA.debugLine="Dim xMSOS As MSOS";
+ //BA.debugLineNum = 54;BA.debugLine="dim ani as Animation";
+mostCurrent._ani = new anywheresoftware.b4a.objects.AnimationWrapper();
+ //BA.debugLineNum = 55;BA.debugLine="Dim xMSOS As MSOS";
 mostCurrent._xmsos = new com.maximussoft.msos.MSOS();
- //BA.debugLineNum = 55;BA.debugLine="Dim xOSStats As OSStats";
+ //BA.debugLineNum = 56;BA.debugLine="Dim xOSStats As OSStats";
 mostCurrent._xosstats = new b4a.example.osstats();
- //BA.debugLineNum = 56;BA.debugLine="Private ListView1 As ListView";
+ //BA.debugLineNum = 57;BA.debugLine="Private ListView1 As ListView";
 mostCurrent._listview1 = new anywheresoftware.b4a.objects.ListViewWrapper();
- //BA.debugLineNum = 57;BA.debugLine="Dim l1,l2,l3 As Label";
+ //BA.debugLineNum = 58;BA.debugLine="Dim l1,l2,l3 As Label";
 mostCurrent._l1 = new anywheresoftware.b4a.objects.LabelWrapper();
 mostCurrent._l2 = new anywheresoftware.b4a.objects.LabelWrapper();
 mostCurrent._l3 = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 59;BA.debugLine="Private Label1 As Label";
+ //BA.debugLineNum = 60;BA.debugLine="Private Label1 As Label";
 mostCurrent._label1 = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 60;BA.debugLine="Dim catlist As List";
+ //BA.debugLineNum = 61;BA.debugLine="Dim catlist As List";
 mostCurrent._catlist = new anywheresoftware.b4a.objects.collections.List();
- //BA.debugLineNum = 61;BA.debugLine="Private lvg As LVGearsTwo";
+ //BA.debugLineNum = 62;BA.debugLine="Private lvg As LVGearsTwo";
 mostCurrent._lvg = new de.donmanfred.LVGearsTwoWrapper();
- //BA.debugLineNum = 63;BA.debugLine="Private kvs4sub,kvs4 As KeyValueStore";
+ //BA.debugLineNum = 64;BA.debugLine="Private kvs4sub,kvs4 As KeyValueStore";
 mostCurrent._kvs4sub = new com.batcat.keyvaluestore();
 mostCurrent._kvs4 = new com.batcat.keyvaluestore();
- //BA.debugLineNum = 64;BA.debugLine="End Sub";
+ //BA.debugLineNum = 65;BA.debugLine="End Sub";
 return "";
 }
 public static String  _mystats_update(float[] _cpuefficiency,float _ramusage) throws Exception{
- //BA.debugLineNum = 305;BA.debugLine="Sub myStats_Update(CPUEfficiency() As Float, RAMUs";
- //BA.debugLineNum = 307;BA.debugLine="End Sub";
+ //BA.debugLineNum = 336;BA.debugLine="Sub myStats_Update(CPUEfficiency() As Float, RAMUs";
+ //BA.debugLineNum = 338;BA.debugLine="End Sub";
 return "";
 }
 public static byte[]  _object_to_byte(Object _obj) throws Exception{
 anywheresoftware.b4a.randomaccessfile.B4XSerializator _ser = null;
- //BA.debugLineNum = 638;BA.debugLine="Sub object_to_byte(obj As Object)As Byte()";
- //BA.debugLineNum = 639;BA.debugLine="Dim ser As B4XSerializator";
+ //BA.debugLineNum = 670;BA.debugLine="Sub object_to_byte(obj As Object)As Byte()";
+ //BA.debugLineNum = 671;BA.debugLine="Dim ser As B4XSerializator";
 _ser = new anywheresoftware.b4a.randomaccessfile.B4XSerializator();
- //BA.debugLineNum = 640;BA.debugLine="Return ser.ConvertObjectToBytes(obj)";
+ //BA.debugLineNum = 672;BA.debugLine="Return ser.ConvertObjectToBytes(obj)";
 if (true) return _ser.ConvertObjectToBytes(_obj);
- //BA.debugLineNum = 641;BA.debugLine="End Sub";
+ //BA.debugLineNum = 673;BA.debugLine="End Sub";
 return null;
-}
-public static String  _ph_devicestorageok(anywheresoftware.b4a.objects.IntentWrapper _intent) throws Exception{
- //BA.debugLineNum = 516;BA.debugLine="Sub ph_DeviceStorageOk (Intent As Intent)";
- //BA.debugLineNum = 517;BA.debugLine="Log(Intent.ExtrasToString)";
-anywheresoftware.b4a.keywords.Common.Log(_intent.ExtrasToString());
- //BA.debugLineNum = 518;BA.debugLine="End Sub";
-return "";
 }
 public static String  _process_globals() throws Exception{
  //BA.debugLineNum = 9;BA.debugLine="Sub Process_Globals";
@@ -1282,68 +1287,81 @@ public static String  _readdir(String _folder,boolean _recursive) throws Excepti
 anywheresoftware.b4a.objects.collections.List _lst = null;
 int _i = 0;
 String _v = "";
- //BA.debugLineNum = 442;BA.debugLine="Sub ReadDir(folder As String, recursive As Boolean";
- //BA.debugLineNum = 443;BA.debugLine="ffolders.Clear";
+ //BA.debugLineNum = 622;BA.debugLine="Sub ReadDir(folder As String, recursive As Boolean";
+ //BA.debugLineNum = 623;BA.debugLine="ffolders.Clear";
 mostCurrent._ffolders.Clear();
- //BA.debugLineNum = 444;BA.debugLine="ffiles.Clear";
+ //BA.debugLineNum = 624;BA.debugLine="ffiles.Clear";
 mostCurrent._ffiles.Clear();
- //BA.debugLineNum = 446;BA.debugLine="Dim lst As List = File.ListFiles(folder)";
+ //BA.debugLineNum = 626;BA.debugLine="Dim lst As List = File.ListFiles(folder)";
 _lst = new anywheresoftware.b4a.objects.collections.List();
 _lst = anywheresoftware.b4a.keywords.Common.File.ListFiles(_folder);
- //BA.debugLineNum = 447;BA.debugLine="For i = 0 To lst.Size - 1";
+ //BA.debugLineNum = 627;BA.debugLine="For i = 0 To lst.Size - 1";
 {
 final int step4 = 1;
 final int limit4 = (int) (_lst.getSize()-1);
 for (_i = (int) (0) ; (step4 > 0 && _i <= limit4) || (step4 < 0 && _i >= limit4); _i = ((int)(0 + _i + step4)) ) {
- //BA.debugLineNum = 448;BA.debugLine="If File.IsDirectory(folder,lst.Get(i)) Then";
+ //BA.debugLineNum = 628;BA.debugLine="If File.IsDirectory(folder,lst.Get(i)) Then";
 if (anywheresoftware.b4a.keywords.Common.File.IsDirectory(_folder,BA.ObjectToString(_lst.Get(_i)))) { 
- //BA.debugLineNum = 449;BA.debugLine="Dim v As String";
+ //BA.debugLineNum = 629;BA.debugLine="Dim v As String";
 _v = "";
- //BA.debugLineNum = 450;BA.debugLine="v = folder&\"/\"&lst.Get(i)";
+ //BA.debugLineNum = 630;BA.debugLine="v = folder&\"/\"&lst.Get(i)";
 _v = _folder+"/"+BA.ObjectToString(_lst.Get(_i));
- //BA.debugLineNum = 452;BA.debugLine="ffolders.Add(v.SubString(root1.Length+1))";
+ //BA.debugLineNum = 632;BA.debugLine="ffolders.Add(v.SubString(root1.Length+1))";
 mostCurrent._ffolders.Add((Object)(_v.substring((int) (mostCurrent._root1.length()+1))));
- //BA.debugLineNum = 454;BA.debugLine="If recursive Then";
+ //BA.debugLineNum = 634;BA.debugLine="If recursive Then";
 if (_recursive) { 
- //BA.debugLineNum = 455;BA.debugLine="ReadDir(v,recursive)";
+ //BA.debugLineNum = 635;BA.debugLine="ReadDir(v,recursive)";
 _readdir(_v,_recursive);
  };
  }else {
- //BA.debugLineNum = 459;BA.debugLine="ffiles.Add(folder&\"/\"&lst.Get(i))";
+ //BA.debugLineNum = 639;BA.debugLine="ffiles.Add(folder&\"/\"&lst.Get(i))";
 mostCurrent._ffiles.Add((Object)(_folder+"/"+BA.ObjectToString(_lst.Get(_i))));
  };
  }
 };
- //BA.debugLineNum = 463;BA.debugLine="Log(ffolders.Size&\" Ordner / \"&ffiles.Size&\" Date";
+ //BA.debugLineNum = 643;BA.debugLine="Log(ffolders.Size&\" Ordner / \"&ffiles.Size&\" Date";
 anywheresoftware.b4a.keywords.Common.Log(BA.NumberToString(mostCurrent._ffolders.getSize())+" Ordner / "+BA.NumberToString(mostCurrent._ffiles.getSize())+" Dateien");
- //BA.debugLineNum = 464;BA.debugLine="End Sub";
+ //BA.debugLineNum = 644;BA.debugLine="End Sub";
 return "";
 }
 public static String  _real_delete() throws Exception{
 int _j = 0;
- //BA.debugLineNum = 500;BA.debugLine="Sub real_delete";
- //BA.debugLineNum = 501;BA.debugLine="RunningTaskInfos=ActivityManager1.GetRunningTasks";
+ //BA.debugLineNum = 488;BA.debugLine="Sub real_delete";
+ //BA.debugLineNum = 489;BA.debugLine="RunningTaskInfos=ActivityManager1.GetRunningTasks";
 mostCurrent._runningtaskinfos = mostCurrent._activitymanager1.GetRunningTasks(processBA);
- //BA.debugLineNum = 502;BA.debugLine="Log(\"RunningTaskInfos.Length=\"&RunningTaskInfos.L";
+ //BA.debugLineNum = 490;BA.debugLine="Log(\"RunningTaskInfos.Length=\"&RunningTaskInfos.L";
 anywheresoftware.b4a.keywords.Common.Log("RunningTaskInfos.Length="+BA.NumberToString(mostCurrent._runningtaskinfos.length));
- //BA.debugLineNum = 504;BA.debugLine="For j = 0 To list7.Size-1";
+ //BA.debugLineNum = 492;BA.debugLine="For j = 0 To list7.Size-1";
 {
 final int step3 = 1;
 final int limit3 = (int) (mostCurrent._list7.getSize()-1);
 for (_j = (int) (0) ; (step3 > 0 && _j <= limit3) || (step3 < 0 && _j >= limit3); _j = ((int)(0 + _j + step3)) ) {
- //BA.debugLineNum = 505;BA.debugLine="Log(\"Recent Tasks: \"&list7.get(j))";
+ //BA.debugLineNum = 493;BA.debugLine="Log(\"Recent Tasks: \"&list7.get(j))";
 anywheresoftware.b4a.keywords.Common.Log("Recent Tasks: "+BA.ObjectToString(mostCurrent._list7.Get(_j)));
- //BA.debugLineNum = 506;BA.debugLine="op.killBackgroundProcesses(\"com.batcat\")";
+ //BA.debugLineNum = 494;BA.debugLine="op.killBackgroundProcesses(\"com.batcat\")";
 mostCurrent._op.killBackgroundProcesses("com.batcat");
- //BA.debugLineNum = 507;BA.debugLine="op.killProcess(list7.Get(j))";
+ //BA.debugLineNum = 495;BA.debugLine="op.killProcess(list7.Get(j))";
 mostCurrent._op.killProcess((int)(BA.ObjectToNumber(mostCurrent._list7.Get(_j))));
  }
 };
- //BA.debugLineNum = 510;BA.debugLine="close";
+ //BA.debugLineNum = 497;BA.debugLine="close";
 _close();
- //BA.debugLineNum = 511;BA.debugLine="Return";
+ //BA.debugLineNum = 498;BA.debugLine="Return";
 if (true) return "";
- //BA.debugLineNum = 512;BA.debugLine="End Sub";
+ //BA.debugLineNum = 499;BA.debugLine="End Sub";
+return "";
+}
+public static String  _s_scan() throws Exception{
+ //BA.debugLineNum = 317;BA.debugLine="Sub s_scan";
+ //BA.debugLineNum = 318;BA.debugLine="lvg.startAnim";
+mostCurrent._lvg.startAnim();
+ //BA.debugLineNum = 319;BA.debugLine="catdel.ScanCache";
+_catdel.ScanCache();
+ //BA.debugLineNum = 320;BA.debugLine="catdel.initialize(\"catdel\")";
+_catdel.initialize("catdel",processBA);
+ //BA.debugLineNum = 321;BA.debugLine="c_start";
+_c_start();
+ //BA.debugLineNum = 322;BA.debugLine="End Sub";
 return "";
 }
 public static String  _storage_check() throws Exception{
@@ -1351,1788 +1369,288 @@ int _i = 0;
 String _mnt = "";
 anywheresoftware.b4a.objects.collections.List _dirs = null;
 String _f = "";
- //BA.debugLineNum = 389;BA.debugLine="Sub storage_check";
- //BA.debugLineNum = 390;BA.debugLine="For i = 0 To paths.Size-1";
+ //BA.debugLineNum = 345;BA.debugLine="Sub storage_check";
+ //BA.debugLineNum = 346;BA.debugLine="For i = 0 To paths.Size-1";
 {
 final int step1 = 1;
 final int limit1 = (int) (mostCurrent._paths.getSize()-1);
 for (_i = (int) (0) ; (step1 > 0 && _i <= limit1) || (step1 < 0 && _i >= limit1); _i = ((int)(0 + _i + step1)) ) {
- //BA.debugLineNum = 391;BA.debugLine="Log(paths.GetKeyAt(i)&\"=\"&paths.GetValueAt(i))";
+ //BA.debugLineNum = 347;BA.debugLine="Log(paths.GetKeyAt(i)&\"=\"&paths.GetValueAt(i))";
 anywheresoftware.b4a.keywords.Common.Log(BA.ObjectToString(mostCurrent._paths.GetKeyAt(_i))+"="+BA.ObjectToString(mostCurrent._paths.GetValueAt(_i)));
  }
 };
- //BA.debugLineNum = 394;BA.debugLine="Log (\"DirRootExternal = \"&de)";
+ //BA.debugLineNum = 350;BA.debugLine="Log (\"DirRootExternal = \"&de)";
 anywheresoftware.b4a.keywords.Common.Log("DirRootExternal = "+mostCurrent._de);
- //BA.debugLineNum = 396;BA.debugLine="If mtc.Find = True Then";
+ //BA.debugLineNum = 352;BA.debugLine="If mtc.Find = True Then";
 if (mostCurrent._mtc.Find()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 397;BA.debugLine="Dim mnt As String = mtc.Group(0)";
+ //BA.debugLineNum = 353;BA.debugLine="Dim mnt As String = mtc.Group(0)";
 _mnt = mostCurrent._mtc.Group((int) (0));
- //BA.debugLineNum = 399;BA.debugLine="Log (\"mount point = \"& mnt)";
+ //BA.debugLineNum = 355;BA.debugLine="Log (\"mount point = \"& mnt)";
 anywheresoftware.b4a.keywords.Common.Log("mount point = "+_mnt);
- //BA.debugLineNum = 400;BA.debugLine="Dim dirs As List = File.ListFiles(mnt)";
+ //BA.debugLineNum = 356;BA.debugLine="Dim dirs As List = File.ListFiles(mnt)";
 _dirs = new anywheresoftware.b4a.objects.collections.List();
 _dirs = anywheresoftware.b4a.keywords.Common.File.ListFiles(_mnt);
- //BA.debugLineNum = 401;BA.debugLine="For Each f As String In dirs";
+ //BA.debugLineNum = 357;BA.debugLine="For Each f As String In dirs";
 final anywheresoftware.b4a.BA.IterableList group9 = _dirs;
 final int groupLen9 = group9.getSize();
 for (int index9 = 0;index9 < groupLen9 ;index9++){
 _f = BA.ObjectToString(group9.Get(index9));
- //BA.debugLineNum = 402;BA.debugLine="If storage.isExternalStorageRemovable(mnt&f) Th";
+ //BA.debugLineNum = 358;BA.debugLine="If storage.isExternalStorageRemovable(mnt&f) Th";
 if (mostCurrent._storage.isExternalStorageRemovable(_mnt+_f)) { 
- //BA.debugLineNum = 403;BA.debugLine="Log (\"Device = \"& f&\":\"&mnt&f&\" is removable\")";
+ //BA.debugLineNum = 359;BA.debugLine="Log (\"Device = \"& f&\":\"&mnt&f&\" is removable\")";
 anywheresoftware.b4a.keywords.Common.Log("Device = "+_f+":"+_mnt+_f+" is removable");
- //BA.debugLineNum = 404;BA.debugLine="If File.ListFiles(mnt&f).IsInitialized Then";
+ //BA.debugLineNum = 360;BA.debugLine="If File.ListFiles(mnt&f).IsInitialized Then";
 if (anywheresoftware.b4a.keywords.Common.File.ListFiles(_mnt+_f).IsInitialized()) { 
- //BA.debugLineNum = 405;BA.debugLine="Log(\"probably ExtSDCard: \"&mnt&f)";
+ //BA.debugLineNum = 361;BA.debugLine="Log(\"probably ExtSDCard: \"&mnt&f)";
 anywheresoftware.b4a.keywords.Common.Log("probably ExtSDCard: "+_mnt+_f);
- //BA.debugLineNum = 406;BA.debugLine="extsdcard = mnt&f";
+ //BA.debugLineNum = 362;BA.debugLine="extsdcard = mnt&f";
 mostCurrent._extsdcard = _mnt+_f;
  }else {
  };
  }else {
- //BA.debugLineNum = 411;BA.debugLine="Log (\"Device = \"& f&\":\"&mnt&f&\" is NOT removab";
+ //BA.debugLineNum = 367;BA.debugLine="Log (\"Device = \"& f&\":\"&mnt&f&\" is NOT removab";
 anywheresoftware.b4a.keywords.Common.Log("Device = "+_f+":"+_mnt+_f+" is NOT removable");
  };
  }
 ;
  };
- //BA.debugLineNum = 416;BA.debugLine="c_start";
-_c_start();
- //BA.debugLineNum = 417;BA.debugLine="End Sub";
+ //BA.debugLineNum = 372;BA.debugLine="s_scan";
+_s_scan();
+ //BA.debugLineNum = 373;BA.debugLine="End Sub";
 return "";
 }
 public static String  _store_check() throws Exception{
- //BA.debugLineNum = 192;BA.debugLine="Sub store_check";
- //BA.debugLineNum = 193;BA.debugLine="c1=mcl.md_light_blue_A400";
+ //BA.debugLineNum = 220;BA.debugLine="Sub store_check";
+ //BA.debugLineNum = 221;BA.debugLine="c1=mcl.md_light_blue_A400";
 _c1 = mostCurrent._mcl.getmd_light_blue_A400();
- //BA.debugLineNum = 194;BA.debugLine="c2=mcl.md_amber_A400";
+ //BA.debugLineNum = 222;BA.debugLine="c2=mcl.md_amber_A400";
 _c2 = mostCurrent._mcl.getmd_amber_A400();
- //BA.debugLineNum = 195;BA.debugLine="c3=mcl.md_white_1000";
+ //BA.debugLineNum = 223;BA.debugLine="c3=mcl.md_white_1000";
 _c3 = mostCurrent._mcl.getmd_white_1000();
- //BA.debugLineNum = 196;BA.debugLine="c4=mcl.md_teal_A400";
+ //BA.debugLineNum = 224;BA.debugLine="c4=mcl.md_teal_A400";
 _c4 = mostCurrent._mcl.getmd_teal_A400();
- //BA.debugLineNum = 197;BA.debugLine="c5=mcl.md_deep_purple_A400";
+ //BA.debugLineNum = 225;BA.debugLine="c5=mcl.md_deep_purple_A400";
 _c5 = mostCurrent._mcl.getmd_deep_purple_A400();
- //BA.debugLineNum = 198;BA.debugLine="c6=mcl.md_red_A700";
+ //BA.debugLineNum = 226;BA.debugLine="c6=mcl.md_red_A700";
 _c6 = mostCurrent._mcl.getmd_red_A700();
- //BA.debugLineNum = 199;BA.debugLine="c7=mcl.md_indigo_A400";
+ //BA.debugLineNum = 227;BA.debugLine="c7=mcl.md_indigo_A400";
 _c7 = mostCurrent._mcl.getmd_indigo_A400();
- //BA.debugLineNum = 200;BA.debugLine="c8=mcl.md_blue_A400";
+ //BA.debugLineNum = 228;BA.debugLine="c8=mcl.md_blue_A400";
 _c8 = mostCurrent._mcl.getmd_blue_A400();
- //BA.debugLineNum = 201;BA.debugLine="c9=mcl.md_orange_A700";
+ //BA.debugLineNum = 229;BA.debugLine="c9=mcl.md_orange_A700";
 _c9 = mostCurrent._mcl.getmd_orange_A700();
- //BA.debugLineNum = 202;BA.debugLine="c10=mcl.md_grey_600";
+ //BA.debugLineNum = 230;BA.debugLine="c10=mcl.md_grey_600";
 _c10 = mostCurrent._mcl.getmd_grey_600();
- //BA.debugLineNum = 203;BA.debugLine="c11=mcl.md_green_A400";
+ //BA.debugLineNum = 231;BA.debugLine="c11=mcl.md_green_A400";
 _c11 = mostCurrent._mcl.getmd_green_A400();
- //BA.debugLineNum = 204;BA.debugLine="c12=mcl.md_black_1000";
+ //BA.debugLineNum = 232;BA.debugLine="c12=mcl.md_black_1000";
 _c12 = mostCurrent._mcl.getmd_black_1000();
- //BA.debugLineNum = 205;BA.debugLine="c13=mcl.md_light_green_A400";
+ //BA.debugLineNum = 233;BA.debugLine="c13=mcl.md_light_green_A400";
 _c13 = mostCurrent._mcl.getmd_light_green_A400();
- //BA.debugLineNum = 206;BA.debugLine="c14=mcl.md_cyan_A400";
+ //BA.debugLineNum = 234;BA.debugLine="c14=mcl.md_cyan_A400";
 _c14 = mostCurrent._mcl.getmd_cyan_A400();
- //BA.debugLineNum = 207;BA.debugLine="c15=mcl.md_blue_grey_400";
+ //BA.debugLineNum = 235;BA.debugLine="c15=mcl.md_blue_grey_400";
 _c15 = mostCurrent._mcl.getmd_blue_grey_400();
- //BA.debugLineNum = 208;BA.debugLine="c16=mcl.md_light_blue_A400";
+ //BA.debugLineNum = 236;BA.debugLine="c16=mcl.md_light_blue_A400";
 _c16 = mostCurrent._mcl.getmd_light_blue_A400();
- //BA.debugLineNum = 209;BA.debugLine="If kvs4sub.ContainsKey(\"off\") Then";
+ //BA.debugLineNum = 237;BA.debugLine="If kvs4sub.ContainsKey(\"off\") Then";
 if (mostCurrent._kvs4sub._containskey("off")) { 
- //BA.debugLineNum = 210;BA.debugLine="StopService(Starter)";
+ //BA.debugLineNum = 238;BA.debugLine="StopService(Starter)";
 anywheresoftware.b4a.keywords.Common.StopService(mostCurrent.activityBA,(Object)(mostCurrent._starter.getObject()));
  };
- //BA.debugLineNum = 212;BA.debugLine="If kvs4.ContainsKey(\"0\")Then";
+ //BA.debugLineNum = 240;BA.debugLine="If kvs4.ContainsKey(\"0\")Then";
 if (mostCurrent._kvs4._containskey("0")) { 
- //BA.debugLineNum = 213;BA.debugLine="Log(\"AC_true->1\")";
+ //BA.debugLineNum = 241;BA.debugLine="Log(\"AC_true->1\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->1");
- //BA.debugLineNum = 214;BA.debugLine="Activity.Color=c1";
+ //BA.debugLineNum = 242;BA.debugLine="Activity.Color=c1";
 mostCurrent._activity.setColor(_c1);
  };
- //BA.debugLineNum = 217;BA.debugLine="If kvs4.ContainsKey(\"1\")Then";
+ //BA.debugLineNum = 245;BA.debugLine="If kvs4.ContainsKey(\"1\")Then";
 if (mostCurrent._kvs4._containskey("1")) { 
- //BA.debugLineNum = 218;BA.debugLine="Log(\"AC_true->2\")";
+ //BA.debugLineNum = 246;BA.debugLine="Log(\"AC_true->2\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->2");
- //BA.debugLineNum = 219;BA.debugLine="Activity.Color=c2";
+ //BA.debugLineNum = 247;BA.debugLine="Activity.Color=c2";
 mostCurrent._activity.setColor(_c2);
  };
- //BA.debugLineNum = 222;BA.debugLine="If kvs4.ContainsKey(\"2\")Then";
+ //BA.debugLineNum = 250;BA.debugLine="If kvs4.ContainsKey(\"2\")Then";
 if (mostCurrent._kvs4._containskey("2")) { 
- //BA.debugLineNum = 223;BA.debugLine="Log(\"AC_true->3\")";
+ //BA.debugLineNum = 251;BA.debugLine="Log(\"AC_true->3\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->3");
- //BA.debugLineNum = 224;BA.debugLine="Activity.Color=c3";
+ //BA.debugLineNum = 252;BA.debugLine="Activity.Color=c3";
 mostCurrent._activity.setColor(_c3);
- //BA.debugLineNum = 225;BA.debugLine="Label1.TextColor=Colors.Black";
+ //BA.debugLineNum = 253;BA.debugLine="Label1.TextColor=Colors.Black";
 mostCurrent._label1.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.Black);
  };
- //BA.debugLineNum = 227;BA.debugLine="If kvs4.ContainsKey(\"3\")Then";
+ //BA.debugLineNum = 255;BA.debugLine="If kvs4.ContainsKey(\"3\")Then";
 if (mostCurrent._kvs4._containskey("3")) { 
- //BA.debugLineNum = 228;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 256;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 229;BA.debugLine="Activity.Color=c4";
+ //BA.debugLineNum = 257;BA.debugLine="Activity.Color=c4";
 mostCurrent._activity.setColor(_c4);
  };
- //BA.debugLineNum = 232;BA.debugLine="If kvs4.ContainsKey(\"4\")Then";
+ //BA.debugLineNum = 260;BA.debugLine="If kvs4.ContainsKey(\"4\")Then";
 if (mostCurrent._kvs4._containskey("4")) { 
- //BA.debugLineNum = 233;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 261;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 234;BA.debugLine="Activity.Color=c5";
+ //BA.debugLineNum = 262;BA.debugLine="Activity.Color=c5";
 mostCurrent._activity.setColor(_c5);
  };
- //BA.debugLineNum = 237;BA.debugLine="If kvs4.ContainsKey(\"5\")Then";
+ //BA.debugLineNum = 265;BA.debugLine="If kvs4.ContainsKey(\"5\")Then";
 if (mostCurrent._kvs4._containskey("5")) { 
- //BA.debugLineNum = 238;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 266;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 239;BA.debugLine="Activity.Color=c6";
+ //BA.debugLineNum = 267;BA.debugLine="Activity.Color=c6";
 mostCurrent._activity.setColor(_c6);
  };
- //BA.debugLineNum = 242;BA.debugLine="If kvs4.ContainsKey(\"6\")Then";
+ //BA.debugLineNum = 270;BA.debugLine="If kvs4.ContainsKey(\"6\")Then";
 if (mostCurrent._kvs4._containskey("6")) { 
- //BA.debugLineNum = 243;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 271;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 244;BA.debugLine="Activity.Color=c7";
+ //BA.debugLineNum = 272;BA.debugLine="Activity.Color=c7";
 mostCurrent._activity.setColor(_c7);
  };
- //BA.debugLineNum = 247;BA.debugLine="If kvs4.ContainsKey(\"7\")Then";
+ //BA.debugLineNum = 275;BA.debugLine="If kvs4.ContainsKey(\"7\")Then";
 if (mostCurrent._kvs4._containskey("7")) { 
- //BA.debugLineNum = 248;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 276;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 249;BA.debugLine="Activity.Color=c8";
+ //BA.debugLineNum = 277;BA.debugLine="Activity.Color=c8";
 mostCurrent._activity.setColor(_c8);
  };
- //BA.debugLineNum = 252;BA.debugLine="If kvs4.ContainsKey(\"8\")Then";
+ //BA.debugLineNum = 280;BA.debugLine="If kvs4.ContainsKey(\"8\")Then";
 if (mostCurrent._kvs4._containskey("8")) { 
- //BA.debugLineNum = 253;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 281;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 254;BA.debugLine="Activity.Color=c9";
+ //BA.debugLineNum = 282;BA.debugLine="Activity.Color=c9";
 mostCurrent._activity.setColor(_c9);
  };
- //BA.debugLineNum = 257;BA.debugLine="If kvs4.ContainsKey(\"9\")Then";
+ //BA.debugLineNum = 285;BA.debugLine="If kvs4.ContainsKey(\"9\")Then";
 if (mostCurrent._kvs4._containskey("9")) { 
- //BA.debugLineNum = 258;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 286;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 259;BA.debugLine="Activity.Color=c10";
+ //BA.debugLineNum = 287;BA.debugLine="Activity.Color=c10";
 mostCurrent._activity.setColor(_c10);
  };
- //BA.debugLineNum = 262;BA.debugLine="If kvs4.ContainsKey(\"10\")Then";
+ //BA.debugLineNum = 290;BA.debugLine="If kvs4.ContainsKey(\"10\")Then";
 if (mostCurrent._kvs4._containskey("10")) { 
- //BA.debugLineNum = 263;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 291;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 264;BA.debugLine="Activity.Color=c11";
+ //BA.debugLineNum = 292;BA.debugLine="Activity.Color=c11";
 mostCurrent._activity.setColor(_c11);
  };
- //BA.debugLineNum = 267;BA.debugLine="If kvs4.ContainsKey(\"11\")Then";
+ //BA.debugLineNum = 295;BA.debugLine="If kvs4.ContainsKey(\"11\")Then";
 if (mostCurrent._kvs4._containskey("11")) { 
- //BA.debugLineNum = 268;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 296;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 269;BA.debugLine="Activity.Color=c12";
+ //BA.debugLineNum = 297;BA.debugLine="Activity.Color=c12";
 mostCurrent._activity.setColor(_c12);
- //BA.debugLineNum = 270;BA.debugLine="Label1.TextColor=Colors.ARGB(200,255,255,255)";
+ //BA.debugLineNum = 298;BA.debugLine="Label1.TextColor=Colors.ARGB(200,255,255,255)";
 mostCurrent._label1.setTextColor(anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (200),(int) (255),(int) (255),(int) (255)));
  };
- //BA.debugLineNum = 272;BA.debugLine="If kvs4.ContainsKey(\"12\")Then";
+ //BA.debugLineNum = 300;BA.debugLine="If kvs4.ContainsKey(\"12\")Then";
 if (mostCurrent._kvs4._containskey("12")) { 
- //BA.debugLineNum = 273;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 301;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 274;BA.debugLine="Activity.Color=c13";
+ //BA.debugLineNum = 302;BA.debugLine="Activity.Color=c13";
 mostCurrent._activity.setColor(_c13);
  };
- //BA.debugLineNum = 277;BA.debugLine="If kvs4.ContainsKey(\"13\")Then";
+ //BA.debugLineNum = 305;BA.debugLine="If kvs4.ContainsKey(\"13\")Then";
 if (mostCurrent._kvs4._containskey("13")) { 
- //BA.debugLineNum = 278;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 306;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 279;BA.debugLine="Activity.Color=c14";
+ //BA.debugLineNum = 307;BA.debugLine="Activity.Color=c14";
 mostCurrent._activity.setColor(_c14);
  };
- //BA.debugLineNum = 282;BA.debugLine="If kvs4.ContainsKey(\"14\")Then";
+ //BA.debugLineNum = 310;BA.debugLine="If kvs4.ContainsKey(\"14\")Then";
 if (mostCurrent._kvs4._containskey("14")) { 
- //BA.debugLineNum = 283;BA.debugLine="Log(\"AC_true->4\")";
+ //BA.debugLineNum = 311;BA.debugLine="Log(\"AC_true->4\")";
 anywheresoftware.b4a.keywords.Common.Log("AC_true->4");
- //BA.debugLineNum = 284;BA.debugLine="Activity.Color=c15";
+ //BA.debugLineNum = 312;BA.debugLine="Activity.Color=c15";
 mostCurrent._activity.setColor(_c15);
  };
- //BA.debugLineNum = 287;BA.debugLine="Activity.Invalidate";
+ //BA.debugLineNum = 315;BA.debugLine="Activity.Invalidate";
 mostCurrent._activity.Invalidate();
- //BA.debugLineNum = 288;BA.debugLine="End Sub";
+ //BA.debugLineNum = 316;BA.debugLine="End Sub";
+return "";
+}
+public static String  _t_start() throws Exception{
+ //BA.debugLineNum = 453;BA.debugLine="Sub t_start";
+ //BA.debugLineNum = 454;BA.debugLine="lvg.startAnim";
+mostCurrent._lvg.startAnim();
+ //BA.debugLineNum = 455;BA.debugLine="dpm1.max=100";
+mostCurrent._dpm1.setMax((int) (100));
+ //BA.debugLineNum = 456;BA.debugLine="t1.Enabled=True";
+_t1.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 457;BA.debugLine="t1_Tick";
+_t1_tick();
+ //BA.debugLineNum = 458;BA.debugLine="End Sub";
 return "";
 }
 public static String  _t1_tick() throws Exception{
- //BA.debugLineNum = 520;BA.debugLine="Sub t1_Tick";
- //BA.debugLineNum = 521;BA.debugLine="count=count+1";
+ //BA.debugLineNum = 501;BA.debugLine="Sub t1_Tick";
+ //BA.debugLineNum = 502;BA.debugLine="count=count+1";
 _count = (int) (_count+1);
- //BA.debugLineNum = 522;BA.debugLine="ListView1.SetSelection(-1)";
+ //BA.debugLineNum = 503;BA.debugLine="ListView1.SetSelection(-1)";
 mostCurrent._listview1.SetSelection((int) (-1));
- //BA.debugLineNum = 523;BA.debugLine="dpm1.Max=100";
+ //BA.debugLineNum = 504;BA.debugLine="dpm1.Max=100";
 mostCurrent._dpm1.setMax((int) (100));
- //BA.debugLineNum = 524;BA.debugLine="dpm1.UnfinishedStrokeWidth=20";
+ //BA.debugLineNum = 505;BA.debugLine="dpm1.UnfinishedStrokeWidth=20";
 mostCurrent._dpm1.setUnfinishedStrokeWidth((float) (20));
- //BA.debugLineNum = 525;BA.debugLine="dpm1.UnfinishedStrokeColor=Colors.ARGB(180,255,25";
+ //BA.debugLineNum = 506;BA.debugLine="dpm1.UnfinishedStrokeColor=Colors.ARGB(180,255,25";
 mostCurrent._dpm1.setUnfinishedStrokeColor(anywheresoftware.b4a.keywords.Common.Colors.ARGB((int) (180),(int) (255),(int) (255),(int) (255)));
- //BA.debugLineNum = 526;BA.debugLine="If count>0 Then";
+ //BA.debugLineNum = 507;BA.debugLine="If count>0 Then";
 if (_count>0) { 
- //BA.debugLineNum = 527;BA.debugLine="Label1.text=\"search Battery..\"";
+ //BA.debugLineNum = 508;BA.debugLine="Label1.text=\"search Battery..\"";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("search Battery.."));
  };
- //BA.debugLineNum = 529;BA.debugLine="If count > 1 Then";
+ //BA.debugLineNum = 510;BA.debugLine="If count > 1 Then";
 if (_count>1) { 
- //BA.debugLineNum = 531;BA.debugLine="Label1.text=\"check Battery..\"";
+ //BA.debugLineNum = 512;BA.debugLine="Label1.text=\"check Battery..\"";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("check Battery.."));
- //BA.debugLineNum = 532;BA.debugLine="dpm1.Progress=20";
+ //BA.debugLineNum = 513;BA.debugLine="dpm1.Progress=20";
 mostCurrent._dpm1.setProgress((int) (20));
  };
- //BA.debugLineNum = 534;BA.debugLine="If count > 2 Then";
+ //BA.debugLineNum = 515;BA.debugLine="If count > 2 Then";
 if (_count>2) { 
- //BA.debugLineNum = 535;BA.debugLine="Label1.text=\"optimize Battery..\"";
+ //BA.debugLineNum = 516;BA.debugLine="Label1.text=\"optimize Battery..\"";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("optimize Battery.."));
- //BA.debugLineNum = 536;BA.debugLine="dpm1.Progress=36";
+ //BA.debugLineNum = 517;BA.debugLine="dpm1.Progress=36";
 mostCurrent._dpm1.setProgress((int) (36));
  };
- //BA.debugLineNum = 538;BA.debugLine="If count > 3 Then";
+ //BA.debugLineNum = 519;BA.debugLine="If count > 3 Then";
 if (_count>3) { 
- //BA.debugLineNum = 540;BA.debugLine="Label1.text=\"search Application cache\"";
+ //BA.debugLineNum = 521;BA.debugLine="Label1.text=\"search Application cache\"";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("search Application cache"));
- //BA.debugLineNum = 542;BA.debugLine="dpm1.Progress=42";
+ //BA.debugLineNum = 523;BA.debugLine="dpm1.Progress=42";
 mostCurrent._dpm1.setProgress((int) (42));
  };
- //BA.debugLineNum = 545;BA.debugLine="If count > 4 Then";
+ //BA.debugLineNum = 526;BA.debugLine="If count > 4 Then";
 if (_count>4) { 
- //BA.debugLineNum = 547;BA.debugLine="dpm1.Progress=52";
+ //BA.debugLineNum = 528;BA.debugLine="dpm1.Progress=52";
 mostCurrent._dpm1.setProgress((int) (52));
- //BA.debugLineNum = 550;BA.debugLine="Label1.text=\"cleaning Cache System..\"";
+ //BA.debugLineNum = 531;BA.debugLine="Label1.text=\"cleaning Cache System..\"";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("cleaning Cache System.."));
- //BA.debugLineNum = 552;BA.debugLine="dpm1.Progress=67";
+ //BA.debugLineNum = 533;BA.debugLine="dpm1.Progress=67";
 mostCurrent._dpm1.setProgress((int) (67));
  };
- //BA.debugLineNum = 554;BA.debugLine="If count > 5 Then";
+ //BA.debugLineNum = 535;BA.debugLine="If count > 5 Then";
 if (_count>5) { 
- //BA.debugLineNum = 555;BA.debugLine="dpm1.Progress=89";
+ //BA.debugLineNum = 536;BA.debugLine="dpm1.Progress=89";
 mostCurrent._dpm1.setProgress((int) (89));
- //BA.debugLineNum = 556;BA.debugLine="Label1.text=\"deleting Garbage Cache..\"";
+ //BA.debugLineNum = 537;BA.debugLine="Label1.text=\"deleting Garbage Cache..\"";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("deleting Garbage Cache.."));
- //BA.debugLineNum = 559;BA.debugLine="Label1.text=\"check: \"&op.formatSize(op.Availab";
+ //BA.debugLineNum = 540;BA.debugLine="Label1.text=\"check: \"&op.formatSize(op.Availab";
 mostCurrent._label1.setText(BA.ObjectToCharSequence("check: "+mostCurrent._op.formatSize(mostCurrent._op.getAvailableMemory())));
- //BA.debugLineNum = 561;BA.debugLine="dpm1.Progress=100";
+ //BA.debugLineNum = 542;BA.debugLine="dpm1.Progress=100";
 mostCurrent._dpm1.setProgress((int) (100));
  };
- //BA.debugLineNum = 563;BA.debugLine="If count > 6 Then";
+ //BA.debugLineNum = 544;BA.debugLine="If count > 6 Then";
 if (_count>6) { 
- //BA.debugLineNum = 566;BA.debugLine="Label1.text=op.formatSize(cat.FreeMemory)";
+ //BA.debugLineNum = 547;BA.debugLine="Label1.text=op.formatSize(cat.FreeMemory)";
 mostCurrent._label1.setText(BA.ObjectToCharSequence(mostCurrent._op.formatSize(mostCurrent._cat.getFreeMemory())));
- //BA.debugLineNum = 568;BA.debugLine="CallSub(Me,\"del_quest\")";
+ //BA.debugLineNum = 549;BA.debugLine="CallSub(Me,\"del_quest\")";
 anywheresoftware.b4a.keywords.Common.CallSubNew(mostCurrent.activityBA,cool.getObject(),"del_quest");
  };
- //BA.debugLineNum = 570;BA.debugLine="End Sub";
+ //BA.debugLineNum = 551;BA.debugLine="End Sub";
 return "";
 }
-
-//import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-//import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-//import com.google.android.gms.common.GooglePlayServicesRepairableException;
-
-
-  //private final Context context;
-  private TelephonyManager tm; // = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-  private String initialVal = "";
-
-  public int RINGER_MODE_SILENT = 0;
-  public int RINGER_MODE_NORMAL = 1;
-  public int RINGER_MODE_VIBRATE = 2;
-
-  /**
-   * The constant LOGTAG.
-   */
-  //private static final String LOGTAG = "EasyDeviceInfo";
-
-
-
-
-
-  /**
-   * Instantiates a new Easy device info.
-   *
-   * @param context the context
-   */
-//  public EasyDeviceInfo(Context context) {
-//    this.context = context;
-//    tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//    initialVal = "na";
-//  }
-
-  /**
-   * Gets library version.
-   *
-   * @return the library version
-   */
-//  public String getLibraryVersion() {
-//    String version = "1.1.9";
-//    int versionCode = 11;
-//    return version + "-" + versionCode;
-//  }
-
-  /**
-   * Gets android id.
-   *
-   * @return the android id
-   */
-  public String getAndroidID() {
-    String result = initialVal;
-    try {
-      result = Settings.Secure.getString(BA.applicationContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  
-   /**
-   * Gets model.
-   *
-   * @return the model
-   */
-  public String getModel() {
-    String result = initialVal;
-    try {
-      result = Build.MODEL;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  } 
-
-
-  /**
-   * Gets build brand.
-   *
-   * @return the build brand
-   */
-  public String getBuildBrand() {
-    String result = initialVal;
-    try {
-      result = Build.BRAND;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }
-
-  /**
-   * Gets build host.
-   *
-   * @return the build host
-   */
-  public String getBuildHost() {
-    String result = initialVal;
-    try {
-      result = Build.HOST;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets build tags.
-   *
-   * @return the build tags
-   */
-  public String getBuildTags() {
-    String result = initialVal;
-    try {
-      result = Build.TAGS;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  
-  /**
-   * Gets build time.
-   *
-   * @return the build time
-   */
-  public long getBuildTime() {
-    long result = 0;
-    try {
-      result = Build.TIME;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets build user.
-   *
-   * @return the build user
-   */
-  public String getBuildUser() {
-    String result = initialVal;
-    try {
-      result = Build.USER;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets build version release.
-   *
-   * @return the build version release
-   */
-  public String getBuildVersionRelease() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.RELEASE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-    /**
-   * Gets screen display id.
-   *
-   * @return the screen display id
-   */
-  public String getScreenDisplayID() {
-    String result = initialVal;
-    try {
-      WindowManager wm = (WindowManager) BA.applicationContext.getSystemService(Context.WINDOW_SERVICE);
-      Display display = wm.getDefaultDisplay();
-      result = String.valueOf(display.getDisplayId());
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets build version codename.
-   *
-   * @return the build version codename
-   */
-  public String getBuildVersionCodename() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.CODENAME;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  /**
-   * Gets build version incremental.
-   *
-   * @return the build version incremental
-   */
-  public String getBuildVersionIncremental() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.INCREMENTAL;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-
-  /**
-   * Gets build version sdk.
-   *
-   * @return the build version sdk
-   */
-  public int getBuildVersionSDK() {
-    int result = 0;
-    try {
-      result = Build.VERSION.SDK_INT;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return result;
-  }
-  
-
-  /**
-   * Gets build id.
-   *
-   * @return the build id
-   */
-  public String getBuildID() {
-    String result = initialVal;
-    try {
-      result = Build.ID;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-        
-  /**
-   * Is Device rooted boolean
-   *
-   * @return the boolean
-   */
-  public boolean isDeviceRooted() {
-    String su = "su";
-    String[] locations = {
-        "/sbin/", "/system/bin/", "/system/xbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
-        "/data/local/xbin/", "/data/local/bin/", "/data/local/"
-    };
-    for (String location : locations) {
-      if (new File(location + su).exists()) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
-
-  /**
-   * Get supported abis string [ ].
-   *
-   * @return the string [ ]
-   */
-  public String[] getSupportedABIS() {
-    String[] result = new String[] { "-" };
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        result = Build.SUPPORTED_ABIS;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length == 0) {
-      result = new String[] { "-" };
-    }
-    return result;
-  }
-  
-
-
-  /**
-   * Gets string supported abis.
-   *
-   * @return the string supported abis
-   */
-  public String getStringSupportedABIS() {
-    String result = initialVal;
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        String[] supportedABIS = Build.SUPPORTED_ABIS;
-
-        StringBuilder supportedABIString = new StringBuilder();
-        if (supportedABIS.length > 0) {
-          for (String abis : supportedABIS) {
-            supportedABIString.append(abis).append("_");
-          }
-          supportedABIString.deleteCharAt(supportedABIString.lastIndexOf("_"));
-        } else {
-          supportedABIString.append(initialVal);
-        }
-        result = supportedABIString.toString();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }  
-  
-  
-   /**
-   * Gets string supported 32 bit abis.
-   *
-   * @return the string supported 32 bit abis
-   */
-  public String getStringSupported32bitABIS() {
-    String result = initialVal;
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        String[] supportedABIS = Build.SUPPORTED_32_BIT_ABIS;
-
-        StringBuilder supportedABIString = new StringBuilder();
-        if (supportedABIS.length > 0) {
-          for (String abis : supportedABIS) {
-            supportedABIString.append(abis).append("_");
-          }
-          supportedABIString.deleteCharAt(supportedABIString.lastIndexOf("_"));
-        } else {
-          supportedABIString.append(initialVal);
-        }
-
-        result = supportedABIString.toString();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-
-    return handleIllegalCharacterInResult(result);
-  } 
-  
-  
-  /**
-   * Gets manufacturer.
-   *
-   * @return the manufacturer
-   */
-  public String getManufacturer() {
-    String result = initialVal;
-    try {
-      result = Build.MANUFACTURER;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }  
-  
-  
-  
-   /**
-   * Gets resolution.
-   *
-   * @return the resolution
-   */
-  public String getResolution() {
-    String result = initialVal;
-    try {
-      WindowManager wm = (WindowManager) BA.applicationContext.getSystemService(Context.WINDOW_SERVICE);
-
-      Display display = wm.getDefaultDisplay();
-
-      DisplayMetrics metrics = new DisplayMetrics();
-      display.getMetrics(metrics);
-      result = metrics.heightPixels + "x" + metrics.widthPixels;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  } 
-  
-
-  /**
-   * Gets carrier.
-   *
-   * @return the carrier
-   */
-  public String getCarrier() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA) {
-        result = tm.getNetworkOperatorName().toLowerCase(Locale.getDefault());
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }
-  
-  
-  /**
-   * Gets device.
-   *
-   * @return the device
-   */
-  public String getDevice() {
-    String result = initialVal;
-    try {
-      result = Build.DEVICE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets bootloader.
-   *
-   * @return the bootloader
-   */
-  public String getBootloader() {
-    String result = initialVal;
-    try {
-      result = Build.BOOTLOADER;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets board.
-   *
-   * @return the board
-   */
-  public String getBoard() {
-    String result = initialVal;
-    try {
-      result = Build.BOARD;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets display version.
-   *
-   * @return the display version
-   */
-  public String getDisplayVersion() {
-    String result = initialVal;
-    try {
-      result = Build.DISPLAY;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-   /**
-   * Gets language.
-   *
-   * @return the language
-   */
-  public String getLanguage() {
-    String result = initialVal;
-    try {
-      result = Locale.getDefault().getLanguage();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets country.
-   *
-   * @return the country
-   */
-  public String getCountry() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      if (tm.getSimState() == TelephonyManager.SIM_STATE_READY) {
-        result = tm.getSimCountryIso().toLowerCase(Locale.getDefault());
-      } else {
-        Locale locale = Locale.getDefault();
-        result = locale.getCountry().toLowerCase(locale);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  } 
-  
-  
-  
-  /**
-   * Gets battery percentage
-   *
-   * @return the battery percentage
-   */
-  public int getBatteryPercentage() {
-    int percentage = 0;
-    Intent batteryStatus = getBatteryStatusIntent();
-    if (batteryStatus != null) {
-      int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-      int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-      percentage = (int) ((level / (float) scale) * 100);
-    }
-
-    return percentage;
-  }
-
-  /**
-   * Is device charging boolean.
-   *
-   * @return is battery charging boolean
-   */
-  public boolean isDeviceCharging() {
-    Intent batteryStatus = getBatteryStatusIntent();
-    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-    return (status == BatteryManager.BATTERY_STATUS_CHARGING
-        || status == BatteryManager.BATTERY_STATUS_FULL);
-  }
-
-  /**
-   * Is device charging usb boolean.
-   *
-   * @return is battery charging via USB boolean
-   */
-  public boolean isDeviceChargingUSB() {
-    Intent batteryStatus = getBatteryStatusIntent();
-    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-    return (chargePlug == BatteryManager.BATTERY_PLUGGED_USB);
-  }
-
-  /**
-   * Is device charging ac boolean.
-   *
-   * @return is battery charging via AC boolean
-   */
-  public boolean isDeviceChargingAC() {
-    Intent batteryStatus = getBatteryStatusIntent();
-    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-    return (chargePlug == BatteryManager.BATTERY_PLUGGED_AC);
-  }  
-  
-  
-   /**
-   * Gets network type.
-   *
-   * @return the network type
-   */
-  public String getNetworkType() {
-    int networkStatePermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE);
-
-    String result = initialVal;
-
-    if (networkStatePermission == PackageManager.PERMISSION_GRANTED) {
-      try {
-        ConnectivityManager cm =
-            (ConnectivityManager) BA.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork == null) {
-          result = "Unknown";
-        } else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
-            || activeNetwork.getType() == ConnectivityManager.TYPE_WIMAX) {
-          result = "Wifi/WifiMax";
-        } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-          TelephonyManager manager =
-              (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-          if (manager.getSimState() == TelephonyManager.SIM_STATE_READY) {
-            switch (manager.getNetworkType()) {
-
-              // Unknown
-              case TelephonyManager.NETWORK_TYPE_UNKNOWN:
-                result = "Cellular - Unknown";
-                break;
-              // Cellular Data–2G
-              case TelephonyManager.NETWORK_TYPE_EDGE:
-              case TelephonyManager.NETWORK_TYPE_GPRS:
-              case TelephonyManager.NETWORK_TYPE_CDMA:
-              case TelephonyManager.NETWORK_TYPE_IDEN:
-              case TelephonyManager.NETWORK_TYPE_1xRTT:
-                result = "Cellular - 2G";
-                break;
-              // Cellular Data–3G
-              case TelephonyManager.NETWORK_TYPE_UMTS:
-              case TelephonyManager.NETWORK_TYPE_HSDPA:
-              case TelephonyManager.NETWORK_TYPE_HSPA:
-              case TelephonyManager.NETWORK_TYPE_HSPAP:
-              case TelephonyManager.NETWORK_TYPE_HSUPA:
-              case TelephonyManager.NETWORK_TYPE_EVDO_0:
-              case TelephonyManager.NETWORK_TYPE_EVDO_A:
-              case TelephonyManager.NETWORK_TYPE_EVDO_B:
-                result = "Cellular - 3G";
-                break;
-              // Cellular Data–4G
-              case TelephonyManager.NETWORK_TYPE_LTE:
-                result = "Cellular - 4G";
-                break;
-              // Cellular Data–Unknown Generation
-              default:
-                result = "Cellular - Unknown Generation";
-                break;
-            }
-          }
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  } 
-  
-  
-  
-  /**
-   * Gets os codename.
-   *
-   * @return the os codename
-   */
-  public String getOSCodename() {
-    String codename = initialVal;
-    switch (Build.VERSION.SDK_INT) {
-      case Build.VERSION_CODES.BASE:
-        codename = "First Android Version. Yay !";
-        break;
-      case Build.VERSION_CODES.BASE_1_1:
-        codename = "Base Android 1.1";
-        break;
-      case Build.VERSION_CODES.CUPCAKE:
-        codename = "Cupcake";
-        break;
-      case Build.VERSION_CODES.DONUT:
-        codename = "Donut";
-        break;
-      case Build.VERSION_CODES.ECLAIR:
-      case Build.VERSION_CODES.ECLAIR_0_1:
-      case Build.VERSION_CODES.ECLAIR_MR1:
-
-        codename = "Eclair";
-        break;
-      case Build.VERSION_CODES.FROYO:
-        codename = "Froyo";
-        break;
-      case Build.VERSION_CODES.GINGERBREAD:
-      case Build.VERSION_CODES.GINGERBREAD_MR1:
-        codename = "Gingerbread";
-        break;
-      case Build.VERSION_CODES.HONEYCOMB:
-      case Build.VERSION_CODES.HONEYCOMB_MR1:
-      case Build.VERSION_CODES.HONEYCOMB_MR2:
-        codename = "Honeycomb";
-        break;
-      case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
-      case Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
-        codename = "Ice Cream Sandwich";
-        break;
-      case Build.VERSION_CODES.JELLY_BEAN:
-      case Build.VERSION_CODES.JELLY_BEAN_MR1:
-      case Build.VERSION_CODES.JELLY_BEAN_MR2:
-        codename = "Jelly Bean";
-        break;
-      case Build.VERSION_CODES.KITKAT:
-        codename = "Kitkat";
-        break;
-      case Build.VERSION_CODES.KITKAT_WATCH:
-        codename = "Kitkat Watch";
-        break;
-      case Build.VERSION_CODES.LOLLIPOP:
-      case Build.VERSION_CODES.LOLLIPOP_MR1:
-        codename = "Lollipop";
-        break;
-      case Build.VERSION_CODES.M:
-        codename = "Marshmallow";
-        break;
-    }
-    return codename;
-  }  
-  
-  
-  /**
-   * Gets os version.
-   *
-   * @return the os version
-   */
-  public String getOSVersion() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.RELEASE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-
-
-  /**
-   * Gets wifi mac.
-   *
-   * @return the wifi mac
-   */
-  @SuppressWarnings("MissingPermission") public String getWifiMAC() {
-    String result = initialVal;
-    try {
-
-      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_WIFI_STATE)
-          == PackageManager.PERMISSION_GRANTED) {
-
-        WifiManager wm = (WifiManager) BA.applicationContext.getSystemService(Context.WIFI_SERVICE);
-        result = wm.getConnectionInfo().getMacAddress();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  
-  /**
-   * Gets imei.
-   *
-   * @return the imei
-   */
-  public String getIMEI() {
-    tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    String result = initialVal;
-    boolean hasReadPhoneStatePermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE)
-            == PackageManager.PERMISSION_GRANTED;
-    try {
-      if (hasReadPhoneStatePermission) result = tm.getDeviceId();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets imsi.
-   *
-   * @return the imsi
-   */
-  public String getIMSI() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    boolean hasReadPhoneStatePermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE)
-            == PackageManager.PERMISSION_GRANTED;
-    try {
-      if (hasReadPhoneStatePermission) result = tm.getSubscriberId();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets serial.
-   *
-   * @return the serial
-   */
-  public String getSerial() {
-    String result = initialVal;
-    try {
-      result = Build.SERIAL;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets sim serial.
-   *
-   * @return the sim serial
-   */
-  public String getSIMSerial() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      result = tm.getSimSerialNumber();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets gsfid.
-   *
-   * @return the gsfid
-   */
-  public String getGSFID() {
-    final Uri URI = Uri.parse("content://com.google.android.gsf.gservices");
-    final String ID_KEY = "android_id";
-
-    String[] params = { ID_KEY };
-    Cursor c = BA.applicationContext.getContentResolver().query(URI, null, null, params, null);
-
-    if (c == null) {
-      return initialVal;
-    } else if (!c.moveToFirst() || c.getColumnCount() < 2) {
-      c.close();
-      return initialVal;
-    }
-
-    try {
-      String gsfID = Long.toHexString(Long.parseLong(c.getString(1)));
-      c.close();
-      return gsfID;
-    } catch (NumberFormatException e) {
-      c.close();
-      return initialVal;
-    }
-  }
-
-  /**
-   * Gets bluetooth mac.
-   *
-   * @return the bluetooth mac
-   */
-  @SuppressWarnings("MissingPermission") public String getBluetoothMAC() {
-    String result = initialVal;
-    try {
-      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.BLUETOOTH)
-          == PackageManager.PERMISSION_GRANTED) {
-        BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
-        result = bta.getAddress();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets psuedo unique id.
-   *
-   * @return the psuedo unique id
-   */
-  public String getPsuedoUniqueID() {
-    // If all else fails, if the user does have lower than API 9 (lower
-    // than Gingerbread), has reset their phone or 'Secure.ANDROID_ID'
-    // returns 'null', then simply the ID returned will be solely based
-    // off their Android device information. This is where the collisions
-    // can happen.
-    // Try not to use DISPLAY, HOST or ID - these items could change.
-    // If there are collisions, there will be overlapping data
-    String devIDShort = "35" +
-        (Build.BOARD.length() % 10) + (Build.BRAND.length() % 10);
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      devIDShort += (Build.SUPPORTED_ABIS[0].length() % 10);
-    } else {
-      devIDShort += (Build.CPU_ABI.length() % 10);
-    }
-
-    devIDShort +=
-        (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10) + (Build.MODEL.length()
-            % 10) + (Build.PRODUCT.length() % 10);
-
-    // Only devices with API >= 9 have android.os.Build.SERIAL
-    // http://developer.android.com/reference/android/os/Build.html#SERIAL
-    // If a user upgrades software or roots their phone, there will be a duplicate entry
-    String serial;
-    try {
-      serial = Build.class.getField("SERIAL").get(null).toString();
-
-      // Go ahead and return the serial for api => 9
-      return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
-    } catch (Exception e) {
-      // String needs to be initialized
-      serial = "ESYDV000"; // some value
-    }
-
-    // Finally, combine the values we have found by using the UUID class to create a unique identifier
-    return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
-  }  
-  
-  
-  /**
-   * Gets phone no.
-   *
-   * @return the phone no
-   */
-  public String getPhoneNo() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      if (tm.getLine1Number() != null) {
-        result = tm.getLine1Number();
-        if (result.equals("")) {
-          result = initialVal;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets product.
-   *
-   * @return the product
-   */
-  public String getProduct() {
-    String result = initialVal;
-    try {
-      result = Build.PRODUCT;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets fingerprint.
-   *
-   * @return the fingerprint
-   */
-  public String getFingerprint() {
-    String result = initialVal;
-    try {
-      result = Build.FINGERPRINT;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets hardware.
-   *
-   * @return the hardware
-   */
-  public String getHardware() {
-    String result = initialVal;
-    try {
-      result = Build.HARDWARE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets radio ver.
-   *
-   * @return the radio ver
-   */
-  public String getRadioVer() {
-    String result = initialVal;
-    try {
-
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-        result = Build.getRadioVersion();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets ip address.
-   *
-   * @param useIPv4 the use i pv 4
-   * @return the ip address
-   */
-  public String getIPAddress(boolean useIPv4) {
-    String result = initialVal;
-    try {
-      List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
-      for (NetworkInterface intf : interfaces) {
-        List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
-        for (InetAddress addr : addrs) {
-          if (!addr.isLoopbackAddress()) {
-            String sAddr = addr.getHostAddress().toUpperCase();
-            boolean isIPv4 = addr instanceof Inet4Address;
-            if (useIPv4) {
-              if (isIPv4) result = sAddr;
-            } else {
-              if (!isIPv4) {
-                int delim = sAddr.indexOf('%'); // drop ip6 port suffix
-                result = delim < 0 ? sAddr : sAddr.substring(0, delim);
-              }
-            }
-          }
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets ua.
-   *
-   * @return the ua
-   */
-  public String getUA() {
-    final String system_ua = System.getProperty("http.agent");
-    String result = system_ua;
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        result = new WebView(BA.applicationContext).getSettings().getDefaultUserAgent(BA.applicationContext) +
-            "__" + system_ua;
-      } else {
-        result = new WebView(BA.applicationContext).getSettings().getUserAgentString() +
-            "__" + system_ua;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() < 0 || result == null) {
-      result = system_ua;
-    }
-    return result;
-  }
-
-  /**
-   * Get lat long double [ ].
-   *
-   * @return the double [ ]
-   */
-  @SuppressWarnings("MissingPermission") @TargetApi(Build.VERSION_CODES.M)
-  public double[] getLatLong() {
-    boolean hasFineLocationPermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED ? true : false;
-    boolean isGPSEnabled, isNetworkEnabled;
-
-    double[] gps = new double[2];
-    gps[0] = 0;
-    gps[1] = 0;
-    if (hasFineLocationPermission) {
-      try {
-        LocationManager lm = (LocationManager) BA.applicationContext.getSystemService(Context.LOCATION_SERVICE);
-
-        isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        isNetworkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        Location net_loc = null, gps_loc = null, final_loc = null;
-
-        if (isGPSEnabled) {
-          gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-        if (isNetworkEnabled) {
-          net_loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        }
-
-        if (gps_loc != null && net_loc != null) {
-          if (gps_loc.getAccuracy() >= net_loc.getAccuracy()) {
-            final_loc = gps_loc;
-          } else {
-            final_loc = net_loc;
-          }
-        } else {
-          if (gps_loc != null) {
-            final_loc = gps_loc;
-          } else if (net_loc != null) {
-            final_loc = net_loc;
-          } else {
-            // GPS and Network both are null so try passive
-            final_loc = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-          }
-        }
-
-        if (final_loc != null) {
-          gps[0] = final_loc.getLatitude();
-          gps[1] = final_loc.getLongitude();
-        }
-
-        return gps;
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-    return gps;
-  }  
-  
-  
-  /**
-   * Gets time.
-   *
-   * @return the time
-   */
-  public long getTime() {
-    return System.currentTimeMillis();
-  }
-
-  /**
-   * Gets formatted time.
-   *
-   * @return the formatted time
-   */
-  public String getFormatedTime() {
-
-    long millis = System.currentTimeMillis();
-    int sec = (int) (millis / 1000) % 60;
-    int min = (int) ((millis / (1000 * 60)) % 60);
-    int hr = (int) ((millis / (1000 * 60 * 60)) % 24);
-
-    return String.format("%02d:%02d:%02d", hr, min, sec);
-  }  
-  
-  
-  /**
-   * Gets app name.
-   *
-   * @return the app name
-   */
-  public String getAppName() {
-    String result;
-    final PackageManager pm = BA.applicationContext.getPackageManager();
-    ApplicationInfo ai;
-    try {
-      ai = pm.getApplicationInfo(BA.applicationContext.getPackageName(), 0);
-    } catch (PackageManager.NameNotFoundException e) {
-      ai = null;
-      e.printStackTrace();
-    }
-    result = (String) (ai != null ? pm.getApplicationLabel(ai) : initialVal);
-    return result;
-  }
-
-  /**
-   * Gets app version.
-   *
-   * @return the app version
-   */
-  public String getAppVersion() {
-    String result = initialVal;
-    try {
-      result = BA.applicationContext.getPackageManager().getPackageInfo(BA.applicationContext.getPackageName(), 0).versionName;
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets app version code.
-   *
-   * @return the app version code
-   */
-  public String getAppVersionCode() {
-    String result = initialVal;
-    try {
-      result = String.valueOf(
-          BA.applicationContext.getPackageManager().getPackageInfo(BA.applicationContext.getPackageName(), 0).versionCode);
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets activity name.
-   *
-   * @return the activity name
-   */
-  public String getActivityName() {
-    String result = initialVal;
-    try {
-      result = BA.applicationContext.getClass().getSimpleName();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-   /**
-   * Gets package name.
-   *
-   * @return the package name
-   */
-  public String getPackageName() {
-    String result = initialVal;
-    try {
-      result = BA.applicationContext.getPackageName();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets store.
-   *
-   * @return the store
-   */
-  public String getStore() {
-    String result = initialVal;
-    if (Build.VERSION.SDK_INT >= 3) {
-      try {
-        result = BA.applicationContext.getPackageManager().getInstallerPackageName(BA.applicationContext.getPackageName());
-      } catch (Exception e) {
-        //Log.i(LOGTAG, "Can't get Installer package");
-      }
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  } 
-  
-  /**
-   * Gets density.
-   *
-   * @return the density
-   */
-  public String getDensity() {
-    String densityStr = initialVal;
-    final int density = BA.applicationContext.getResources().getDisplayMetrics().densityDpi;
-    switch (density) {
-      case DisplayMetrics.DENSITY_LOW:
-        densityStr = "LDPI";
-        break;
-      case DisplayMetrics.DENSITY_MEDIUM:
-        densityStr = "MDPI";
-        break;
-      case DisplayMetrics.DENSITY_TV:
-        densityStr = "TVDPI";
-        break;
-      case DisplayMetrics.DENSITY_HIGH:
-        densityStr = "HDPI";
-        break;
-      case DisplayMetrics.DENSITY_XHIGH:
-        densityStr = "XHDPI";
-        break;
-      case DisplayMetrics.DENSITY_400:
-        densityStr = "XMHDPI";
-        break;
-      case DisplayMetrics.DENSITY_XXHIGH:
-        densityStr = "XXHDPI";
-        break;
-      case DisplayMetrics.DENSITY_XXXHIGH:
-        densityStr = "XXXHDPI";
-        break;
-    }
-    return densityStr;
-  }  
-  
-  /**
-   * Get accounts string [ ].
-   *
-   * @return the string [ ]
-   */
-  @SuppressWarnings("MissingPermission") public String[] getAccounts() {
-    try {
-
-      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.GET_ACCOUNTS)
-          == PackageManager.PERMISSION_GRANTED) {
-        Account[] accounts = AccountManager.get(BA.applicationContext).getAccountsByType("com.google");
-        String[] result = new String[accounts.length];
-        for (int i = 0; i < accounts.length; i++) {
-          result[i] = accounts[i].name;
-        }
-        return result;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return null;
-  }  
-  
-
-  /**
-   * Is network available boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isNetworkAvailable() {
-    if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.INTERNET)
-        == PackageManager.PERMISSION_GRANTED
-        && BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-        == PackageManager.PERMISSION_GRANTED) {
-      ConnectivityManager cm = (ConnectivityManager) BA.applicationContext.getApplicationContext()
-          .getSystemService(Context.CONNECTIVITY_SERVICE);
-      NetworkInfo netInfo = cm.getActiveNetworkInfo();
-      return netInfo != null && netInfo.isConnected();
-    }
-    return false;
-  }
-
-  /**
-   * Is running on emulator boolean.
-   *
-   * @return the boolean
-   */
-  public static boolean isRunningOnEmulator() {
-    return Build.BRAND.contains("generic")
-        || Build.DEVICE.contains("generic")
-        || Build.PRODUCT.contains("sdk")
-        || Build.HARDWARE.contains("goldfish")
-        || Build.MANUFACTURER.contains("Genymotion")
-        || Build.PRODUCT.contains("vbox86p")
-        || Build.DEVICE.contains("vbox86p")
-        || Build.HARDWARE.contains("vbox86");
-  }  
-  
-
-
-  /**
-   * Is wifi enabled
-   *
-   * @return the boolean
-   */
-  public boolean isWifiEnabled() {
-    boolean wifiState = false;
-
-    WifiManager wifiManager = (WifiManager) BA.applicationContext.getSystemService(Context.WIFI_SERVICE);
-    if (wifiManager != null) {
-      wifiState = wifiManager.isWifiEnabled() ? true : false;
-    }
-    return wifiState;
-  }
-
-  /**
-   * Gets Device Ringer Mode
-   *
-   * @return Device Ringer Mode
-   */
-  public int getDeviceRingerMode() {
-    int ringerMode = RINGER_MODE_NORMAL;
-    AudioManager audioManager = (AudioManager) BA.applicationContext.getSystemService(Context.AUDIO_SERVICE);
-    switch (audioManager.getRingerMode()) {
-      case AudioManager.RINGER_MODE_NORMAL:
-        ringerMode = RINGER_MODE_NORMAL;
-        break;
-      case AudioManager.RINGER_MODE_SILENT:
-        ringerMode = RINGER_MODE_SILENT;
-        break;
-      case AudioManager.RINGER_MODE_VIBRATE:
-        ringerMode = RINGER_MODE_VIBRATE;
-    }
-    return ringerMode;
-  }
-
-
-  private Intent getBatteryStatusIntent() {
-    IntentFilter batFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-    return BA.applicationContext.registerReceiver(null, batFilter);
-  }
-
-
-  private String handleIllegalCharacterInResult(String result) {
-    if (result.indexOf(" ") > 0) {
-      result = result.replaceAll(" ", "_");
-    }
-    return result;
-  }
-
-  /**
-   * Gets app cache
-   *
-   * @return Installed app cache
-   */
- 
-
-
-
-
-
 }

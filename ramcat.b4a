@@ -23,7 +23,7 @@ Module20=KeyValueStore
 Module21=ClsCheckList
 Module22=ClsExplorer
 Build1=Default,com.batcat
-ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="22"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission       android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission ~\n~android:name="android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~ android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~ android:name="android.permission.GET_PACKAGE_SIZE"/>~\n~<uses-permission ~\n~ android:name="android.permission.GET_TASKS"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~ android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.BATTERY_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.MODIFY_PHONE_STATE"/>~\n~<uses-permission~\n~  android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>~\n~<uses-permission~\n~  android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>~\n~<uses-permission~\n~  android:name="android.permission.SET_ALWAYS_FINISH"/>~\n~<uses-permssion~\n~  android:name="android.permission.UPDATE_DEVICE_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.BIND_APPWIDGET"/>~\n~  )~\n~AddApplicationText(<service android:name="com.frozendevs.cache.cleaner.model.CleanerService"/>)~\n~SetActivityAttribute(Main, "android:excludeFromRecents", "false")~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#37474F</item>~\n~        <item name="colorPrimaryDark">#37474F</item>~\n~        <item name="colorAccent">#76FF03</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
+ManifestCode=AddManifestText(~\n~<uses-sdk android:minSdkVersion="18" android:targetSdkVersion="23"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission       android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>~\n~<uses-permission ~\n~android:name="android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<uses-permission ~\n~ android:name="android.permission.CLEAR_APP_CACHE"/>~\n~<uses-permission ~\n~ android:name="android.permission.GET_PACKAGE_SIZE"/>~\n~<uses-permission ~\n~ android:name="android.permission.GET_TASKS"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.READ_EXTERNAL_STORAGE"/>~\n~<uses-permission~\n~  android:name="android.permission.WRITE_SECURE_SETTINGS"/>~\n~<uses-permission~\n~ android:name="android.permission.PACKAGE_USAGE_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.BATTERY_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.MODIFY_PHONE_STATE"/>~\n~<uses-permission~\n~  android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>~\n~<uses-permission~\n~  android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>~\n~<uses-permission~\n~  android:name="android.permission.SET_ALWAYS_FINISH"/>~\n~<uses-permssion~\n~  android:name="android.permission.UPDATE_DEVICE_STATS"/>~\n~<uses-permission~\n~  android:name="android.permission.BIND_APPWIDGET"/>~\n~  )~\n~AddApplicationText(<service android:name="com.frozendevs.cache.cleaner.model.CleanerService"/>)~\n~SetActivityAttribute(Main, "android:excludeFromRecents", "false")~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'SetApplicationAttribute(android:largeHeap,"true")~\n~SetApplicationAttribute(android:theme, "@style/Theme.AppCompat")~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#37474F</item>~\n~        <item name="colorPrimaryDark">#37474F</item>~\n~        <item name="colorAccent">#76FF03</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)~\n~
 IconFile=
 NumberOfFiles=56
 File1=1.bal
@@ -82,7 +82,7 @@ File53=tabs.png
 File54=Tag.png
 File55=warning.png
 File56=wid.bal
-NumberOfLibraries=42
+NumberOfLibraries=44
 Library1=core
 Library2=phone
 Library3=reflection
@@ -125,14 +125,16 @@ Library39=intent id
 Library40=preferenceactivity
 Library41=stringutils
 Library42=loadingviews
+Library43=betterdialogs
+Library44=androidplot_0_6_2
 @EndOfDesignText@
 'BaTT CaTT source Project 
 'Copyrights D.Trojan(trOw) and SM/Media ©2017
 'Main Code Module created by trOw
  #Region  Project Attributes 
-	#ApplicationLabel: BaTT CaTT(Build 283)
-	#VersionCode: 283
-	#VersionName: 1.9.9.8
+	#ApplicationLabel: BaTT CaTT(Build 286)
+	#VersionCode: 286
+	#VersionName: 2.0
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
 	#CanInstallToExternalStorage: false
@@ -215,7 +217,7 @@ Sub Globals
 	Private prboost As Button
 	Private lvbat As LVBattery
 	Private info_but As Button
-	Private Label6 As Label
+	Dim lil1,lil2 As Label
 End Sub 
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -414,21 +416,11 @@ Sub Activity_Create(FirstTime As Boolean)
 	apm.Color=Colors.Transparent
 	apm.UnfinishedStrokeColor=Colors.ARGB(190,255,255,255)
 	apm.TextColor=Colors.Black
-	apm.TextSize=55
-	apm.StrokeWidth=12dip
-	apm.ArcAngle=290
-	
+	apm.TextSize=60
+	apm.StrokeWidth=9dip
+	apm.ArcAngle=270
 	
 	'############################################Start Subs###########################
-	Dim lil1,lil2 As Label
-	lil1=lv3.TwoLinesAndBitmap.Label
-	lil2=lv3.TwoLinesAndBitmap.SecondLabel
-	'listview1.TwoLinesAndBitmap.ImageView.Height=50dip
-	lil1.TextColor=mcl.md_black_1000
-	lil1.TextSize=16
-	lil2.TextColor=mcl.md_white_1000
-	lil2.TextSize=14
-	
 	
 	store_check
 	label_text
@@ -446,38 +438,43 @@ Sub Activity_Pause (UserClosed As Boolean)
 End Sub
 
 Sub show_tip	
-	showtip.setDelay(400)
 	prboost.SetVisibleAnimated(100,False)
-		showtip.setCircleColor(Colors.ARGB(195,255,255,255))
-		showtip.setTitle(pak.GetApplicationLabel("com.batcat")).build
-		showtip.build.setDescription("Swipe nach links zum öffnen und nach rechts zum schließen des Menü´s")
-		showtip.setTarget(smlp).build
-		showtip.show
+	Dim diap As BetterDialogs
+	Dim answer As Int 
+	Dim lzv As LVEatBeans
+	Dim dbp As Panel
+	Dim welb As Label
+	welb.Initialize("welb")
+	Dim wel As String = "Willkommen zu BaTT-CaTT, beim ersten Start werden verschiedene Module und Werte geladen dies kann je nach Gerät ein paar Minuten dauern. Swipe nach links um das Hauptmenü zu öffnen oder nutze die 'Short Button' leiste unten am Bildshirmrand."
+	welb.TextColor=mcl.md_white_1000
+	welb.TextSize=20
+	welb.Text=wel
+	dbp.Initialize("dbp")
+	lzv.Initialize("lzv")
+	dbp.AddView(lzv,0dip,0dip,200dip,80dip)
+	dbp.AddView(welb,10dip,60dip,-1,-1)
+	welb.Padding=Array As Int(2dip,0dip,10dip,0dip)
+	lzv.startAnim
+	answer=diap.CustomDialog("Information:",130dip,80dip,dbp,300dip,350dip,10dip,c10,"Ok","","",False,"diap")
+	If answer= DialogResponse.POSITIVE Then 
+		lzv.stopAnim
+		lv3.BringToFront
+		diap.CloseDialog(DialogResponse.POSITIVE)
+	End If
 End Sub
 
-Sub show_2
-	slm.OpenSidebar
-	prboost.SetVisibleAnimated(100,False)
-	showtip.setDelay(400)
-	showtip.setCircleColor(Colors.ARGB(195,255,255,255))
-	showtip.setTitle(pak.GetApplicationLabel("com.batcat")).build
-	showtip.build.setDescription("Tippe hier um dein Akku zu Boosten...")
-	showtip.show
-End Sub
 Sub Menu_onFullyOpen
 	lvMenu.BringToFront
 	smlp.BringToFront
 	slm.Sidebar.BringToFront
 	lvMenu.BringToFront
 	ProgressBar1.SendToBack
-	
 	prboost.SetVisibleAnimated(100,False)
 	Label1.SetLayout(40%x,40%y,40%x,90dip)
 	Label2.SetVisibleAnimated(100,False)
 	Label4.SetVisibleAnimated(100,False)
-
-
 End Sub
+
 Sub Menu_onFullyClosed
 	'''b1.Visible=True
 	''B.Color=mcl.md_light_green_A400
@@ -488,7 +485,7 @@ Sub Menu_onFullyClosed
 	''b1.SetLayoutAnimated(100,110dip,55%y,95dip,90dip)
 	prboost.SetVisibleAnimated(100,True)
 	prboost.BringToFront
-	Label6.BringToFront
+	'Label6.BringToFront
 End Sub
 
 Sub Menu_onMove (IsOpening As Boolean)
@@ -509,6 +506,13 @@ End Sub
 
 Sub value_check
 	lv3.Clear
+	lil1=lv3.TwoLinesAndBitmap.Label
+	lil2=lv3.TwoLinesAndBitmap.SecondLabel
+	'listview1.TwoLinesAndBitmap.ImageView.Height=50dip
+	lil1.TextColor=mcl.md_black_1000
+	lil1.TextSize=16
+	lil2.TextColor=mcl.md_white_1000
+	lil2.TextSize=14
 	For Each d As String In kvstime.ListKeys
 		Log(d)
 		lv3.AddTwoLinesAndBitmap2("Info:",d,LoadBitmap(File.DirAssets,"idea.png"),0)
@@ -731,12 +735,14 @@ Sub slem_click
 	If slm.IsSidebarVisible Then
 		slm.CloseSidebar
 	Else
-	
 		slm.OpenSidebar
 		''Button4.Visible=False
 	End If
 End Sub
 
+Sub reb_start
+	StartActivity(klo)
+End Sub
 
 Sub lvMenu_ItemClick (Position As Int, Value As Object)
 	 If Value = 0 Then 

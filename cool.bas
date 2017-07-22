@@ -29,7 +29,7 @@ Sub Globals
 	Private c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16 As Int
 	Dim cat As Cache
 	Dim dir1 As String =File.DirDefaultExternal&"/mnt/cache/store"
-	Private lw2 As ListView
+	Private lw2,lw3 As ListView
 	Dim l1,l2,l3 As Label 
 	Dim ph As PhoneEvents
 	Dim size,flags,count As Int
@@ -56,6 +56,7 @@ Sub Globals
 	Private dpm1 As DonutProgressMaster
 	Dim root1 As String 
 	Dim anima As AnimationPlus
+	dim ani as Animation
 	Dim xMSOS As MSOS
 	Dim xOSStats As OSStats
 	Private ListView1 As ListView
@@ -95,6 +96,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	dial.Initialize("dial") 
 	dill.Initialize
 	lw2.Initialize("lw2")
+	lw3.Initialize("lw3")
 	ffiles.Initialize
 	ph.Initialize("ph")
 	ffiles.Initialize
@@ -151,10 +153,14 @@ Sub Activity_Create(FirstTime As Boolean)
 	c14=mcl.md_cyan_A400
 	c15=mcl.md_blue_grey_400
 	c16=mcl.md_light_blue_A400
+	
+	
+	ani.InitializeTranslate("ani",0,1,5,9)
+	
 	'#########################CLS Storage##########################
 	Panel2.Visible=False
 	'#########################End CLS Storage######################
-	
+	'count=0
 	ffil.Initialize
 	ffold.Initialize
 	Activity.Color=mcl.md_white_1000
@@ -168,31 +174,53 @@ Sub Activity_Create(FirstTime As Boolean)
 	GetDeviceId
 	store_check
 	t1.Enabled=False
-	c_start
-	ListView1.SetSelection(-1)
-	lvg.startAnim
-	'lvb.startAnim
-	catdel.ScanCache
+	cat_start
+	s_scan
 End Sub
 
 Sub Activity_Resume
+	anima.InitializeRotateCenter("anima",1,3,ImageView1)
+	anima.RepeatMode=anima.REPEAT_INFINITE
+	anima.SetInterpolator(anima.INTERPOLATOR_BOUNCE)
 	store_check
-	t1.Enabled=False
-	'catdel.ScanCache
 	xOSStats.StartStats
-	c_start
+	cat_start
+	s_scan
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 	xOSStats.EndStats
+	anima.Stop(ImageView1)
 	Activity.Finish
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
 	If KeyCode=KeyCodes.KEYCODE_BACK Then
+		Activity.Finish
 		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
-	Return(True)
+	Return True
+End Sub
+Sub cat_start
+	dpm1.TextColor=Colors.White
+	dpm1.Color=Colors.Transparent
+	dpm1.FinishedStrokeColor= mcl.md_light_blue_700
+	dpm1.FinishedStrokeWidth=25
+	dpm1.UnfinishedStrokeColor=Colors.Transparent
+	dpm1.UnfinishedStrokeWidth=30
+	dpm1.SuffixText="%"
+	dpm1.InnerBackgroundColor=mcl.md_light_blue_A200
+	'dpm1.InnerBottomText="working..."
+	dpm1.InnerBottomTextSize=18
+	dpm1.InnerBottomTextColor=Colors.Black
+	dpm1.PrefixText="Cleaning: "
+	'cat.Initialize(25,100*1024*1024,File.DirRootExternal)
+	ReadDir(dir1,False)
+	'	cav.SetVisibleAnimated(10000,False)
+	'	cav.init
+	
+	ImageView1.Visible=False
+	
 End Sub
 Sub store_check
 	c1=mcl.md_light_blue_A400
@@ -291,9 +319,13 @@ Sub store_check
 	End If
 	Activity.Invalidate
 End Sub
-Sub c_start	 
+Sub s_scan
+	lvg.startAnim
 	catdel.ScanCache
-	ListView1.SetSelection(-1)
+	catdel.initialize("catdel")
+	c_start
+End Sub
+Sub c_start	 
 	app_info
 	catlist.Clear
 	dill.Clear
@@ -303,7 +335,6 @@ Sub c_start
 	apklist.Clear
 	'catlist.AddAll(xOSStats.BufferRAM)
 	list2=op.RunningTaskInfo(99,list8,list9,list10)
-	cat_start
 	Return
 End Sub
 
@@ -314,81 +345,6 @@ End Sub
 Sub catdel_OnScanStarted
 	Log("Started")
 	
-End Sub
-
-Sub catdel_onScanProgress (Current As Int , Total As Int)
-	'dpm1.Max=100
-	'dpm1.Progress=100/Total*Current
-	Label1.Text="durchsuche -> "&Current&" Apps nach Müll"
-	'Log(Current&"/"&Total)
-End Sub
-
-Sub catdel_onCleanStarted
-	ListView1.AddSingleLine("lösche..." )
-End Sub
-
-Sub catdel_onCleanCompleted (CacheSize As Long)	
-		'catlist.Add(CacheSize&" clean")
-	'Label1.Text=xMSOS.formateFileSize(CacheSize)&" cleaned !"
-	dpm1.InnerBottomText=xMSOS.formateFileSize(CacheSize)&" clean!"
-	ListView1.AddSingleLine(xMSOS.formateFileSize(CacheSize)&" gesäubert")
-End Sub
-
-Sub catdel_onScanCompleted (AppsList As Object)
-	time=DateTime.Time(DateTime.Now)
-	Dim totalsize As Long = 0
-	Dim pm As PackageManager
-	ListView1.Clear
-	ListView1.SetSelection(-1)
-	Try
-		Dim lu As List = AppsList
-		If lu.Size=0 Then
-			'Cache is Empty
-			ListView1.AddSingleLine("No App cache found. All clear")
-			catlist.Clear
-			catlist.Add(time&" - No App cache found")
-			Return
-		End If 
-		For n = 0 To lu.Size-1
-			Dim app() As Object = lu.Get(n)
-			If app(1) = "com.android.systemui" Then Continue 'This Pakage Have No Icon In Some Android 5
-			Dim icon As BitmapDrawable = pm.GetApplicationIcon(app(1))
-			ListView1.SetSelection(n)
-			ListView1.AddTwoLinesAndBitmap(app(0),NumberFormat2(app(2)/1024/1024,1,2,2,True)&"MB",icon.Bitmap)
-			totalsize = totalsize+app(2)
-			catlist.Clear
-			catlist.Add(app(0)&" - "&NumberFormat2(app(2)/1024/1024,1,2,2,True)&"MB cache"&" | "&op.formatSize(totalsize))
-			File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",catlist)
-		Next
-		
-	Catch
-		Log(LastException.Message)
-		catlist.Add(LastException.Message)
-	End Try
-End Sub
-
-Sub GetDeviceId As String
-	Dim api As Int
-	Dim r As Reflector
-	api = r.GetStaticField("android.os.Build$VERSION", "SDK_INT")
-	If api < 18 Then
-		'Old device
-		If File.Exists(File.DirInternal, "__id") Then
-			Return File.ReadString(File.DirInternal, "__id")
-			c_start
-		Else
-			c_start
-			Dim id As Int
-			id = Rnd(0x10000000, 0x7FFFFFFF)
-			File.WriteString(File.DirInternal, "__id", id)
-			Return id
-		End If
-		Log(api)
-	Else
-		'New device
-		Return r.GetStaticField("android.os.Build", "SERIAL")
-		storage_check
-	End If
 End Sub
 
 Sub storage_check
@@ -418,54 +374,92 @@ Sub storage_check
 		Next
 	End If
 	'Activity.SetColorAnimated(1000,Colors.ARGB(100,30,124,235),Colors.ARGB(190,35,140,7))
-	c_start
+	s_scan
 End Sub 
 
-Sub cat_start
-	dpm1.TextColor=Colors.White
-	dpm1.Color=Colors.Transparent
-	dpm1.FinishedStrokeColor= mcl.md_light_blue_700
-	dpm1.FinishedStrokeWidth=25
-	dpm1.UnfinishedStrokeColor=Colors.Transparent
-	dpm1.UnfinishedStrokeWidth=30
-	dpm1.SuffixText="%"
-	dpm1.InnerBackgroundColor=mcl.md_light_blue_A200
-	'dpm1.InnerBottomText="working..."
-	dpm1.InnerBottomTextSize=18
-	dpm1.InnerBottomTextColor=Colors.Black
-	dpm1.PrefixText="Cleaning: "
-	'cat.Initialize(25,100*1024*1024,File.DirRootExternal)
-	ReadDir(dir1,False)
-'	cav.SetVisibleAnimated(10000,False)
-'	cav.init
-	ImageView1.Visible=False
-	t1.Enabled=True
-	t1_Tick
+
+Sub catdel_onScanProgress (Current As Int , Total As Int)
+	dpm1.Max=Total
+	dpm1.Progress=Current
+	Label1.Text="durchsuche -> "&Current&" Apps nach Müll"
+	'Log(Current&"/"&Total)
 End Sub
 
+Sub catdel_onCleanStarted
+	ListView1.AddSingleLine("lösche..." )
+End Sub
 
-Sub ReadDir(folder As String, recursive As Boolean)
-	ffolders.Clear
-	ffiles.Clear
-	'Log("ReadDir("&folder&")")
-	Dim lst As List = File.ListFiles(folder)
-	For i = 0 To lst.Size - 1
-		If File.IsDirectory(folder,lst.Get(i)) Then
-			Dim v As String
-			v = folder&"/"&lst.Get(i)
-			'Log("v="&v)
-			ffolders.Add(v.SubString(root1.Length+1))
-			
-			If recursive Then
-				ReadDir(v,recursive)
-			End If
-			'ListView1.AddSingleLine(lst.Get(i))
-		Else
-			ffiles.Add(folder&"/"&lst.Get(i))
-			'ListView1.AddSingleLine(lst.Get(i))
+Sub catdel_onCleanCompleted (CacheSize As Long)
+	'catlist.Add(CacheSize&" clean")
+	'Label1.Text=xMSOS.formateFileSize(CacheSize)&" cleaned !"
+	dpm1.InnerBottomText=xMSOS.formateFileSize(CacheSize)&" clean!"
+	ListView1.AddSingleLine(xMSOS.formateFileSize(CacheSize)&" gesäubert")
+	t_start
+End Sub
+
+Sub catdel_onScanCompleted (AppsList As Object)
+	time=DateTime.Time(DateTime.Now)
+	lvg.stopAnim
+	Dim totalsize As Long = 0
+	Dim pm As PackageManager
+	ListView1.Clear
+	lw2.Clear
+	Try
+		Dim lu As List = AppsList
+		If lu.Size=0 Then
+			'Cache is Empty
+			ListView1.AddSingleLine("No App cache found. All clear")
+			catlist.Clear
+			catlist.Add(time&" - No App cache found")
+			t_start
+			Return
 		End If
-	Next
-	Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
+		For n = 0 To lu.Size-1
+			Dim app() As Object = lu.Get(n)
+			If app(1) = "com.android.systemui" Then Continue 'This Pakage Have No Icon In Some Android 5
+			Dim icon As BitmapDrawable = pm.GetApplicationIcon(app(1))
+			ListView1.SetSelection(n)
+			ListView1.AddTwoLinesAndBitmap(app(0),NumberFormat2(app(2)/1024/1024,1,2,2,True)&"MB",icon.Bitmap)
+			lw3.AddTwoLinesAndBitmap(app(0),NumberFormat2(app(2)/1024/1024,1,2,2,True)&"MB",icon.Bitmap)
+			totalsize = totalsize+app(2)
+			catlist.Clear
+			catlist.Add(app(0)&" - "&NumberFormat2(app(2)/1024/1024,1,2,2,True)&"MB cache"&" | "&op.formatSize(totalsize))
+			File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",catlist)
+			
+		Next
+		
+	Catch
+		Log(LastException.Message)
+		catlist.Add(LastException.Message)
+	End Try
+	If lu.Size>0 Then 
+		cl_msg
+	Else
+		close
+	End If
+End Sub
+
+Sub cl_msg
+	Dim diap As BetterDialogs
+	Dim res As Int
+	res=diap.CustomDialog("Cache found:",130dip,80dip,lw3,300dip,350dip,10dip,Colors.white,"Ja löschen","","Nein Ende",False,"diap")
+	If res=DialogResponse.POSITIVE Then
+		catdel.CleanCache
+	t_start
+	Else
+		ImageView1.Visible=True
+		dpm1.Visible=False
+		'ImageView1.Bitmap=LoadBitmap(File.DirAssets,"Accept128.png")
+		anima.Start(ImageView1)
+		full_close
+	End If
+End Sub
+
+Sub t_start
+	lvg.startAnim
+	dpm1.max=100
+	t1.Enabled=True
+	t1_Tick
 End Sub
 
 Sub close
@@ -482,15 +476,11 @@ Sub close
 		catlist.Add(time&" - No App cache found")
 		Log("--------------- NO CDATA--------------")
 		End If 	
-'	cav.stopAnim
-	'lvg.stopAnim
-	'lvb.stopAnim
 	delayed_t2
 	Return
 End Sub
 
 Sub del_quest
-	
 	ImageView1.Visible=True
 	dpm1.Visible=False
 '	pgWheel1.Visible=False
@@ -498,8 +488,6 @@ Sub del_quest
 		Label1.Text= "clear RAM and close.."
 	'File.WriteList(File.DirDefaultExternal&"/mnt/cache","cdata.txt",catlist)
 		real_delete
-	
-
 End Sub
 
 Sub real_delete
@@ -511,15 +499,8 @@ Sub real_delete
 		op.killBackgroundProcesses("com.batcat")
 		op.killProcess(list7.Get(j))
 	Next
-	
 	close
 	Return
-End Sub
-
-
-
-Sub ph_DeviceStorageOk (Intent As Intent)
-	Log(Intent.ExtrasToString)
 End Sub
 
 Sub t1_Tick
@@ -591,7 +572,7 @@ Sub delayed_t2
 	End If
 	If count> 9 Then
 		
-		
+		anima.Start(ImageView1)
 		dpm1.Visible=False
 		'ToastMessageShow("closing in 1 sec...",False)
 	End If
@@ -606,7 +587,10 @@ Sub delayed_t2
 		SetAnimation.setanimati("extra_in", "extra_out")
 	End If
 End Sub
-
+Sub full_close
+	Activity.Finish
+	SetAnimation.setanimati("extra_in", "extra_out")
+End Sub
 
 Sub app_info
 
@@ -640,6 +624,54 @@ Sub app_info
 	
 End Sub
 
+Sub ReadDir(folder As String, recursive As Boolean)
+	ffolders.Clear
+	ffiles.Clear
+	'Log("ReadDir("&folder&")")
+	Dim lst As List = File.ListFiles(folder)
+	For i = 0 To lst.Size - 1
+		If File.IsDirectory(folder,lst.Get(i)) Then
+			Dim v As String
+			v = folder&"/"&lst.Get(i)
+			'Log("v="&v)
+			ffolders.Add(v.SubString(root1.Length+1))
+			
+			If recursive Then
+				ReadDir(v,recursive)
+			End If
+			'ListView1.AddSingleLine(lst.Get(i))
+		Else
+			ffiles.Add(folder&"/"&lst.Get(i))
+			'ListView1.AddSingleLine(lst.Get(i))
+		End If
+	Next
+	Log(ffolders.Size&" Ordner / "&ffiles.Size&" Dateien")
+End Sub
+
+Sub GetDeviceId As String
+	Dim api As Int
+	Dim r As Reflector
+	api = r.GetStaticField("android.os.Build$VERSION", "SDK_INT")
+	If api < 18 Then
+		'Old device
+		If File.Exists(File.DirInternal, "__id") Then
+			Return File.ReadString(File.DirInternal, "__id")
+			c_start
+		Else
+			c_start
+			Dim id As Int
+			id = Rnd(0x10000000, 0x7FFFFFFF)
+			File.WriteString(File.DirInternal, "__id", id)
+			Return id
+		End If
+		Log(api)
+	Else
+		'New device
+		Return r.GetStaticField("android.os.Build", "SERIAL")
+		storage_check
+	End If
+End Sub
+
 Sub object_to_byte(obj As Object)As Byte()
 	Dim ser As B4XSerializator
 	Return ser.ConvertObjectToBytes(obj)
@@ -648,19 +680,6 @@ End Sub
 Sub byte_to_object(data() As Byte)As Object
 	Dim ser As B4XSerializator
 	Return ser.ConvertBytesToObject(data)
-End Sub
-
-
-Sub fc_CopyDone(Key As String, Error As Boolean)
-	'Log(Key&":"&DateTime.Date(DateTime.Now))
-End Sub
-
-Sub fc_PutDone(key As String,Error As Boolean)
-	'Log(key&":"&DateTime.Date(DateTime.Now))
-End Sub
-
-Sub fc2_PutDone(key As String,Error As Boolean)
-	'Log(key&":"&DateTime.Date(DateTime.Now))
 End Sub
 
 Sub CalcSize(Folder As String, recursive As Boolean) As Long
@@ -680,1568 +699,3 @@ Sub file_CopyDone
 	Log("copy done!")
 	
 End Sub
-
-#If Java
-
-import android.view.*;
-import android.Manifest;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.TargetApi;
-import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationManager;
-import android.media.AudioManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.net.wifi.WifiManager;
-import android.os.BatteryManager;
-import android.os.Build;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.MotionEvent;
-import android.view.WindowManager;
-import android.webkit.WebView;
-//import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-//import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-//import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import java.io.File;
-import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
-
-
-  //private final Context context;
-  private TelephonyManager tm; // = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-  private String initialVal = "";
-
-  public int RINGER_MODE_SILENT = 0;
-  public int RINGER_MODE_NORMAL = 1;
-  public int RINGER_MODE_VIBRATE = 2;
-
-  /**
-   * The constant LOGTAG.
-   */
-  //private static final String LOGTAG = "EasyDeviceInfo";
-
-
-
-
-
-  /**
-   * Instantiates a new Easy device info.
-   *
-   * @param context the context
-   */
-//  public EasyDeviceInfo(Context context) {
-//    this.context = context;
-//    tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//    initialVal = "na";
-//  }
-
-  /**
-   * Gets library version.
-   *
-   * @return the library version
-   */
-//  public String getLibraryVersion() {
-//    String version = "1.1.9";
-//    int versionCode = 11;
-//    return version + "-" + versionCode;
-//  }
-
-  /**
-   * Gets android id.
-   *
-   * @return the android id
-   */
-  public String getAndroidID() {
-    String result = initialVal;
-    try {
-      result = Settings.Secure.getString(BA.applicationContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  
-   /**
-   * Gets model.
-   *
-   * @return the model
-   */
-  public String getModel() {
-    String result = initialVal;
-    try {
-      result = Build.MODEL;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  } 
-
-
-  /**
-   * Gets build brand.
-   *
-   * @return the build brand
-   */
-  public String getBuildBrand() {
-    String result = initialVal;
-    try {
-      result = Build.BRAND;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }
-
-  /**
-   * Gets build host.
-   *
-   * @return the build host
-   */
-  public String getBuildHost() {
-    String result = initialVal;
-    try {
-      result = Build.HOST;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets build tags.
-   *
-   * @return the build tags
-   */
-  public String getBuildTags() {
-    String result = initialVal;
-    try {
-      result = Build.TAGS;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  
-  /**
-   * Gets build time.
-   *
-   * @return the build time
-   */
-  public long getBuildTime() {
-    long result = 0;
-    try {
-      result = Build.TIME;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets build user.
-   *
-   * @return the build user
-   */
-  public String getBuildUser() {
-    String result = initialVal;
-    try {
-      result = Build.USER;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets build version release.
-   *
-   * @return the build version release
-   */
-  public String getBuildVersionRelease() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.RELEASE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-    /**
-   * Gets screen display id.
-   *
-   * @return the screen display id
-   */
-  public String getScreenDisplayID() {
-    String result = initialVal;
-    try {
-      WindowManager wm = (WindowManager) BA.applicationContext.getSystemService(Context.WINDOW_SERVICE);
-      Display display = wm.getDefaultDisplay();
-      result = String.valueOf(display.getDisplayId());
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets build version codename.
-   *
-   * @return the build version codename
-   */
-  public String getBuildVersionCodename() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.CODENAME;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  /**
-   * Gets build version incremental.
-   *
-   * @return the build version incremental
-   */
-  public String getBuildVersionIncremental() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.INCREMENTAL;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-
-  /**
-   * Gets build version sdk.
-   *
-   * @return the build version sdk
-   */
-  public int getBuildVersionSDK() {
-    int result = 0;
-    try {
-      result = Build.VERSION.SDK_INT;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return result;
-  }
-  
-
-  /**
-   * Gets build id.
-   *
-   * @return the build id
-   */
-  public String getBuildID() {
-    String result = initialVal;
-    try {
-      result = Build.ID;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-        
-  /**
-   * Is Device rooted boolean
-   *
-   * @return the boolean
-   */
-  public boolean isDeviceRooted() {
-    String su = "su";
-    String[] locations = {
-        "/sbin/", "/system/bin/", "/system/xbin/", "/system/sd/xbin/", "/system/bin/failsafe/",
-        "/data/local/xbin/", "/data/local/bin/", "/data/local/"
-    };
-    for (String location : locations) {
-      if (new File(location + su).exists()) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
-
-  /**
-   * Get supported abis string [ ].
-   *
-   * @return the string [ ]
-   */
-  public String[] getSupportedABIS() {
-    String[] result = new String[] { "-" };
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        result = Build.SUPPORTED_ABIS;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length == 0) {
-      result = new String[] { "-" };
-    }
-    return result;
-  }
-  
-
-
-  /**
-   * Gets string supported abis.
-   *
-   * @return the string supported abis
-   */
-  public String getStringSupportedABIS() {
-    String result = initialVal;
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        String[] supportedABIS = Build.SUPPORTED_ABIS;
-
-        StringBuilder supportedABIString = new StringBuilder();
-        if (supportedABIS.length > 0) {
-          for (String abis : supportedABIS) {
-            supportedABIString.append(abis).append("_");
-          }
-          supportedABIString.deleteCharAt(supportedABIString.lastIndexOf("_"));
-        } else {
-          supportedABIString.append(initialVal);
-        }
-        result = supportedABIString.toString();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }  
-  
-  
-   /**
-   * Gets string supported 32 bit abis.
-   *
-   * @return the string supported 32 bit abis
-   */
-  public String getStringSupported32bitABIS() {
-    String result = initialVal;
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        String[] supportedABIS = Build.SUPPORTED_32_BIT_ABIS;
-
-        StringBuilder supportedABIString = new StringBuilder();
-        if (supportedABIS.length > 0) {
-          for (String abis : supportedABIS) {
-            supportedABIString.append(abis).append("_");
-          }
-          supportedABIString.deleteCharAt(supportedABIString.lastIndexOf("_"));
-        } else {
-          supportedABIString.append(initialVal);
-        }
-
-        result = supportedABIString.toString();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-
-    return handleIllegalCharacterInResult(result);
-  } 
-  
-  
-  /**
-   * Gets manufacturer.
-   *
-   * @return the manufacturer
-   */
-  public String getManufacturer() {
-    String result = initialVal;
-    try {
-      result = Build.MANUFACTURER;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }  
-  
-  
-  
-   /**
-   * Gets resolution.
-   *
-   * @return the resolution
-   */
-  public String getResolution() {
-    String result = initialVal;
-    try {
-      WindowManager wm = (WindowManager) BA.applicationContext.getSystemService(Context.WINDOW_SERVICE);
-
-      Display display = wm.getDefaultDisplay();
-
-      DisplayMetrics metrics = new DisplayMetrics();
-      display.getMetrics(metrics);
-      result = metrics.heightPixels + "x" + metrics.widthPixels;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  } 
-  
-
-  /**
-   * Gets carrier.
-   *
-   * @return the carrier
-   */
-  public String getCarrier() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA) {
-        result = tm.getNetworkOperatorName().toLowerCase(Locale.getDefault());
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  }
-  
-  
-  /**
-   * Gets device.
-   *
-   * @return the device
-   */
-  public String getDevice() {
-    String result = initialVal;
-    try {
-      result = Build.DEVICE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets bootloader.
-   *
-   * @return the bootloader
-   */
-  public String getBootloader() {
-    String result = initialVal;
-    try {
-      result = Build.BOOTLOADER;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets board.
-   *
-   * @return the board
-   */
-  public String getBoard() {
-    String result = initialVal;
-    try {
-      result = Build.BOARD;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets display version.
-   *
-   * @return the display version
-   */
-  public String getDisplayVersion() {
-    String result = initialVal;
-    try {
-      result = Build.DISPLAY;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-   /**
-   * Gets language.
-   *
-   * @return the language
-   */
-  public String getLanguage() {
-    String result = initialVal;
-    try {
-      result = Locale.getDefault().getLanguage();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets country.
-   *
-   * @return the country
-   */
-  public String getCountry() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      if (tm.getSimState() == TelephonyManager.SIM_STATE_READY) {
-        result = tm.getSimCountryIso().toLowerCase(Locale.getDefault());
-      } else {
-        Locale locale = Locale.getDefault();
-        result = locale.getCountry().toLowerCase(locale);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  } 
-  
-  
-  
-  /**
-   * Gets battery percentage
-   *
-   * @return the battery percentage
-   */
-  public int getBatteryPercentage() {
-    int percentage = 0;
-    Intent batteryStatus = getBatteryStatusIntent();
-    if (batteryStatus != null) {
-      int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-      int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-      percentage = (int) ((level / (float) scale) * 100);
-    }
-
-    return percentage;
-  }
-
-  /**
-   * Is device charging boolean.
-   *
-   * @return is battery charging boolean
-   */
-  public boolean isDeviceCharging() {
-    Intent batteryStatus = getBatteryStatusIntent();
-    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-    return (status == BatteryManager.BATTERY_STATUS_CHARGING
-        || status == BatteryManager.BATTERY_STATUS_FULL);
-  }
-
-  /**
-   * Is device charging usb boolean.
-   *
-   * @return is battery charging via USB boolean
-   */
-  public boolean isDeviceChargingUSB() {
-    Intent batteryStatus = getBatteryStatusIntent();
-    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-    return (chargePlug == BatteryManager.BATTERY_PLUGGED_USB);
-  }
-
-  /**
-   * Is device charging ac boolean.
-   *
-   * @return is battery charging via AC boolean
-   */
-  public boolean isDeviceChargingAC() {
-    Intent batteryStatus = getBatteryStatusIntent();
-    int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-    return (chargePlug == BatteryManager.BATTERY_PLUGGED_AC);
-  }  
-  
-  
-   /**
-   * Gets network type.
-   *
-   * @return the network type
-   */
-  public String getNetworkType() {
-    int networkStatePermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE);
-
-    String result = initialVal;
-
-    if (networkStatePermission == PackageManager.PERMISSION_GRANTED) {
-      try {
-        ConnectivityManager cm =
-            (ConnectivityManager) BA.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork == null) {
-          result = "Unknown";
-        } else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
-            || activeNetwork.getType() == ConnectivityManager.TYPE_WIMAX) {
-          result = "Wifi/WifiMax";
-        } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-          TelephonyManager manager =
-              (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-          if (manager.getSimState() == TelephonyManager.SIM_STATE_READY) {
-            switch (manager.getNetworkType()) {
-
-              // Unknown
-              case TelephonyManager.NETWORK_TYPE_UNKNOWN:
-                result = "Cellular - Unknown";
-                break;
-              // Cellular Data–2G
-              case TelephonyManager.NETWORK_TYPE_EDGE:
-              case TelephonyManager.NETWORK_TYPE_GPRS:
-              case TelephonyManager.NETWORK_TYPE_CDMA:
-              case TelephonyManager.NETWORK_TYPE_IDEN:
-              case TelephonyManager.NETWORK_TYPE_1xRTT:
-                result = "Cellular - 2G";
-                break;
-              // Cellular Data–3G
-              case TelephonyManager.NETWORK_TYPE_UMTS:
-              case TelephonyManager.NETWORK_TYPE_HSDPA:
-              case TelephonyManager.NETWORK_TYPE_HSPA:
-              case TelephonyManager.NETWORK_TYPE_HSPAP:
-              case TelephonyManager.NETWORK_TYPE_HSUPA:
-              case TelephonyManager.NETWORK_TYPE_EVDO_0:
-              case TelephonyManager.NETWORK_TYPE_EVDO_A:
-              case TelephonyManager.NETWORK_TYPE_EVDO_B:
-                result = "Cellular - 3G";
-                break;
-              // Cellular Data–4G
-              case TelephonyManager.NETWORK_TYPE_LTE:
-                result = "Cellular - 4G";
-                break;
-              // Cellular Data–Unknown Generation
-              default:
-                result = "Cellular - Unknown Generation";
-                break;
-            }
-          }
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return handleIllegalCharacterInResult(result);
-  } 
-  
-  
-  
-  /**
-   * Gets os codename.
-   *
-   * @return the os codename
-   */
-  public String getOSCodename() {
-    String codename = initialVal;
-    switch (Build.VERSION.SDK_INT) {
-      case Build.VERSION_CODES.BASE:
-        codename = "First Android Version. Yay !";
-        break;
-      case Build.VERSION_CODES.BASE_1_1:
-        codename = "Base Android 1.1";
-        break;
-      case Build.VERSION_CODES.CUPCAKE:
-        codename = "Cupcake";
-        break;
-      case Build.VERSION_CODES.DONUT:
-        codename = "Donut";
-        break;
-      case Build.VERSION_CODES.ECLAIR:
-      case Build.VERSION_CODES.ECLAIR_0_1:
-      case Build.VERSION_CODES.ECLAIR_MR1:
-
-        codename = "Eclair";
-        break;
-      case Build.VERSION_CODES.FROYO:
-        codename = "Froyo";
-        break;
-      case Build.VERSION_CODES.GINGERBREAD:
-      case Build.VERSION_CODES.GINGERBREAD_MR1:
-        codename = "Gingerbread";
-        break;
-      case Build.VERSION_CODES.HONEYCOMB:
-      case Build.VERSION_CODES.HONEYCOMB_MR1:
-      case Build.VERSION_CODES.HONEYCOMB_MR2:
-        codename = "Honeycomb";
-        break;
-      case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
-      case Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
-        codename = "Ice Cream Sandwich";
-        break;
-      case Build.VERSION_CODES.JELLY_BEAN:
-      case Build.VERSION_CODES.JELLY_BEAN_MR1:
-      case Build.VERSION_CODES.JELLY_BEAN_MR2:
-        codename = "Jelly Bean";
-        break;
-      case Build.VERSION_CODES.KITKAT:
-        codename = "Kitkat";
-        break;
-      case Build.VERSION_CODES.KITKAT_WATCH:
-        codename = "Kitkat Watch";
-        break;
-      case Build.VERSION_CODES.LOLLIPOP:
-      case Build.VERSION_CODES.LOLLIPOP_MR1:
-        codename = "Lollipop";
-        break;
-      case Build.VERSION_CODES.M:
-        codename = "Marshmallow";
-        break;
-    }
-    return codename;
-  }  
-  
-  
-  /**
-   * Gets os version.
-   *
-   * @return the os version
-   */
-  public String getOSVersion() {
-    String result = initialVal;
-    try {
-      result = Build.VERSION.RELEASE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-
-
-  /**
-   * Gets wifi mac.
-   *
-   * @return the wifi mac
-   */
-  @SuppressWarnings("MissingPermission") public String getWifiMAC() {
-    String result = initialVal;
-    try {
-
-      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_WIFI_STATE)
-          == PackageManager.PERMISSION_GRANTED) {
-
-        WifiManager wm = (WifiManager) BA.applicationContext.getSystemService(Context.WIFI_SERVICE);
-        result = wm.getConnectionInfo().getMacAddress();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-  
-  
-  /**
-   * Gets imei.
-   *
-   * @return the imei
-   */
-  public String getIMEI() {
-    tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    String result = initialVal;
-    boolean hasReadPhoneStatePermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE)
-            == PackageManager.PERMISSION_GRANTED;
-    try {
-      if (hasReadPhoneStatePermission) result = tm.getDeviceId();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets imsi.
-   *
-   * @return the imsi
-   */
-  public String getIMSI() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    boolean hasReadPhoneStatePermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE)
-            == PackageManager.PERMISSION_GRANTED;
-    try {
-      if (hasReadPhoneStatePermission) result = tm.getSubscriberId();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets serial.
-   *
-   * @return the serial
-   */
-  public String getSerial() {
-    String result = initialVal;
-    try {
-      result = Build.SERIAL;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets sim serial.
-   *
-   * @return the sim serial
-   */
-  public String getSIMSerial() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      result = tm.getSimSerialNumber();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets gsfid.
-   *
-   * @return the gsfid
-   */
-  public String getGSFID() {
-    final Uri URI = Uri.parse("content://com.google.android.gsf.gservices");
-    final String ID_KEY = "android_id";
-
-    String[] params = { ID_KEY };
-    Cursor c = BA.applicationContext.getContentResolver().query(URI, null, null, params, null);
-
-    if (c == null) {
-      return initialVal;
-    } else if (!c.moveToFirst() || c.getColumnCount() < 2) {
-      c.close();
-      return initialVal;
-    }
-
-    try {
-      String gsfID = Long.toHexString(Long.parseLong(c.getString(1)));
-      c.close();
-      return gsfID;
-    } catch (NumberFormatException e) {
-      c.close();
-      return initialVal;
-    }
-  }
-
-  /**
-   * Gets bluetooth mac.
-   *
-   * @return the bluetooth mac
-   */
-  @SuppressWarnings("MissingPermission") public String getBluetoothMAC() {
-    String result = initialVal;
-    try {
-      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.BLUETOOTH)
-          == PackageManager.PERMISSION_GRANTED) {
-        BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
-        result = bta.getAddress();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets psuedo unique id.
-   *
-   * @return the psuedo unique id
-   */
-  public String getPsuedoUniqueID() {
-    // If all else fails, if the user does have lower than API 9 (lower
-    // than Gingerbread), has reset their phone or 'Secure.ANDROID_ID'
-    // returns 'null', then simply the ID returned will be solely based
-    // off their Android device information. This is where the collisions
-    // can happen.
-    // Try not to use DISPLAY, HOST or ID - these items could change.
-    // If there are collisions, there will be overlapping data
-    String devIDShort = "35" +
-        (Build.BOARD.length() % 10) + (Build.BRAND.length() % 10);
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      devIDShort += (Build.SUPPORTED_ABIS[0].length() % 10);
-    } else {
-      devIDShort += (Build.CPU_ABI.length() % 10);
-    }
-
-    devIDShort +=
-        (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10) + (Build.MODEL.length()
-            % 10) + (Build.PRODUCT.length() % 10);
-
-    // Only devices with API >= 9 have android.os.Build.SERIAL
-    // http://developer.android.com/reference/android/os/Build.html#SERIAL
-    // If a user upgrades software or roots their phone, there will be a duplicate entry
-    String serial;
-    try {
-      serial = Build.class.getField("SERIAL").get(null).toString();
-
-      // Go ahead and return the serial for api => 9
-      return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
-    } catch (Exception e) {
-      // String needs to be initialized
-      serial = "ESYDV000"; // some value
-    }
-
-    // Finally, combine the values we have found by using the UUID class to create a unique identifier
-    return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
-  }  
-  
-  
-  /**
-   * Gets phone no.
-   *
-   * @return the phone no
-   */
-  public String getPhoneNo() {
-    String result = initialVal;
-	tm = (TelephonyManager) BA.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-    try {
-      if (tm.getLine1Number() != null) {
-        result = tm.getLine1Number();
-        if (result.equals("")) {
-          result = initialVal;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets product.
-   *
-   * @return the product
-   */
-  public String getProduct() {
-    String result = initialVal;
-    try {
-      result = Build.PRODUCT;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets fingerprint.
-   *
-   * @return the fingerprint
-   */
-  public String getFingerprint() {
-    String result = initialVal;
-    try {
-      result = Build.FINGERPRINT;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets hardware.
-   *
-   * @return the hardware
-   */
-  public String getHardware() {
-    String result = initialVal;
-    try {
-      result = Build.HARDWARE;
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets radio ver.
-   *
-   * @return the radio ver
-   */
-  public String getRadioVer() {
-    String result = initialVal;
-    try {
-
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-        result = Build.getRadioVersion();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets ip address.
-   *
-   * @param useIPv4 the use i pv 4
-   * @return the ip address
-   */
-  public String getIPAddress(boolean useIPv4) {
-    String result = initialVal;
-    try {
-      List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
-      for (NetworkInterface intf : interfaces) {
-        List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
-        for (InetAddress addr : addrs) {
-          if (!addr.isLoopbackAddress()) {
-            String sAddr = addr.getHostAddress().toUpperCase();
-            boolean isIPv4 = addr instanceof Inet4Address;
-            if (useIPv4) {
-              if (isIPv4) result = sAddr;
-            } else {
-              if (!isIPv4) {
-                int delim = sAddr.indexOf('%'); // drop ip6 port suffix
-                result = delim < 0 ? sAddr : sAddr.substring(0, delim);
-              }
-            }
-          }
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-  /**
-   * Gets ua.
-   *
-   * @return the ua
-   */
-  public String getUA() {
-    final String system_ua = System.getProperty("http.agent");
-    String result = system_ua;
-    try {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        result = new WebView(BA.applicationContext).getSettings().getDefaultUserAgent(BA.applicationContext) +
-            "__" + system_ua;
-      } else {
-        result = new WebView(BA.applicationContext).getSettings().getUserAgentString() +
-            "__" + system_ua;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() < 0 || result == null) {
-      result = system_ua;
-    }
-    return result;
-  }
-
-  /**
-   * Get lat long double [ ].
-   *
-   * @return the double [ ]
-   */
-  @SuppressWarnings("MissingPermission") @TargetApi(Build.VERSION_CODES.M)
-  public double[] getLatLong() {
-    boolean hasFineLocationPermission =
-        BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED ? true : false;
-    boolean isGPSEnabled, isNetworkEnabled;
-
-    double[] gps = new double[2];
-    gps[0] = 0;
-    gps[1] = 0;
-    if (hasFineLocationPermission) {
-      try {
-        LocationManager lm = (LocationManager) BA.applicationContext.getSystemService(Context.LOCATION_SERVICE);
-
-        isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        isNetworkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        Location net_loc = null, gps_loc = null, final_loc = null;
-
-        if (isGPSEnabled) {
-          gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-        if (isNetworkEnabled) {
-          net_loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        }
-
-        if (gps_loc != null && net_loc != null) {
-          if (gps_loc.getAccuracy() >= net_loc.getAccuracy()) {
-            final_loc = gps_loc;
-          } else {
-            final_loc = net_loc;
-          }
-        } else {
-          if (gps_loc != null) {
-            final_loc = gps_loc;
-          } else if (net_loc != null) {
-            final_loc = net_loc;
-          } else {
-            // GPS and Network both are null so try passive
-            final_loc = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-          }
-        }
-
-        if (final_loc != null) {
-          gps[0] = final_loc.getLatitude();
-          gps[1] = final_loc.getLongitude();
-        }
-
-        return gps;
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-    return gps;
-  }  
-  
-  
-  /**
-   * Gets time.
-   *
-   * @return the time
-   */
-  public long getTime() {
-    return System.currentTimeMillis();
-  }
-
-  /**
-   * Gets formatted time.
-   *
-   * @return the formatted time
-   */
-  public String getFormatedTime() {
-
-    long millis = System.currentTimeMillis();
-    int sec = (int) (millis / 1000) % 60;
-    int min = (int) ((millis / (1000 * 60)) % 60);
-    int hr = (int) ((millis / (1000 * 60 * 60)) % 24);
-
-    return String.format("%02d:%02d:%02d", hr, min, sec);
-  }  
-  
-  
-  /**
-   * Gets app name.
-   *
-   * @return the app name
-   */
-  public String getAppName() {
-    String result;
-    final PackageManager pm = BA.applicationContext.getPackageManager();
-    ApplicationInfo ai;
-    try {
-      ai = pm.getApplicationInfo(BA.applicationContext.getPackageName(), 0);
-    } catch (PackageManager.NameNotFoundException e) {
-      ai = null;
-      e.printStackTrace();
-    }
-    result = (String) (ai != null ? pm.getApplicationLabel(ai) : initialVal);
-    return result;
-  }
-
-  /**
-   * Gets app version.
-   *
-   * @return the app version
-   */
-  public String getAppVersion() {
-    String result = initialVal;
-    try {
-      result = BA.applicationContext.getPackageManager().getPackageInfo(BA.applicationContext.getPackageName(), 0).versionName;
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  /**
-   * Gets app version code.
-   *
-   * @return the app version code
-   */
-  public String getAppVersionCode() {
-    String result = initialVal;
-    try {
-      result = String.valueOf(
-          BA.applicationContext.getPackageManager().getPackageInfo(BA.applicationContext.getPackageName(), 0).versionCode);
-    } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets activity name.
-   *
-   * @return the activity name
-   */
-  public String getActivityName() {
-    String result = initialVal;
-    try {
-      result = BA.applicationContext.getClass().getSimpleName();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }  
-  
-  
-   /**
-   * Gets package name.
-   *
-   * @return the package name
-   */
-  public String getPackageName() {
-    String result = initialVal;
-    try {
-      result = BA.applicationContext.getPackageName();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  }
-
-  /**
-   * Gets store.
-   *
-   * @return the store
-   */
-  public String getStore() {
-    String result = initialVal;
-    if (Build.VERSION.SDK_INT >= 3) {
-      try {
-        result = BA.applicationContext.getPackageManager().getInstallerPackageName(BA.applicationContext.getPackageName());
-      } catch (Exception e) {
-        //Log.i(LOGTAG, "Can't get Installer package");
-      }
-    }
-    if (result == null || result.length() == 0) {
-      result = initialVal;
-    }
-    return result;
-  } 
-  
-  /**
-   * Gets density.
-   *
-   * @return the density
-   */
-  public String getDensity() {
-    String densityStr = initialVal;
-    final int density = BA.applicationContext.getResources().getDisplayMetrics().densityDpi;
-    switch (density) {
-      case DisplayMetrics.DENSITY_LOW:
-        densityStr = "LDPI";
-        break;
-      case DisplayMetrics.DENSITY_MEDIUM:
-        densityStr = "MDPI";
-        break;
-      case DisplayMetrics.DENSITY_TV:
-        densityStr = "TVDPI";
-        break;
-      case DisplayMetrics.DENSITY_HIGH:
-        densityStr = "HDPI";
-        break;
-      case DisplayMetrics.DENSITY_XHIGH:
-        densityStr = "XHDPI";
-        break;
-      case DisplayMetrics.DENSITY_400:
-        densityStr = "XMHDPI";
-        break;
-      case DisplayMetrics.DENSITY_XXHIGH:
-        densityStr = "XXHDPI";
-        break;
-      case DisplayMetrics.DENSITY_XXXHIGH:
-        densityStr = "XXXHDPI";
-        break;
-    }
-    return densityStr;
-  }  
-  
-  /**
-   * Get accounts string [ ].
-   *
-   * @return the string [ ]
-   */
-  @SuppressWarnings("MissingPermission") public String[] getAccounts() {
-    try {
-
-      if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.GET_ACCOUNTS)
-          == PackageManager.PERMISSION_GRANTED) {
-        Account[] accounts = AccountManager.get(BA.applicationContext).getAccountsByType("com.google");
-        String[] result = new String[accounts.length];
-        for (int i = 0; i < accounts.length; i++) {
-          result[i] = accounts[i].name;
-        }
-        return result;
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return null;
-  }  
-  
-
-  /**
-   * Is network available boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isNetworkAvailable() {
-    if (BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.INTERNET)
-        == PackageManager.PERMISSION_GRANTED
-        && BA.applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-        == PackageManager.PERMISSION_GRANTED) {
-      ConnectivityManager cm = (ConnectivityManager) BA.applicationContext.getApplicationContext()
-          .getSystemService(Context.CONNECTIVITY_SERVICE);
-      NetworkInfo netInfo = cm.getActiveNetworkInfo();
-      return netInfo != null && netInfo.isConnected();
-    }
-    return false;
-  }
-
-  /**
-   * Is running on emulator boolean.
-   *
-   * @return the boolean
-   */
-  public static boolean isRunningOnEmulator() {
-    return Build.BRAND.contains("generic")
-        || Build.DEVICE.contains("generic")
-        || Build.PRODUCT.contains("sdk")
-        || Build.HARDWARE.contains("goldfish")
-        || Build.MANUFACTURER.contains("Genymotion")
-        || Build.PRODUCT.contains("vbox86p")
-        || Build.DEVICE.contains("vbox86p")
-        || Build.HARDWARE.contains("vbox86");
-  }  
-  
-
-
-  /**
-   * Is wifi enabled
-   *
-   * @return the boolean
-   */
-  public boolean isWifiEnabled() {
-    boolean wifiState = false;
-
-    WifiManager wifiManager = (WifiManager) BA.applicationContext.getSystemService(Context.WIFI_SERVICE);
-    if (wifiManager != null) {
-      wifiState = wifiManager.isWifiEnabled() ? true : false;
-    }
-    return wifiState;
-  }
-
-  /**
-   * Gets Device Ringer Mode
-   *
-   * @return Device Ringer Mode
-   */
-  public int getDeviceRingerMode() {
-    int ringerMode = RINGER_MODE_NORMAL;
-    AudioManager audioManager = (AudioManager) BA.applicationContext.getSystemService(Context.AUDIO_SERVICE);
-    switch (audioManager.getRingerMode()) {
-      case AudioManager.RINGER_MODE_NORMAL:
-        ringerMode = RINGER_MODE_NORMAL;
-        break;
-      case AudioManager.RINGER_MODE_SILENT:
-        ringerMode = RINGER_MODE_SILENT;
-        break;
-      case AudioManager.RINGER_MODE_VIBRATE:
-        ringerMode = RINGER_MODE_VIBRATE;
-    }
-    return ringerMode;
-  }
-
-
-  private Intent getBatteryStatusIntent() {
-    IntentFilter batFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-    return BA.applicationContext.registerReceiver(null, batFilter);
-  }
-
-
-  private String handleIllegalCharacterInResult(String result) {
-    if (result.indexOf(" ") > 0) {
-      result = result.replaceAll(" ", "_");
-    }
-    return result;
-  }
-
-  /**
-   * Gets app cache
-   *
-   * @return Installed app cache
-   */
- 
-
-
-
-
-
-#End If
-' File cache = getCacheDir();
-'        File appDir = new File(cache.getParent());
-'        If (appDir.exists()) {
-'            String[] children = appDir.list();
-'            For (String s : children) {
-'                If (!s.equals("lib")) {
-'                    deleteDir(new File(appDir, s));
-'                    Log.i("TAG", "**************** File /data/data/APP_PACKAGE/" + s + " DELETED *******************");
-'                }
-'            }
-'        }
