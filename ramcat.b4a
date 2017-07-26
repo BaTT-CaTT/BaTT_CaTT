@@ -377,6 +377,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	'####### first start Use #################
 	If FirstTime Then
+		StartService(webhost)
 		show_tip
 		Activity.Color=c10
 		kvs4.PutSimple("9",c10)
@@ -808,8 +809,8 @@ End Sub
 
 Sub Button4_Click
 	'SetAnimation.setanimat="'Button4"
-	StartService(webhost)
-	StartActivity(cool)
+	
+	CallSubDelayed(cool,"s_scan")
 	SetAnimation.setanimati("extra_in", "extra_out")
 	
 End Sub

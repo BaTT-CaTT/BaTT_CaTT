@@ -56,7 +56,7 @@ Sub Globals
 	Private dpm1 As DonutProgressMaster
 	Dim root1 As String 
 	Dim anima As AnimationPlus
-	dim ani as Animation
+	Dim ani As Animation
 	Dim xMSOS As MSOS
 	Dim xOSStats As OSStats
 	Private ListView1 As ListView
@@ -97,6 +97,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	dill.Initialize
 	lw2.Initialize("lw2")
 	lw3.Initialize("lw3")
+
+	
 	ffiles.Initialize
 	ph.Initialize("ph")
 	ffiles.Initialize
@@ -174,8 +176,9 @@ Sub Activity_Create(FirstTime As Boolean)
 	GetDeviceId
 	store_check
 	t1.Enabled=False
+	'catdel.ScanCache
 	cat_start
-	s_scan
+	's_scan
 End Sub
 
 Sub Activity_Resume
@@ -185,7 +188,8 @@ Sub Activity_Resume
 	store_check
 	xOSStats.StartStats
 	cat_start
-	s_scan
+	'catdel.ScanCache
+	's_scan
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
@@ -320,9 +324,11 @@ Sub store_check
 	Activity.Invalidate
 End Sub
 Sub s_scan
+'	store_check
+'	cat_start
 	lvg.startAnim
 	catdel.ScanCache
-	catdel.initialize("catdel")
+
 	c_start
 End Sub
 Sub c_start	 
@@ -496,7 +502,7 @@ Sub real_delete
 	
 	For j = 0 To list7.Size-1
 		Log("Recent Tasks: "&list7.get(j))
-		op.killBackgroundProcesses("com.batcat")
+		ActivityManager1.killBackgroundProcesses("com.batcat")
 		op.killProcess(list7.Get(j))
 	Next
 	close
